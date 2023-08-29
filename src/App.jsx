@@ -1,7 +1,15 @@
+import { Route, Routes } from "react-router-dom";
+import Home from "./components/Home";
+import Layout from "./components/Layout";
+import Profile from "./components/Profile";
+
 export default function App() {
   return (
-    <>
-      <p>hei</p>
-    </>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="profile" element={<Profile />} />
+      </Route>
+    </Routes>
   );
 }
