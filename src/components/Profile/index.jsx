@@ -8,12 +8,10 @@ export default function Profile() {
   return (
     <ProfileContainer>
       <section className="registerCard">
-        <div className="backgroundTrans">
-          <span className="heading">Register as venue manager</span>
-          <span className="content">
-            Rent out your property through us. Easy peasy money in your pocket!
-          </span>
-        </div>
+        <span className="heading">Register as venue manager</span>
+        <span className="content">
+          Rent out your property through us. Easy peasy money in your pocket!
+        </span>
       </section>
 
       <section id="profile">
