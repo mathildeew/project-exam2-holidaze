@@ -6,7 +6,6 @@ export const ProfileContainer = styled.div`
   margin: 0 20px;
 
   .registerCard {
-    /* background-color: var(--light-orange); */
     background-image: url(/public/content/douglas-bagg-HDxvXqUJ3BQ-unsplash_downsized_layers.jpg);
     background-position: bottom right;
     background-size: cover;

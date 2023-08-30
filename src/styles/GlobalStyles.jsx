@@ -6,6 +6,7 @@ html {
   --primary:  #4B3D60;
   --light-yellow: #FAFAEA;
   --light-orange: #FEC49A;
+  --light-red: #FFCFCC;
 }
 
 body {
@@ -13,6 +14,7 @@ body {
 }
 
 main {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
