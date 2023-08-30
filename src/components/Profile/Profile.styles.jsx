@@ -35,12 +35,6 @@ export const ProfileContainer = styled.div`
     }
   }
 
-  .flexLine {
-    ${displayFlex({
-      align: "center",
-    })}
-  }
-
   .displayRow {
     max-width: 320px;
     ${displayFlex({
