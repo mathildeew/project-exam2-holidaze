@@ -1,11 +1,14 @@
 import styled from "styled-components";
+import { displayFlex } from "../../../styles/mixins";
 
 export const HeaderContainer = styled.header`
   background: var(--light-yellow);
   height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin-bottom: 50px;
+  ${displayFlex({
+    align: "center",
+    justify: "center",
+  })}
 
   #logoSmall {
     font-size: 2rem;
@@ -17,9 +20,10 @@ export const HeaderContainer = styled.header`
     width: 100%;
     max-width: 1160px;
     margin: 0 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    ${displayFlex({
+      align: "center",
+      justify: "space-between",
+    })}
   }
 
   a {
@@ -29,8 +33,9 @@ export const HeaderContainer = styled.header`
 
   nav {
     width: 70px;
-    display: flex;
-    justify-content: space-between;
+    ${displayFlex({
+      justify: "space-between",
+    })}
 
     svg {
       color: var(--primary);

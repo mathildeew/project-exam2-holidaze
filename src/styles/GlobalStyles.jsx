@@ -12,22 +12,35 @@ body {
   margin: 0;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-
-h1, h2, h3, p, a {
+h1, h2, h3, h4, p, a {
   font-family: OpenSans, Roboto, Arial, sans-serif;
 }
 
-h2 {
-  font-size: 1.8rem;
+h1 {
+  font-size: 22px;
   font-weight: 600;
+  margin-bottom: 20px;
+}
 
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  
 }
 
 h3 {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 600;
+  margin-bottom: 10px;
 }
+
 
 a {
     text-decoration: none;
@@ -37,8 +50,13 @@ p {
   margin: 0;
 }
 
+
 p, a {
   font-size: 1.6rem;
+  }
+
+  hr {
+    margin: 30px 0;
   }
     
 
