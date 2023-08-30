@@ -64,6 +64,33 @@ p, a, label {
   hr {
     margin: 30px 0;
   }
+
+  input {
+      padding: 8px;
+      border: 1px solid var(--primary);
+      border-radius: 10px;
+      outline: none;
+
+      &:focus {
+        border: 2px solid var(--primary);
+        outline: none;
+      }
+    }
+
+    ::placeholder {
+      color: var(--primary);
+      font-size: 1.6rem;
+    }
+
+    [type="checkbox"] {
+      height: 15px;
+      width: 15px;
+      &:checked {
+        accent-color: var(--primary);
+      }
+    }
+  
+   
     
 
   .flexLine {
