@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { displayFlex } from "./mixins";
 
 export const GlobalStyle = createGlobalStyle`
 html {
@@ -7,20 +8,23 @@ html {
   --light-yellow: #FAFAEA;
   --light-orange: #FEC49A;
   --light-red: #FFCFCC;
+  --white: #F9F9FD
 }
 
 body {
   margin: 0;
+  min-height: 100vh;
+
 }
 
 main {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 50px;
 }
 
-h1, h2, h3, h4, p, a {
+h1, h2, h3, h4, p, a, label {
   font-family: OpenSans, Roboto, Arial, sans-serif;
 }
 
@@ -53,7 +57,7 @@ p {
 }
 
 
-p, a {
+p, a, label {
   font-size: 1.6rem;
   }
 
@@ -61,5 +65,13 @@ p, a {
     margin: 30px 0;
   }
     
+
+  .flexLine {
+    ${displayFlex({
+      align: "center",
+    })}
+  }
+
+
 
 `;
