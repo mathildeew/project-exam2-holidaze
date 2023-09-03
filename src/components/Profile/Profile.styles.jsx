@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { displayFlex } from "../../styles/mixins";
 
 export const ProfileContainer = styled.div`
-  max-width: 588px;
-  margin: 0 20px;
+  /* max-width: 588px; */
+  /* margin: 0 20px; */
   position: relative;
 
   .registerCard {
@@ -97,59 +97,6 @@ export const ProfileContainer = styled.div`
     border-radius: 10px;
     object-fit: cover;
     object-position: center center;
-  }
-
-  .changeImg {
-    background-color: white;
-    border: 2px solid red;
-    width: 100%;
-    height: 250px;
-    position: absolute;
-    z-index: 2;
-    transition: all 1s ease-in-out;
-
-    &.inactive {
-      bottom: -650px;
-      display: none;
-    }
-
-    &.active {
-      display: contents;
-      top: 20px;
-      overflow: hidden;
-    }
-
-    .formContent {
-      height: 80%;
-      padding: 0 20px;
-      ${displayFlex({
-        direction: "column",
-      })}
-    }
-
-    form {
-      height: 100%;
-      border: 2px solid green;
-      ${displayFlex({
-        direction: "column",
-        justify: "space-between",
-      })}
-    }
-
-    svg {
-      color: var(--primary);
-    }
-
-    .addInput {
-      font-size: 2rem;
-    }
-
-    .close {
-      font-size: 2.5rem;
-      position: relative;
-      top: 25px;
-      left: 280px;
-    }
   }
 
   @media (min-width: 768px) {

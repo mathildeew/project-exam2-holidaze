@@ -9,12 +9,35 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { Popup } from "../../styles/Popup";
 
 export default function Profile() {
   const [showPopup, setShowPopup] = useState(false);
 
   return (
     <>
+      <Popup className={showPopup ? "popup active" : "popup inactive"}>
+        <div className="content">
+          <div className="changeImg">
+            <FontAwesomeIcon
+              icon={faXmark}
+              className="close"
+              onClick={() => setShowPopup(false)}
+            />
+            <div className="formContent">
+              <h2>Update profile picture</h2>
+              <form action="">
+                <div className="">
+                  <input type="text" name="update" placeholder="Must be URL" />
+                  <FontAwesomeIcon icon={faPlusCircle} className="addInput" />
+                </div>
+                <MainButton>Update</MainButton>
+              </form>
+            </div>
+          </div>
+        </div>
+      </Popup>
+
       <ProfileContainer>
         <section className="registerCard">
           <span className="heading">Register as venue manager</span>
@@ -77,26 +100,6 @@ export default function Profile() {
           </div>
 
           <hr />
-        </section>
-
-        <section
-          className={showPopup ? "changeImg active" : "changeImg inactive"}
-        >
-          <FontAwesomeIcon
-            icon={faXmark}
-            className="close"
-            onClick={() => setShowPopup(false)}
-          />
-          <div className="formContent">
-            <h2>Update profile picture</h2>
-            <form action="">
-              <div className="">
-                <input type="text" name="update" placeholder="Must be URL" />
-                <FontAwesomeIcon icon={faPlusCircle} className="addInput" />
-              </div>
-              <MainButton>Update</MainButton>
-            </form>
-          </div>
         </section>
       </ProfileContainer>
     </>
