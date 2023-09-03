@@ -4,7 +4,6 @@ import { displayFlex } from "../../../styles/mixins";
 export const HeaderContainer = styled.header`
   background: var(--light-yellow);
   height: 50px;
-  margin-bottom: 50px;
   ${displayFlex({
     align: "center",
     justify: "center",

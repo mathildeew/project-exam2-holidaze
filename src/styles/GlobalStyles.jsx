@@ -65,13 +65,14 @@ p, a, label {
     margin: 30px 0;
   }
 
-  input {
-      padding: 8px;
-      border: 1px solid var(--primary);
+  input, .inputContainer {
+      padding: 10px;
+      border: 2px solid var(--primary);
       border-radius: 10px;
       outline: none;
 
       &:focus {
+      font-size: 1.6rem;
         border: 2px solid var(--primary);
         outline: none;
       }
@@ -89,16 +90,15 @@ p, a, label {
         accent-color: var(--primary);
       }
     }
-  
-   
-    
+
+  .maxWidth {
+    max-width: 568px;
+    padding: 0px 10px;
+  }   
 
   .flexLine {
     ${displayFlex({
       align: "center",
     })}
   }
-
-
-
 `;
