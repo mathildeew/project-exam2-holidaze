@@ -16,26 +16,6 @@ export const RegisterContainer = styled.div`
       direction: "column",
       justify: "space-between",
     })}
-
-    input {
-      padding: 8px;
-      border: 1px solid var(--primary);
-      border-radius: 10px;
-      outline: none;
-
-      &:focus {
-        border: 2px solid var(--primary);
-        outline: none;
-      }
-    }
-
-    input[type="checkbox"] {
-      height: 15px;
-      width: 15px;
-      &:checked {
-        accent-color: var(--primary);
-      }
-    }
   }
 
   .formContent {

@@ -2,8 +2,9 @@ import styled from "styled-components";
 import { displayFlex } from "../../styles/mixins";
 
 export const ProfileContainer = styled.div`
-  max-width: 588px;
-  margin: 0 20px;
+  /* max-width: 588px; */
+  /* margin: 0 20px; */
+  position: relative;
 
   .registerCard {
     background-image: url(/public/content/douglas-bagg-HDxvXqUJ3BQ-unsplash_downsized_layers.jpg);
@@ -68,8 +69,8 @@ export const ProfileContainer = styled.div`
       color: black;
       font-size: 2.5rem;
       position: relative;
-      right: 62px;
-      bottom: -5px;
+      left: 45px;
+      bottom: 15px;
     }
   }
 
@@ -78,6 +79,7 @@ export const ProfileContainer = styled.div`
       color: var(--primary);
       font-size: 2rem;
       margin-right: 5px;
+      z-index: 1;
     }
   }
 
