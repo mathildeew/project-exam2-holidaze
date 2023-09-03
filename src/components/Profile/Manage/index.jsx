@@ -9,26 +9,29 @@ export default function Manage() {
 
   return (
     <ManagerContainer className="maxWidth">
-      <MainButton>Register new venue</MainButton>
+      <MainButton className="regBtn">Register new venue</MainButton>
       <h1>Manage your venues & reservations</h1>
-      <MainButton
-        isSmall={true}
-        onClick={() => {
-          setShowVenues(true);
-          setShowReservations(false);
-        }}
-      >
-        Your venues
-      </MainButton>
-      <MainButton
-        isSmall={true}
-        onClick={() => {
-          setShowReservations(true);
-          setShowVenues(false);
-        }}
-      >
-        Reservations
-      </MainButton>
+
+      <div className="btns">
+        <MainButton
+          isSmall={true}
+          onClick={() => {
+            setShowVenues(true);
+            setShowReservations(false);
+          }}
+        >
+          Your venues
+        </MainButton>
+        <MainButton
+          isSmall={true}
+          onClick={() => {
+            setShowReservations(true);
+            setShowVenues(false);
+          }}
+        >
+          Reservations
+        </MainButton>
+      </div>
 
       <div className="carousel">
         <section className={showVenues ? "venues active" : "venues inactive"}>
