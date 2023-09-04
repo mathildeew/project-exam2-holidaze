@@ -4,12 +4,12 @@ import { BoldText } from "../../styles/Text";
 import { HomeContainer } from "./HomeContainer.styles";
 import { MainButton } from "../../styles/Buttons";
 import {
-  faLocationPin,
-  faCalendar,
+  faLocationDot,
   faPeopleRoof,
   faCirclePlus,
   faCircleMinus,
 } from "@fortawesome/free-solid-svg-icons";
+import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 
 export default function Home() {
   return (
@@ -17,11 +17,10 @@ export default function Home() {
       <section className="hero">
         <div className="search">
           <h1>Discover your next getaway</h1>
-
           <form>
-            <div className="formInputs">
+            <div className="formContent">
               <div className="inputContainer">
-                <FontAwesomeIcon icon={faLocationPin} />
+                <FontAwesomeIcon icon={faLocationDot} />
                 <input type="text" name="location" placeholder="Where?" />
               </div>
               <div className="inputContainer">
@@ -39,7 +38,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <MainButton>Search</MainButton>
+            <MainButton isTrans={true}>Search</MainButton>
           </form>
         </div>
       </section>

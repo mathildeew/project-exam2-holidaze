@@ -65,16 +65,22 @@ p, a, label {
     margin: 30px 0;
   }
 
-  input, .inputContainer {
-      padding: 10px;
-      border: 2px solid var(--primary);
-      border-radius: 10px;
-      outline: none;
+  input{
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    ::placeholder {
+      color: var(--primary);
+    }
+  }
+  
+  input, .inputContainer  {
+    padding: 10px;
+    outline: none;
 
-      &:focus {
+    &:focus {
       font-size: 1.6rem;
-        border: 2px solid var(--primary);
-        outline: none;
+      border: 2px solid var(--primary);
+      outline: none;
       }
     }
 
