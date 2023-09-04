@@ -109,7 +109,7 @@ export const HomeContainer = styled.main`
         color: var(--primary);
         background-color: rgba(145, 123, 179, 0.15);
         border-radius: 50px;
-        padding: 5px 10px;
+        padding: 8px 12px;
         position: absolute;
         top: 5px;
         left: 5px;
@@ -121,7 +121,6 @@ export const HomeContainer = styled.main`
 
     .info {
       height: 125px;
-      border: 2px solid red;
       ${displayFlex({
         direction: "column",
         justify: "space-between",
@@ -134,10 +133,6 @@ export const HomeContainer = styled.main`
   }
 
   @media (min-width: 768px) {
-    .hero {
-      /* align-items: flex-start; */
-    }
-
     h1 {
       font-size: 4.5rem;
       word-spacing: normal;
@@ -153,9 +148,6 @@ export const HomeContainer = styled.main`
       grid-column-gap: 30px;
       grid-row-gap: 30px;
     }
-  }
-
-  @media (max-width: 768px) {
   }
 
   @media (min-width: 1024px) {

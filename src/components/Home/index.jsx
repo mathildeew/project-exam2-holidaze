@@ -1,8 +1,7 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocation } from "@fortawesome/free-solid-svg-icons";
-import { BoldText } from "../../styles/Text";
 import { HomeContainer } from "./HomeContainer.styles";
+import { BoldText } from "../../styles/Text";
 import { MainButton } from "../../styles/Buttons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLocationDot,
   faPeopleRoof,
@@ -48,16 +47,16 @@ export default function Home() {
           <div className="imgContainer">
             <img src="../../../public/content/douglas-bagg-HDxvXqUJ3BQ-unsplash-downsized.jpg" />
             <div className="locationTag">
-              <FontAwesomeIcon icon={faLocation} />
+              <FontAwesomeIcon icon={faLocationDot} />
               <p>Location</p>
             </div>
           </div>
           <div className="info">
             <h2>Title of venue</h2>
             <div className="fascilities">
-              <p>Wifi -</p>
-              <p>Breakfast -</p>
-              <p>Pet-friendly</p>
+              <p>Wifi -&nbsp; </p>
+              <p> Breakfast -&nbsp; </p>
+              <p> Pet-friendly</p>
             </div>
             <BoldText>1300$ pr. night</BoldText>
           </div>
