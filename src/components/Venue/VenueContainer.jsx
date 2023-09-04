@@ -26,19 +26,16 @@ export const VenueContainer = styled.div`
       direction: "column",
     })}
 
-    .bookingInfo {
-      font-size: 1.4rem !important;
-      background-color: var(--light-yellow);
-      padding: 10px 20px;
+    .popup {
+      background-color: white;
+      position: relative;
+      transition: all 0.3s ease-in-out;
 
-      > p {
-        margin-bottom: 10px;
+      &.inactive {
+        top: 120px;
       }
 
-      .flexLine {
-        p:first-child {
-          margin-right: 25px;
-        }
+      &.active {
       }
     }
 

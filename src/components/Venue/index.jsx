@@ -7,22 +7,23 @@ import {
   faDog,
   faLocationDot,
   faStar,
+  faClose,
 } from "@fortawesome/free-solid-svg-icons";
 import { VenueContainer } from "./VenueContainer";
 import { BoldText, SmallText } from "../../styles/Text";
+import { useState } from "react";
 
 export default function Venue() {
+  const [showPopup, setShowPopup] = useState(false);
+
   return (
     <VenueContainer>
       <div className="bookNow">
-        <div className="bookingInfo">
-          <BoldText>123 $ pr. night</BoldText>
-          <div className="flexLine">
-            <SmallText>21. - 31. aug</SmallText>
-            <SmallText>2 guests</SmallText>
-          </div>
+        <div className={showPopup ? "popup active" : "popup inactive"}>
+          <FontAwesomeIcon icon={faClose} onClick={() => setShowPopup(false)} />
+          <h3>Reservation</h3>
         </div>
-        <button>Book now</button>
+        <button onClick={() => setShowPopup(true)}>Book now</button>
       </div>
 
       <main>
@@ -36,9 +37,9 @@ export default function Venue() {
             </div>
             <div className="flexLine">
               <FontAwesomeIcon icon={faStar} />
-
               <p>4.5/5</p>
             </div>
+            <p>Price goes here somewhere</p>
           </div>
           <p>
             Retreat to the deck of this sustainable getaway and gaze at the
