@@ -71,12 +71,12 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="sortFilter" onClick={setShowPopup}>
+      <div className="sortFilter" onClick={() => setShowPopup(!showPopup)}>
         <FontAwesomeIcon icon={faFilter} />
       </div>
 
       <div
-        className={setShowPopup ? "filterPopup active" : "filterPopup inactive"}
+        className={showPopup ? "filterPopup inactive" : "filterPopup active"}
       >
         <h3>Sort by</h3>
         <div className="dropdown">
