@@ -132,6 +132,20 @@ export const HomeContainer = styled.main`
     }
   }
 
+  .sortFilter {
+    background-color: var(--orange);
+    padding: 15px;
+    border-radius: 100px;
+    position: fixed;
+    right: 5px;
+    bottom: 5px;
+
+    svg {
+      color: var(--primary);
+      font-size: 2rem;
+    }
+  }
+
   @media (min-width: 768px) {
     h1 {
       font-size: 4.5rem;

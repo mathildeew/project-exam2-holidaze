@@ -4,13 +4,17 @@ import { MainButton } from "../../styles/Buttons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLocationDot,
+  faFilter,
   faPeopleRoof,
   faCirclePlus,
   faCircleMinus,
 } from "@fortawesome/free-solid-svg-icons";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
+import { useState } from "react";
 
 export default function Home() {
+  const [showSearch, setShowSearch] = useState(false);
+
   return (
     <HomeContainer>
       <section className="hero">
@@ -37,7 +41,9 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <MainButton isTrans={true}>Search</MainButton>
+            <MainButton isTrans={true} onClick={setShowSearch}>
+              Search
+            </MainButton>
           </form>
         </div>
       </section>
@@ -62,6 +68,12 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <div
+        className={setShowSearch ? "sortFilter active" : "sortFilter inactive"}
+      >
+        <FontAwesomeIcon icon={faFilter} />
+      </div>
     </HomeContainer>
   );
 }
