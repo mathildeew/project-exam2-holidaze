@@ -18,10 +18,7 @@ body {
 }
 
 main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 50px;
+ 
 }
 
 h1, h2, h3, h4, p, a, label {

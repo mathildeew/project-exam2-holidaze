@@ -2,19 +2,44 @@ import styled from "styled-components";
 import { displayFlex } from "../../styles/mixins";
 
 export const VenueContainer = styled.div`
+  width: 100%;
+  margin-top: 50px;
+  ${displayFlex({
+    direction: "column",
+    align: "center",
+  })}
+
+  main {
+    max-width: 442px;
+    padding: 0 10px;
+    border: 1px solid green;
+  }
+
   .bookNow {
     width: 100%;
+    max-width: 442px;
     position: fixed;
     bottom: 0;
-    left: 0%;
+    left: 0px;
     filter: drop-shadow(0px -1px 8px rgba(0, 0, 0, 0.2));
     ${displayFlex({
       direction: "column",
     })}
+
     .bookingInfo {
       font-size: 1.4rem !important;
       background-color: var(--light-yellow);
-      padding: 10px 0;
+      padding: 10px 20px;
+
+      > p {
+        margin-bottom: 10px;
+      }
+
+      .flexLine {
+        p:first-child {
+          margin-right: 25px;
+        }
+      }
     }
 
     button {
@@ -49,6 +74,14 @@ export const VenueContainer = styled.div`
   }
 
   .fascilities {
+    .icons {
+      width: 100px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-column-gap: 5px;
+      grid-row-gap: 15px;
+    }
+
     svg {
       color: var(--primary);
       font-size: 2.5rem;
@@ -57,15 +90,32 @@ export const VenueContainer = styled.div`
   }
 
   .hostInfo {
-    ${displayFlex({ justify: "space-around" })}
+    display: flex;
 
     img {
       border: 2px solid blue;
       width: 100px;
       height: 100px;
+      margin-right: 30px;
       border-radius: 100px;
       object-fit: cover;
       object-position: center center;
+    }
+  }
+
+  @media (min-width: 442px) {
+    .bookNow {
+      left: unset;
+    }
+  }
+
+  @media (min-width: 768px) {
+    padding: 0 30px;
+    align-items: start;
+
+    .bookNow {
+      width: 300px;
+      left: 500px;
     }
   }
 `;
