@@ -1,7 +1,15 @@
 import styled from "styled-components";
 import { displayFlex } from "../../styles/mixins";
 
-export const RegisterContainer = styled.div`
+export const FormContainer = styled.main`
+  height: 100%;
+  padding: 0 10px;
+  margin: 50px 0;
+  ${displayFlex({
+    direction: "column",
+    align: "center",
+  })}
+
   .top {
     ${displayFlex({
       direction: "column",
@@ -10,23 +18,23 @@ export const RegisterContainer = styled.div`
   }
 
   form {
-    height: 240px;
-    margin-bottom: 20px;
+    height: 100%;
     ${displayFlex({
       direction: "column",
       justify: "space-between",
     })}
-  }
-
-  .formContent {
-    height: 150px;
   }
 
   .flexCol {
     ${displayFlex({
       direction: "column",
-      justify: "space-between",
     })}
+  }
+
+  form,
+  .flexCol,
+  .flexLine {
+    margin-bottom: 20px;
   }
 
   .loginContent {
@@ -45,12 +53,11 @@ export const RegisterContainer = styled.div`
   }
 
   @media (min-width: 1024px) {
-    height: 100%;
     width: 100%;
-    border: 2px solid red;
-    ${displayFlex({
-      direction: "row",
-    })}
+    height: 100%;
+    padding: 0;
+    flex-direction: row;
+    align-items: unset;
 
     .formSection {
       width: 50%;
@@ -59,6 +66,10 @@ export const RegisterContainer = styled.div`
         direction: "column",
         align: "center",
       })}
+    }
+
+    form {
+      width: 280px;
     }
 
     .banner {

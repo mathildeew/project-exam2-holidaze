@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { MainButton } from "../../styles/Buttons";
-import { RegisterContainer } from "./Register.style";
+import { MainButton } from "../../../styles/Buttons";
+import { FormContainer } from "../FormContainer.style";
 
 export default function Register() {
   return (
     <>
-      <RegisterContainer>
+      <FormContainer>
         <section className="formSection">
           <div className="top">
             <svg
@@ -35,34 +35,32 @@ export default function Register() {
           </div>
 
           <form>
-            <div className="formContent flexCol">
-              <div className="flexCol">
-                <label htmlFor="email">Email</label>
-                <input type="email" name="email" required />
-              </div>
+            <div className="flexCol">
+              <label htmlFor="email">Email</label>
+              <input type="email" name="email" required />
+            </div>
 
-              <div className="flexCol">
-                <label htmlFor="password">Password</label>
-                <input type="password" name="password" minLength="8" required />
-              </div>
-              <div className="flexLine">
-                <input type="checkbox" name="checkbox" />
-                <label htmlFor="checkbox">Register as venue manager</label>
-              </div>
+            <div className="flexCol">
+              <label htmlFor="password">Password</label>
+              <input type="password" name="password" minLength="8" required />
+            </div>
+            <div className="flexLine">
+              <input type="checkbox" name="checkbox" />
+              <label htmlFor="checkbox">Register as venue manager</label>
             </div>
             <MainButton>Register</MainButton>
           </form>
 
           <div className="loginContent flexLine">
             <p>Already have an account?</p>
-            <Link to={"/login"}>Log in here</Link>
+            <Link to={"/user/login"}>Log in here</Link>
           </div>
         </section>
 
         <div className="banner">
           <span>Unwrap your holiday</span>
         </div>
-      </RegisterContainer>
+      </FormContainer>
     </>
   );
 }

@@ -17,10 +17,6 @@ body {
 
 }
 
-main {
- 
-}
-
 h1, h2, h3, h4, p, a, label {
   font-family: OpenSans, Roboto, Arial, sans-serif;
   margin-top: 0;
