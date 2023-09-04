@@ -6,6 +6,7 @@ html {
   font-size: 62.5%;
   --primary:  #4B3D60;
   --light-yellow: #FAFAEA;
+  --orange: #fd9b54;
   --light-orange: #FEC49A;
   --light-red: #FFCFCC;
   --white: #F9F9FD
@@ -58,16 +59,22 @@ p, a, label {
     margin: 30px 0;
   }
 
-  input, .inputContainer {
-      padding: 10px;
-      border: 2px solid var(--primary);
-      border-radius: 10px;
-      outline: none;
+  input{
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    ::placeholder {
+      color: var(--primary);
+    }
+  }
+  
+  input, .inputContainer  {
+    padding: 10px;
+    outline: none;
 
-      &:focus {
+    &:focus {
       font-size: 1.6rem;
-        border: 2px solid var(--primary);
-        outline: none;
+      border: 2px solid var(--primary);
+      outline: none;
       }
     }
 

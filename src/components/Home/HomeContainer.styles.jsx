@@ -1,61 +1,36 @@
 import styled from "styled-components";
 import { displayFlex } from "../../styles/mixins";
 
-export const HomeContainer = styled.div`
-  /* padding: 0px 10px; */
+export const HomeContainer = styled.main`
   width: 100%;
 
   .hero {
+    width: 100%;
+    height: 455px;
     background-image: url(/public/daniel-olah-f0P7y3swnZU-unsplash.jpg);
     background-position: center bottom;
     background-size: cover;
     background-repeat: no-repeat;
-    width: 100%;
-    height: 455px;
     margin-bottom: 50px;
 
     ${displayFlex({
       direction: "column",
       align: "center",
+      justify: "center",
     })}
   }
 
   h1 {
-    color: var(--light-orange);
-    font-size: 3rem;
+    color: var(--light-yellow);
+    font-size: 1.8rem;
     font-weight: 900;
     text-transform: uppercase;
-    word-spacing: 455px;
-    margin: 0;
-    margin-bottom: 20px;
-    padding: 5px;
+    margin-bottom: 30px;
   }
 
   .search {
     max-width: 470px;
-    padding: 30px 10px;
-
-    .inputContainer {
-      background: white;
-
-      svg {
-        color: var(--primary);
-        font-size: 2rem;
-        margin-right: 10px;
-      }
-
-      &:nth-child(3) {
-        ${displayFlex({
-          justify: "space-between",
-        })}
-      }
-    }
-
-    input {
-      background: none;
-      border: none;
-      padding: 3px;
-    }
+    padding: 30px 0px;
 
     form {
       width: 100%;
@@ -65,28 +40,45 @@ export const HomeContainer = styled.div`
         direction: "column",
         justify: "space-between",
       })}
+    }
+  }
 
-      .formInputs {
-        ${displayFlex({
-          direction: "column",
-        })}
-      }
+  .inputContainer {
+    background: rgba(75, 61, 96, 0.6);
 
-      input {
-      }
+    input {
+      background: none;
+      border: none;
+      padding: 3px;
 
-      .inputContainer:nth-child(1) {
-        border-radius: 10px 10px 0px 0px;
-        margin-bottom: -2px;
-      }
-      .inputContainer:nth-child(2) {
-        border-radius: 0px;
-        margin-bottom: -2px;
-      }
-      .inputContainer:nth-child(3) {
-        border-radius: 0px 0px 10px 10px;
+      ::placeholder {
+        color: var(--light-yellow);
       }
     }
+
+    svg {
+      color: var(--light-yellow);
+      font-size: 2rem;
+      margin-right: 10px;
+    }
+  }
+
+  .inputContainer:nth-child(1) {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+  }
+
+  .inputContainer:nth-child(2) {
+    border-top: 2px solid rgba(250, 250, 234, 0.4);
+    border-bottom: 2px solid rgba(250, 250, 234, 0.4);
+  }
+
+  .inputContainer:nth-child(3) {
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    ${displayFlex({
+      justify: "space-between",
+    })}
   }
 
   .venues {
@@ -115,9 +107,9 @@ export const HomeContainer = styled.div`
 
       .locationTag {
         color: var(--primary);
-        background-color: rgba(75, 61, 96, 0.3);
+        background-color: rgba(145, 123, 179, 0.15);
         border-radius: 50px;
-        padding: 5px 10px;
+        padding: 8px 12px;
         position: absolute;
         top: 5px;
         left: 5px;
@@ -129,7 +121,6 @@ export const HomeContainer = styled.div`
 
     .info {
       height: 125px;
-      border: 2px solid red;
       ${displayFlex({
         direction: "column",
         justify: "space-between",
@@ -141,11 +132,33 @@ export const HomeContainer = styled.div`
     }
   }
 
-  @media (min-width: 768px) {
-    .hero {
-      align-items: flex-start;
-    }
+  .sortFilter {
+    background-color: var(--orange);
+    padding: 15px;
+    border-radius: 100px;
+    position: fixed;
+    right: 5px;
+    bottom: 5px;
 
+    svg {
+      color: var(--primary);
+      font-size: 2rem;
+    }
+  }
+
+  .filterPopup {
+    background: pink;
+    width: 80%;
+    padding: 20px 20px;
+  }
+
+  .dropdown {
+    border: 2px solid black;
+    width: 80%;
+    border-radius: 10px;
+  }
+
+  @media (min-width: 768px) {
     h1 {
       font-size: 4.5rem;
       word-spacing: normal;
@@ -161,9 +174,6 @@ export const HomeContainer = styled.div`
       grid-column-gap: 30px;
       grid-row-gap: 30px;
     }
-  }
-
-  @media (max-width: 768px) {
   }
 
   @media (min-width: 1024px) {

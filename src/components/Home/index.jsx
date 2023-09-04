@@ -1,27 +1,31 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocation } from "@fortawesome/free-solid-svg-icons";
-import { BoldText } from "../../styles/Text";
 import { HomeContainer } from "./HomeContainer.styles";
+import { BoldText } from "../../styles/Text";
 import { MainButton } from "../../styles/Buttons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faLocationPin,
-  faCalendar,
+  faLocationDot,
+  faFilter,
+  faSortDown,
   faPeopleRoof,
   faCirclePlus,
   faCircleMinus,
 } from "@fortawesome/free-solid-svg-icons";
+import { faCalendar } from "@fortawesome/free-regular-svg-icons";
+import { useState } from "react";
 
 export default function Home() {
+  const [showSearch, setShowSearch] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+
   return (
     <HomeContainer>
       <section className="hero">
         <div className="search">
           <h1>Discover your next getaway</h1>
-
           <form>
-            <div className="formInputs">
+            <div className="formContent">
               <div className="inputContainer">
-                <FontAwesomeIcon icon={faLocationPin} />
+                <FontAwesomeIcon icon={faLocationDot} />
                 <input type="text" name="location" placeholder="Where?" />
               </div>
               <div className="inputContainer">
@@ -39,7 +43,9 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <MainButton>Search</MainButton>
+            <MainButton isTrans={true} onClick={setShowSearch}>
+              Search
+            </MainButton>
           </form>
         </div>
       </section>
@@ -49,21 +55,34 @@ export default function Home() {
           <div className="imgContainer">
             <img src="../../../public/content/douglas-bagg-HDxvXqUJ3BQ-unsplash-downsized.jpg" />
             <div className="locationTag">
-              <FontAwesomeIcon icon={faLocation} />
+              <FontAwesomeIcon icon={faLocationDot} />
               <p>Location</p>
             </div>
           </div>
           <div className="info">
             <h2>Title of venue</h2>
             <div className="fascilities">
-              <p>Wifi -</p>
-              <p>Breakfast -</p>
-              <p>Pet-friendly</p>
+              <p>Wifi -&nbsp; </p>
+              <p> Breakfast -&nbsp; </p>
+              <p> Pet-friendly</p>
             </div>
             <BoldText>1300$ pr. night</BoldText>
           </div>
         </div>
       </section>
+
+      <div className="sortFilter" onClick={() => setShowPopup(!showPopup)}>
+        <FontAwesomeIcon icon={faFilter} />
+      </div>
+
+      <div
+        className={showPopup ? "filterPopup inactive" : "filterPopup active"}
+      >
+        <h3>Sort by</h3>
+        <div className="dropdown">
+          <FontAwesomeIcon icon={faSortDown} />
+        </div>
+      </div>
     </HomeContainer>
   );
 }

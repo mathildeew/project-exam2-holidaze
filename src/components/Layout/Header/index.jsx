@@ -7,7 +7,7 @@ export default function Header() {
   return (
     <HeaderContainer>
       <div className="headerContent">
-        <Link to="../../Home/">
+        <Link to="/">
           <svg
             id="logoSmall"
             xmlns="http://www.w3.org/2000/svg"
@@ -74,11 +74,11 @@ export default function Header() {
           </svg>
         </Link>
         <nav>
-          <Link to="../../Profile/Manage/">
+          <Link to="/profile/manage/">
             <span>Manager</span>
             <FontAwesomeIcon icon={faBriefcase} />
           </Link>
-          <Link to="../../Profile/">
+          <Link to="/profile/">
             <span>Profile</span>
             <FontAwesomeIcon icon={faUser} />
           </Link>
