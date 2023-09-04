@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { MainButton } from "../../styles/Buttons";
-import { RegisterContainer } from "./Register.style";
+import { MainButton } from "../../../styles/Buttons";
+import { FormContainer } from "../FormContainer.style";
 
-export default function Register() {
+export default function Login() {
   return (
     <>
-      <RegisterContainer>
+      <FormContainer>
         <section className="formSection">
           <div className="top">
             <svg
@@ -45,24 +45,24 @@ export default function Register() {
                 <label htmlFor="password">Password</label>
                 <input type="password" name="password" minLength="8" required />
               </div>
-              <div className="flexLine">
-                <input type="checkbox" name="checkbox" />
-                <label htmlFor="checkbox">Register as venue manager</label>
-              </div>
             </div>
-            <MainButton>Register</MainButton>
+            <MainButton>Log in</MainButton>
           </form>
 
           <div className="loginContent flexLine">
-            <p>Already have an account?</p>
-            <Link to={"/login"}>Log in here</Link>
+            <p>Dont have an account?</p>
+            <Link to={"/user/register"}>Register here</Link>
+          </div>
+
+          <div className="footer">
+            <p>&copy;2023 Holidaze - Mathilde Elinor Wiik</p>
           </div>
         </section>
 
         <div className="banner">
           <span>Unwrap your holiday</span>
         </div>
-      </RegisterContainer>
+      </FormContainer>
     </>
   );
 }

@@ -3,11 +3,19 @@ import Footer from "./Footer";
 import Header from "./Header";
 
 export default function Layout() {
+  const path = window.location.pathname;
+
   return (
     <>
-      <Header />
-      <Outlet />
-      <Footer />
+      {path === "/user/login" || path === "/user/register" ? (
+        <Outlet />
+      ) : (
+        <>
+          <Header />
+          <Outlet />
+          <Footer />
+        </>
+      )}
     </>
   );
 }

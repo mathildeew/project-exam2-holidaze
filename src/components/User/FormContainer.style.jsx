@@ -1,7 +1,15 @@
 import styled from "styled-components";
 import { displayFlex } from "../../styles/mixins";
 
-export const RegisterContainer = styled.div`
+export const FormContainer = styled.main`
+  height: 100vh;
+  padding: 0 10px;
+  ${displayFlex({
+    direction: "column",
+    align: "center",
+    justify: "center",
+  })}
+
   .top {
     ${displayFlex({
       direction: "column",
@@ -10,23 +18,21 @@ export const RegisterContainer = styled.div`
   }
 
   form {
-    height: 240px;
-    margin-bottom: 20px;
     ${displayFlex({
       direction: "column",
-      justify: "space-between",
     })}
-  }
-
-  .formContent {
-    height: 150px;
   }
 
   .flexCol {
     ${displayFlex({
       direction: "column",
-      justify: "space-between",
     })}
+  }
+
+  form,
+  .flexCol,
+  .flexLine {
+    margin-bottom: 20px;
   }
 
   .loginContent {
@@ -40,32 +46,42 @@ export const RegisterContainer = styled.div`
     }
   }
 
+  .footer {
+    position: fixed;
+    bottom: 10px;
+  }
+
   .banner {
     display: none;
   }
 
   @media (min-width: 1024px) {
-    height: 100%;
     width: 100%;
-    border: 2px solid red;
-    ${displayFlex({
-      direction: "row",
-    })}
+    padding: 0;
+    flex-direction: row;
+    align-items: unset;
 
     .formSection {
+      height: 100%;
       width: 50%;
-
       ${displayFlex({
         direction: "column",
         align: "center",
+        justify: "center",
       })}
+    }
+
+    form {
+      width: 280px;
     }
 
     .banner {
       display: inline-block;
       width: 50%;
+      height: 100%;
       background: url(/public/content/bannerballon.jpg);
       background-size: cover;
+      background-position: center right;
       ${displayFlex({
         align: "center",
         justify: "center",
@@ -77,6 +93,7 @@ export const RegisterContainer = styled.div`
         font-size: 8rem;
         font-weight: 900;
         text-transform: uppercase;
+        margin-left: 20px;
       }
     }
   }
