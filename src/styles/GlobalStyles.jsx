@@ -12,9 +12,8 @@ html {
 }
 
 body {
-  margin: 0;
   min-height: 100vh;
-
+  margin: 0;
 }
 
 h1, h2, h3, h4, p, a, label {

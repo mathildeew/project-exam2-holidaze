@@ -2,12 +2,12 @@ import styled from "styled-components";
 import { displayFlex } from "../../styles/mixins";
 
 export const FormContainer = styled.main`
-  height: 100%;
+  height: 100vh;
   padding: 0 10px;
-  margin: 50px 0;
   ${displayFlex({
     direction: "column",
     align: "center",
+    justify: "center",
   })}
 
   .top {
@@ -18,10 +18,8 @@ export const FormContainer = styled.main`
   }
 
   form {
-    height: 100%;
     ${displayFlex({
       direction: "column",
-      justify: "space-between",
     })}
   }
 
@@ -48,23 +46,28 @@ export const FormContainer = styled.main`
     }
   }
 
+  .footer {
+    position: fixed;
+    bottom: 10px;
+  }
+
   .banner {
     display: none;
   }
 
   @media (min-width: 1024px) {
     width: 100%;
-    height: 100%;
     padding: 0;
     flex-direction: row;
     align-items: unset;
 
     .formSection {
+      height: 100%;
       width: 50%;
-
       ${displayFlex({
         direction: "column",
         align: "center",
+        justify: "center",
       })}
     }
 
@@ -75,8 +78,10 @@ export const FormContainer = styled.main`
     .banner {
       display: inline-block;
       width: 50%;
+      height: 100%;
       background: url(/public/content/bannerballon.jpg);
       background-size: cover;
+      background-position: center right;
       ${displayFlex({
         align: "center",
         justify: "center",
@@ -88,6 +93,7 @@ export const FormContainer = styled.main`
         font-size: 8rem;
         font-weight: 900;
         text-transform: uppercase;
+        margin-left: 20px;
       }
     }
   }

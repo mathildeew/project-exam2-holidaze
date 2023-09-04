@@ -35,18 +35,20 @@ export default function Register() {
           </div>
 
           <form>
-            <div className="flexCol">
-              <label htmlFor="email">Email</label>
-              <input type="email" name="email" required />
-            </div>
+            <div className="formContent">
+              <div className="flexCol">
+                <label htmlFor="email">Email</label>
+                <input type="email" name="email" required />
+              </div>
 
-            <div className="flexCol">
-              <label htmlFor="password">Password</label>
-              <input type="password" name="password" minLength="8" required />
-            </div>
-            <div className="flexLine">
-              <input type="checkbox" name="checkbox" />
-              <label htmlFor="checkbox">Register as venue manager</label>
+              <div className="flexCol">
+                <label htmlFor="password">Password</label>
+                <input type="password" name="password" minLength="8" required />
+              </div>
+              <div className="flexLine">
+                <input type="checkbox" name="checkbox" />
+                <label htmlFor="checkbox">Register as venue manager</label>
+              </div>
             </div>
             <MainButton>Register</MainButton>
           </form>
@@ -54,6 +56,10 @@ export default function Register() {
           <div className="loginContent flexLine">
             <p>Already have an account?</p>
             <Link to={"/user/login"}>Log in here</Link>
+          </div>
+
+          <div className="footer">
+            <p>&copy;2023 Holidaze - Mathilde Elinor Wiik</p>
           </div>
         </section>
 

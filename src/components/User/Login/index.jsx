@@ -53,6 +53,10 @@ export default function Login() {
             <p>Dont have an account?</p>
             <Link to={"/user/register"}>Register here</Link>
           </div>
+
+          <div className="footer">
+            <p>&copy;2023 Holidaze - Mathilde Elinor Wiik</p>
+          </div>
         </section>
 
         <div className="banner">
