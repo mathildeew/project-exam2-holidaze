@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLocationDot,
   faFilter,
+  faSortDown,
   faPeopleRoof,
   faCirclePlus,
   faCircleMinus,
@@ -14,6 +15,7 @@ import { useState } from "react";
 
 export default function Home() {
   const [showSearch, setShowSearch] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   return (
     <HomeContainer>
@@ -69,10 +71,17 @@ export default function Home() {
         </div>
       </section>
 
-      <div
-        className={setShowSearch ? "sortFilter active" : "sortFilter inactive"}
-      >
+      <div className="sortFilter" onClick={setShowPopup}>
         <FontAwesomeIcon icon={faFilter} />
+      </div>
+
+      <div
+        className={setShowPopup ? "filterPopup active" : "filterPopup inactive"}
+      >
+        <h3>Sort by</h3>
+        <div className="dropdown">
+          <FontAwesomeIcon icon={faSortDown} />
+        </div>
       </div>
     </HomeContainer>
   );

@@ -146,6 +146,18 @@ export const HomeContainer = styled.main`
     }
   }
 
+  .filterPopup {
+    background: pink;
+    width: 80%;
+    padding: 20px 20px;
+  }
+
+  .dropdown {
+    border: 2px solid black;
+    width: 80%;
+    border-radius: 10px;
+  }
+
   @media (min-width: 768px) {
     h1 {
       font-size: 4.5rem;
