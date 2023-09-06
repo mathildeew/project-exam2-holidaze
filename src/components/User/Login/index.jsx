@@ -1,47 +1,45 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import apiEndpoints from "../../../../endpoints.js/endpoints";
+import useApi from "../../../hooks/useApi";
 import { MainButton } from "../../../styles/Buttons";
 import { FormContainer } from "../FormContainer.style";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect } from "react";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const schema = yup.object({
+    email: yup.string().required("Please enter your email"),
+    password: yup
+      .string()
+      .min(8, "Your password must be at least 8 characters long")
+      .required("Please enter your password"),
+  });
 
-  function onInputChange(event) {
-    const value = event.target.value;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
 
-    if (event.target.name === "email") {
-      setEmail(value);
-    }
-    if (event.target.name === "password") {
-      setPassword(value);
-    }
+  function onSubmit(data) {
+    LoginAPI(apiEndpoints().login, data);
   }
 
-  function onLogin(event) {
-    event.preventDefault();
-
-    const postContent = {
-      email,
-      password,
-    };
-
-    post("https://api.noroff.dev/api/v1/holidaze/auth/login", postContent);
-  }
-
-  async function post(url, postContent) {
+  async function LoginAPI(url, data) {
     try {
       const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(postContent),
+        body: JSON.stringify(data),
       });
 
       const json = await response.json();
       console.log(json);
-      console.log(postContent);
     } catch (error) {
       console.log(error);
     }
@@ -78,32 +76,28 @@ export default function Login() {
             <h1>Welcome to Holidaze!</h1>
           </div>
 
-          <form onSubmit={onLogin}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="formContent flexCol">
               <div className="flexCol">
                 <label htmlFor="email">Email</label>
                 <input
-                  name="email"
-                  value={email}
-                  type="email"
-                  placeholder="Your email"
-                  onChange={onInputChange}
-                  required
+                  {...register("email", { required: true, type: "email" })}
                 />
               </div>
 
               <div className="flexCol">
                 <label htmlFor="password">Password</label>
                 <input
-                  name="password"
-                  value={password}
-                  type="password"
-                  placeholder="Your password"
-                  onChange={onInputChange}
+                  {...register("password", {
+                    required: true,
+                    type: "password",
+                  })}
                 />
               </div>
+              <p>{errors.email?.message}</p>
+              <p>{errors.password?.message}</p>
             </div>
-            <MainButton>Log in</MainButton>
+            <MainButton type="submit">Log in</MainButton>
           </form>
 
           <div className="loginContent flexLine">

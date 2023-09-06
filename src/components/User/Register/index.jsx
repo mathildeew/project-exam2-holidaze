@@ -12,24 +12,6 @@ export default function register() {
   const [password, setPassword] = useState("");
   const [venueManager, setManager] = useState(false);
 
-  // function post(url, postContent) {
-  //   const [data, setData] = useState([]);
-
-  //   useEffect(() => {
-  //     async function postData() {
-  //       try {
-  //         const response = await fetch(url);
-  //         const json = await response.json();
-  //         console.log(json);
-  //         setData(json)
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     }
-  //     postData();
-  //   }, [url, postContent]);
-  // }
-
   function onRegister(event) {
     event.preventDefault();
 
@@ -61,25 +43,6 @@ export default function register() {
       console.log(error);
     }
   }
-
-  // function post(url, postContent) {
-  //   useEffect(() => {
-  //     async function postData() {
-  //       try {
-  //         const response = await fetch({
-  //           method: "POST",
-  //           body: JSON.stringify({
-  //             postContent,
-  //           }),
-  //         });
-  //         const json = await response.json();
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     }
-  //     postData();
-  //   }, [url, postContent]);
-  // }
 
   function onInputChange(event) {
     const value = event.target.value;

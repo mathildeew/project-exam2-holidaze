@@ -13,20 +13,22 @@ import { VenueContainer } from "./VenueContainer";
 import { BoldText, SmallText } from "../../styles/Text";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import get from "../../hooks/get";
+import useApi from "../../hooks/useApi";
+import apiEndpoints from "../../../endpoints.js/endpoints";
 
 export default function Venue() {
   const [showPopup, setShowPopup] = useState(false);
 
   const { id } = useParams();
-  const { content } = get(
-    `https://api.noroff.dev/api/v1/holidaze/venues/${id}`
-  );
+  const { content, isLoading, isError } = useApi(apiEndpoints(id).singleVenue);
 
   const created = new Date(content.created).toLocaleString();
   const updated = new Date(content.updated).toLocaleString();
 
   console.log(content.media?.length);
+
+  if (isLoading) return <VenueContainer>Loading...</VenueContainer>;
+  if (isError) return <VenueContainer>Error!</VenueContainer>;
 
   return (
     <VenueContainer>
