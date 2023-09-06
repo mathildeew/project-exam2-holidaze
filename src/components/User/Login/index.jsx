@@ -28,6 +28,10 @@ export default function Login() {
     LoginAPI(apiEndpoints().login, data);
   }
 
+  function set(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+
   async function LoginAPI(url, data) {
     try {
       const response = await fetch(url, {
@@ -39,7 +43,8 @@ export default function Login() {
       });
 
       const json = await response.json();
-      console.log(json);
+      console.log(data, json);
+      set(data, json);
     } catch (error) {
       console.log(error);
     }
