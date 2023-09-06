@@ -1,8 +1,52 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { MainButton } from "../../../styles/Buttons";
 import { FormContainer } from "../FormContainer.style";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  function onInputChange(event) {
+    const value = event.target.value;
+
+    if (event.target.name === "email") {
+      setEmail(value);
+    }
+    if (event.target.name === "password") {
+      setPassword(value);
+    }
+  }
+
+  function onLogin(event) {
+    event.preventDefault();
+
+    const postContent = {
+      email,
+      password,
+    };
+
+    post("https://api.noroff.dev/api/v1/holidaze/auth/login", postContent);
+  }
+
+  async function post(url, postContent) {
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postContent),
+      });
+
+      const json = await response.json();
+      console.log(json);
+      console.log(postContent);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <FormContainer>
@@ -34,16 +78,29 @@ export default function Login() {
             <h1>Welcome to Holidaze!</h1>
           </div>
 
-          <form>
+          <form onSubmit={onLogin}>
             <div className="formContent flexCol">
               <div className="flexCol">
                 <label htmlFor="email">Email</label>
-                <input type="email" name="email" required />
+                <input
+                  name="email"
+                  value={email}
+                  type="email"
+                  placeholder="Your email"
+                  onChange={onInputChange}
+                  required
+                />
               </div>
 
               <div className="flexCol">
                 <label htmlFor="password">Password</label>
-                <input type="password" name="password" minLength="8" required />
+                <input
+                  name="password"
+                  value={password}
+                  type="password"
+                  placeholder="Your password"
+                  onChange={onInputChange}
+                />
               </div>
             </div>
             <MainButton>Log in</MainButton>
