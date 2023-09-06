@@ -1,8 +1,105 @@
 import { Link } from "react-router-dom";
 import { MainButton } from "../../../styles/Buttons";
 import { FormContainer } from "../FormContainer.style";
+import { useState } from "react";
+import { useEffect } from "react";
 
-export default function Register() {
+// "https://api.noroff.dev/api/v1/holidaze/auth/register"
+export default function register() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [avatar, setAvatar] = useState("");
+  const [password, setPassword] = useState("");
+  const [venueManager, setManager] = useState(false);
+
+  // function post(url, postContent) {
+  //   const [data, setData] = useState([]);
+
+  //   useEffect(() => {
+  //     async function postData() {
+  //       try {
+  //         const response = await fetch(url);
+  //         const json = await response.json();
+  //         console.log(json);
+  //         setData(json)
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     }
+  //     postData();
+  //   }, [url, postContent]);
+  // }
+
+  function onRegister(event) {
+    event.preventDefault();
+
+    const postContent = {
+      name,
+      email,
+      password,
+      avatar,
+      venueManager,
+    };
+
+    post("https://api.noroff.dev/api/v1/holidaze/auth/register", postContent);
+  }
+
+  async function post(url, postContent) {
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postContent),
+      });
+
+      const json = await response.json();
+      console.log(json);
+      console.log(postContent);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // function post(url, postContent) {
+  //   useEffect(() => {
+  //     async function postData() {
+  //       try {
+  //         const response = await fetch({
+  //           method: "POST",
+  //           body: JSON.stringify({
+  //             postContent,
+  //           }),
+  //         });
+  //         const json = await response.json();
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     }
+  //     postData();
+  //   }, [url, postContent]);
+  // }
+
+  function onInputChange(event) {
+    const value = event.target.value;
+    if (event.target.name === "name") {
+      setName(value);
+    }
+    if (event.target.name === "email") {
+      setEmail(value);
+    }
+    if (event.target.name === "avatar") {
+      setAvatar(value);
+    }
+    if (event.target.name === "password") {
+      setPassword(value);
+    }
+    if (event.target.name === "manager") {
+      setManager(!venueManager);
+    }
+  }
+
   return (
     <>
       <FormContainer>
@@ -34,19 +131,59 @@ export default function Register() {
             <h1>Welcome to Holidaze!</h1>
           </div>
 
-          <form>
+          <form onSubmit={onRegister}>
             <div className="formContent">
               <div className="flexCol">
+                <label htmlFor="name">Username</label>
+                <input
+                  name="name"
+                  value={name}
+                  type="text"
+                  placeholder="Your username"
+                  onChange={onInputChange}
+                  required
+                />
+              </div>
+              <div className="flexCol">
                 <label htmlFor="email">Email</label>
-                <input type="email" name="email" required />
+                <input
+                  name="email"
+                  value={email}
+                  type="email"
+                  placeholder="Your email"
+                  onChange={onInputChange}
+                  required
+                />
+              </div>
+
+              <div className="flexCol">
+                <label htmlFor="avatar">Avatat</label>
+                <input
+                  name="avatar"
+                  value={avatar}
+                  type="URL"
+                  placeholder="Your avatar"
+                  onChange={onInputChange}
+                />
               </div>
 
               <div className="flexCol">
                 <label htmlFor="password">Password</label>
-                <input type="password" name="password" minLength="8" required />
+                <input
+                  name="password"
+                  value={password}
+                  type="password"
+                  placeholder="Your password"
+                  onChange={onInputChange}
+                />
               </div>
               <div className="flexLine">
-                <input type="checkbox" name="checkbox" />
+                <input
+                  type="checkbox"
+                  name="manager"
+                  value={venueManager}
+                  onChange={onInputChange}
+                />
                 <label htmlFor="checkbox">Register as venue manager</label>
               </div>
             </div>
