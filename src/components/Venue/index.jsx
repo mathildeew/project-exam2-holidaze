@@ -19,10 +19,14 @@ export default function Venue() {
   const [showPopup, setShowPopup] = useState(false);
 
   const { id } = useParams();
-  const { content } = get();
-  `https://api.noroff.dev/api/v1/holidaze/venues/${id}`;
+  const { content } = get(
+    `https://api.noroff.dev/api/v1/holidaze/venues/${id}`
+  );
 
-  console.log(content);
+  const created = new Date(content.created).toLocaleString();
+  const updated = new Date(content.updated).toLocaleString();
+
+  console.log(content.media?.length);
 
   return (
     <VenueContainer>
@@ -36,19 +40,26 @@ export default function Venue() {
 
       <main>
         <section className="info">
-          <img src="../../../public/daniel-olah-f0P7y3swnZU-unsplash.jpg" />
-          <h1></h1>
+          {content.media?.length === 0 ? (
+            <img src="/src/assets/placeholders/image-placeholder-350x350-1.png" />
+          ) : (
+            <img src={content.media} />
+          )}
+          <h1>{content.name}</h1>
           <div className="infoTop">
             <div className="flexLine">
               <FontAwesomeIcon icon={faLocationDot} />
-              <p></p>
+              <p>
+                {content.location?.city}, {content.location?.country}
+              </p>
             </div>
             <div className="flexLine">
               <FontAwesomeIcon icon={faStar} />
               <p>4.5/5</p>
             </div>
+            <p>${content.price}</p>
           </div>
-          {/* <p>{content.description}</p> */}
+          <p>{content.description}</p>
           <hr />
         </section>
 
@@ -56,36 +67,38 @@ export default function Venue() {
           <h2>This place offers</h2>
           <div className="icons">
             <FontAwesomeIcon icon={faPeopleRoof} />
-            {/* <p>{content.maxGuests} guests</p>
-            {content.meta.wifi === true && (
+            <p>{content.maxGuests} guests</p>
+            {content.meta?.wifi === true && (
               <>
                 <FontAwesomeIcon icon={faWifi} />
                 <p>Wifi</p>
               </>
             )}
-            {content.meta.breakfast === true && (
+
+            {content.meta?.breakfast === true && (
               <>
                 <FontAwesomeIcon icon={faCutlery} />
                 <p>Breakfast</p>
               </>
             )}
-            {content.meta.parking === true && (
+            {content.meta?.parking === true && (
               <>
                 <FontAwesomeIcon icon={faParking} />
                 <p>Parking</p>
               </>
             )}
-            {content.meta.pets === true && (
+            {content.meta?.pets === true && (
               <>
                 <FontAwesomeIcon icon={faDog} />
                 <p>Pet firendly</p>
               </>
-            )} */}
+            )}
           </div>
           <hr />
         </section>
 
-        <section className="host">
+        {/* PUT IN HOST WHEN LOGGED IN */}
+        {/* <section className="host">
           <h2>Your host is</h2>
           <div className="hostInfo">
             <img />
@@ -102,14 +115,14 @@ export default function Venue() {
             </div>
           </div>
           <hr />
-        </section>
+        </section> */}
 
         <div className="updates">
           <div className="flexLine">
-            <p>Created: </p>
+            <p>Created: {created}</p>
           </div>
           <div className="flexLine">
-            <p>Last updated: </p>
+            <p>Last updated: {updated}</p>
           </div>
         </div>
       </main>

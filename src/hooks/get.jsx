@@ -8,7 +8,7 @@ export default function get(url) {
       try {
         const response = await fetch(url);
         const json = await response.json();
-
+        console.log(json);
         setContent(json);
       } catch (error) {
         console.log(error);
