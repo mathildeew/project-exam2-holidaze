@@ -60,25 +60,31 @@ export default function Home() {
       </section>
 
       <section className="venues maxWidth">
-        <div className="venue">
-          <div className="imgContainer">
-            <img src="../../../public/content/douglas-bagg-HDxvXqUJ3BQ-unsplash-downsized.jpg" />
-            <div className="locationTag">
-              <FontAwesomeIcon icon={faLocationDot} />
-              <p>Location</p>
+        {content.map((venue) => (
+          <div className="venue" key={venue.id}>
+            <div className="imgContainer">
+              {venue.media.length > 0 && <img src={venue.media[0]} />}
+              {venue.media.length === 0 && (
+                <img src="src/assets/placeholders/image-placeholder-350x350-1.png" />
+              )}
+
+              <div className="locationTag">
+                <FontAwesomeIcon icon={faLocationDot} />
+                <p>{venue.location.country}</p>
+              </div>
+            </div>
+            <div className="info">
+              <h2>{venue.name}</h2>
+              <div className="fascilities">
+                {venue.meta.breakfast === true && <p>Breakfast -&nbsp; </p>}
+                {venue.meta.parking === true && <p>Parking -&nbsp; </p>}
+                {venue.meta.pets === true && <p>Pet friendly -&nbsp; </p>}
+                {venue.meta.wifi === true && <p>Wifi</p>}
+              </div>
+              <BoldText>${venue.price} pr. night</BoldText>
             </div>
           </div>
-          <div className="info">
-            <h2>Title of venue</h2>
-            <div className="fascilities">
-              <p>Wifi -&nbsp; </p>
-              <p> Breakfast -&nbsp; </p>
-              <p> Pet-friendly -&nbsp;</p>
-              <p> Parking</p>
-            </div>
-            <BoldText>1300$ pr. night</BoldText>
-          </div>
-        </div>
+        ))}
       </section>
 
       <div className="sortFilter" onClick={() => setShowPopup(!showPopup)}>
