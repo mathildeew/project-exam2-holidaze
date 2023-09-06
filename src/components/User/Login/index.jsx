@@ -2,21 +2,56 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import apiEndpoints from "../../../../endpoints.js/endpoints";
-import useApi from "../../../hooks/useApi";
+import UseAPI from "../../../hooks/useApi";
 import { MainButton } from "../../../styles/Buttons";
 import { FormContainer } from "../FormContainer.style";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
 
-export default function Login() {
-  const schema = yup.object({
-    email: yup.string().required("Please enter your email"),
-    password: yup
-      .string()
-      .min(8, "Your password must be at least 8 characters long")
-      .required("Please enter your password"),
+const schema = yup.object({
+  email: yup.string().required("Please enter your email"),
+  password: yup
+    .string()
+    .min(8, "Your password must be at least 8 characters long")
+    .required("Please enter your password"),
+});
+
+function set(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+function fetchOptions(methodOp, data) {
+  const options = {
+    method: methodOp,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  };
+}
+
+function LoginAPI({ data }) {
+  const {
+    content: response,
+    isLoading,
+    isError,
+    isSuccess,
+  } = UseAPI(apiEndpoints().login, {
+    method: "POST",
+    headers: { "Content-Type": "application/json," },
+    body: JSON.stringify(data),
   });
+
+  useEffect(() => {
+    if (isSuccess) {
+      set("token", response.accessToken);
+    }
+  }, [isSuccess]);
+}
+
+export default function Login() {
+  const [data, setData] = useState(null);
 
   const {
     register,
@@ -24,31 +59,9 @@ export default function Login() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  function onSubmit(data) {
-    LoginAPI(apiEndpoints().login, data);
-  }
-
-  function set(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
-  }
-
-  async function LoginAPI(url, data) {
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      const json = await response.json();
-      console.log(data, json);
-      set(data, json);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const onSubmit = async (data) => {
+    setData(data);
+  };
 
   return (
     <>
@@ -103,6 +116,7 @@ export default function Login() {
               <p>{errors.password?.message}</p>
             </div>
             <MainButton type="submit">Log in</MainButton>
+            {data && <LoginAPI data={data} />}
           </form>
 
           <div className="loginContent flexLine">

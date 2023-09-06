@@ -13,14 +13,14 @@ import { VenueContainer } from "./VenueContainer";
 import { BoldText, SmallText } from "../../styles/Text";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import useApi from "../../hooks/useApi";
+import UseAPI from "../../hooks/useApi";
 import apiEndpoints from "../../../endpoints.js/endpoints";
 
 export default function Venue() {
   const [showPopup, setShowPopup] = useState(false);
 
   const { id } = useParams();
-  const { content, isLoading, isError } = useApi(apiEndpoints(id).singleVenue);
+  const { content, isLoading, isError } = UseAPI(apiEndpoints(id).singleVenue);
 
   const created = new Date(content.created).toLocaleString();
   const updated = new Date(content.updated).toLocaleString();

@@ -92,7 +92,7 @@ export default function Header() {
               </Link>
             </>
           ) : (
-            <Link to="user/login">
+            <Link to="/user/login">
               <span>Log in</span>
               <FontAwesomeIcon icon={faArrowRightToBracket} />
             </Link>

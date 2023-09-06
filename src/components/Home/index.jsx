@@ -18,13 +18,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 import { useState } from "react";
-import useApi from "../../hooks/useApi.jsx";
+import UseAPI from "../../hooks/useApi.jsx";
 import { Link } from "react-router-dom";
 
 import apiEndpoints from "../../../endpoints.js/endpoints";
 
 export default function Home() {
-  const { content, isLoading, isError } = useApi(apiEndpoints().venues);
+  const { content, isLoading, isError } = UseAPI(apiEndpoints().venues);
 
   const [showSearch, setShowSearch] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
