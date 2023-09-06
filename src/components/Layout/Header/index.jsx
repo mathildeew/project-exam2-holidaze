@@ -1,9 +1,15 @@
 import { Link } from "react-router-dom";
 import { HeaderContainer } from "./Header.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faBriefcase } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faBriefcase,
+  faArrowRightToBracket,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
+  const token = localStorage.getItem("token");
+
   return (
     <HeaderContainer>
       <div className="headerContent">
@@ -74,14 +80,23 @@ export default function Header() {
           </svg>
         </Link>
         <nav>
-          <Link to="/profile/manage/">
-            <span>Manager</span>
-            <FontAwesomeIcon icon={faBriefcase} />
-          </Link>
-          <Link to="/profile/">
-            <span>Profile</span>
-            <FontAwesomeIcon icon={faUser} />
-          </Link>
+          {token ? (
+            <>
+              <Link to="/profile/manage/">
+                <span>Manager</span>
+                <FontAwesomeIcon icon={faBriefcase} />
+              </Link>
+              <Link to="/profile/">
+                <span>Profile</span>
+                <FontAwesomeIcon icon={faUser} />
+              </Link>
+            </>
+          ) : (
+            <Link to="user/login">
+              <span>Log in</span>
+              <FontAwesomeIcon icon={faArrowRightToBracket} />
+            </Link>
+          )}
         </nav>
       </div>
     </HeaderContainer>
