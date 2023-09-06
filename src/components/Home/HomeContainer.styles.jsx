@@ -155,6 +155,7 @@ export const HomeContainer = styled.main`
     height: 100vh;
     padding: 20px 20px;
     position: absolute;
+    display: none;
 
     &.inactive {
       bottom: -100vh;
