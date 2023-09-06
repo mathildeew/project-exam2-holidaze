@@ -18,8 +18,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 import { useState } from "react";
+import get from "../../hooks/get.jsx";
 
 export default function Home() {
+  const { content } = get("https://api.noroff.dev/api/v1/holidaze/venues");
+
   const [showSearch, setShowSearch] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
