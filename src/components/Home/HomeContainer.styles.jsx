@@ -3,6 +3,7 @@ import { displayFlex } from "../../styles/mixins";
 
 export const HomeContainer = styled.main`
   width: 100%;
+  height: 100%;
 
   .hero {
     width: 100%;
@@ -82,7 +83,9 @@ export const HomeContainer = styled.main`
   }
 
   .venues {
+    margin: 0 auto;
     display: grid;
+    margin-bottom: 50px;
 
     .venue {
       ${displayFlex({ direction: "column" })}
@@ -147,15 +150,36 @@ export const HomeContainer = styled.main`
   }
 
   .filterPopup {
-    background: pink;
-    width: 80%;
+    background: white;
+    width: 90%;
+    height: 100vh;
     padding: 20px 20px;
+    position: absolute;
+
+    &.inactive {
+      bottom: -100vh;
+      height: 0px;
+    }
+
+    &.active {
+      top: 0px;
+    }
   }
 
   .dropdown {
+    font-family: Open Sans, sans-serif;
     border: 2px solid black;
+    outline: none;
     width: 80%;
     border-radius: 10px;
+  }
+
+  .close {
+    font-size: 2rem;
+    padding: 2px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
   }
 
   @media (min-width: 768px) {
