@@ -87,6 +87,10 @@ export const HomeContainer = styled.main`
     display: grid;
     margin-bottom: 50px;
 
+    a {
+      color: black;
+    }
+
     .venue {
       ${displayFlex({ direction: "column" })}
     }

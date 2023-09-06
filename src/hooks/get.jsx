@@ -10,7 +10,6 @@ export default function get(url) {
         const json = await response.json();
 
         setContent(json);
-        console.log(json);
       } catch (error) {
         console.log(error);
       }

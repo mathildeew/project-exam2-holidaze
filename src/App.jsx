@@ -17,7 +17,7 @@ export default function App() {
         <Route path="user/register" element={<Register />} />
         <Route path="profile" element={<Profile />} />
         <Route path="profile/manage" element={<Manage />} />
-        <Route path="venue" element={<Venue />} />
+        <Route path="venue/:id" element={<Venue />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
