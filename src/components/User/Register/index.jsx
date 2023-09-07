@@ -3,65 +3,63 @@ import { MainButton } from "../../../styles/Buttons";
 import { FormContainer } from "../FormContainer.style";
 import { useState } from "react";
 import { useEffect } from "react";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import UseAPI from "../../../hooks/useApi";
+import apiEndpoints from "../../../../endpoints.js/endpoints";
+
+// --------------------
+const schema = yup.object({
+  name: yup.string().required("Please enter a username"),
+  email: yup.string().required("Please enter your email"),
+  password: yup
+    .string()
+    .min(8, "Your password must be at least 8 characters")
+    .required("Please enter your password"),
+  avatar: yup.string().url("Please enter a valid URL"),
+  manager: yup.boolean(),
+});
 
 // "https://api.noroff.dev/api/v1/holidaze/auth/register"
 export default function register() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [avatar, setAvatar] = useState("");
-  const [password, setPassword] = useState("");
-  const [venueManager, setManager] = useState(false);
+  const [venueManager, setVenueManager] = useState(false);
+  const [data, setData] = useState(null);
 
-  function onRegister(event) {
-    event.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
 
-    const postContent = {
-      name,
-      email,
-      password,
-      avatar,
-      venueManager,
-    };
+  function RegisterAPI({ data }) {
+    const {
+      content: response,
+      isLoading,
+      isError,
+      isSuccess,
+    } = UseAPI(apiEndpoints().register, {
+      method: "POST",
+      headers: { "Content-Type": "application/json," },
+      body: JSON.stringify(data),
+    });
 
-    post("https://api.noroff.dev/api/v1/holidaze/auth/register", postContent);
+    // {
+    //   response.errors && <p>An error occured</p>>;
+    // }
+
+    console.log(response);
+
+    useEffect(() => {
+      if (isSuccess) {
+        console.log("Success");
+      }
+    }, [isSuccess]);
   }
 
-  async function post(url, postContent) {
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(postContent),
-      });
-
-      const json = await response.json();
-      console.log(json);
-      console.log(postContent);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  function onInputChange(event) {
-    const value = event.target.value;
-    if (event.target.name === "name") {
-      setName(value);
-    }
-    if (event.target.name === "email") {
-      setEmail(value);
-    }
-    if (event.target.name === "avatar") {
-      setAvatar(value);
-    }
-    if (event.target.name === "password") {
-      setPassword(value);
-    }
-    if (event.target.name === "manager") {
-      setManager(!venueManager);
-    }
-  }
+  const onSubmit = async (data) => {
+    setData(data);
+  };
 
   return (
     <>
@@ -94,63 +92,58 @@ export default function register() {
             <h1>Welcome to Holidaze!</h1>
           </div>
 
-          <form onSubmit={onRegister}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="formContent">
               <div className="flexCol">
                 <label htmlFor="name">Username</label>
                 <input
-                  name="name"
-                  value={name}
-                  type="text"
-                  placeholder="Your username"
-                  onChange={onInputChange}
-                  required
+                  {...register("name", { required: true, type: "text" })}
                 />
-              </div>
-              <div className="flexCol">
-                <label htmlFor="email">Email</label>
-                <input
-                  name="email"
-                  value={email}
-                  type="email"
-                  placeholder="Your email"
-                  onChange={onInputChange}
-                  required
-                />
+                <p className="errorMsg">{errors.name?.message}</p>
               </div>
 
               <div className="flexCol">
-                <label htmlFor="avatar">Avatat</label>
+                <label htmlFor="email">Email</label>
                 <input
-                  name="avatar"
-                  value={avatar}
-                  type="URL"
-                  placeholder="Your avatar"
-                  onChange={onInputChange}
+                  {...register("email", { required: true, type: "email" })}
                 />
+                <p className="errorMsg">{errors.email?.message}</p>
               </div>
 
               <div className="flexCol">
                 <label htmlFor="password">Password</label>
                 <input
-                  name="password"
-                  value={password}
-                  type="password"
-                  placeholder="Your password"
-                  onChange={onInputChange}
+                  {...register("password", {
+                    required: true,
+                    type: "password",
+                  })}
                 />
+                <p className="errorMsg">{errors.password?.message}</p>
               </div>
+
+              <div className="flexCol">
+                <label htmlFor="avatar">Avatar</label>
+                <input
+                  {...register("avatar", {
+                    type: "URL",
+                  })}
+                />
+                <p className="errorMsg">{errors.avatar?.message}</p>
+              </div>
+
               <div className="flexLine">
                 <input
                   type="checkbox"
-                  name="manager"
-                  value={venueManager}
-                  onChange={onInputChange}
+                  onChange={() => !venueManager}
+                  {...register("manager", {
+                    type: "checkbox",
+                  })}
                 />
-                <label htmlFor="checkbox">Register as venue manager</label>
+                <label htmlFor="manager">Register as venue manager</label>
               </div>
             </div>
-            <MainButton>Register</MainButton>
+            <MainButton type="submit">Register</MainButton>
+            {data && <RegisterAPI data={data} />}
           </form>
 
           <div className="loginContent flexLine">

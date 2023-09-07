@@ -18,6 +18,7 @@ export const FormContainer = styled.main`
   }
 
   form {
+    min-width: 290px;
     ${displayFlex({
       direction: "column",
     })}
@@ -33,6 +34,11 @@ export const FormContainer = styled.main`
   .flexCol,
   .flexLine {
     margin-bottom: 20px;
+  }
+
+  .errorMsg {
+    color: red;
+    font-size: 1.4rem;
   }
 
   .loginContent {
