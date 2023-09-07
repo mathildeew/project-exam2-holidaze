@@ -21,10 +21,10 @@ const schema = yup.object({
   manager: yup.boolean(),
 });
 
-// "https://api.noroff.dev/api/v1/holidaze/auth/register"
 export default function register() {
   const [venueManager, setVenueManager] = useState(false);
   const [data, setData] = useState(null);
+  const [btnText, setBtnText] = useState("Register");
 
   const {
     register,
@@ -47,18 +47,23 @@ export default function register() {
     // {
     //   response.errors && <p>An error occured</p>>;
     // }
-
-    console.log(response);
-
     useEffect(() => {
-      if (isSuccess) {
-        console.log("Success");
+      if (isError) {
+        console.log("ERROROROR");
       }
-    }, [isSuccess]);
+      if (isSuccess) {
+        set("token", response.accessToken);
+        console.log("success");
+        setTimeout(() => {
+          // navigate("/user/login");
+        }, 500);
+      }
+    }, [isError][isSuccess]);
   }
 
   const onSubmit = async (data) => {
     setData(data);
+    setBtnText("Registering");
   };
 
   return (
@@ -142,7 +147,7 @@ export default function register() {
                 <label htmlFor="manager">Register as venue manager</label>
               </div>
             </div>
-            <MainButton type="submit">Register</MainButton>
+            <MainButton type="submit">{btnText}</MainButton>
             {data && <RegisterAPI data={data} />}
           </form>
 

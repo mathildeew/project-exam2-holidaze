@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import apiEndpoints from "../../../../endpoints.js/endpoints";
 import UseAPI from "../../../hooks/useApi";
 import { MainButton } from "../../../styles/Buttons";
@@ -10,10 +10,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
 
 const schema = yup.object({
-  email: yup.string().required("Please enter your email"),
+  email: yup
+    .string()
+    .email("Must be a valid stud.noroff.no or noroff.no email")
+
+    .required("Please enter your email"),
   password: yup
     .string()
-    .min(8, "Your password must be at least 8 characters long")
+    .min(8, "* Must be at least 8 characters")
     .required("Please enter your password"),
 });
 
@@ -32,6 +36,8 @@ function fetchOptions(methodOp, data) {
 }
 
 function LoginAPI({ data }) {
+  const navigate = useNavigate();
+
   const {
     content: response,
     isLoading,
@@ -44,14 +50,22 @@ function LoginAPI({ data }) {
   });
 
   useEffect(() => {
+    if (isError) {
+      console.log("ERROROROR");
+    }
     if (isSuccess) {
       set("token", response.accessToken);
+      console.log("success");
+      setTimeout(() => {
+        // navigate("/");
+      }, 500);
     }
-  }, [isSuccess]);
+  }, [isError][isSuccess]);
 }
 
 export default function Login() {
   const [data, setData] = useState(null);
+  const [btnText, setBtnText] = useState("Log in");
 
   const {
     register,
@@ -61,6 +75,7 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     setData(data);
+    setBtnText("Logging in");
   };
 
   return (
@@ -101,21 +116,22 @@ export default function Login() {
                 <input
                   {...register("email", { required: true, type: "email" })}
                 />
+                <p className="errorMsg">{errors.email?.message}</p>
               </div>
 
               <div className="flexCol">
                 <label htmlFor="password">Password</label>
                 <input
+                  type="password"
                   {...register("password", {
                     required: true,
                     type: "password",
                   })}
                 />
+                <p className="errorMsg">{errors.password?.message}</p>
               </div>
-              <p>{errors.email?.message}</p>
-              <p>{errors.password?.message}</p>
             </div>
-            <MainButton type="submit">Log in</MainButton>
+            <MainButton type="submit">{btnText}</MainButton>
             {data && <LoginAPI data={data} />}
           </form>
 
