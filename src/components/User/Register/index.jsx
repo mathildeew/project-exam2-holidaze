@@ -9,7 +9,6 @@ import { useForm } from "react-hook-form";
 import UseAPI from "../../../hooks/useApi";
 import apiEndpoints from "../../../../endpoints.js/endpoints";
 
-// --------------------
 const schema = yup.object({
   name: yup.string().required("Please enter a username"),
   email: yup.string().required("Please enter your email"),
@@ -24,7 +23,6 @@ const schema = yup.object({
 export default function register() {
   const [venueManager, setVenueManager] = useState(false);
   const [data, setData] = useState(null);
-  const [btnText, setBtnText] = useState("Register");
 
   const {
     register,
@@ -47,23 +45,18 @@ export default function register() {
     // {
     //   response.errors && <p>An error occured</p>>;
     // }
+
+    console.log(response);
+
     useEffect(() => {
-      if (isError) {
-        console.log("ERROROROR");
-      }
       if (isSuccess) {
-        set("token", response.accessToken);
-        console.log("success");
-        setTimeout(() => {
-          // navigate("/user/login");
-        }, 500);
+        console.log("Success");
       }
-    }, [isError][isSuccess]);
+    }, [isSuccess]);
   }
 
   const onSubmit = async (data) => {
     setData(data);
-    setBtnText("Registering");
   };
 
   return (
@@ -147,7 +140,7 @@ export default function register() {
                 <label htmlFor="manager">Register as venue manager</label>
               </div>
             </div>
-            <MainButton type="submit">{btnText}</MainButton>
+            <MainButton type="submit">Register</MainButton>
             {data && <RegisterAPI data={data} />}
           </form>
 

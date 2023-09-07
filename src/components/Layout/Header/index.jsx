@@ -6,6 +6,7 @@ import {
   faBriefcase,
   faArrowRightToBracket,
 } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 export default function Header() {
   const token = localStorage.getItem("token");

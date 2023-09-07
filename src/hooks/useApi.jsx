@@ -16,9 +16,9 @@ export default function UseAPI(url, fetchOptions) {
         const json = await response.json();
         setIsLoading(false);
         setContent(json);
-        response.ok && setIsSuccess(true);
+        response.ok === true && setIsSuccess(true);
         response.ok === false && setIsError(true);
-        // console.log(response);
+        console.log(json);
       } catch (error) {
         console.log(error);
         setIsLoading(false);
