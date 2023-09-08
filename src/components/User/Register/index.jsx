@@ -1,8 +1,64 @@
 import { Link } from "react-router-dom";
 import { MainButton } from "../../../styles/Buttons";
 import { FormContainer } from "../FormContainer.style";
+import { useState } from "react";
+import { useEffect } from "react";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import UseAPI from "../../../hooks/useApi";
+import apiEndpoints from "../../../../endpoints.js/endpoints";
 
-export default function Register() {
+const schema = yup.object({
+  name: yup.string().required("Please enter a username"),
+  email: yup.string().required("Please enter your email"),
+  password: yup
+    .string()
+    .min(8, "Your password must be at least 8 characters")
+    .required("Please enter your password"),
+  avatar: yup.string().url("Please enter a valid URL"),
+  manager: yup.boolean(),
+});
+
+export default function register() {
+  const [venueManager, setVenueManager] = useState(false);
+  const [data, setData] = useState(null);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
+
+  function RegisterAPI({ data }) {
+    const {
+      content: response,
+      isLoading,
+      isError,
+      isSuccess,
+    } = UseAPI(apiEndpoints().register, {
+      method: "POST",
+      headers: { "Content-Type": "application/json," },
+      body: JSON.stringify(data),
+    });
+
+    // {
+    //   response.errors && <p>An error occured</p>>;
+    // }
+
+    console.log(response);
+
+    useEffect(() => {
+      if (isSuccess) {
+        console.log("Success");
+      }
+    }, [isSuccess]);
+  }
+
+  const onSubmit = async (data) => {
+    setData(data);
+  };
+
   return (
     <>
       <FormContainer>
@@ -34,23 +90,58 @@ export default function Register() {
             <h1>Welcome to Holidaze!</h1>
           </div>
 
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="formContent">
               <div className="flexCol">
+                <label htmlFor="name">Username</label>
+                <input
+                  {...register("name", { required: true, type: "text" })}
+                />
+                <p className="errorMsg">{errors.name?.message}</p>
+              </div>
+
+              <div className="flexCol">
                 <label htmlFor="email">Email</label>
-                <input type="email" name="email" required />
+                <input
+                  {...register("email", { required: true, type: "email" })}
+                />
+                <p className="errorMsg">{errors.email?.message}</p>
               </div>
 
               <div className="flexCol">
                 <label htmlFor="password">Password</label>
-                <input type="password" name="password" minLength="8" required />
+                <input
+                  {...register("password", {
+                    required: true,
+                    type: "password",
+                  })}
+                />
+                <p className="errorMsg">{errors.password?.message}</p>
               </div>
+
+              <div className="flexCol">
+                <label htmlFor="avatar">Avatar</label>
+                <input
+                  {...register("avatar", {
+                    type: "URL",
+                  })}
+                />
+                <p className="errorMsg">{errors.avatar?.message}</p>
+              </div>
+
               <div className="flexLine">
-                <input type="checkbox" name="checkbox" />
-                <label htmlFor="checkbox">Register as venue manager</label>
+                <input
+                  type="checkbox"
+                  onChange={() => !venueManager}
+                  {...register("manager", {
+                    type: "checkbox",
+                  })}
+                />
+                <label htmlFor="manager">Register as venue manager</label>
               </div>
             </div>
-            <MainButton>Register</MainButton>
+            <MainButton type="submit">Register</MainButton>
+            {data && <RegisterAPI data={data} />}
           </form>
 
           <div className="loginContent flexLine">

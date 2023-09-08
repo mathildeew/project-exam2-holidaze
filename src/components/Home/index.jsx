@@ -18,13 +18,19 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 import { useState } from "react";
-import get from "../../hooks/get.jsx";
+import UseAPI from "../../hooks/useApi.jsx";
+import { Link } from "react-router-dom";
+
+import apiEndpoints from "../../../endpoints.js/endpoints";
 
 export default function Home() {
-  const { content } = get("https://api.noroff.dev/api/v1/holidaze/venues");
+  const { content, isLoading, isError } = UseAPI(apiEndpoints().venues);
 
   const [showSearch, setShowSearch] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+
+  if (isLoading) return <HomeContainer>Loading...</HomeContainer>;
+  if (isError) return <HomeContainer>Error!</HomeContainer>;
 
   return (
     <HomeContainer>
@@ -61,7 +67,7 @@ export default function Home() {
 
       <section className="venues maxWidth">
         {content.map((venue) => (
-          <div className="venue" key={venue.id}>
+          <Link to={`/venue/${venue.id}`} className="venue" key={venue.id}>
             <div className="imgContainer">
               {venue.media.length > 0 && <img src={venue.media[0]} />}
               {venue.media.length === 0 && (
@@ -83,7 +89,7 @@ export default function Home() {
               </div>
               <BoldText>${venue.price} pr. night</BoldText>
             </div>
-          </div>
+          </Link>
         ))}
       </section>
 

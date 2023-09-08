@@ -1,8 +1,83 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import apiEndpoints from "../../../../endpoints.js/endpoints";
+import UseAPI from "../../../hooks/useApi";
 import { MainButton } from "../../../styles/Buttons";
 import { FormContainer } from "../FormContainer.style";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect } from "react";
+
+const schema = yup.object({
+  email: yup
+    .string()
+    .email("Must be a valid stud.noroff.no or noroff.no email")
+
+    .required("Please enter your email"),
+  password: yup
+    .string()
+    .min(8, "* Must be at least 8 characters")
+    .required("Please enter your password"),
+});
+
+function set(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+function fetchOptions(methodOp, data) {
+  const options = {
+    method: methodOp,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  };
+}
+
+function LoginAPI({ data }) {
+  const navigate = useNavigate();
+
+  const {
+    content: response,
+    isLoading,
+    isError,
+    isSuccess,
+  } = UseAPI(apiEndpoints().login, {
+    method: "POST",
+    headers: { "Content-Type": "application/json," },
+    body: JSON.stringify(data),
+  });
+
+  useEffect(() => {
+    if (isError) {
+      console.log("ERROROROR");
+    }
+    if (isSuccess) {
+      set("token", response.accessToken);
+      console.log("success");
+      setTimeout(() => {
+        // navigate("/");
+      }, 500);
+    }
+  }, [isError][isSuccess]);
+}
 
 export default function Login() {
+  const [data, setData] = useState(null);
+  const [btnText, setBtnText] = useState("Log in");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
+
+  const onSubmit = async (data) => {
+    setData(data);
+    setBtnText("Logging in");
+  };
+
   return (
     <>
       <FormContainer>
@@ -34,19 +109,30 @@ export default function Login() {
             <h1>Welcome to Holidaze!</h1>
           </div>
 
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="formContent flexCol">
               <div className="flexCol">
                 <label htmlFor="email">Email</label>
-                <input type="email" name="email" required />
+                <input
+                  {...register("email", { required: true, type: "email" })}
+                />
+                <p className="errorMsg">{errors.email?.message}</p>
               </div>
 
               <div className="flexCol">
                 <label htmlFor="password">Password</label>
-                <input type="password" name="password" minLength="8" required />
+                <input
+                  type="password"
+                  {...register("password", {
+                    required: true,
+                    type: "password",
+                  })}
+                />
+                <p className="errorMsg">{errors.password?.message}</p>
               </div>
             </div>
-            <MainButton>Log in</MainButton>
+            <MainButton type="submit">{btnText}</MainButton>
+            {data && <LoginAPI data={data} />}
           </form>
 
           <div className="loginContent flexLine">

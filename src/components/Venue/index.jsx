@@ -12,9 +12,23 @@ import {
 import { VenueContainer } from "./VenueContainer";
 import { BoldText, SmallText } from "../../styles/Text";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+import UseAPI from "../../hooks/useApi";
+import apiEndpoints from "../../../endpoints.js/endpoints";
 
 export default function Venue() {
   const [showPopup, setShowPopup] = useState(false);
+
+  const { id } = useParams();
+  const { content, isLoading, isError } = UseAPI(apiEndpoints(id).singleVenue);
+
+  const created = new Date(content.created).toLocaleString();
+  const updated = new Date(content.updated).toLocaleString();
+
+  console.log(content.media?.length);
+
+  if (isLoading) return <VenueContainer>Loading...</VenueContainer>;
+  if (isError) return <VenueContainer>Error!</VenueContainer>;
 
   return (
     <VenueContainer>
@@ -28,29 +42,26 @@ export default function Venue() {
 
       <main>
         <section className="info">
-          <img src="../../../public/daniel-olah-f0P7y3swnZU-unsplash.jpg" />
-          <h1>Title of venue</h1>
+          {content.media?.length === 0 ? (
+            <img src="/src/assets/placeholders/image-placeholder-350x350-1.png" />
+          ) : (
+            <img src={content.media} />
+          )}
+          <h1>{content.name}</h1>
           <div className="infoTop">
             <div className="flexLine">
               <FontAwesomeIcon icon={faLocationDot} />
-              <p>Oslo, Norway</p>
+              <p>
+                {content.location?.city}, {content.location?.country}
+              </p>
             </div>
             <div className="flexLine">
               <FontAwesomeIcon icon={faStar} />
               <p>4.5/5</p>
             </div>
-            <p>Price goes here somewhere</p>
+            <p>${content.price}</p>
           </div>
-          <p>
-            Retreat to the deck of this sustainable getaway and gaze at the
-            twinkling constellations under a cosy tartan blanket. AirShip 2 is
-            an iconic, insulated aluminum pod designed by Roderick James with
-            views of the Sound of Mull from dragonfly windows. Airship002 is
-            comfortable, quirky and cool. It does not pretend to be a five star
-            hotel. The reviews tell the story. If booked for the dates you want
-            check out our new listing The Pilot House, Drimnin which is on the
-            same 4 acra site.
-          </p>
+          <p>{content.description}</p>
           <hr />
         </section>
 
@@ -58,20 +69,38 @@ export default function Venue() {
           <h2>This place offers</h2>
           <div className="icons">
             <FontAwesomeIcon icon={faPeopleRoof} />
-            <p>5 guests</p>
-            <FontAwesomeIcon icon={faWifi} />
-            <p>Wifi</p>
-            <FontAwesomeIcon icon={faCutlery} />
-            <p>Breakfast</p>
-            <FontAwesomeIcon icon={faParking} />
-            <p>Parking</p>
-            <FontAwesomeIcon icon={faDog} />
-            <p>Pet friendly</p>
+            <p>{content.maxGuests} guests</p>
+            {content.meta?.wifi === true && (
+              <>
+                <FontAwesomeIcon icon={faWifi} />
+                <p>Wifi</p>
+              </>
+            )}
+
+            {content.meta?.breakfast === true && (
+              <>
+                <FontAwesomeIcon icon={faCutlery} />
+                <p>Breakfast</p>
+              </>
+            )}
+            {content.meta?.parking === true && (
+              <>
+                <FontAwesomeIcon icon={faParking} />
+                <p>Parking</p>
+              </>
+            )}
+            {content.meta?.pets === true && (
+              <>
+                <FontAwesomeIcon icon={faDog} />
+                <p>Pet firendly</p>
+              </>
+            )}
           </div>
           <hr />
         </section>
 
-        <section className="host">
+        {/* PUT IN HOST WHEN LOGGED IN */}
+        {/* <section className="host">
           <h2>Your host is</h2>
           <div className="hostInfo">
             <img />
@@ -88,14 +117,14 @@ export default function Venue() {
             </div>
           </div>
           <hr />
-        </section>
+        </section> */}
 
         <div className="updates">
           <div className="flexLine">
-            <p>Created: 12. august 2023</p>
+            <p>Created: {created}</p>
           </div>
           <div className="flexLine">
-            <p>Last updated: 31. august 2023</p>
+            <p>Last updated: {updated}</p>
           </div>
         </div>
       </main>
