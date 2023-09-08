@@ -9,32 +9,31 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { Popup } from "../../styles/Popup";
+import { Overlay, Popup } from "../../styles/Popup";
+import { useAuth } from "../../context/Context";
+
+function UpdateAvatar() {}
 
 export default function Profile() {
   const [showPopup, setShowPopup] = useState(false);
+  const authState = useAuth();
+  // const { avatar, email, manager, name } = authState[0];
 
   return (
     <>
+      <Overlay className={showPopup ? "overlay active" : "overlay inactive"} />
       <Popup className={showPopup ? "popup active" : "popup inactive"}>
-        <div className="content">
-          <div className="changeImg">
-            <FontAwesomeIcon
-              icon={faXmark}
-              className="close"
-              onClick={() => setShowPopup(false)}
-            />
-            <div className="formContent">
-              <h2>Update profile picture</h2>
-              <form action="">
-                <div className="">
-                  <input type="text" name="update" placeholder="Must be URL" />
-                  <FontAwesomeIcon icon={faPlusCircle} className="addInput" />
-                </div>
-                <MainButton>Update</MainButton>
-              </form>
-            </div>
-          </div>
+        <FontAwesomeIcon
+          icon={faXmark}
+          className="close"
+          onClick={() => setShowPopup(false)}
+        />
+        <div className="formContainer">
+          <h2>Update profile picture</h2>
+          <form>
+            <input type="text" name="update" placeholder="Must be URL" />
+            <MainButton>Update</MainButton>
+          </form>
         </div>
       </Popup>
 
@@ -53,21 +52,23 @@ export default function Profile() {
               className="profileImgContainer"
               onClick={() => setShowPopup(!showPopup)}
             >
-              <img
-                className="profileImg"
-                src="../../../src/assets/placeholders/michael-dam-mEZ3PoFGs_k-unsplash.jpg"
-                alt="Name Namesen"
-              />
+              {/* {avatar ? (
+                <img className="profileImg" src={avatar} alt={name} />
+              ) : (
+                <img src="" />
+              )} */}
               <FontAwesomeIcon icon={faCamera} />
             </div>
 
             <div className="profileInfo">
-              <p>Name NameSen</p>
-              <p>email@emsil.com</p>
-              <div className="flexLine">
-                <FontAwesomeIcon icon={faCircleCheck} />
-                <BoldText>Venue manager</BoldText>
-              </div>
+              {/* <BoldText>{name}</BoldText> */}
+              {/* <p>{email}</p> */}
+              {/* {manager && (
+                <div className="flexLine">
+                  <FontAwesomeIcon icon={faCircleCheck} />
+                  <BoldText>Venue manager</BoldText>
+                </div>
+              )} */}
               <MainButton isSmall={true} isWhite={true}>
                 Log out
               </MainButton>
