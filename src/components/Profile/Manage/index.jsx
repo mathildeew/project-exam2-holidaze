@@ -15,12 +15,22 @@ export default function Manage() {
   const [showReservations, setShowReservations] = useState(false);
   const [newVenue, setNewVenue] = useState(false);
   const [data, setData] = useState(null);
+  const [addWifi, setAddWifi] = useState(false);
+  const [addBreakfast, setAddBreakfast] = useState(false);
+  const [addParking, setAddParking] = useState(false);
+  const [addPets, setAddPets] = useState(false);
 
   const schema = yup.object({
     name: yup.string().required(),
     description: yup.string().required(),
     maxGuests: yup.number().required(),
     price: yup.number().required(),
+    meta: yup.object({
+      wifi: yup.boolean(),
+      breakfast: yup.boolean(),
+      parking: yup.boolean(),
+      pets: yup.boolean(),
+    }),
   });
 
   const {
@@ -37,41 +47,78 @@ export default function Manage() {
     <>
       <Overlay className={newVenue ? "overlay active" : "overlay inactive"} />
       <Popup className={newVenue ? "popup active" : "popup inactive"}>
-        <FontAwesomeIcon
-          icon={faXmark}
-          className="close"
-          onClick={() => setNewVenue(false)}
-        />
-        <div className="formContainer">
-          <h2>Register new venue</h2>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <input
-              type="text"
-              name="name"
-              placeholder="Name of venue"
-              {...register("name", { required: true, type: "text" })}
-            />
-            <input
-              type="text"
-              name="description"
-              placeholder="Description"
-              {...register("description", { required: true, type: "text" })}
-            />
-            <input
-              type="number"
-              name="maxGuest"
-              placeholder="Max guests"
-              {...register("maxGuests", { required: true, type: "text" })}
-            />
-            <input
-              type="number"
-              name="price"
-              placeholder="Price per night"
-              {...register("price", { required: true, type: "number" })}
-            />
-            <MainButton type="submit">Make new venue</MainButton>
-            {data && <NewVenueAPI data={data} />}
-          </form>
+        <div className="newVenueContainer">
+          <FontAwesomeIcon
+            icon={faXmark}
+            className="close"
+            onClick={() => setNewVenue(false)}
+          />
+          <div className="formContainer">
+            <h2>Register new venue</h2>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <h3>Information</h3>
+              <input
+                type="text"
+                name="name"
+                placeholder="Name of venue"
+                {...register("name", { required: true, type: "text" })}
+              />
+              <input
+                type="text"
+                name="description"
+                placeholder="Description"
+                {...register("description", { required: true, type: "text" })}
+              />
+              <input
+                type="number"
+                name="maxGuest"
+                placeholder="Max guests"
+                {...register("maxGuests", { required: true, type: "text" })}
+              />
+              <input
+                type="number"
+                name="price"
+                placeholder="Price per night"
+                {...register("price", { required: true, type: "number" })}
+              />
+
+              <h3>Fascilities</h3>
+              <label htmlFor="wifi">Wifi</label>
+              <input
+                type="checkbox"
+                name="wifi"
+                onClick={() => !addWifi}
+                {...register("meta.wifi")}
+              />
+
+              <label htmlFor="breakfast">Breakfast</label>
+              <input
+                type="checkbox"
+                name="breakfast"
+                onClick={() => !addBreakfast}
+                {...register("meta.breakfast")}
+              />
+
+              <label htmlFor="parking">Parking</label>
+              <input
+                type="checkbox"
+                name="Parking"
+                onClick={() => !addParking}
+                {...register("meta.parking")}
+              />
+
+              <label htmlFor="pets">Pets</label>
+              <input
+                type="checkbox"
+                name="pets"
+                onClick={() => !addPets}
+                {...register("meta.pets")}
+              />
+
+              <MainButton type="submit">Make new venue</MainButton>
+              {data && <NewVenueAPI data={data} />}
+            </form>
+          </div>
         </div>
       </Popup>
       <ManagerContainer className="maxWidth">
