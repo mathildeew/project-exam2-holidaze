@@ -4,21 +4,16 @@ import { useReducer } from "react";
 import { useContext } from "react";
 import { reducer } from "./reducer";
 
-const AuthContext = createContext();
-const LoggedinContext = createContext();
+const LoggedInContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [authState, setAuthState] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <AuthContext.Provider value={[authState, setAuthState]}>
-      <LoggedinContext.Provider value={[isLoggedIn, setIsLoggedIn]}>
-        {children}
-      </LoggedinContext.Provider>
-    </AuthContext.Provider>
+    <LoggedInContext.Provider value={[isLoggedIn, setIsLoggedIn]}>
+      {children}
+    </LoggedInContext.Provider>
   );
 }
 
-export const useAuth = () => useContext(AuthContext);
-export const useLoggedIn = () => useContext(LoggedinContext);
+export const useLoggedIn = () => useContext(LoggedInContext);

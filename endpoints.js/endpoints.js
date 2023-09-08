@@ -5,6 +5,7 @@ export default function apiEndpoints(id, name) {
     login: `${holidaze}/auth/login`,
     venues: `${holidaze}/venues`,
     singleVenue: `${holidaze}/venues/${id}`,
+    profile: `${holidaze}/profiles/${name}`,
     updateAvatar: `${holidaze}/profiles/${name}/media`,
   };
   return endpoints;

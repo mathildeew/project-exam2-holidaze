@@ -1,15 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import apiEndpoints from "../../../../endpoints.js/endpoints";
-import UseAPI from "../../../hooks/useApi";
-import { MainButton } from "../../../styles/Buttons";
-import { FormContainer } from "../FormContainer.style";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect } from "react";
-import { useContext } from "react";
-import { useAuth, useLoggedIn } from "../../../context/Context";
+import { Link } from "react-router-dom";
+import { MainButton } from "../../../styles/Buttons";
+import { FormContainer } from "../FormContainer.style";
+import LoginAPI from "./LogInAPI";
 
 const schema = yup.object({
   email: yup
@@ -22,65 +18,6 @@ const schema = yup.object({
     .min(8, "* Must be at least 8 characters")
     .required("Please enter your password"),
 });
-
-function fetchOptions(methodOp, data) {
-  const options = {
-    method: methodOp,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  };
-}
-
-function LoginAPI({ data }) {
-  const navigate = useNavigate();
-  const [authState, setAuthState] = useAuth();
-  const [isLoggedIn, setIsLoggedIn] = useLoggedIn();
-
-  const {
-    content: response,
-    isLoading,
-    isError,
-    isSuccess,
-  } = UseAPI(apiEndpoints().login, {
-    method: "POST",
-    headers: { "Content-Type": "application/json," },
-    body: JSON.stringify(data),
-  });
-
-  console.log(response);
-  useEffect(
-    () => {
-      if (isSuccess) {
-        setAuthState((authState) => ({
-          ...authState,
-          token: response.accessToken,
-          name: response.name,
-          email: response.email,
-          manager: response.venueManager,
-          avatar: response.avatar,
-        }));
-        setIsLoggedIn(true);
-
-        console.log(authState);
-        // console.log(isLoggedIn);
-
-        setTimeout(() => {
-          // navigate("/");
-        }, 500);
-      }
-
-      if (isError) {
-        console.log("ERROROROR");
-      }
-    },
-    [isSuccess],
-    [isError],
-    [authState],
-    [isLoggedIn]
-  );
-}
 
 export default function Login() {
   const [data, setData] = useState(null);
