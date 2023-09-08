@@ -7,7 +7,7 @@ import { reducer } from "./reducer";
 const LoggedInContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <LoggedInContext.Provider value={[isLoggedIn, setIsLoggedIn]}>

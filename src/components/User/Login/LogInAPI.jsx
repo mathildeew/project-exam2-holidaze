@@ -4,6 +4,7 @@ import { useLoggedIn } from "../../../context/Context";
 import UseAPI from "../../../hooks/useApi";
 import apiEndpoints from "../../../../endpoints.js/endpoints";
 import { useState } from "react";
+import { set } from "../../../js/storage/localStorage";
 
 function fetchOptions(methodOp, data) {
   const options = {
@@ -31,21 +32,16 @@ export default function LoginAPI({ data }) {
     body: JSON.stringify(data),
   });
 
-  //   console.log(response);
+  console.log(response);
+
   useEffect(
     () => {
       if (isSuccess) {
-        setIsLoggedIn((isLoggedIn) => ({
-          ...isLoggedIn,
-          token: response.accessToken,
-          name: response.name,
-          email: response.email,
-          manager: response.venueManager,
-          avatar: response.avatar,
-        }));
+        set("profile", JSON.stringify(response));
+        setIsLoggedIn(true);
 
         setTimeout(() => {
-          navigate("/");
+          //   navigate("/");
         }, 500);
       }
 
@@ -54,8 +50,7 @@ export default function LoginAPI({ data }) {
       }
     },
     [isSuccess],
-    [isError],
-    [isLoggedIn]
+    [isError]
   );
 
   return (
