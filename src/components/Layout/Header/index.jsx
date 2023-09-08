@@ -6,10 +6,9 @@ import {
   faBriefcase,
   faArrowRightToBracket,
 } from "@fortawesome/free-solid-svg-icons";
-import { useAuth, useLoggedIn } from "../../../context/Context";
+import { useLoggedIn } from "../../../context/Context";
 
 export default function Header() {
-  const [authState, setAuthState] = useAuth();
   const [isLoggedIn, setIsLoggedIn] = useLoggedIn();
 
   return (
@@ -84,32 +83,26 @@ export default function Header() {
 
         {/* MAKE OWN NAV COMPONENTS FOR EACH STATE!!! */}
         <nav>
-          {isLoggedIn === true && (
-            <>
-              {authState.manager === true && (
-                <Link to="/profile/manage/">
-                  <span>Manager</span>
-                  <FontAwesomeIcon icon={faBriefcase} />
-                </Link>
-              )}
-              <Link to="/profile/">
-                <span>Profile</span>
-                <FontAwesomeIcon icon={faUser} />
-              </Link>
-            </>
-          )}
-          {isLoggedIn === false && (
-            <>
-              <Link to="/user/login">
-                <span>Log in</span>
-                <FontAwesomeIcon icon={faArrowRightToBracket} />
-              </Link>
-              <Link to="/user/login">
-                <span>Register</span>
-                <FontAwesomeIcon icon={faArrowRightToBracket} />
-              </Link>
-            </>
-          )}
+          <>
+            <Link to="/profile/manage/">
+              <span>Manager</span>
+              <FontAwesomeIcon icon={faBriefcase} />
+            </Link>
+            <Link to="/profile/">
+              <span>Profile</span>
+              <FontAwesomeIcon icon={faUser} />
+            </Link>
+          </>
+          <>
+            <Link to="/user/login">
+              <span>Log in</span>
+              <FontAwesomeIcon icon={faArrowRightToBracket} />
+            </Link>
+            <Link to="/user/login">
+              <span>Register</span>
+              <FontAwesomeIcon icon={faArrowRightToBracket} />
+            </Link>
+          </>
         </nav>
       </div>
     </HeaderContainer>
