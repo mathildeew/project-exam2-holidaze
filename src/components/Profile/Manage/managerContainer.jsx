@@ -23,39 +23,6 @@ export const ManagerContainer = styled.div`
     position: relative;
   }
 
-  .venues {
-    width: 100%;
-    position: relative;
-    opacity: 1;
-    transition: all 0.4s ease-in-out;
-
-    &.active {
-      left: 0px;
-    }
-
-    &.inactive {
-      opacity: 0;
-      left: -100vw;
-    }
-  }
-
-  .venue {
-    width: 100%;
-    ${displayFlex({
-      direction: "row",
-    })}
-    img {
-      height: 80px;
-      width: 100%;
-      margin-right: 20px;
-      border: 1px solid orange;
-    }
-
-    p {
-      margin-bottom: 10px;
-    }
-  }
-
   .reservations {
     position: absolute;
     transition: all 0.4s ease-in-out;

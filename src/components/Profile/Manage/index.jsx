@@ -9,6 +9,8 @@ import { ManagerContainer } from "./managerContainer";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import NewVenueAPI from "./NewVenueAPI";
+import { VenuesContainer } from "./Venues.style";
+import Venues from "./Venues";
 
 export default function Manage() {
   const [showVenues, setShowVenues] = useState(true);
@@ -154,31 +156,9 @@ export default function Manage() {
         </div>
 
         <div className="carousel">
-          <section className={showVenues ? "venues active" : "venues inactive"}>
-            <div className="venue">
-              <img />
-              <div>
-                <h2>Name of venue</h2>
-                <div className="flexLine">
-                  <BoldText>Location:</BoldText>
-                  <p>Oslo</p>
-                </div>
-                <div className="flexLine">
-                  <BoldText>Price:</BoldText>
-                  <p>$123</p>
-                </div>
+          {showVenues ? <Venues /> : <p>no</p>}
 
-                <div className="flexLine">
-                  <BoldText>Max guests:</BoldText>
-                  <p>5</p>
-                </div>
-                <MainButton isSmall={true}>Edit venue</MainButton>
-              </div>
-            </div>
-            <hr />
-          </section>
-
-          <section
+          {/* <section
             className={
               showReservations ? "reservations active" : "reservations inactive"
             }
@@ -201,7 +181,7 @@ export default function Manage() {
               <BoldText>Total income: $1234</BoldText>
               <hr />
             </div>
-          </section>
+          </section> */}
         </div>
       </ManagerContainer>
     </>
