@@ -20,8 +20,6 @@ export default function UpdateAvatarAPI({ data }) {
     body: JSON.stringify(data),
   });
 
-  console.log(response);
-
   useEffect(() => {
     if (isSuccess) {
       setIsLoggedIn((isLoggedIn) => ({
