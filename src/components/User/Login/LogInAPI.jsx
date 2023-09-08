@@ -3,10 +3,22 @@ import { useNavigate } from "react-router-dom";
 import { useLoggedIn } from "../../../context/Context";
 import UseAPI from "../../../hooks/useApi";
 import apiEndpoints from "../../../../endpoints.js/endpoints";
+import { useState } from "react";
+
+function fetchOptions(methodOp, data) {
+  const options = {
+    method: methodOp,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  };
+}
 
 export default function LoginAPI({ data }) {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useLoggedIn();
+  const [errorMessage, setErrorMessage] = useState();
 
   const {
     content: response,
@@ -19,7 +31,7 @@ export default function LoginAPI({ data }) {
     body: JSON.stringify(data),
   });
 
-  console.log(response);
+  //   console.log(response);
   useEffect(
     () => {
       if (isSuccess) {
@@ -32,15 +44,13 @@ export default function LoginAPI({ data }) {
           avatar: response.avatar,
         }));
 
-        console.log(isLoggedIn);
-
         setTimeout(() => {
-          // navigate("/");
+          navigate("/");
         }, 500);
       }
 
       if (isError) {
-        console.log("ERROROROR");
+        setErrorMessage(response.errors[0].message);
       }
     },
     [isSuccess],
@@ -50,7 +60,7 @@ export default function LoginAPI({ data }) {
 
   return (
     <div>
-      <p>Something went wrong</p>
+      <p>{errorMessage}</p>
     </div>
   );
 }
