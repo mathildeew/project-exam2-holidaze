@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { Overlay, Popup } from "../../styles/Popup";
-import { useAuth } from "../../context/Context";
+import { useLoggedIn } from "../../context/Context";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -14,8 +14,8 @@ import apiEndpoints from "../../../endpoints.js/endpoints";
 import { useEffect } from "react";
 
 function UpdateAvatarAPI({ data }) {
-  const authState = useAuth();
-  const { avatar, email, manager, name, token } = authState[0];
+  const isLoggedIn = useIsLoggedIn();
+  const { avatar, email, manager, name, token } = isLoggedIn[0];
 
   const {
     content: response,
@@ -44,8 +44,8 @@ const schema = yup.object({
 export default function Profile() {
   const [showPopup, setShowPopup] = useState(false);
   const [data, setData] = useState(null);
-  const [authState, setAuthState] = useAuth();
-  const { avatar, email, manager, name, token } = authState;
+  const [authState, setAuthState] = useLoggedIn();
+  const { avatar, email, manager, name, token } = LoggedIn;
   console.log(avatar);
 
   const {
@@ -124,7 +124,7 @@ export default function Profile() {
               <MainButton
                 isSmall={true}
                 isWhite={true}
-                onClick={() => setAuthState(null)}
+                onClick={() => setLoggedIn(null)}
               >
                 Log out
               </MainButton>
