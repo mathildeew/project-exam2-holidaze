@@ -32,12 +32,17 @@ export default function LoginAPI({ data }) {
     body: JSON.stringify(data),
   });
 
-  console.log(response);
+  //   console.log(response);
 
   useEffect(
     () => {
       if (isSuccess) {
-        set("profile", JSON.stringify(response));
+        set("token", JSON.stringify(response.accessToken));
+        set("avatar", JSON.stringify(response.avatar));
+        set("name", JSON.stringify(response.name));
+        set("manager", JSON.stringify(response.venueManager));
+        set("email", JSON.stringify(response.email));
+
         setIsLoggedIn(true);
 
         setTimeout(() => {

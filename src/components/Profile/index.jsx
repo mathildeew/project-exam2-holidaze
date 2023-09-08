@@ -19,21 +19,37 @@ import { useNavigate } from "react-router-dom";
 import UpdateAvatarAPI from "./UpdateAvatarAPI";
 import RegisterManagerAPI from "./RegisterManagerAPI";
 import Bookings from "./Bookings";
+import * as storage from "../../js/storage/localStorage";
 
 const schema = yup.object({
   avatar: yup.string().url("Must be a valid URL").required(),
 });
 
 export default function Profile() {
+  const name = storage.get("name");
+  const token = storage.get("accessToken");
+  const email = storage.get("email");
+  const manager = storage.get("venueManager");
+  const avatar = storage.get("avatar");
+
   const navigate = useNavigate();
   const [showUpdate, setShowUpdate] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
-  const [venueManager, setVenueManager] = useState(false);
+  const [showVenueManager, setVenueManager] = useState(false);
   const [btnText, setBtnText] = useState("Update");
 
   const [data, setData] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useLoggedIn();
-  const { avatar, email, manager, name, token } = isLoggedIn;
+  // const { avatar, email, manager, name, accToken } = UseAPI(
+  //   `https://api.noroff.dev/api/v1/holidaze/profiles/onkel`,
+  //   {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${acc}`,
+  //     },
+  //   }
+  // );
 
   const {
     register,
@@ -77,7 +93,7 @@ export default function Profile() {
               placeholder="Must be URL"
               {...register("avatar", { required: true, type: "url" })}
             />
-            <MainButton type="submit">Update</MainButton>
+            <MainButton type="submit">{btnText}</MainButton>
             {data && <UpdateAvatarAPI data={data} />}
           </form>
         </div>
