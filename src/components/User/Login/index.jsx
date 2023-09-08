@@ -8,6 +8,8 @@ import { FormContainer } from "../FormContainer.style";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
+import { useContext } from "react";
+import { useAuth } from "../../../context/Context";
 
 const schema = yup.object({
   email: yup
@@ -37,6 +39,7 @@ function fetchOptions(methodOp, data) {
 
 function LoginAPI({ data }) {
   const navigate = useNavigate();
+  const [authState, setAuthState] = useAuth();
 
   const {
     content: response,
@@ -49,18 +52,33 @@ function LoginAPI({ data }) {
     body: JSON.stringify(data),
   });
 
-  useEffect(() => {
-    if (isError) {
-      console.log("ERROROROR");
-    }
-    if (isSuccess) {
-      set("token", response.accessToken);
-      console.log("success");
-      setTimeout(() => {
-        // navigate("/");
-      }, 500);
-    }
-  }, [isError][isSuccess]);
+  console.log(authState);
+  useEffect(
+    () => {
+      if (isSuccess) {
+        setAuthState((authState) => ({
+          ...authState,
+          token: response.accessToken,
+          name: response.name,
+          email: response.email,
+          manager: response.venueManager,
+        }));
+
+        console.log(authState);
+
+        setTimeout(() => {
+          navigate("/");
+        }, 500);
+      }
+
+      if (isError) {
+        console.log("ERROROROR");
+      }
+    },
+    [isSuccess],
+    [isError],
+    [authState]
+  );
 }
 
 export default function Login() {
