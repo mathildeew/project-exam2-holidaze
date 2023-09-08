@@ -2,22 +2,57 @@ import { MainButton } from "../../styles/Buttons";
 import { ProfileContainer } from "./Profile.styles";
 import { BoldText } from "../../styles/Text";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleCheck,
-  faCamera,
-  faPlusCircle,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCamera, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { Overlay, Popup } from "../../styles/Popup";
 import { useAuth } from "../../context/Context";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import UseAPI from "../../hooks/useApi";
+import apiEndpoints from "../../../endpoints.js/endpoints";
 
-function UpdateAvatar() {}
+function UpdateAvatarAPI({ data }) {
+  const authState = useAuth();
+  const { avatar, email, manager, name, token } = authState[0];
+
+  const {
+    content: response,
+    isLoading,
+    isError,
+    isSuccess,
+  } = UseAPI("https://api.noroff.dev/api/v1/holidaze/profiles/onkel/media", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+
+  console.log(authState[0].name);
+  console.log(response);
+}
+
+const schema = yup.object({
+  avatar: yup.string().url("Must be a valid URL").required(),
+});
 
 export default function Profile() {
   const [showPopup, setShowPopup] = useState(false);
-  const authState = useAuth();
-  // const { avatar, email, manager, name } = authState[0];
+  const [data, setData] = useState(null);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
+
+  const onSubmit = async (data) => {
+    setData(data);
+    console.log("submit");
+    // setBtnText("Logging in");
+  };
 
   return (
     <>
@@ -30,9 +65,15 @@ export default function Profile() {
         />
         <div className="formContainer">
           <h2>Update profile picture</h2>
-          <form>
-            <input type="text" name="update" placeholder="Must be URL" />
-            <MainButton>Update</MainButton>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <input
+              type="url"
+              name="update"
+              placeholder="Must be URL"
+              {...register("avatar", { required: true, type: "url" })}
+            />
+            <MainButton type="submit">Update</MainButton>
+            {data && <UpdateAvatarAPI data={data} />}
           </form>
         </div>
       </Popup>
