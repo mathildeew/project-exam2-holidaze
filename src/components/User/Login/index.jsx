@@ -9,7 +9,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
 import { useContext } from "react";
-import { useAuth } from "../../../context/Context";
+import { useAuth, useLoggedIn } from "../../../context/Context";
 
 const schema = yup.object({
   email: yup
@@ -22,10 +22,6 @@ const schema = yup.object({
     .min(8, "* Must be at least 8 characters")
     .required("Please enter your password"),
 });
-
-function set(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
-}
 
 function fetchOptions(methodOp, data) {
   const options = {
@@ -40,6 +36,7 @@ function fetchOptions(methodOp, data) {
 function LoginAPI({ data }) {
   const navigate = useNavigate();
   const [authState, setAuthState] = useAuth();
+  const [isLoggedIn, setIsLoggedIn] = useLoggedIn();
 
   const {
     content: response,
@@ -63,8 +60,10 @@ function LoginAPI({ data }) {
           email: response.email,
           manager: response.venueManager,
         }));
+        setIsLoggedIn(true);
 
         console.log(authState);
+        console.log(isLoggedIn);
 
         setTimeout(() => {
           navigate("/");
@@ -77,7 +76,8 @@ function LoginAPI({ data }) {
     },
     [isSuccess],
     [isError],
-    [authState]
+    [authState],
+    [isLoggedIn]
   );
 }
 

@@ -6,10 +6,11 @@ import {
   faBriefcase,
   faArrowRightToBracket,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useAuth, useLoggedIn } from "../../../context/Context";
 
 export default function Header() {
-  const token = localStorage.getItem("token");
+  const [authState, setAuthState] = useAuth();
+  const [isLoggedIn, setIsLoggedIn] = useLoggedIn();
 
   return (
     <HeaderContainer>
@@ -80,23 +81,34 @@ export default function Header() {
             />
           </svg>
         </Link>
+
+        {/* MAKE OWN NAV COMPONENTS FOR EACH STATE!!! */}
         <nav>
-          {token ? (
+          {isLoggedIn === true && (
             <>
-              <Link to="/profile/manage/">
-                <span>Manager</span>
-                <FontAwesomeIcon icon={faBriefcase} />
-              </Link>
+              {authState.manager === true && (
+                <Link to="/profile/manage/">
+                  <span>Manager</span>
+                  <FontAwesomeIcon icon={faBriefcase} />
+                </Link>
+              )}
               <Link to="/profile/">
                 <span>Profile</span>
                 <FontAwesomeIcon icon={faUser} />
               </Link>
             </>
-          ) : (
-            <Link to="/user/login">
-              <span>Log in</span>
-              <FontAwesomeIcon icon={faArrowRightToBracket} />
-            </Link>
+          )}
+          {isLoggedIn === false && (
+            <>
+              <Link to="/user/login">
+                <span>Log in</span>
+                <FontAwesomeIcon icon={faArrowRightToBracket} />
+              </Link>
+              <Link to="/user/login">
+                <span>Register</span>
+                <FontAwesomeIcon icon={faArrowRightToBracket} />
+              </Link>
+            </>
           )}
         </nav>
       </div>
