@@ -7,16 +7,6 @@ export const VenuesContainer = styled.section`
   opacity: 1;
   transition: all 0.4s ease-in-out;
 
-  .venuesContainer {
-    &.active {
-      left: 0px;
-    }
-
-    &.inactive {
-      opacity: 0;
-      left: -100vw;
-    }
-  }
   .venue {
     width: 100%;
     ${displayFlex({

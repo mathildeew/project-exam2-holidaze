@@ -11,8 +11,27 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import NewVenueAPI from "./NewVenueAPI";
 import { VenuesContainer } from "./Venues.style";
 import Venues from "./Venues";
-
+import Reservations from "./Reservations";
+import { get } from "../../../js/storage/localStorage";
+import UseAPI from "../../../hooks/useApi";
 export default function Manage() {
+  const name = get("name");
+  const token = get("token");
+  //
+  const {
+    content: venues,
+    isLoading,
+    isError,
+  } = UseAPI(
+    `https://api.noroff.dev/api/v1/holidaze/profiles/${name}/venues?_bookings=true`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
   const [showVenues, setShowVenues] = useState(true);
   const [showReservations, setShowReservations] = useState(false);
   const [newVenue, setNewVenue] = useState(false);
@@ -156,32 +175,8 @@ export default function Manage() {
         </div>
 
         <div className="carousel">
-          {showVenues ? <Venues /> : <p>no</p>}
-
-          {/* <section
-            className={
-              showReservations ? "reservations active" : "reservations inactive"
-            }
-          >
-            <div className="reservation">
-              <h2>Name of venue</h2>
-              <div className="flexLine">
-                <BoldText>Check-in:</BoldText>
-                <p>21. aug 2023</p>
-              </div>
-              <div className="flexLine">
-                <BoldText>Check-out:</BoldText>
-                <p>31. aug 2023</p>
-              </div>
-
-              <div className="flexLine">
-                <BoldText>Guests:</BoldText>
-                <p>5</p>
-              </div>
-              <BoldText>Total income: $1234</BoldText>
-              <hr />
-            </div>
-          </section> */}
+          {showVenues && <Venues data={venues} />}
+          {showReservations && <Reservations data={venues} />}
         </div>
       </ManagerContainer>
     </>

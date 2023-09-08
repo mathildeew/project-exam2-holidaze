@@ -22,22 +22,4 @@ export const ManagerContainer = styled.div`
     overflow: hidden;
     position: relative;
   }
-
-  .reservations {
-    position: absolute;
-    transition: all 0.4s ease-in-out;
-
-    &.inactive {
-      right: -100vw;
-    }
-
-    &.active {
-      right: 0;
-    }
-
-    width: 100%;
-    p {
-      margin-bottom: 10px;
-    }
-  }
 `;

@@ -6,22 +6,8 @@ import { VenuesContainer } from "./Venues.style";
 
 import * as storage from "../../../js/storage/localStorage";
 
-export default function Venues() {
-  const token = storage.get("token");
-  const name = storage.get("name");
-
-  const {
-    content: venues,
-    isLoading,
-    isError,
-  } = UseAPI(`https://api.noroff.dev/api/v1/holidaze/profiles/${name}/venues`, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  console.log(venues);
+export default function Venues(data) {
+  const { data: venues } = data;
 
   return (
     <VenuesContainer>
