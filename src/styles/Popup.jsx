@@ -1,25 +1,42 @@
 import styled from "styled-components";
 import { displayFlex } from "./mixins";
 
-export const Popup = styled.section`
+export const Overlay = styled.div`
   background-color: rgba(89, 89, 89, 0.4);
-  width: 100%;
-  height: 100vh;
-  z-index: 2;
   position: absolute;
-  top: 0;
-  border: 2px solid red;
-
-  ${displayFlex({
-    align: "flex-end",
-  })}
+  height: 100%;
+  width: 100%;
+  z-index: 2;
 
   &.inactive {
     display: none;
+    height: 0px;
+    opacity: 0;
+  }
+  &.active {
+    display: block;
+    height: 100vh;
+    width: 100%;
+    opacity: 1;
+  }
+`;
+
+export const Popup = styled.section`
+  background: white;
+  width: 100%;
+  z-index: 3;
+  position: absolute;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+
+  &.inactive {
+    display: none;
+    height: 0px;
   }
 
   &.active {
-    display: contents;
+    height: 400px;
+    bottom: 0;
   }
 
   .close {
@@ -30,35 +47,22 @@ export const Popup = styled.section`
     margin-bottom: 20px;
   }
 
-  .content {
-    background-color: white;
-    width: 100%;
-    ${displayFlex({
-      direction: "column",
-      align: "center",
-      justify: "center",
-    })}
+  .formContainer {
+    padding: 100px 20px 0px;
   }
 
-  .changeImg {
-    width: 100%;
-    max-width: 385px;
-    height: 250px;
-    padding: 0 20px;
+  form {
+    ${displayFlex({
+      direction: "column",
+    })}
 
-    form {
-      border: 2px solid red;
-      width: 100%;
-      height: 100px;
-      ${displayFlex({
-        direction: "column",
-        justify: "space-between",
-      })}
+    svg {
+      color: var(--primary);
+      font-size: 2.5rem;
     }
 
-    .addInput {
-      color: var(--primary);
-      font-size: 2rem;
+    input {
+      margin-bottom: 50px;
     }
   }
 `;

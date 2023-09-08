@@ -49,7 +49,7 @@ function LoginAPI({ data }) {
     body: JSON.stringify(data),
   });
 
-  console.log(authState);
+  console.log(response);
   useEffect(
     () => {
       if (isSuccess) {
@@ -59,14 +59,15 @@ function LoginAPI({ data }) {
           name: response.name,
           email: response.email,
           manager: response.venueManager,
+          avatar: response.avatar,
         }));
         setIsLoggedIn(true);
 
         console.log(authState);
-        console.log(isLoggedIn);
+        // console.log(isLoggedIn);
 
         setTimeout(() => {
-          navigate("/");
+          // navigate("/");
         }, 500);
       }
 

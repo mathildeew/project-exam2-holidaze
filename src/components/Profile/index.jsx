@@ -2,39 +2,85 @@ import { MainButton } from "../../styles/Buttons";
 import { ProfileContainer } from "./Profile.styles";
 import { BoldText } from "../../styles/Text";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleCheck,
-  faCamera,
-  faPlusCircle,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCamera, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { Popup } from "../../styles/Popup";
+import { Overlay, Popup } from "../../styles/Popup";
+import { useAuth } from "../../context/Context";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import UseAPI from "../../hooks/useApi";
+import apiEndpoints from "../../../endpoints.js/endpoints";
+import { useEffect } from "react";
+
+function UpdateAvatarAPI({ data }) {
+  const authState = useAuth();
+  const { avatar, email, manager, name, token } = authState[0];
+
+  const {
+    content: response,
+    isLoading,
+    isError,
+    isSuccess,
+  } = UseAPI("https://api.noroff.dev/api/v1/holidaze/profiles/onkel/media", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+
+  useEffect(() => {
+    if (isSuccess) {
+    }
+  }, [isSuccess]);
+}
+
+const schema = yup.object({
+  avatar: yup.string().url("Must be a valid URL").required(),
+});
 
 export default function Profile() {
   const [showPopup, setShowPopup] = useState(false);
+  const [data, setData] = useState(null);
+  const [authState, setAuthState] = useAuth();
+  const { avatar, email, manager, name, token } = authState;
+  console.log(avatar);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
+
+  const onSubmit = async (data) => {
+    setData(data);
+    console.log("submit");
+    // setBtnText("Logging in");
+  };
 
   return (
     <>
+      <Overlay className={showPopup ? "overlay active" : "overlay inactive"} />
       <Popup className={showPopup ? "popup active" : "popup inactive"}>
-        <div className="content">
-          <div className="changeImg">
-            <FontAwesomeIcon
-              icon={faXmark}
-              className="close"
-              onClick={() => setShowPopup(false)}
+        <FontAwesomeIcon
+          icon={faXmark}
+          className="close"
+          onClick={() => setShowPopup(false)}
+        />
+        <div className="formContainer">
+          <h2>Update profile picture</h2>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <input
+              type="url"
+              name="update"
+              placeholder="Must be URL"
+              {...register("avatar", { required: true, type: "url" })}
             />
-            <div className="formContent">
-              <h2>Update profile picture</h2>
-              <form action="">
-                <div className="">
-                  <input type="text" name="update" placeholder="Must be URL" />
-                  <FontAwesomeIcon icon={faPlusCircle} className="addInput" />
-                </div>
-                <MainButton>Update</MainButton>
-              </form>
-            </div>
-          </div>
+            <MainButton type="submit">Update</MainButton>
+            {data && <UpdateAvatarAPI data={data} />}
+          </form>
         </div>
       </Popup>
 
@@ -46,6 +92,11 @@ export default function Profile() {
           </span>
         </section>
 
+        <section className="registerCard">
+          <span className="heading">Add new venue</span>
+          <span className="content">Add a new venue here!</span>
+        </section>
+
         <section id="profile">
           <h1>Profile</h1>
           <div className="profileContent displayRow">
@@ -53,22 +104,28 @@ export default function Profile() {
               className="profileImgContainer"
               onClick={() => setShowPopup(!showPopup)}
             >
-              <img
-                className="profileImg"
-                src="../../../src/assets/placeholders/michael-dam-mEZ3PoFGs_k-unsplash.jpg"
-                alt="Name Namesen"
-              />
+              {avatar ? (
+                <img className="profileImg" src={avatar} alt={name} />
+              ) : (
+                <img src="" />
+              )}
               <FontAwesomeIcon icon={faCamera} />
             </div>
 
             <div className="profileInfo">
-              <p>Name NameSen</p>
-              <p>email@emsil.com</p>
-              <div className="flexLine">
-                <FontAwesomeIcon icon={faCircleCheck} />
-                <BoldText>Venue manager</BoldText>
-              </div>
-              <MainButton isSmall={true} isWhite={true}>
+              <BoldText>{name}</BoldText>
+              <p>{email}</p>
+              {manager && (
+                <div className="flexLine">
+                  <FontAwesomeIcon icon={faCircleCheck} />
+                  <BoldText>Venue manager</BoldText>
+                </div>
+              )}
+              <MainButton
+                isSmall={true}
+                isWhite={true}
+                onClick={() => setAuthState(null)}
+              >
                 Log out
               </MainButton>
             </div>
