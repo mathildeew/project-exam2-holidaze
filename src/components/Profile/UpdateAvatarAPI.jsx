@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { useLoggedIn } from "../../context/Context";
 import UseAPI from "../../hooks/useApi";
+import * as storage from "../../js/storage/localStorage";
 
 export default function UpdateAvatarAPI({ data }) {
   const [isLoggedIn, setIsLoggedIn] = useLoggedIn();
-  const { avatar, email, manager, name, token } = isLoggedIn;
+  const name = storage.get("name");
+  const token = storage.get("token");
 
   const {
     content: response,
@@ -20,16 +22,11 @@ export default function UpdateAvatarAPI({ data }) {
     body: JSON.stringify(data),
   });
 
+  console.log(data);
+
   useEffect(() => {
     if (isSuccess) {
-      setIsLoggedIn((isLoggedIn) => ({
-        ...isLoggedIn,
-        token: response.accessToken,
-        name: response.name,
-        email: response.email,
-        manager: response.venueManager,
-        avatar: response.avatar,
-      }));
+      storage.set("avatar", JSON.stringify(data.avatar));
     }
   }, [isSuccess]);
 }
