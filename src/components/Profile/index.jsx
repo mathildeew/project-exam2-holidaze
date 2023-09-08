@@ -11,6 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import UseAPI from "../../hooks/useApi";
 import apiEndpoints from "../../../endpoints.js/endpoints";
+import { useEffect } from "react";
 
 function UpdateAvatarAPI({ data }) {
   const authState = useAuth();
@@ -30,8 +31,10 @@ function UpdateAvatarAPI({ data }) {
     body: JSON.stringify(data),
   });
 
-  console.log(authState[0].name);
-  console.log(response);
+  useEffect(() => {
+    if (isSuccess) {
+    }
+  }, [isSuccess]);
 }
 
 const schema = yup.object({
@@ -41,6 +44,9 @@ const schema = yup.object({
 export default function Profile() {
   const [showPopup, setShowPopup] = useState(false);
   const [data, setData] = useState(null);
+  const [authState, setAuthState] = useAuth();
+  const { avatar, email, manager, name, token } = authState;
+  console.log(avatar);
 
   const {
     register,
@@ -86,6 +92,11 @@ export default function Profile() {
           </span>
         </section>
 
+        <section className="registerCard">
+          <span className="heading">Add new venue</span>
+          <span className="content">Add a new venue here!</span>
+        </section>
+
         <section id="profile">
           <h1>Profile</h1>
           <div className="profileContent displayRow">
@@ -93,24 +104,28 @@ export default function Profile() {
               className="profileImgContainer"
               onClick={() => setShowPopup(!showPopup)}
             >
-              {/* {avatar ? (
+              {avatar ? (
                 <img className="profileImg" src={avatar} alt={name} />
               ) : (
                 <img src="" />
-              )} */}
+              )}
               <FontAwesomeIcon icon={faCamera} />
             </div>
 
             <div className="profileInfo">
-              {/* <BoldText>{name}</BoldText> */}
-              {/* <p>{email}</p> */}
-              {/* {manager && (
+              <BoldText>{name}</BoldText>
+              <p>{email}</p>
+              {manager && (
                 <div className="flexLine">
                   <FontAwesomeIcon icon={faCircleCheck} />
                   <BoldText>Venue manager</BoldText>
                 </div>
-              )} */}
-              <MainButton isSmall={true} isWhite={true}>
+              )}
+              <MainButton
+                isSmall={true}
+                isWhite={true}
+                onClick={() => setAuthState(null)}
+              >
                 Log out
               </MainButton>
             </div>
