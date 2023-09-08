@@ -7,15 +7,9 @@ export default function Layout() {
 
   return (
     <>
-      {path === "/user/login" || path === "/user/register" ? (
-        <Outlet />
-      ) : (
-        <>
-          <Header />
-          <Outlet />
-          <Footer />
-        </>
-      )}
+      <Header />
+      <Outlet />
+      <Footer />
     </>
   );
 }
