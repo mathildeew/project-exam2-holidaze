@@ -5,27 +5,37 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 import Calendar from "react-calendar";
 import { MainButton } from "../../../styles/Buttons";
 import MakeBookingAPI from "./MakeBookingAPI";
+import { eachDayOfInterval, parseISO } from "date-fns";
 
 export default function MakeBooking(venueBookings) {
   const [data, setData] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [btnText, setBtnText] = useState("Make reservation");
 
-  const { data: bookings } = venueBookings;
-  const id = bookings.id;
+  const { data: venue } = venueBookings;
+  const id = venue.id;
+  const bookings = venue?.bookings;
 
-  //   const bookedDates = bookings?.map((booking) => {
-  //     const dateFrom = new Date(booking.dateFrom);
-  //     const endDate = new Date(booking.dateTo);
-  //     const dateRange = [];
+  function bookedDates() {
+    bookings?.map((booking) => {
+      // return [{ datefrom: booking?.dateFrom, dateto: booking?.dateTo }];
+      const dateFrom = parseISO(booking?.dateFrom);
+      const dateTo = parseISO(booking?.dateTo);
 
-  //     while (dateFrom <= endDate) {
-  //       dateRange.push(new Date(dateFrom));
-  //       dateFrom.setDate(dateFrom.getDate() + 1);
-  //     }
+      return eachDayOfInterval({
+        start: new Date(dateFrom),
+        end: new Date(dateTo),
+      });
+    });
+  }
+  // console.log(bookedDates);
 
-  //     return dateRange;
+  // function disabledDates() {
+  //   return eachDayOfInterval({
+  //     start: new Date(parseISO(no[0])),
+  //     end: new Date(parseISO(no[1])),
   //   });
+  // }
 
   const [guests, setGuests] = useState("");
   const [date, setDate] = useState(new Date());
@@ -34,10 +44,10 @@ export default function MakeBooking(venueBookings) {
     event.preventDefault();
 
     setData({
-      dateFrom: `${date[0]}`,
-      dateTo: `${date[1]}`,
-      guests: `${guests}`,
-      id: `${id}`,
+      dateFrom: `${new Date(date[0])}`,
+      dateTo: `${new Date(date[1])}`,
+      guests: guests,
+      venueId: `${id}`,
     });
   }
 
@@ -48,6 +58,8 @@ export default function MakeBooking(venueBookings) {
     }
   }
 
+  // console.log(data);
+
   return (
     <div>
       <h3>Make reservation</h3>
@@ -55,7 +67,13 @@ export default function MakeBooking(venueBookings) {
         <label htmlFor="guests">How many guests?</label>
         <input name="guests" value={guests} onChange={onInputChange} />
 
-        <Calendar onChange={setDate} value={date} selectRange={true} />
+        <Calendar
+          onChange={setDate}
+          value={date}
+          selectRange={true}
+          tileDisabled={bookedDates}
+          minDate={new Date()}
+        />
         {date.length > 0 && (
           <div>
             <p>From: {date[0].toDateString()}</p>
