@@ -6,6 +6,7 @@ export default function apiEndpoints(id, name) {
     venues: `${holidaze}/venues`,
     singleVenue: `${holidaze}/venues/${id}`,
     profile: `${holidaze}/profiles/${name}`,
+    profileVenues: `${holidaze}/profiles/${name}/venues`,
     updateAvatar: `${holidaze}/profiles/${name}/media`,
   };
   return endpoints;

@@ -35,7 +35,7 @@ export const Popup = styled.section`
   }
 
   &.active {
-    height: 400px;
+    height: 100%;
     bottom: 0;
   }
 
@@ -48,7 +48,7 @@ export const Popup = styled.section`
   }
 
   .formContainer {
-    padding: 100px 20px 0px;
+    /* padding: 100px 20px 0px; */
   }
 
   form {
@@ -64,5 +64,9 @@ export const Popup = styled.section`
     input {
       margin-bottom: 50px;
     }
+  }
+
+  .newVenueContainer {
+    height: 100%;
   }
 `;
