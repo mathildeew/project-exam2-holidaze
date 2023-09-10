@@ -6,20 +6,24 @@ import { VenuesContainer } from "./Venues.style";
 
 import * as storage from "../../../js/storage/localStorage";
 import { ReservationsContainer } from "./Reservations.style";
+import { boolean } from "yup";
 
 export default function Reservations(data) {
   const { data: venues } = data;
-  const bookings = venues.bookings;
+
+  const bookings = venues.filter((venue) => {
+    if (venue.bookings.length !== 0) return true;
+  });
+
+  console.log(bookings);
 
   return (
     <ReservationsContainer>
-      {bookings === undefined ? (
-        <p>No Reservations yet</p>
-      ) : (
+      {/* {bookings !== undefined ? (
         <div className="reservation">
           <h2>Name of venue</h2>
           <div className="flexLine">
-            <BoldText>Check-in:</BoldText>
+            <BoldText>Check-in:</BoldText>s
             <p>21. aug 2023</p>
           </div>
           <div className="flexLine">
@@ -34,7 +38,9 @@ export default function Reservations(data) {
           <BoldText>Total income: $1234</BoldText>
           <hr />
         </div>
-      )}
+      ) : (
+        <p>No Reservations yet</p>
+      )} */}
     </ReservationsContainer>
   );
 }
