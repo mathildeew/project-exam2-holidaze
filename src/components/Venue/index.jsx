@@ -20,11 +20,10 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Overlay, Popup } from "../../styles/Popup";
 import { MainButton } from "../../styles/Buttons";
-import Calendar from "react-calendar";
+import CalendarContainer from "./MakeBooking/Calendar";
 
 export default function Venue() {
   const [data, setData] = useState(null);
-  const [date, setDate] = useState(new Date());
   const [showPopup, setShowPopup] = useState(false);
 
   const { id } = useParams();
@@ -40,12 +39,6 @@ export default function Venue() {
     dateTo: yup.date().required(),
     guests: yup.number().required(),
   });
-
-  const tileDisabled = ({ activeStartDate, date, view }) => {
-    return date < new Date();
-  };
-
-  console.log(tileDisabled);
 
   const {
     register,
@@ -71,13 +64,8 @@ export default function Venue() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="guests">How many guests?</label>
           <input type="number" {...register("guests", { required: true })} />
-          <Calendar onChange={setDate} value={date} selectRange={true} />
-          {date.length > 0 && (
-            <div>
-              <p>From: {date[0].toDateString()}</p>
-              <p>To: {date[1].toDateString()}</p>
-            </div>
-          )}
+
+          <CalendarContainer data={content?.bookings} />
 
           <MainButton type="submit">Make reservation</MainButton>
           {/* {data && <MakeBookingAPI data={data} />} */}
