@@ -8,6 +8,7 @@ export default function apiEndpoints(id, name) {
     profile: `${holidaze}/profiles/${name}`,
     profileVenues: `${holidaze}/profiles/${name}/venues`,
     updateAvatar: `${holidaze}/profiles/${name}/media`,
+    makeBooking: `${holidaze}/bookings`,
   };
   return endpoints;
 }

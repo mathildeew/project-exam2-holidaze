@@ -15,15 +15,10 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import UseAPI from "../../hooks/useApi";
 import apiEndpoints from "../../../endpoints.js/endpoints";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Overlay, Popup } from "../../styles/Popup";
-import { MainButton } from "../../styles/Buttons";
-import CalendarContainer from "./MakeBooking/Calendar";
+import MakeBooking from "./MakeBooking";
 
 export default function Venue() {
-  const [data, setData] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
 
   const { id } = useParams();
@@ -31,26 +26,6 @@ export default function Venue() {
 
   const created = new Date(content.created).toLocaleString();
   const updated = new Date(content.updated).toLocaleString();
-
-  // console.log(content);
-
-  const schema = yup.object({
-    dateFrom: yup.date().required(),
-    dateTo: yup.date().required(),
-    guests: yup.number().required(),
-  });
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
-
-  const onSubmit = async (data) => {
-    setData(data);
-    // setBtnText("Logging in");
-    console.log(data);
-  };
 
   if (isLoading) return <VenueContainer>Loading...</VenueContainer>;
   if (isError) return <VenueContainer>Error!</VenueContainer>;
@@ -60,18 +35,9 @@ export default function Venue() {
       <Overlay className={showPopup ? "overlay active" : "overlay inactive"} />
       <Popup className={showPopup ? "popup active" : "popup inactive"}>
         <FontAwesomeIcon icon={faClose} onClick={() => setShowPopup(false)} />
-        <h3>Make reservation</h3>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <label htmlFor="guests">How many guests?</label>
-          <input type="number" {...register("guests", { required: true })} />
 
-          <CalendarContainer data={content?.bookings} />
-
-          <MainButton type="submit">Make reservation</MainButton>
-          {/* {data && <MakeBookingAPI data={data} />} */}
-        </form>
+        <MakeBooking data={content} />
       </Popup>
-
       <VenueContainer>
         <div className="bookNow">
           <button onClick={() => setShowPopup(!showPopup)}>Book now</button>
@@ -83,6 +49,7 @@ export default function Venue() {
             ) : (
               <img src={content.media} />
             )}
+
             <h1>{content.name}</h1>
             <div className="infoTop">
               <div className="flexLine">
