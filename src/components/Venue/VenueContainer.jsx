@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { displayFlex } from "../../styles/mixins";
+import "react-calendar/dist/Calendar.css";
 
-export const VenueContainer = styled.div`
+export const VenueContainer = styled.main`
   width: 100%;
   margin-top: 50px;
   ${displayFlex({
@@ -19,25 +20,12 @@ export const VenueContainer = styled.div`
     width: 100%;
     max-width: 442px;
     position: fixed;
-    bottom: 0;
+    bottom: 20px;
     left: 0px;
     filter: drop-shadow(0px -1px 8px rgba(0, 0, 0, 0.2));
     ${displayFlex({
       direction: "column",
     })}
-
-    .popup {
-      background-color: white;
-      position: relative;
-      transition: all 0.3s ease-in-out;
-
-      &.inactive {
-        top: 120px;
-      }
-
-      &.active {
-      }
-    }
 
     button {
       color: var(--primary);
@@ -114,5 +102,13 @@ export const VenueContainer = styled.div`
       width: 300px;
       left: 500px;
     }
+  }
+`;
+
+export const CalendarContainer = styled.div`
+  width: 100%;
+
+  .react-datepicker__month-container{
+    float: none !important:
   }
 `;

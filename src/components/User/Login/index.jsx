@@ -31,6 +31,7 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     setData(data);
+    console.log(data);
     setBtnText("Logging in");
   };
 
