@@ -17,7 +17,6 @@ import UseAPI from "../../../hooks/useApi";
 export default function Manage() {
   const name = get("name");
   const token = get("token");
-  //
   const {
     content: venues,
     isLoading,
