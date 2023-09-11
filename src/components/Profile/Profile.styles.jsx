@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import { displayFlex } from "../../styles/mixins";
 
-export const ProfileContainer = styled.div`
-  /* max-width: 588px; */
-  /* margin: 0 20px; */
-  position: relative;
+export const ProfileContainer = styled.main`
+  margin-top: 50px;
 
   .registerCard {
     background-image: url(/public/content/douglas-bagg-HDxvXqUJ3BQ-unsplash_downsized_layers.jpg);
@@ -105,3 +103,5 @@ export const ProfileContainer = styled.div`
     }
   }
 `;
+
+export const BookingContainer = styled.section``;
