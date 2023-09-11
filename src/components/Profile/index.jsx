@@ -1,3 +1,11 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import * as storage from "../../js/storage/localStorage";
+import { useLoggedIn } from "../../context/Context";
+
 import { MainButton } from "../../styles/Buttons";
 import { ProfileContainer } from "./Profile.styles";
 import { BoldText } from "../../styles/Text";
@@ -7,19 +15,11 @@ import {
   faXmark,
   faCircleCheck,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
 import { Overlay, Popup } from "../../styles/Popup";
-import { useLoggedIn } from "../../context/Context";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import Bookings from "./Bookings";
 import UseAPI from "../../hooks/useApi";
 import apiEndpoints from "../../../endpoints.js/endpoints";
-import { useNavigate } from "react-router-dom";
 import UpdateAvatarAPI from "./UpdateAvatarAPI";
-import RegisterManagerAPI from "./RegisterManagerAPI";
-import Bookings from "./Bookings";
-import * as storage from "../../js/storage/localStorage";
 
 const schema = yup.object({
   avatar: yup.string().url("Must be a valid URL").required(),
@@ -27,29 +27,35 @@ const schema = yup.object({
 
 export default function Profile() {
   const name = storage.get("name");
-  const token = storage.get("accessToken");
+  const token = storage.get("token");
   const email = storage.get("email");
-  const manager = storage.get("venueManager");
+  const manager = storage.get("manager");
   const avatar = storage.get("avatar");
 
+  const {
+    content: profile,
+    isLoading,
+    isError,
+  } = UseAPI(
+    `https://api.noroff.dev/api/v1/holidaze/profiles/${name}?_bookings=true`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useLoggedIn();
+  const [data, setData] = useState(null);
   const [showUpdate, setShowUpdate] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [showVenueManager, setVenueManager] = useState(false);
   const [btnText, setBtnText] = useState("Update");
 
-  const [data, setData] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useLoggedIn();
-  // const { avatar, email, manager, name, accToken } = UseAPI(
-  //   `https://api.noroff.dev/api/v1/holidaze/profiles/onkel`,
-  //   {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${acc}`,
-  //     },
-  //   }
-  // );
+  const bookings = profile?.bookings;
 
   const {
     register,
@@ -70,6 +76,8 @@ export default function Profile() {
       setVenueManager(false);
     }, 1500);
   };
+
+  // console.log(manager);
 
   return (
     <>
@@ -122,7 +130,7 @@ export default function Profile() {
         </div>
       </Popup> */}
 
-      <ProfileContainer>
+      <ProfileContainer className="maxWidth">
         {manager === false ? (
           <section
             className="registerCard"
@@ -159,7 +167,7 @@ export default function Profile() {
             <div className="profileInfo">
               <BoldText>{name}</BoldText>
               <p>{email}</p>
-              {manager && (
+              {manager === true && (
                 <div className="flexLine">
                   <FontAwesomeIcon icon={faCircleCheck} />
                   <BoldText>Venue manager</BoldText>
@@ -176,14 +184,7 @@ export default function Profile() {
           </div>
         </section>
         <hr />
-
-        {/* {bookings.length > 0 && <Bookings />}
-
-        {bookings.length === 0 && (
-          <section>
-            <p>Make a booking today!</p>
-          </section>
-        )} */}
+        <Bookings data={bookings} />
       </ProfileContainer>
     </>
   );
