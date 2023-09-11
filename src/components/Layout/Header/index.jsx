@@ -6,10 +6,12 @@ import {
   faBriefcase,
   faArrowRightToBracket,
 } from "@fortawesome/free-solid-svg-icons";
-import { useLoggedIn } from "../../../context/Context";
+import { get } from "../../../js/storage/localStorage";
+import { useState } from "react";
 
 export default function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useLoggedIn();
+  const token = get("token");
+  const path = window.location.pathname;
 
   return (
     <HeaderContainer>
@@ -80,30 +82,34 @@ export default function Header() {
             />
           </svg>
         </Link>
-
-        {/* MAKE OWN NAV COMPONENTS FOR EACH STATE!!! */}
-        <nav>
-          <>
-            <Link to="/profile/manage/">
-              <span>Manager</span>
-              <FontAwesomeIcon icon={faBriefcase} />
-            </Link>
-            <Link to="/profile/">
-              <span>Profile</span>
-              <FontAwesomeIcon icon={faUser} />
-            </Link>
-          </>
-          <>
-            <Link to="/user/login">
-              <span>Log in</span>
-              <FontAwesomeIcon icon={faArrowRightToBracket} />
-            </Link>
-            <Link to="/user/login">
-              <span>Register</span>
-              <FontAwesomeIcon icon={faArrowRightToBracket} />
-            </Link>
-          </>
-        </nav>
+        {path === "/user/" && (
+          <nav>
+            {token !== null && (
+              <>
+                <Link to="/profile/manage/">
+                  <span>Manager</span>
+                  <FontAwesomeIcon icon={faBriefcase} />
+                </Link>
+                <Link to="/profile/">
+                  <span>Profile</span>
+                  <FontAwesomeIcon icon={faUser} />
+                </Link>
+              </>
+            )}
+            {(token === null || token === undefined) && (
+              <>
+                <Link to="/user/login">
+                  <span>Log in</span>
+                  <FontAwesomeIcon icon={faArrowRightToBracket} />
+                </Link>
+                <Link to="/user/login">
+                  <span>Register</span>
+                  <FontAwesomeIcon icon={faArrowRightToBracket} />
+                </Link>
+              </>
+            )}
+          </nav>
+        )}
       </div>
     </HeaderContainer>
   );
