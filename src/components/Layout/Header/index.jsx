@@ -1,17 +1,13 @@
 import { Link } from "react-router-dom";
-import { HeaderContainer } from "./Header.style";
+import { HeaderContainer, Nav } from "./Header.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faBriefcase,
-  faArrowRightToBracket,
-} from "@fortawesome/free-solid-svg-icons";
+import { faUser, faBriefcase } from "@fortawesome/free-solid-svg-icons";
 import { get } from "../../../js/storage/localStorage";
-import { useState } from "react";
 
 export default function Header() {
   const token = get("token");
   const path = window.location.pathname;
+  console.log(token);
 
   return (
     <HeaderContainer>
@@ -82,33 +78,24 @@ export default function Header() {
             />
           </svg>
         </Link>
-        {path === "/user/" && (
-          <nav>
-            {token !== null && (
-              <>
-                <Link to="/profile/manage/">
-                  <span>Manager</span>
-                  <FontAwesomeIcon icon={faBriefcase} />
-                </Link>
-                <Link to="/profile/">
-                  <span>Profile</span>
-                  <FontAwesomeIcon icon={faUser} />
-                </Link>
-              </>
-            )}
-            {(token === null || token === undefined) && (
-              <>
-                <Link to="/user/login">
-                  <span>Log in</span>
-                  <FontAwesomeIcon icon={faArrowRightToBracket} />
-                </Link>
-                <Link to="/user/login">
-                  <span>Register</span>
-                  <FontAwesomeIcon icon={faArrowRightToBracket} />
-                </Link>
-              </>
-            )}
-          </nav>
+        {token !== null && (
+          <Nav className="auth">
+            <Link to="/profile/manage/">
+              <span className="hide">Manager</span>
+              <FontAwesomeIcon icon={faBriefcase} />
+            </Link>
+            <Link to="/profile/">
+              <span className="hide">Profile</span>
+              <FontAwesomeIcon icon={faUser} />
+            </Link>
+          </Nav>
+        )}
+        {(token === null || token === undefined) && (
+          <Nav className="unauth">
+            <Link to="/user/login" className="show">
+              <span>Log in</span>
+            </Link>
+          </Nav>
         )}
       </div>
     </HeaderContainer>

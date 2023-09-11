@@ -29,9 +29,26 @@ export const HeaderContainer = styled.header`
     color: #fff;
     padding: 3px;
   }
+`;
 
-  nav {
-    width: 70px;
+export const Nav = styled.nav`
+  width: 70px;
+
+  &.unauth {
+    background-color: var(--primary);
+    border-radius: 50px;
+    padding: 2px 20px;
+    ${displayFlex({
+      justify: "center",
+    })}
+
+    span {
+      color: #fff;
+      font-weight: 600;
+    }
+  }
+
+  &.auth {
     ${displayFlex({
       justify: "space-between",
     })}
@@ -47,7 +64,7 @@ export const HeaderContainer = styled.header`
   }
 
   @media (min-width: 768px) {
-    nav {
+    &.auth {
       width: 300px;
 
       a {
