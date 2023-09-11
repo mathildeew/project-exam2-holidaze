@@ -5,7 +5,6 @@ import { get } from "../js/storage/localStorage";
 
 const LoggedInContext = createContext();
 const token = get("token");
-console.log(token);
 
 export function AuthProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

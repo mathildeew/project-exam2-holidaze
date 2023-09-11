@@ -10,6 +10,12 @@ export const FormContainer = styled.main`
     justify: "center",
   })}
 
+  .formContent {
+    ${displayFlex({
+      direction: "column",
+    })}
+  }
+
   .top {
     ${displayFlex({
       direction: "column",
@@ -25,20 +31,21 @@ export const FormContainer = styled.main`
   }
 
   .flexCol {
+    height: 90px;
     ${displayFlex({
       direction: "column",
     })}
   }
 
   form,
-  .flexCol,
+  .formContent,
   .flexLine {
     margin-bottom: 20px;
   }
 
   .errorMsg {
     color: red;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 
   .loginContent {

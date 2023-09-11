@@ -75,7 +75,6 @@ p, a, label {
     outline: none;
 
     &:focus {
-      font-size: 1.6rem;
       border: 2px solid var(--primary);
       outline: none;
       }
@@ -83,7 +82,7 @@ p, a, label {
 
     ::placeholder {
       color: var(--primary);
-      font-size: 1.6rem;
+      font-size: 1.4rem;
     }
 
     [type="checkbox"] {
@@ -119,7 +118,7 @@ p, a, label {
 }
 
 
-.react-datepicker__day--in-range, {
+.react-datepicker__day--in-range {
   background-color: rgba(75, 61, 96, 0.4);
 }
 `;
