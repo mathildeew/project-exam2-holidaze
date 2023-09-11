@@ -90,6 +90,15 @@ export const VenueContainer = styled.main`
     }
   }
 
+  // Calendar
+  /* .react-datepicker__input-container {
+    display: none !important;
+  }
+
+  .react-datepicker-popper {
+    z-index: 9999 !important;
+  } */
+
   @media (min-width: 442px) {
     .bookNow {
       left: unset;

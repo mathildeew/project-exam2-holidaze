@@ -5,7 +5,6 @@ import * as storage from "../../../js/storage/localStorage";
 export default function MakeBookingAPI({ data }) {
   const token = storage.get("token");
 
-  data.id;
   const {
     content: response,
     isLoading,

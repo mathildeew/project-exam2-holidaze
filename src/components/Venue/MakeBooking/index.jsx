@@ -7,6 +7,7 @@ import { MainButton } from "../../../styles/Buttons";
 import MakeBookingAPI from "./MakeBookingAPI";
 import { eachDayOfInterval, parseISO } from "date-fns";
 import DatePicker from "react-datepicker";
+import { useForm } from "react-hook-form";
 
 export default function MakeBooking(venueBookings) {
   const [data, setData] = useState(null);
@@ -30,6 +31,15 @@ export default function MakeBooking(venueBookings) {
   //   });
   // }
 
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
+
+  const onSelectDateRange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  };
+
   const bookedDates = bookings?.map((booking) => {
     return {
       start: new Date(booking.dateFrom),
@@ -47,40 +57,64 @@ export default function MakeBooking(venueBookings) {
   // }
 
   const [guests, setGuests] = useState("");
-  const [date, setDate] = useState(new Date());
+  function onGuestChange(event) {
+    setGuests(event.target.value);
+  }
+  // const [date, setDate] = useState(new Date());
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  // function handleSubmit(event) {
+  //   event.preventDefault();
+
+  //   setData({
+  //     dateFrom: `${new Date(date[0])}`,
+  //     dateTo: `${new Date(date[1])}`,
+  //     guests: guests,
+  //     venueId: `${id}`,
+  //   });
+  // }
+
+  const { handleSubmit } = useForm();
+
+  const onSubmit = async (data) => {
+    // event.preventDefault();
+    if (endDate === null) {
+      setEndDate(startDate);
+    }
 
     setData({
-      dateFrom: `${new Date(date[0])}`,
-      dateTo: `${new Date(date[1])}`,
-      guests: guests,
-      venueId: `${id}`,
+      ...data,
+      guests: Number(guests),
+      dateFrom: new Date(startDate).toISOString(),
+      dateTo: new Date(endDate).toISOString(),
+      venueId: id,
     });
-  }
-
-  function onInputChange(event) {
-    const value = event.target.value;
-    if (event.target.name === "guests") {
-      setGuests(value);
-    }
-  }
-
-  // console.log(data);
+  };
 
   return (
     <div>
       <h3>Make reservation</h3>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="guests">How many guests?</label>
-        <input name="guests" value={guests} onChange={onInputChange} />
-        <DatePicker
-          selected={new Date()}
-          onChange={(date) => setStartDate(date)}
-          excludeDateIntervals={bookedDates}
+        <input
+          name="guests"
+          type="number"
+          min={1}
+          max={venue.maxGuests}
+          value={guests}
+          onChange={onGuestChange}
         />
-
+        <DatePicker
+          name="dates"
+          minDate={new Date()}
+          selected={startDate}
+          startDate={startDate}
+          endDate={endDate}
+          onChange={onSelectDateRange}
+          excludeDateIntervals={bookedDates}
+          selectsRange
+          selectsDisabledDaysInRange
+          inline
+        />
         {/* <Calendar
           onChange={setDate}
           value={date}
@@ -88,14 +122,13 @@ export default function MakeBooking(venueBookings) {
           tileDisabled={bookedDates}
           minDate={new Date()}
         /> */}
-        {date.length > 0 && (
-          <div>
-            <p>From: {date[0].toDateString()}</p>
-            <p>To: {date[1].toDateString()}</p>
-          </div>
-        )}
+        {/* {date.length > 0 && ( */}
+        {/* <div>
+          <p>From: {startDate.toDateString()}</p>
+          <p>To: {endDate.toDateString()}</p>
+        </div> */}
         <input type="submit" />
-        {/* {data && <MakeBookingAPI data={data} />} */}
+        {data && <MakeBookingAPI data={data} />}
       </form>
     </div>
   );
