@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { displayFlex } from "../../styles/mixins";
 import "react-calendar/dist/Calendar.css";
+import "react-datepicker/dist/react-datepicker-cssmodules.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const VenueContainer = styled.main`
   width: 100%;
