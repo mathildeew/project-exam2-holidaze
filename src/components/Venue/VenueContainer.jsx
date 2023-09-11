@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { displayFlex } from "../../styles/mixins";
 import "react-calendar/dist/Calendar.css";
-import "react-datepicker/dist/react-datepicker-cssmodules.css";
-import "react-datepicker/dist/react-datepicker.css";
 
 export const VenueContainer = styled.main`
   width: 100%;
@@ -90,15 +88,6 @@ export const VenueContainer = styled.main`
     }
   }
 
-  // Calendar
-  /* .react-datepicker__input-container {
-    display: none !important;
-  }
-
-  .react-datepicker-popper {
-    z-index: 9999 !important;
-  } */
-
   @media (min-width: 442px) {
     .bookNow {
       left: unset;
@@ -113,5 +102,13 @@ export const VenueContainer = styled.main`
       width: 300px;
       left: 500px;
     }
+  }
+`;
+
+export const CalendarContainer = styled.div`
+  width: 100%;
+
+  .react-datepicker__month-container{
+    float: none !important:
   }
 `;

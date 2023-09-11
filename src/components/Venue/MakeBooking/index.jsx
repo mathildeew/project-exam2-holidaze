@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { Popup } from "../../../styles/Popup";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose } from "@fortawesome/free-solid-svg-icons";
-import Calendar from "react-calendar";
+import { useForm } from "react-hook-form";
+import DatePicker, { CalendarContainer } from "react-datepicker";
 import { MainButton } from "../../../styles/Buttons";
 import MakeBookingAPI from "./MakeBookingAPI";
-import { eachDayOfInterval, parseISO } from "date-fns";
-import DatePicker from "react-datepicker";
-import { useForm } from "react-hook-form";
+
+import { BoldText } from "../../../styles/Text";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleMinus, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function MakeBooking(venueBookings) {
   const [data, setData] = useState(null);
@@ -18,21 +17,16 @@ export default function MakeBooking(venueBookings) {
   const id = venue.id;
   const bookings = venue?.bookings;
 
-  // function bookedDates() {
-  //   bookings?.map((booking) => {
-  //     // return [{ datefrom: booking?.dateFrom, dateto: booking?.dateTo }];
-  //     const dateFrom = parseISO(booking?.dateFrom);
-  //     const dateTo = parseISO(booking?.dateTo);
-
-  //     return eachDayOfInterval({
-  //       start: new Date(dateFrom),
-  //       end: new Date(dateTo),
-  //     });
-  //   });
-  // }
-
+  const [numberOfGuests, setNumberOfGuests] = useState(1);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
+
+  function addGuest() {
+    setNumberOfGuests(numberOfGuests + 1);
+  }
+  function removeGuest() {
+    setNumberOfGuests(numberOfGuests - 1);
+  }
 
   const onSelectDateRange = (dates) => {
     const [start, end] = dates;
@@ -47,31 +41,9 @@ export default function MakeBooking(venueBookings) {
     };
   });
 
-  // console.log(bookedDates);
-
-  // function disabledDates() {
-  //   return eachDayOfInterval({
-  //     start: new Date(parseISO(no[0])),
-  //     end: new Date(parseISO(no[1])),
-  //   });
-  // }
-
-  const [guests, setGuests] = useState("");
   function onGuestChange(event) {
     setGuests(event.target.value);
   }
-  // const [date, setDate] = useState(new Date());
-
-  // function handleSubmit(event) {
-  //   event.preventDefault();
-
-  //   setData({
-  //     dateFrom: `${new Date(date[0])}`,
-  //     dateTo: `${new Date(date[1])}`,
-  //     guests: guests,
-  //     venueId: `${id}`,
-  //   });
-  // }
 
   const { handleSubmit } = useForm();
 
@@ -83,7 +55,7 @@ export default function MakeBooking(venueBookings) {
 
     setData({
       ...data,
-      guests: Number(guests),
+      guests: Number(numberOfGuests),
       dateFrom: new Date(startDate).toISOString(),
       dateTo: new Date(endDate).toISOString(),
       venueId: id,
@@ -94,40 +66,41 @@ export default function MakeBooking(venueBookings) {
     <div>
       <h3>Make reservation</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <CalendarContainer>
+          <DatePicker
+            name="dates"
+            minDate={new Date()}
+            selected={startDate}
+            startDate={startDate}
+            endDate={endDate}
+            onChange={onSelectDateRange}
+            excludeDateIntervals={bookedDates}
+            selectsRange
+            // selectsDisabledDaysInRange
+
+            inline
+          />
+        </CalendarContainer>
         <label htmlFor="guests">How many guests?</label>
-        <input
-          name="guests"
-          type="number"
-          min={1}
-          max={venue.maxGuests}
-          value={guests}
-          onChange={onGuestChange}
-        />
-        <DatePicker
-          name="dates"
-          minDate={new Date()}
-          selected={startDate}
-          startDate={startDate}
-          endDate={endDate}
-          onChange={onSelectDateRange}
-          excludeDateIntervals={bookedDates}
-          selectsRange
-          selectsDisabledDaysInRange
-          inline
-        />
-        {/* <Calendar
-          onChange={setDate}
-          value={date}
-          selectRange={true}
-          tileDisabled={bookedDates}
-          minDate={new Date()}
-        /> */}
-        {/* {date.length > 0 && ( */}
-        {/* <div>
-          <p>From: {startDate.toDateString()}</p>
-          <p>To: {endDate.toDateString()}</p>
-        </div> */}
-        <input type="submit" />
+
+        <div className="inputContainer">
+          <label htmlFor="guests"></label>
+          <input
+            type="number"
+            name="guests"
+            min={1}
+            max={venue.maxGuests}
+            value={numberOfGuests}
+            onChange={onGuestChange}
+          />
+          <FontAwesomeIcon icon={faCirclePlus} onClick={addGuest} />
+          <FontAwesomeIcon icon={faCircleMinus} onClick={removeGuest} />
+        </div>
+        <div>
+          <BoldText>Price</BoldText>
+        </div>
+
+        <MainButton type="submit">Make reservation</MainButton>
         {data && <MakeBookingAPI data={data} />}
       </form>
     </div>
