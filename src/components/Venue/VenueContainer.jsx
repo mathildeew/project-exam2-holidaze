@@ -10,53 +10,9 @@ export const VenueContainer = styled.main`
     align: "center",
   })}
 
-  main {
-    max-width: 442px;
-    padding: 0 10px;
-    border: 1px solid green;
-  }
-
-  .bookNow {
-    width: 100%;
-    max-width: 442px;
-    position: fixed;
-    bottom: 20px;
-    left: 0px;
-    filter: drop-shadow(0px -1px 8px rgba(0, 0, 0, 0.2));
-    ${displayFlex({
-      direction: "column",
-    })}
-
-    button {
-      color: var(--primary);
-      font-family: Kyrial-Display-Pro;
-      font-size: 2rem;
-      text-transform: uppercase;
-      font-weight: 900;
-      background: var(--light-red);
-      border: none;
-      padding: 15px 0;
-    }
-  }
-
-  .info {
-    img {
-      width: 100%;
-      height: 300px;
-      border-radius: 10px;
-      object-fit: cover;
-    }
-
-    svg {
-      color: var(--primary);
-      font-size: 1.8rem;
-      margin-right: 10px;
-    }
-  }
-
-  .infoTop {
-    margin-bottom: 30px;
-  }
+  max-width: 442px;
+  padding: 0 10px;
+  border: 1px solid green;
 
   .fascilities {
     .icons {
@@ -105,10 +61,52 @@ export const VenueContainer = styled.main`
   }
 `;
 
+export const VenueInfo = styled.section`
+  img {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+
+  svg {
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-right: 10px;
+  }
+
+  .infoTop {
+    margin-bottom: 30px;
+  }
+`;
+
 export const CalendarContainer = styled.div`
   width: 100%;
 
-  .react-datepicker__month-container{
-    float: none !important:
+  .react-datepicker__month-container {
+    float: none !important;
+  }
+`;
+
+export const BookNowBtn = styled.div`
+  width: 100%;
+  max-width: 442px;
+  position: fixed;
+  bottom: 20px;
+  left: 0px;
+  filter: drop-shadow(0px -1px 8px rgba(0, 0, 0, 0.2));
+  ${displayFlex({
+    direction: "column",
+  })}
+
+  button {
+    color: var(--primary);
+    font-family: Kyrial-Display-Pro;
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: 900;
+    background: var(--light-red);
+    border: none;
+    padding: 15px 0;
   }
 `;

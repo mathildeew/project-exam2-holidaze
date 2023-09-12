@@ -10,11 +10,6 @@ import {
   faPeopleRoof,
   faCirclePlus,
   faCircleMinus,
-  faWifi,
-  faParking,
-  faCutlery,
-  faDog,
-  faCut,
 } from "@fortawesome/free-solid-svg-icons";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 import { useState } from "react";
