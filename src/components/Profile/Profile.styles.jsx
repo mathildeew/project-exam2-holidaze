@@ -104,4 +104,11 @@ export const ProfileContainer = styled.main`
   }
 `;
 
-export const BookingContainer = styled.section``;
+export const BookingsContainer = styled.section`
+  height: 100%;
+  .bookingContent {
+    ${displayFlex({
+      direction: "column",
+    })}
+  }
+`;

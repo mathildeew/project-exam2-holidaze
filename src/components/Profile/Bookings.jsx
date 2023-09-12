@@ -1,12 +1,13 @@
 import { useLoggedIn } from "../../context/Context";
 import { MainButton } from "../../styles/Buttons";
 import { BoldText } from "../../styles/Text";
+import { BookingsContainer } from "./Profile.styles";
 
 export default function Bookings(data) {
   const { data: bookings } = data;
 
   return (
-    <section id="bookings">
+    <BookingsContainer>
       <h3>Your bookings</h3>
       <div className="bookingContent displayRow">
         <img
@@ -32,6 +33,6 @@ export default function Bookings(data) {
       </div>
 
       <hr />
-    </section>
+    </BookingsContainer>
   );
 }

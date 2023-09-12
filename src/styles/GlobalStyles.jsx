@@ -8,6 +8,7 @@ export const GlobalStyle = createGlobalStyle`
 html {
   font-size: 62.5%;
   --primary:  #4B3D60;
+  --primary-light: #F9F9FD;
   --light-yellow: #FAFAEA;
   --orange: #fd9b54;
   --light-orange: #FEC49A;
