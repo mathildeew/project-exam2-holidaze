@@ -25,7 +25,7 @@ export default function Venues(data) {
   const { data: venues } = data;
 
   return (
-    <VenuesContainer>
+    <VenuesContainer id="venues">
       {venues.map((venue) => (
         <VenueCard id={venue.id}>
           <Link to={`/venue/${venue.id}`} c key={venue.id}>
