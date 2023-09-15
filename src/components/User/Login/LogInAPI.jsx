@@ -6,16 +6,6 @@ import apiEndpoints from "../../../../endpoints.js/endpoints";
 import { useState } from "react";
 import { set } from "../../../js/storage/localStorage";
 
-function fetchOptions(methodOp, data) {
-  const options = {
-    method: methodOp,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  };
-}
-
 export default function LoginAPI({ data }) {
   const navigate = useNavigate();
   const [dataa, setData] = useState();
