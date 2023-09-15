@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { displayFlex } from "../../../styles/mixins";
 
-export const VenuesContainer = styled.section`
+export const VenuesContainer = styled.main`
   margin: 0 5px;
   display: grid;
   margin-bottom: 50px;
