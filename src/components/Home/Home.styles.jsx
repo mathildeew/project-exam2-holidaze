@@ -80,20 +80,11 @@ export const Hero = styled.section`
   .search {
     max-width: 470px;
     padding: 30px 0px;
-
-    form {
-      width: 100%;
-      height: 200px;
-
-      ${displayFlex({
-        direction: "column",
-        justify: "space-between",
-      })}
-    }
   }
 
   .inputContainer {
     background: rgba(75, 61, 96, 0.6);
+    border-radius: 10px;
 
     input {
       background: none;
@@ -110,24 +101,6 @@ export const Hero = styled.section`
       font-size: 2rem;
       margin-right: 10px;
     }
-  }
-
-  .inputContainer:nth-child(1) {
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-  }
-
-  .inputContainer:nth-child(2) {
-    border-top: 2px solid rgba(250, 250, 234, 0.4);
-    border-bottom: 2px solid rgba(250, 250, 234, 0.4);
-  }
-
-  .inputContainer:nth-child(3) {
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    ${displayFlex({
-      justify: "space-between",
-    })}
   }
 
   @media (min-width: 768px) {

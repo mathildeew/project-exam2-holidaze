@@ -10,50 +10,53 @@ import {
   faPeopleRoof,
   faCirclePlus,
   faCircleMinus,
+  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 import { useState } from "react";
 
 import Venues from "./Venues/Venues";
+import UseAPI from "../../hooks/useApi";
+import apiEndpoints from "../../../endpoints.js/endpoints";
 
 export default function Home() {
   const [showSearch, setShowSearch] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [searchedVenue, setSearchedVenue] = useState("");
+
+  const { content: venues, isLoading, isError } = UseAPI(apiEndpoints().venues);
+
+  if (isLoading) return <section>Loading...</section>;
+  if (isError) return <section>Error!</section>;
+
+  const searchResults = venues.filter((venue) =>
+    venue.name.toLowerCase().includes(searchedVenue.toLowerCase())
+  );
+
+  function onSearch(event) {
+    setSearchedVenue(event.target.value);
+    console.log(searchResults);
+  }
 
   return (
     <HomeContainer>
       <Hero>
         <div className="search">
           <h1>Discover your next getaway</h1>
-          <form>
-            <div className="formContent">
-              <div className="inputContainer">
-                <FontAwesomeIcon icon={faLocationDot} />
-                <input type="text" name="location" placeholder="Where?" />
-              </div>
-              <div className="inputContainer">
-                <FontAwesomeIcon icon={faCalendar} />
-                <input type="text" name="date" placeholder="When?" />
-              </div>
-              <div className="inputContainer">
-                <div>
-                  <FontAwesomeIcon icon={faPeopleRoof} />
-                  <input type="text" name="guests" placeholder="How many?" />
-                </div>
-                <div>
-                  <FontAwesomeIcon icon={faCirclePlus} />
-                  <FontAwesomeIcon icon={faCircleMinus} />
-                </div>
-              </div>
-            </div>
-            <MainButton isTrans={true} onClick={setShowSearch}>
-              Search
-            </MainButton>
-          </form>
+          <div className="inputContainer">
+            <FontAwesomeIcon icon={faSearch} />
+            <input
+              placeholder="Search venue"
+              type="search"
+              onChange={onSearch}
+              value={searchedVenue}
+            ></input>
+          </div>
         </div>
       </Hero>
-
-      <Venues />
+      {!searchedVenue && <Venues data={venues} />}
+      {searchedVenue && <Venues data={searchResults} />}
+      {/* {searchedVenue.length === 0 } */}
     </HomeContainer>
   );
 }

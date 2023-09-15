@@ -19,12 +19,10 @@ import {
   VenueInfo,
   VenueFasc,
 } from "./Venues.style";
+import { useState } from "react";
 
-export default function Venues() {
-  const { content: venues, isLoading, isError } = UseAPI(apiEndpoints().venues);
-
-  if (isLoading) return <section>Loading...</section>;
-  if (isError) return <section>Error!</section>;
+export default function Venues(data) {
+  const { data: venues } = data;
 
   return (
     <VenuesContainer>
