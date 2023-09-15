@@ -72,3 +72,11 @@ export const UpdateAvatarContainer = styled.div`
     margin-bottom: 40px;
   }
 `;
+
+export const CancelBookingContainer = styled.div`
+  padding: 20px;
+
+  p {
+    margin-bottom: 30px;
+  }
+`;
