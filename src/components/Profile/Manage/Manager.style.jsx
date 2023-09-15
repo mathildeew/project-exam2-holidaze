@@ -25,9 +25,7 @@ export const Buttons = styled.div`
 
 export const Carousel = styled.div`
   width: 100%;
-  ${displayFlex({})}
-  overflow: hidden;
-  position: relative;
+  ${displayFlex({})}/* position: relative; */
 `;
 
 export const VenuesContainer = styled.section`
@@ -52,5 +50,43 @@ export const VenueCard = styled.div`
     height: 100%;
     width: 100%;
     margin-right: 20px;
+  }
+`;
+
+export const NewVenue = styled.div`
+  height: 100%;
+  padding: 20px;
+
+  section {
+    ${displayFlex({
+      direction: "column",
+    })}
+  }
+`;
+
+export const NewVenueInfo = styled.section`
+  input,
+  textarea {
+    border: 2px solid var(--primary);
+    margin-bottom: 20px;
+  }
+`;
+
+export const NewVenueFasc = styled.section`
+  div {
+    input {
+      margin-bottom: 15px;
+    }
+  }
+`;
+
+export const EditVenue = styled.div`
+  height: 100%;
+  padding: 20px;
+
+  section {
+    ${displayFlex({
+      direction: "column",
+    })}
   }
 `;

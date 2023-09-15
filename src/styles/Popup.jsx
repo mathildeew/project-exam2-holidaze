@@ -18,6 +18,7 @@ export const Overlay = styled.div`
     height: 100vh;
     width: 100%;
     opacity: 1;
+    top: 0;
   }
 `;
 
@@ -28,6 +29,7 @@ export const Popup = styled.section`
   position: absolute;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
+  overflow: hidden;
 
   &.inactive {
     display: none;
@@ -35,7 +37,7 @@ export const Popup = styled.section`
   }
 
   &.active {
-    height: 100%;
+    /* height: 100%; */
     bottom: 0;
   }
 
@@ -45,10 +47,6 @@ export const Popup = styled.section`
     top: 25px;
     left: 90%;
     margin-bottom: 20px;
-  }
-
-  .formContainer {
-    /* padding: 100px 20px 0px; */
   }
 
   form {
@@ -62,11 +60,7 @@ export const Popup = styled.section`
     }
 
     input {
-      margin-bottom: 50px;
+      /* margin-bottom: 50px; */
     }
-  }
-
-  .newVenueContainer {
-    height: 100%;
   }
 `;

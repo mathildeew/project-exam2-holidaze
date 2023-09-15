@@ -17,8 +17,11 @@ html {
 }
 
 body {
-  min-height: 100vh;
   margin: 0;
+}
+
+main {
+  min-height: 100vh;
 }
 
 h1, h2, h3, h4, p, a, label {
@@ -63,7 +66,7 @@ p, a, label {
     margin: 30px 0;
   }
 
-  input{
+  input, textarea{
     border: 2px solid var(--primary);
     border-radius: 10px;
     ::placeholder {
@@ -71,7 +74,7 @@ p, a, label {
     }
   }
   
-  input, .inputContainer  {
+  input, .inputContainer, textarea  {
     padding: 10px;
     outline: none;
 
