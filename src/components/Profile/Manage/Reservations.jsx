@@ -2,7 +2,7 @@ import apiEndpoints from "../../../../endpoints.js/endpoints";
 import UseAPI from "../../../hooks/useApi";
 import { MainButton } from "../../../styles/Buttons";
 import { BoldText } from "../../../styles/Text";
-import { VenuesContainer } from "./Venues.style";
+import { VenuesContainer } from "./Manager.style";
 
 import * as storage from "../../../js/storage/localStorage";
 import { ReservationsContainer } from "./Reservations.style";

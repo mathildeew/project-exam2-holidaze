@@ -1,15 +1,20 @@
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faHouseCircleCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { MainButton } from "../../../styles/Buttons";
 import { Overlay, Popup } from "../../../styles/Popup";
 import { BoldText } from "../../../styles/Text";
-import { ManagerContainer } from "./managerContainer";
+import {
+  Buttons,
+  Carousel,
+  ManagerContainer,
+  VenuesContainer,
+} from "./Manager.style";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import NewVenueAPI from "./NewVenueAPI";
-import { VenuesContainer } from "./Venues.style";
 import Venues from "./Venues";
 import Reservations from "./Reservations";
 import { get } from "../../../js/storage/localStorage";
@@ -30,6 +35,8 @@ export default function Manage() {
       },
     }
   );
+
+  console.log(venues);
 
   const [showVenues, setShowVenues] = useState(true);
   const [showReservations, setShowReservations] = useState(false);
@@ -152,7 +159,7 @@ export default function Manage() {
         </MainButton>
         <h1>Manage your venues & reservations</h1>
 
-        <div className="btns">
+        <Buttons>
           <MainButton
             isSmall={true}
             onClick={() => {
@@ -160,7 +167,8 @@ export default function Manage() {
               setShowReservations(false);
             }}
           >
-            Your venues
+            <FontAwesomeIcon icon={faHouse} />
+            Venues
           </MainButton>
           <MainButton
             isSmall={true}
@@ -169,14 +177,15 @@ export default function Manage() {
               setShowVenues(false);
             }}
           >
+            <FontAwesomeIcon icon={faHouseCircleCheck} />
             Reservations
           </MainButton>
-        </div>
+        </Buttons>
 
-        <div className="carousel">
+        <Carousel>
           {showVenues && <Venues data={venues} />}
-          {showReservations && <Reservations data={venues} />}
-        </div>
+          {showReservations && <Reservations data={venues.bookings} />}
+        </Carousel>
       </ManagerContainer>
     </>
   );
