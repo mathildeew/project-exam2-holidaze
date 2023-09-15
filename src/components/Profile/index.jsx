@@ -7,7 +7,14 @@ import * as storage from "../../js/storage/localStorage";
 import { useLoggedIn } from "../../context/Context";
 
 import { MainButton } from "../../styles/Buttons";
-import { ProfileContainer } from "./Profile.styles";
+import {
+  AvatarContainer,
+  Card,
+  InfoContainer,
+  ProfileContainer,
+  ProfileContent,
+  ProfileDetails,
+} from "./Profile.styles";
 import { BoldText } from "../../styles/Text";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -132,39 +139,33 @@ export default function Profile() {
 
       <ProfileContainer className="maxWidth">
         {manager === false ? (
-          <section
-            className="registerCard"
-            onClick={() => setShowRegister(!showRegister)}
-          >
+          <Card onClick={() => setShowRegister(!showRegister)}>
             <span className="heading">Register as venue manager</span>
             <span className="content">
               Rent out your property through us. Easy peasy money in your
               pocket!
             </span>
-          </section>
+          </Card>
         ) : (
-          <section className="registerCard">
+          <Card>
             <span className="heading">Add new venue</span>
             <span className="content">Add a new venue here!</span>
-          </section>
+          </Card>
         )}
 
-        <section id="profile">
+        <ProfileDetails>
           <h1>Profile</h1>
-          <div className="profileContent displayRow">
-            <div
-              className="profileImgContainer"
-              onClick={() => setShowUpdate(!showUpdate)}
-            >
+          <ProfileContent>
+            <AvatarContainer onClick={() => setShowUpdate(!showUpdate)}>
               {avatar ? (
-                <img className="profileImg" src={avatar} alt={name} />
+                <img src={avatar} alt={name} />
               ) : (
                 <img src="/public/images/placeholder/Profile_avatar_placeholder_large.png" />
               )}
               <FontAwesomeIcon icon={faCamera} />
-            </div>
+            </AvatarContainer>
 
-            <div className="profileInfo">
+            <InfoContainer>
               <BoldText>{name}</BoldText>
               <p>{email}</p>
               {manager === true && (
@@ -180,10 +181,11 @@ export default function Profile() {
               >
                 Log out
               </MainButton>
-            </div>
-          </div>
-        </section>
+            </InfoContainer>
+          </ProfileContent>
+        </ProfileDetails>
         <hr />
+
         <Bookings data={bookings} />
       </ProfileContainer>
     </>

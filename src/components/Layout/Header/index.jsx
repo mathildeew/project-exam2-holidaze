@@ -7,7 +7,6 @@ import { get } from "../../../js/storage/localStorage";
 export default function Header() {
   const token = get("token");
   const path = window.location.pathname;
-  console.log(token);
 
   return (
     <HeaderContainer>

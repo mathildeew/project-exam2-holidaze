@@ -2,86 +2,74 @@ import styled from "styled-components";
 import { displayFlex } from "../../styles/mixins";
 
 export const ProfileContainer = styled.main`
-  margin-top: 50px;
+  height: 100%;
+  margin: 50px auto;
+`;
 
-  .registerCard {
-    background-image: url(/public/content/douglas-bagg-HDxvXqUJ3BQ-unsplash_downsized_layers.jpg);
-    background-position: bottom right;
-    background-size: cover;
-    height: 160px;
-    padding: 15px 10px;
-    border-radius: 10px;
-    margin-bottom: 50px;
-    ${displayFlex({
-      direction: "column",
-      justify: "end",
-    })}
+export const Card = styled.div`
+  background-image: url(/public/content/douglas-bagg-HDxvXqUJ3BQ-unsplash_downsized_layers.jpg);
+  background-position: bottom right;
+  background-size: cover;
+  height: 160px;
+  padding: 15px 10px;
+  border-radius: 10px;
+  margin-bottom: 50px;
+  ${displayFlex({
+    direction: "column",
+    justify: "end",
+  })}
 
-    span {
-      color: white;
-      font-family: OpenSans, Roboto, Arial, sans-serif;
-      font-weight: 900;
-      display: inline-block;
-    }
-
-    .heading {
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-
-    .content {
-      font-size: 1.6rem;
-    }
+  span {
+    color: white;
+    font-family: OpenSans, Roboto, Arial, sans-serif;
+    font-weight: 900;
+    display: inline-block;
   }
 
-  .displayRow {
-    max-width: 320px;
-    ${displayFlex({
-      justify: "space-between",
-    })}
+  .heading {
+    font-size: 2rem;
+    margin-bottom: 10px;
   }
 
-  #profile,
-  #bookings {
-    width: 100%;
+  .content {
+    font-size: 1.6rem;
   }
 
-  .profileContent {
-    height: 150px;
+  @media (min-width: 768px) {
+    height: 250px;
   }
+`;
 
-  .bookingContent {
-    height: 180px;
+export const ProfileDetails = styled.section`
+  width: 100%;
+`;
+
+export const ProfileContent = styled.section`
+  max-width: 350px;
+  height: 150px;
+  ${displayFlex({
+    direction: "row",
+    justify: "space-between",
+  })}
+`;
+
+export const InfoContainer = styled.div`
+  ${displayFlex({
+    direction: "column",
+    justify: "space-between",
+  })}
+
+  svg {
+    color: var(--primary);
+    font-size: 2rem;
+    margin-right: 5px;
+    z-index: 1;
   }
+`;
 
-  .profileInfo,
-  .bookingInfo {
-    ${displayFlex({
-      direction: "column",
-      justify: "space-between",
-    })}
-  }
-
-  .profileImgContainer {
-    svg {
-      color: black;
-      font-size: 2.5rem;
-      position: relative;
-      left: 45px;
-      bottom: 15px;
-    }
-  }
-
-  .profileInfo {
-    svg {
-      color: var(--primary);
-      font-size: 2rem;
-      margin-right: 5px;
-      z-index: 1;
-    }
-  }
-
-  .profileImg {
+export const AvatarContainer = styled.div`
+  position: relative;
+  img {
     width: 120px;
     height: 120px;
     border-radius: 100px;
@@ -89,26 +77,45 @@ export const ProfileContainer = styled.main`
     object-position: center center;
   }
 
-  .venueImg {
-    width: 110px;
-    height: 100px;
+  svg {
+    color: var(--primary);
+    font-size: 2.5rem;
+    background-color: white;
+    border-radius: 50px;
+    padding: 5px;
+    position: absolute;
+    left: 45px;
+    bottom: 15px;
+  }
+`;
+
+export const BookingsContainer = styled.section``;
+
+export const BookingsContent = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 50px;
+`;
+
+export const BookingCard = styled.div`
+  ${displayFlex({
+    direction: "row",
+    justify: "space-between",
+  })}
+
+  img {
+    width: 40%;
+    max-height: 200px;
     border-radius: 10px;
     object-fit: cover;
     object-position: center center;
   }
-
-  @media (min-width: 768px) {
-    .registerCard {
-      height: 250px;
-    }
-  }
 `;
 
-export const BookingsContainer = styled.section`
+export const BookingInfo = styled.div`
   height: 100%;
-  .bookingContent {
-    ${displayFlex({
-      direction: "column",
-    })}
-  }
+  ${displayFlex({
+    direction: "column",
+    justify: "space-between",
+  })}
 `;
