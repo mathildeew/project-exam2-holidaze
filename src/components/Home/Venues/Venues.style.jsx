@@ -7,7 +7,7 @@ export const VenuesContainer = styled.main`
   margin-bottom: 50px;
   max-width: 1400px;
 
-  @media (min-width: 768px) {
+  @media (min-width: 550px) {
     grid-template-columns: repeat(2, 1fr);
     grid-column-gap: 30px;
     grid-row-gap: 30px;
@@ -30,11 +30,18 @@ export const VenueImg = styled.div`
 
   img {
     width: 100%;
-    height: 250px;
+    min-height: 250px;
+    max-height: 450px;
     object-position: center center;
     object-fit: cover;
     border-radius: 10px;
     margin-bottom: 15px;
+  }
+
+  @media (min-width: 500px) {
+    img {
+      height: 300px;
+    }
   }
 `;
 
