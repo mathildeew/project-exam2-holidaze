@@ -14,7 +14,7 @@ export default function Bookings(data) {
   console.log(bookings);
 
   return (
-    <BookingsContainer>
+    <BookingsContainer id="booking">
       <h2>Your bookings</h2>
 
       <BookingsContent>

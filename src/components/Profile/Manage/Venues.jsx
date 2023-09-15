@@ -31,32 +31,38 @@ export default function Venues(data) {
       </Popup>
 
       <VenuesContainer>
-        {venues.map((venue) => (
-          <VenueCard key={venue.id}>
-            <Link to={`/venue/${venue.id}`}>
-              <img src={venue.media} />
-            </Link>
-            <div>
-              <h3>{venue.name}</h3>
-              <p
-                onClick={() => {
-                  setEditVenue(!editVenue);
-                  setVenueInfo(venue);
-                }}
-              >
-                Edit venue
-              </p>
-              <OutlineButton
-                onClick={() => {
-                  setVenueId(venue.id);
-                  deleteVenueAPI(venueId);
-                }}
-              >
-                Delete venue
-              </OutlineButton>
-            </div>
-          </VenueCard>
-        ))}
+        {venues.length > 0 ? (
+          <>
+            {venues.map((venue) => (
+              <VenueCard key={venue.id}>
+                <Link to={`/venue/${venue.id}`}>
+                  <img src={venue.media} />
+                </Link>
+                <div>
+                  <h3>{venue.name}</h3>
+                  <p
+                    onClick={() => {
+                      setEditVenue(!editVenue);
+                      setVenueInfo(venue);
+                    }}
+                  >
+                    Edit venue
+                  </p>
+                  <OutlineButton
+                    onClick={() => {
+                      setVenueId(venue.id);
+                      deleteVenueAPI(venueId);
+                    }}
+                  >
+                    Delete venue
+                  </OutlineButton>
+                </div>
+              </VenueCard>
+            ))}
+          </>
+        ) : (
+          <p>You have no registered venues yet!</p>
+        )}
       </VenuesContainer>
     </>
   );

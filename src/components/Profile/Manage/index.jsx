@@ -13,11 +13,11 @@ import {
 } from "./Manager.style";
 
 import Venues from "./Venues";
-import Reservations from "./Reservations";
 import { get } from "../../../js/storage/localStorage";
 import UseAPI from "../../../hooks/useApi";
 import NewVenuePopup from "./AddNewVenue/NewVenuePopup";
 import NewVenueAPI from "./AddNewVenue/NewVenueAPI";
+import Reservations from "./Reservations/Reservations";
 
 export default function Manage() {
   const name = get("name");
@@ -90,7 +90,7 @@ export default function Manage() {
 
         <Carousel>
           {showVenues && <Venues data={venues} />}
-          {showReservations && <Reservations data={venues.bookings} />}
+          {showReservations && <Reservations data={venues?.bookings} />}
         </Carousel>
       </ManagerContainer>
     </>
