@@ -8,12 +8,12 @@ import { DeleteBookingAPI } from "./CancelAPI";
 
 export default function CancelPopup(data) {
   const { data: id } = data;
-  console.log(id);
+  const [btnText, setBtnText] = useState("Yes, cancel");
 
   return (
     <CancelBookingContainer>
       <p>Are you sure you want to cancel this reservation?</p>
-      <MainButton onClick={() => DeleteBookingAPI(id)}>Yes, cancel</MainButton>
+      <MainButton onClick={() => DeleteBookingAPI(id)}>{btnText}</MainButton>
     </CancelBookingContainer>
   );
 }
