@@ -20,11 +20,15 @@ export default function UpdateAvatarAPI({ data }) {
     body: JSON.stringify(data),
   });
 
-  console.log(data);
+  console.log(response);
 
   useEffect(() => {
     if (isSuccess) {
       storage.set("avatar", JSON.stringify(data.avatar));
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
     }
   }, [isSuccess]);
 }

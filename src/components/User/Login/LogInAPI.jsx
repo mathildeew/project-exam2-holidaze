@@ -39,7 +39,9 @@ export default function LoginAPI({ data }) {
     }
 
     if (isError) {
-      setErrorMessage(response.errors[0].message);
+      setTimeout(() => {
+        setErrorMessage(response.errors[0].message);
+      }, 500);
     }
   }, [isSuccess, isError]);
 

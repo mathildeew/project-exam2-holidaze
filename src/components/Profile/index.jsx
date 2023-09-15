@@ -1,11 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
 import * as storage from "../../js/storage/localStorage";
-import { useLoggedIn } from "../../context/Context";
-
 import { MainButton } from "../../styles/Buttons";
 import {
   AvatarContainer,
@@ -25,12 +20,7 @@ import {
 import { Overlay, Popup } from "../../styles/Popup";
 import Bookings from "./Bookings";
 import UseAPI from "../../hooks/useApi";
-import apiEndpoints from "../../../endpoints.js/endpoints";
-import UpdateAvatarAPI from "./UpdateAvatarAPI";
-
-const schema = yup.object({
-  avatar: yup.string().url("Must be a valid URL").required(),
-});
+import UpdateAvatarPopup from "./UpdateAvatar/UpdateAvatarPopup";
 
 export default function Profile() {
   const name = storage.get("name");
@@ -55,34 +45,12 @@ export default function Profile() {
   );
 
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useLoggedIn();
-  const [data, setData] = useState(null);
+
   const [showUpdate, setShowUpdate] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [showVenueManager, setVenueManager] = useState(false);
-  const [btnText, setBtnText] = useState("Update");
 
   const bookings = profile?.bookings;
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
-
-  const onSubmit = async (data) => {
-    setBtnText("Updating...");
-    setData(data);
-
-    setTimeout(() => {
-      setBtnText("Updated!");
-    }, 1000);
-
-    setTimeout(() => {
-      setShowUpdate(false);
-      setVenueManager(false);
-    }, 1500);
-  };
 
   // console.log(manager);
 
@@ -99,19 +67,7 @@ export default function Profile() {
           className="close"
           onClick={() => setShowUpdate(false)}
         />
-        <div className="formContainer">
-          <h2>Update profile picture</h2>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <input
-              type="url"
-              name="update"
-              placeholder="Must be URL"
-              {...register("avatar", { required: true, type: "url" })}
-            />
-            <MainButton type="submit">{btnText}</MainButton>
-            {data && <UpdateAvatarAPI data={data} />}
-          </form>
-        </div>
+        <UpdateAvatarPopup />
       </Popup>
 
       {/* <Popup className={showRegister ? "popup active" : "popup inactive"}>
