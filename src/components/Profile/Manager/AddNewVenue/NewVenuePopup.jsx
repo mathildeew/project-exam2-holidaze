@@ -11,7 +11,12 @@ import { useEffect } from "react";
 import apiEndpoints from "../../../../../endpoints.js/endpoints";
 import useApi from "../../../../hooks/useApi";
 
-export default function NewVenuePopup() {
+export default function VenuePopup({ state, venue }) {
+  console.log(venue);
+
+  const isNewState = state === "new";
+  const isEditState = state === "edit";
+
   const [data, setData] = useState(null);
   const [addWifi, setAddWifi] = useState(false);
   const [addBreakfast, setAddBreakfast] = useState(false);
@@ -20,7 +25,10 @@ export default function NewVenuePopup() {
   const [btnText, setBtnText] = useState("Register new venue");
 
   const schema = yup.object({
-    name: yup.string().required("Please enter the venues title"),
+    name: yup
+      .string()
+      .required("Please enter the venues title")
+      .max(40, "The venue title must be less than 40 characters"),
     description: yup
       .string()
       .required("Please enter a description of the venue"),
@@ -71,17 +79,18 @@ export default function NewVenuePopup() {
     if (formData.media) {
       formData.media = [formData.media];
     }
-    const response = await fetchApi(apiEndpoints().venues, "POST", formData);
+    // const response = await fetchApi(apiEndpoints().venues, "POST", formData);
     // console.log(response);
     // if (response === 201) {
     //   window.location.reload();
     // }
-    // console.log(formData);
+    console.log(formData);
   };
 
   return (
     <NewVenue>
-      <h2>Register new venue</h2>
+      {isNewState ? <h2>Register new venue</h2> : <h2>Edit venue</h2>}
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <NewVenueInfo>
           <label htmlFor="name">Title</label>
@@ -185,6 +194,7 @@ export default function NewVenuePopup() {
             placeholder="Image one"
             {...register("media", { required: false, type: "url" })}
           />
+          <p className="errorMsg">{errors.media?.message}</p>
         </section>
 
         <NewVenueFasc>

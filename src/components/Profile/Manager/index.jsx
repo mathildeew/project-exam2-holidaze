@@ -15,7 +15,7 @@ import {
   VenuesContainer,
 } from "./Manager.style";
 import Venues from "./Venues";
-import NewVenuePopup from "./AddNewVenue/NewVenuePopup";
+import VenuePopup from "./AddNewVenue/NewVenuePopup";
 import Reservations from "./Reservations/Reservations";
 
 export default function Manage() {
@@ -54,7 +54,7 @@ export default function Manage() {
           className="close"
           onClick={() => setNewVenue(false)}
         />
-        <NewVenuePopup />
+        <VenuePopup venue={""} state={"new"} />
       </Popup>
 
       <ManagerContainer className="maxWidth">

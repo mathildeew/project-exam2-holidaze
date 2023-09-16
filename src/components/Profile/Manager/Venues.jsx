@@ -4,12 +4,12 @@ import { Overlay, Popup } from "../../../styles/Popup";
 import { VenueCard, VenuesContainer } from "./Manager.style";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import EditVenuePopup from "./Venues/EditVenuePopup";
 import { OutlineButton } from "../../../styles/Buttons";
 import apiEndpoints from "../../../../endpoints.js/endpoints";
 import { get } from "../../../js/storage/localStorage";
 import { useEffect } from "react";
 import useApi from "../../../hooks/useApi";
+import VenuePopup from "./AddNewVenue/NewVenuePopup";
 
 export default function Venues(data) {
   const token = get("token");
@@ -37,7 +37,7 @@ export default function Venues(data) {
           className="close"
           onClick={() => setEditVenue(false)}
         />
-        <EditVenuePopup data={venueInfo} />
+        <VenuePopup venue={venueInfo} state={"edit"} />
       </Popup>
 
       <VenuesContainer>
