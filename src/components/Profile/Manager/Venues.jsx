@@ -9,6 +9,7 @@ import { OutlineButton } from "../../../styles/Buttons";
 import apiEndpoints from "../../../../endpoints.js/endpoints";
 import { get } from "../../../js/storage/localStorage";
 import { useEffect } from "react";
+import useApi from "../../../hooks/useApi";
 
 export default function Venues(data) {
   const token = get("token");
@@ -16,6 +17,16 @@ export default function Venues(data) {
   const [editVenue, setEditVenue] = useState(false);
   const [venueInfo, setVenueInfo] = useState([]);
   const [venueId, setVenueId] = useState([]);
+
+  const { isLoading, fetchApi } = useApi();
+
+  const onDelete = async (id) => {
+    const response = await fetchApi(
+      `https://api.noroff.dev/api/v1/holidaze/venues/${id}`,
+      "DELETE"
+    );
+    console.log(id);
+  };
 
   return (
     <>
@@ -46,6 +57,14 @@ export default function Venues(data) {
                     }}
                   >
                     Edit venue
+                  </p>
+                  <p
+                    onClick={() => {
+                      setVenueId(venue.id);
+                      onDelete(venueId);
+                    }}
+                  >
+                    Delete venue
                   </p>
                 </div>
               </VenueCard>
