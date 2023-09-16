@@ -18,6 +18,7 @@ export default function Venues(data) {
   const [venueInfo, setVenueInfo] = useState([]);
   const [venueId, setVenueId] = useState([]);
 
+  console.log(venues);
   return (
     <>
       <Overlay className={editVenue ? "overlay active" : "overlay inactive"} />
@@ -31,7 +32,7 @@ export default function Venues(data) {
       </Popup>
 
       <VenuesContainer>
-        {venues.length > 0 ? (
+        {venues && Array.isArray() ? (
           <>
             {venues.map((venue) => (
               <VenueCard key={venue.id}>

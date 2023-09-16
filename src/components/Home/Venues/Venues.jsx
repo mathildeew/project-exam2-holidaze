@@ -27,7 +27,7 @@ export default function Venues(data) {
   return (
     <VenuesContainer id="venues">
       {venues.map((venue) => (
-        <VenueCard id={venue.id}>
+        <VenueCard key={venue.id}>
           <Link to={`/venue/${venue.id}`} c key={venue.id}>
             <VenueImg>
               {venue.media.length > 0 && <img src={venue.media[0]} />}
