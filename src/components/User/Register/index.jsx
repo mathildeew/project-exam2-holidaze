@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { MainButton } from "../../../styles/Buttons";
 import { FormContainer } from "../FormContainer.style";
 import { useState } from "react";
@@ -8,55 +8,41 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import UseAPI from "../../../hooks/useApi";
 import apiEndpoints from "../../../../endpoints.js/endpoints";
-
-const schema = yup.object({
-  name: yup.string().required("Please enter a username"),
-  email: yup.string().required("Please enter your email"),
-  password: yup
-    .string()
-    .min(8, "Your password must be at least 8 characters")
-    .required("Please enter your password"),
-  avatar: yup.string().url("Please enter a valid URL"),
-  manager: yup.boolean(),
-});
+import useApi from "../../../hooks/useApi";
 
 export default function register() {
-  const [venueManager, setVenueManager] = useState(false);
+  const navigate = useNavigate();
   const [data, setData] = useState(null);
+
+  const schema = yup.object({
+    name: yup.string().required("Please enter a username"),
+    email: yup.string().required("Please enter your email"),
+    password: yup
+      .string()
+      .min(8, "Your password must be at least 8 characters")
+      .required("Please enter your password"),
+    avatar: yup.string().url("Please enter a valid URL"),
+    manager: yup.boolean(),
+  });
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  function RegisterAPI({ data }) {
-    const {
-      content: response,
-      isLoading,
-      isError,
-      isSuccess,
-    } = UseAPI(apiEndpoints().register, {
-      method: "POST",
-      headers: { "Content-Type": "application/json," },
-      body: JSON.stringify(data),
-    });
+  const { isLoading, fetchApi, errorMsg, isError } = useApi();
 
-    // {
-    //   response.errors && <p>An error occured</p>>;
-    // }
+  const onSubmit = async (formData) => {
+    setData(formData);
+    const response = await fetchApi(apiEndpoints().register, "POST", formData);
 
-    console.log(response);
-
-    useEffect(() => {
-      if (isSuccess) {
-        console.log("Success");
-      }
-    }, [isSuccess]);
-  }
-
-  const onSubmit = async (data) => {
-    setData(data);
+    if (response.status === 200) {
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    }
   };
 
   return (
@@ -139,18 +125,16 @@ export default function register() {
                 />
                 <label htmlFor="manager">Register as venue manager</label>
               </div>
+              <p className="errorMsg">{errorMsg}</p>
             </div>
-            <MainButton type="submit">Register</MainButton>
-            {data && <RegisterAPI data={data} />}
+            <MainButton type="submit">
+              {isLoading ? "Registering..." : "Register"}
+            </MainButton>
           </form>
 
           <div className="loginContent flexLine">
             <p>Already have an account?</p>
             <Link to={"/user/login"}>Log in here</Link>
-          </div>
-
-          <div className="footer">
-            <p>&copy;2023 Holidaze - Mathilde Elinor Wiik</p>
           </div>
         </section>
 
