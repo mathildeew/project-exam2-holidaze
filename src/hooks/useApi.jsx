@@ -30,6 +30,7 @@ const useApi = () => {
       setIsError(false);
       setErrorMessage(null);
 
+      // console.log(response);
       return response;
     } catch (error) {
       setIsError(true);

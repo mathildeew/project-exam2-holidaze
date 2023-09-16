@@ -79,7 +79,7 @@ export default function Header() {
         </Link>
         {token !== null && (
           <Nav className="auth">
-            <Link to="/profile/manage/">
+            <Link to="/profile/manager/">
               <span className="hide">Manager</span>
               <FontAwesomeIcon icon={faBriefcase} />
             </Link>

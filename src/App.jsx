@@ -4,7 +4,7 @@ import Home from "./components/Home";
 import Register from "./components/User/Register";
 import Login from "./components/User/Login";
 import Profile from "./components/Profile";
-import Manage from "./components/Profile/Manage";
+import Manage from "./components/Profile/Manager";
 import NotFound from "./components/NotFound";
 import Venue from "./components/Venue";
 
@@ -16,7 +16,7 @@ export default function App() {
         <Route path="user/login" element={<Login />} />
         <Route path="user/register" element={<Register />} />
         <Route path="profile" element={<Profile />} />
-        <Route path="profile/manage" element={<Manage />} />
+        <Route path="profile/manager" element={<Manage />} />
         <Route path="venue/:id" element={<Venue />} />
         <Route path="*" element={<NotFound />} />
       </Route>

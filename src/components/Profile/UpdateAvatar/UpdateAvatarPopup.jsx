@@ -4,7 +4,6 @@ import { MainButton } from "../../../styles/Buttons";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UpdateAvatarContainer } from "../../../styles/Popup";
-import updateAvatarAPI from "../UpdateAvatarAPI";
 import { get, set } from "../../../js/storage/localStorage";
 import { useEffect } from "react";
 import axios from "axios";

@@ -1,7 +1,18 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useCallback, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCamera,
+  faXmark,
+  faCircleCheck,
+} from "@fortawesome/free-solid-svg-icons";
 import * as storage from "../../js/storage/localStorage";
+import useApi from "../../hooks/useApi";
+import apiEndpoints from "../../../endpoints.js/endpoints";
 import { MainButton } from "../../styles/Buttons";
+import { BoldText } from "../../styles/Text";
+import { Overlay, Popup } from "../../styles/Popup";
+import Bookings from "./Bookings";
+import UpdateAvatarPopup from "./UpdateAvatar/UpdateAvatarPopup";
 import {
   AvatarContainer,
   Card,
@@ -10,49 +21,37 @@ import {
   ProfileContent,
   ProfileDetails,
 } from "./Profile.styles";
-import { BoldText } from "../../styles/Text";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCamera,
-  faXmark,
-  faCircleCheck,
-} from "@fortawesome/free-solid-svg-icons";
-import { Overlay, Popup } from "../../styles/Popup";
-import Bookings from "./Bookings";
-import UseAPI from "../../hooks/useApi";
-import UpdateAvatarPopup from "./UpdateAvatar/UpdateAvatarPopup";
 
 export default function Profile() {
   const name = storage.get("name");
-  const token = storage.get("token");
   const email = storage.get("email");
   const manager = storage.get("manager");
   const avatar = storage.get("avatar");
-
-  const {
-    content: profile,
-    isLoading,
-    isError,
-  } = UseAPI(
-    `https://api.noroff.dev/api/v1/holidaze/profiles/${name}?_bookings=true`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-
-  const navigate = useNavigate();
 
   const [showUpdate, setShowUpdate] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [showVenueManager, setVenueManager] = useState(false);
 
-  const bookings = profile?.bookings;
+  const {
+    fetchApi,
+    data: profile,
+    isLoading,
+    isError,
+    isSuccess,
+    errorMsg,
+  } = useApi();
 
-  // console.log(manager);
+  const getData = useCallback(async () => {
+    await fetchApi(
+      `${apiEndpoints().profile}/${name}?_bookings=true&_venues=true`
+    );
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
+  const bookings = profile.bookings;
 
   return (
     <>

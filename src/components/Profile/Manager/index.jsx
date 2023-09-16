@@ -1,7 +1,10 @@
-import { faHouseCircleCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useCallback, useState, useEffect } from "react";
+import { get } from "../../../js/storage/localStorage";
+import useApi from "../../../hooks/useApi";
+import apiEndpoints from "../../../../endpoints.js/endpoints";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouseCircleCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
 import { MainButton } from "../../../styles/Buttons";
 import { Overlay, Popup } from "../../../styles/Popup";
 import { BoldText } from "../../../styles/Text";
@@ -11,36 +14,39 @@ import {
   ManagerContainer,
   VenuesContainer,
 } from "./Manager.style";
-
 import Venues from "./Venues";
-import { get } from "../../../js/storage/localStorage";
-import UseAPI from "../../../hooks/useApi";
 import NewVenuePopup from "./AddNewVenue/NewVenuePopup";
 import NewVenueAPI from "./AddNewVenue/NewVenueAPI";
 import Reservations from "./Reservations/Reservations";
 
 export default function Manage() {
   const name = get("name");
-  const token = get("token");
-  const {
-    content: venues,
-    isLoading,
-    isError,
-  } = UseAPI(
-    `https://api.noroff.dev/api/v1/holidaze/profiles/${name}/venues?_bookings=true`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-
-  console.log(venues);
-
   const [showVenues, setShowVenues] = useState(true);
   const [showReservations, setShowReservations] = useState(false);
   const [newVenue, setNewVenue] = useState(false);
+
+  const {
+    fetchApi,
+    data: profile,
+    isLoading,
+    isError,
+    isSuccess,
+    errorMsg,
+  } = useApi();
+
+  const getData = useCallback(async () => {
+    await fetchApi(
+      `${apiEndpoints().profile}/${name}?_bookings=true&_venues=true`
+    );
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
+  const venues = profile.venues;
+
+  console.log(venues);
 
   return (
     <>
