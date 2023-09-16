@@ -33,6 +33,7 @@ export default function NewVenuePopup() {
       .number("Max guests must be a number")
       .integer("Max guest must be an integer")
       .positive("Max guests must have a positive value")
+      .max(100, "A venue cannot accomodate more than 100 guests")
       .required("Max guests must be a number"),
     rating: yup.number().positive().notRequired(),
     meta: yup
@@ -67,13 +68,15 @@ export default function NewVenuePopup() {
 
   const onSubmit = async (formData) => {
     setData(formData);
-    formData.media = [formData.media];
+    if (formData.media) {
+      formData.media = [formData.media];
+    }
     const response = await fetchApi(apiEndpoints().venues, "POST", formData);
     // console.log(response);
     // if (response === 201) {
     //   window.location.reload();
     // }
-    console.log(formData);
+    // console.log(formData);
   };
 
   return (
@@ -178,7 +181,7 @@ export default function NewVenuePopup() {
           <p>Add up to three photos</p>
           <input
             type="url"
-            name="meida"
+            name="media"
             placeholder="Image one"
             {...register("media", { required: false, type: "url" })}
           />
