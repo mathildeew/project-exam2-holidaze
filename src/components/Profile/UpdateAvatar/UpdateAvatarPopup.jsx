@@ -1,31 +1,54 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { MainButton } from "../../../styles/Buttons";
-import UpdateAvatarAPI from "../UpdateAvatarAPI";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UpdateAvatarContainer } from "../../../styles/Popup";
+import updateAvatarAPI from "../UpdateAvatarAPI";
+import { get, set } from "../../../js/storage/localStorage";
+import { useEffect } from "react";
+import axios from "axios";
+import useApi from "../../../hooks/useApi";
 
 export default function UpdateAvatarPopup() {
+  const [avatar, setNewAvatar] = useState("");
+  const [btnText, setBtnText] = useState("Update avatar");
+
+  const name = get("name");
+
   const schema = yup.object({
-    avatar: yup.string().url("Must be a valid URL").required(),
+    avatar: yup.string().url("Avatar must ba a valid URL"),
   });
 
-  const [data, setData] = useState(null);
-  const [btnText, setBtnText] = useState("Update");
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = async (data) => {
+  const { fetchApi, isError, isLoading, isSuccess } = useApi();
+
+  const onSubmit = async (formData) => {
     setBtnText("Updating...");
-    setData(data);
+    setNewAvatar(formData.avatar);
+    console.log(formData.avatar);
+
+    await fetchApi(
+      `https://api.noroff.dev/api/v1/holidaze/profiles/${name}/media`,
+      "PUT",
+      { avatar }
+    );
+
+    set("avatar", JSON.stringify(formData.avatar));
 
     setTimeout(() => {
       setBtnText("Updated!");
     }, 1000);
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
   };
 
   return (
@@ -34,11 +57,11 @@ export default function UpdateAvatarPopup() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
           type="url"
-          name="update"
+          name="avatar"
           placeholder="Must be URL"
-          {...register("avatar", { required: true, type: "url" })}
+          {...register("avatar")}
         />
-        {data && <UpdateAvatarAPI data={data} />}
+        {/* {data && <UpdateAvatarAPI data={data} />} */}
 
         <MainButton type="submit">{btnText}</MainButton>
       </form>

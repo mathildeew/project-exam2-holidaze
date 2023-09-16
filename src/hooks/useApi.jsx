@@ -1,31 +1,39 @@
+import axios from "axios";
 import { useState, useEffect } from "react";
+import { get } from "../js/storage/localStorage";
 
-export default function UseAPI(url, fetchOptions) {
-  const [content, setContent] = useState([]);
+const useApi = () => {
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  useEffect(() => {
-    async function getData() {
-      try {
-        setIsLoading(true);
-        setIsError(false);
+  const token = get("token");
 
-        const response = await fetch(url, fetchOptions);
-        const json = await response.json();
-        setIsLoading(false);
-        setContent(json);
-        response.ok === true && setIsSuccess(true);
-        response.ok === false && setIsError(true);
-      } catch (error) {
-        console.log(error);
-        setIsLoading(false);
-        setIsError(true);
-      }
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+
+  const fetchApi = async (url, method, data) => {
+    setIsLoading(true);
+    try {
+      const response = await axios({
+        url: url,
+        method: method,
+        headers: headers,
+        data: data,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      setIsError(true);
+      setIsSuccess(false);
+    } finally {
+      setIsLoading(false);
     }
-    getData();
-  }, [url]);
+  };
+  return { data, isSuccess, isLoading, isError, fetchApi };
+};
 
-  return { content, isLoading, isError, isSuccess };
-}
+export default useApi;
