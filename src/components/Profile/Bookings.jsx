@@ -1,50 +1,72 @@
-import { useLoggedIn } from "../../context/Context";
-import UseAPI from "../../hooks/useApi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import { MainButton } from "../../styles/Buttons";
+import { Overlay, Popup } from "../../styles/Popup";
+import { BoldText } from "../../styles/Text";
+import CancelPopup from "./Bookings/CancelPopup";
+import {
+  BookingsContainer,
+  BookingsContent,
+  BookingCard,
+  BookingInfo,
+} from "./Profile.styles";
+import UpdateAvatarPopup from "./UpdateAvatar/UpdateAvatarPopup";
 
-export default function Bookings() {
-  const [isLoggedIn, setIsLoggedIn] = useLoggedIn();
-  const { avatar, email, manager, name, token } = isLoggedIn;
-
-  const {
-    content: bookings,
-    isLoading,
-    isError,
-  } = UseAPI(
-    `https://api.noroff.dev/api/v1/holidaze/profiles/${name}/bookings`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+export default function Bookings(data) {
+  const { data: bookings } = data;
+  const [showCancel, setShowCancel] = useState(false);
+  const [bookingId, setBookingId] = useState("");
 
   return (
-    <section id="bookings">
-      <h3>Your bookings</h3>
-      <div className="bookingContent displayRow">
-        <img
-          className="venueImg"
-          src="../../../src/assets/placeholders/aldeen-li-jH2vyek3t8Q-unsplash.jpg"
-          alt="Location name"
+    <>
+      <Overlay className={showCancel ? "overlay active" : "overlay inactive"} />
+      <Popup className={showCancel ? "popup active" : "popup inactive"}>
+        <FontAwesomeIcon
+          icon={faXmark}
+          className="close"
+          onClick={() => setShowCancel(false)}
         />
-        <div className="bookingInfo">
-          <BoldText>Name of venue</BoldText>
-          <div className="flexLine">
-            <BoldText>Location:</BoldText> <p>Oslo</p>
-          </div>
-          <div className="flexLine">
-            <BoldText>Price pr. night:</BoldText> <p>1235</p>
-          </div>
-          <div className="flexLine">
-            <BoldText>Guests:</BoldText> <p>2</p>
-          </div>
-          <MainButton isSmall={true}>Cancel booking</MainButton>
-        </div>
-      </div>
+        <CancelPopup data={bookingId} />
+      </Popup>
 
-      <hr />
-    </section>
+      <BookingsContainer>
+        <h2>Your bookings</h2>
+
+        <BookingsContent>
+          {bookings?.map((booking) => (
+            <BookingCard key={booking.id}>
+              <img src={booking.venue.media} alt={booking.venue.name} />
+              <BookingInfo>
+                <BoldText>{booking.venue.name}</BoldText>
+
+                <div className="flexLine">
+                  <BoldText>
+                    {booking.venue.loacation?.city},
+                    {booking.venue.loacation?.country},
+                  </BoldText>
+                </div>
+                <div className="flexLine">
+                  <BoldText>Price pr. night:</BoldText>
+                  <p>{booking.venue.price}$</p>
+                </div>
+                <div className="flexLine">
+                  <BoldText>Guests:</BoldText> <p>{booking.guests}</p>
+                </div>
+                <MainButton
+                  isSmall={true}
+                  onClick={() => {
+                    setBookingId(booking.id);
+                    setShowCancel(!showCancel);
+                  }}
+                >
+                  Cancel booking
+                </MainButton>
+              </BookingInfo>
+            </BookingCard>
+          ))}
+        </BookingsContent>
+      </BookingsContainer>
+    </>
   );
 }

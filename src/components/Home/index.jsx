@@ -1,4 +1,11 @@
-import { HomeContainer } from "./HomeContainer.styles";
+import {
+  FilterButton,
+  FilterContent,
+  Hero,
+  HomeContainer,
+  InputContainer,
+  Search,
+} from "./Home.styles";
 import { BoldText } from "../../styles/Text";
 import { MainButton } from "../../styles/Buttons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,183 +17,154 @@ import {
   faPeopleRoof,
   faCirclePlus,
   faCircleMinus,
-  faWifi,
-  faParking,
-  faCutlery,
-  faDog,
-  faCut,
+  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 import { useState } from "react";
-import UseAPI from "../../hooks/useApi.jsx";
-import { Link } from "react-router-dom";
 
+import Venues from "./Venues/Venues";
+import UseAPI from "../../hooks/useApi";
 import apiEndpoints from "../../../endpoints.js/endpoints";
+import { Popup } from "../../styles/Popup";
 
 export default function Home() {
-  const { content, isLoading, isError } = UseAPI(apiEndpoints().venues);
-
   const [showSearch, setShowSearch] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [searchedVenue, setSearchedVenue] = useState("");
+  const [filteredVenue, setFilteredVenue] = useState("");
 
-  if (isLoading) return <HomeContainer>Loading...</HomeContainer>;
-  if (isError) return <HomeContainer>Error!</HomeContainer>;
+  const { content: venues, isLoading, isError } = UseAPI(apiEndpoints().venues);
+
+  if (isLoading) return <section>Loading...</section>;
+  if (isError) return <section>Error!</section>;
+
+  console.log(venues);
+
+  const searchResults = venues.filter((venue) =>
+    venue.name.toLowerCase().includes(searchedVenue.toLowerCase())
+  );
+
+  function onSearch(event) {
+    setSearchedVenue(event.target.value);
+    console.log(searchResults);
+  }
 
   return (
-    <HomeContainer>
-      <section className="hero">
-        <div className="search">
-          <h1>Discover your next getaway</h1>
-          <form>
-            <div className="formContent">
-              <div className="inputContainer">
-                <FontAwesomeIcon icon={faLocationDot} />
-                <input type="text" name="location" placeholder="Where?" />
-              </div>
-              <div className="inputContainer">
-                <FontAwesomeIcon icon={faCalendar} />
-                <input type="text" name="date" placeholder="When?" />
-              </div>
-              <div className="inputContainer">
-                <div>
-                  <FontAwesomeIcon icon={faPeopleRoof} />
-                  <input type="text" name="guests" placeholder="How many?" />
-                </div>
-                <div>
-                  <FontAwesomeIcon icon={faCirclePlus} />
-                  <FontAwesomeIcon icon={faCircleMinus} />
-                </div>
-              </div>
-            </div>
-            <MainButton isTrans={true} onClick={setShowSearch}>
-              Search
-            </MainButton>
-          </form>
-        </div>
-      </section>
-
-      <section className="venues maxWidth">
-        {content.map((venue) => (
-          <Link to={`/venue/${venue.id}`} className="venue" key={venue.id}>
-            <div className="imgContainer">
-              {venue.media.length > 0 && <img src={venue.media[0]} />}
-              {venue.media.length === 0 && (
-                <img src="src/assets/placeholders/image-placeholder-350x350-1.png" />
-              )}
-
-              <div className="locationTag">
-                <FontAwesomeIcon icon={faLocationDot} />
-                <p>{venue.location.country}</p>
-              </div>
-            </div>
-            <div className="info">
-              <h2>{venue.name}</h2>
-              <div className="fascilities">
-                {venue.meta.breakfast === true && <p>Breakfast -&nbsp; </p>}
-                {venue.meta.parking === true && <p>Parking -&nbsp; </p>}
-                {venue.meta.pets === true && <p>Pet friendly -&nbsp; </p>}
-                {venue.meta.wifi === true && <p>Wifi</p>}
-              </div>
-              <BoldText>${venue.price} pr. night</BoldText>
-            </div>
-          </Link>
-        ))}
-      </section>
-
-      <div className="sortFilter" onClick={() => setShowPopup(!showPopup)}>
+    <>
+      <FilterButton onClick={() => setShowPopup(!showPopup)}>
         <FontAwesomeIcon icon={faFilter} />
-      </div>
-
-      <div
-        className={showPopup ? "filterPopup active" : "filterPopup inactive"}
-      >
+      </FilterButton>
+      <Popup className={showPopup ? "popup active" : "popup inactive"}>
         <FontAwesomeIcon
           className="close"
           icon={faClose}
-          onClick={() => setShowPopup(true)}
+          onClick={() => setShowPopup(false)}
         />
-        <h3>Sort by</h3>
-        <select className="dropdown" name="" id="">
-          <option value="all">All</option>
-          <option value="lth">Price: low to high</option>
-          <option value="htl">Price: hight to low</option>
-          <option value="rating">Rating</option>
-        </select>
 
-        <div>
-          <h4>Price range</h4>
-        </div>
+        <FilterContent>
+          <h2>Sort by</h2>
+          <select className="dropdown" name="" id="">
+            <option value="all">All</option>
+            <option value="lth">Price: low to high</option>
+            <option value="htl">Price: hight to low</option>
+            <option value="rating">Rating</option>
+          </select>
 
-        <div>
-          <h4>Max guests</h4>
-          <div>
-            <input type="radio" name="guests" />
-            <label htmlFor="one">1</label>
-          </div>
-          <div>
-            <input type="radio" name="guests" />
-            <label htmlFor="two">2</label>
-          </div>
-          <div>
-            <input type="radio" name="guests" />
-            <label htmlFor="three">3</label>
-          </div>
-          <div>
-            <input type="radio" name="guests" />
-            <label htmlFor="four">4</label>
-          </div>
-          <div>
-            <input type="radio" name="guests" />
-            <label htmlFor="five">5+</label>
-          </div>
-        </div>
+          <section>
+            <h3>Price range</h3>
+          </section>
 
-        <div>
-          <h4>Fascilities</h4>
-          <div className="fascContent">
-            <div className="fascBtn">
-              <FontAwesomeIcon icon={faWifi} />
-              <p>Wifi</p>
+          <section>
+            <h3>Max guests</h3>
+            <div>
+              <input type="radio" name="guests" />
+              <label htmlFor="one">1</label>
             </div>
-            <div className="fascBtn">
-              <FontAwesomeIcon icon={faCutlery} />
-              <p>Breakfast</p>
+            <div>
+              <input type="radio" name="guests" />
+              <label htmlFor="two">2</label>
             </div>
-            <div className="fascBtn">
-              <FontAwesomeIcon icon={faParking} />
-              <p>Parking</p>
+            <div>
+              <input type="radio" name="guests" />
+              <label htmlFor="three">3</label>
             </div>
-            <div className="fascBtn">
-              <FontAwesomeIcon icon={faDog} />
-              <p>Pet friendly</p>
+            <div>
+              <input type="radio" name="guests" />
+              <label htmlFor="four">4</label>
             </div>
-          </div>
-        </div>
+            <div>
+              <input type="radio" name="guests" />
+              <label htmlFor="five">5+</label>
+            </div>
+          </section>
 
-        <div>
-          <h4>Rating</h4>
-          <div>
-            <input type="radio" name="rating" />
-            <label htmlFor="one">1</label>
-          </div>
-          <div>
-            <input type="radio" name="rating" />
-            <label htmlFor="two">2</label>
-          </div>
-          <div>
-            <input type="radio" name="rating" />
-            <label htmlFor="three">3</label>
-          </div>
-          <div>
-            <input type="radio" name="rating" />
-            <label htmlFor="four">4</label>
-          </div>
-          <div>
-            <input type="radio" name="rating" />
-            <label htmlFor="five">5</label>
-          </div>
-        </div>
-      </div>
-    </HomeContainer>
+          <section>
+            <h3>Fascilities</h3>
+            <div className="fascContent">
+              <div className="fascBtn">
+                <input type="checkbox" name="wifi" />
+                <label htmlFor="wifi">Wifi</label>
+              </div>
+              <div className="fascBtn">
+                <input type="checkbox" name="breakfast" />
+                <label htmlFor="breakfast">Breakfast</label>
+              </div>
+              <div className="fascBtn">
+                <input type="checkbox" name="parking" />
+                <label htmlFor="parking">Parking</label>
+              </div>
+              <div className="fascBtn">
+                <input type="checkbox" name="pets" />
+                <label htmlFor="pets">Pets</label>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h3>Rating</h3>
+            <div>
+              <input type="radio" name="rating" />
+              <label htmlFor="one">1</label>
+            </div>
+            <div>
+              <input type="radio" name="rating" />
+              <label htmlFor="two">2</label>
+            </div>
+            <div>
+              <input type="radio" name="rating" />
+              <label htmlFor="three">3</label>
+            </div>
+            <div>
+              <input type="radio" name="rating" />
+              <label htmlFor="four">4</label>
+            </div>
+            <div>
+              <input type="radio" name="rating" />
+              <label htmlFor="five">5</label>
+            </div>
+          </section>
+        </FilterContent>
+      </Popup>
+
+      <HomeContainer>
+        <Hero>
+          <Search>
+            <h1>Discover your next getaway</h1>
+            <InputContainer>
+              <FontAwesomeIcon icon={faSearch} />
+              <input
+                placeholder="Search venue"
+                type="search"
+                onChange={onSearch}
+                value={searchedVenue}
+              ></input>
+            </InputContainer>
+          </Search>
+        </Hero>
+        {!searchedVenue && <Venues data={venues} />}
+        {searchedVenue && <Venues data={searchResults} />}
+        {/* {searchedVenue.length === 0 } */}
+      </HomeContainer>
+    </>
   );
 }

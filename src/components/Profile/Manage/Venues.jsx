@@ -1,38 +1,69 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
+import { Overlay, Popup } from "../../../styles/Popup";
+import { VenueCard, VenuesContainer } from "./Manager.style";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import EditVenuePopup from "./Venues/EditVenuePopup";
+import { OutlineButton } from "../../../styles/Buttons";
 import apiEndpoints from "../../../../endpoints.js/endpoints";
-import UseAPI from "../../../hooks/useApi";
-import { MainButton } from "../../../styles/Buttons";
-import { BoldText } from "../../../styles/Text";
-import { VenuesContainer } from "./Venues.style";
-
-import * as storage from "../../../js/storage/localStorage";
+import { get } from "../../../js/storage/localStorage";
+import { useEffect } from "react";
+import { deleteVenueAPI } from "./Venues/DeleteVenueAPI";
 
 export default function Venues(data) {
+  const token = get("token");
   const { data: venues } = data;
+  const [editVenue, setEditVenue] = useState(false);
+  const [venueInfo, setVenueInfo] = useState([]);
+  const [venueId, setVenueId] = useState([]);
 
   return (
-    <VenuesContainer>
-      {venues.map((venue) => (
-        <div className="venue" key={venue.id}>
-          <img src={venue.media} />
-          <div>
-            <h2>{venue.name}</h2>
-            <div className="flexLine">
-              <BoldText>Location:</BoldText>
-              <p>{venue.location.city},</p>
-              <p>{venue.location.country},</p>
-            </div>
-            <div className="flexLine">
-              <BoldText>Price:</BoldText>
-              <p>{venue.price}</p>
-            </div>
-            <div className="flexLine">
-              <BoldText>Max guests:</BoldText>
-              <p>{venue.maxGuests}</p>
-            </div>
-            <MainButton isSmall={true}>Edit venue</MainButton>
-          </div>
-        </div>
-      ))}
-    </VenuesContainer>
+    <>
+      <Overlay className={editVenue ? "overlay active" : "overlay inactive"} />
+      <Popup className={editVenue ? "overlay active" : "overlay inactive"}>
+        <FontAwesomeIcon
+          icon={faXmark}
+          className="close"
+          onClick={() => setEditVenue(false)}
+        />
+        <EditVenuePopup data={venueInfo} />
+      </Popup>
+
+      <VenuesContainer>
+        {venues.length > 0 ? (
+          <>
+            {venues.map((venue) => (
+              <VenueCard key={venue.id}>
+                <Link to={`/venue/${venue.id}`}>
+                  <img src={venue.media} />
+                </Link>
+                <div>
+                  <h3>{venue.name}</h3>
+                  <p
+                    onClick={() => {
+                      setEditVenue(!editVenue);
+                      setVenueInfo(venue);
+                    }}
+                  >
+                    Edit venue
+                  </p>
+                  <OutlineButton
+                    onClick={() => {
+                      setVenueId(venue.id);
+                      deleteVenueAPI(venueId);
+                    }}
+                  >
+                    Delete venue
+                  </OutlineButton>
+                </div>
+              </VenueCard>
+            ))}
+          </>
+        ) : (
+          <p>You have no registered venues yet!</p>
+        )}
+      </VenuesContainer>
+    </>
   );
 }

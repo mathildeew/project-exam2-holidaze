@@ -6,24 +6,13 @@ import apiEndpoints from "../../../../endpoints.js/endpoints";
 import { useState } from "react";
 import { set } from "../../../js/storage/localStorage";
 
-function fetchOptions(methodOp, data) {
-  const options = {
-    method: methodOp,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  };
-}
-
 export default function LoginAPI({ data }) {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useLoggedIn();
+  const [dataa, setData] = useState();
   const [errorMessage, setErrorMessage] = useState();
 
   const {
     content: response,
-    isLoading,
     isError,
     isSuccess,
   } = UseAPI(apiEndpoints().login, {
@@ -32,35 +21,33 @@ export default function LoginAPI({ data }) {
     body: JSON.stringify(data),
   });
 
-  //   console.log(response);
+  // console.log(response);
+  console.log(data);
 
-  useEffect(
-    () => {
-      if (isSuccess) {
-        set("token", JSON.stringify(response.accessToken));
-        set("avatar", JSON.stringify(response.avatar));
-        set("name", JSON.stringify(response.name));
-        set("manager", JSON.stringify(response.venueManager));
-        set("email", JSON.stringify(response.email));
+  useEffect(() => {
+    if (isSuccess) {
+      set("token", JSON.stringify(response.accessToken));
+      set("avatar", JSON.stringify(response.avatar));
+      set("name", JSON.stringify(response.name));
+      set("manager", JSON.stringify(response.venueManager));
+      set("email", JSON.stringify(response.email));
+      setData(response);
 
-        setIsLoggedIn(true);
+      setTimeout(() => {
+        navigate("/");
+      }, 500);
+    }
 
-        setTimeout(() => {
-          //   navigate("/");
-        }, 500);
-      }
-
-      if (isError) {
+    if (isError) {
+      setTimeout(() => {
         setErrorMessage(response.errors[0].message);
-      }
-    },
-    [isSuccess],
-    [isError]
-  );
+      }, 500);
+    }
+  }, [isSuccess, isError]);
 
   return (
     <div>
-      <p>{errorMessage}</p>
+      <p className="errorMsg">{errorMessage}</p>
     </div>
   );
 }

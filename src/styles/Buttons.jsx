@@ -15,3 +15,13 @@ export const MainButton = styled.button`
   border: ${(props) => (props.isTrans ? "none" : "")};
   border-radius: 10px;
 `;
+
+export const OutlineButton = styled.button`
+  color: var(--primary);
+  font-size: 1.6rem;
+  font-weight: 600;
+  background-color: white;
+  border-radius: 10px;
+  border: 2px solid var(--primary);
+  padding: 7px 12px;
+`;

@@ -1,15 +1,12 @@
 import { Link } from "react-router-dom";
-import { HeaderContainer } from "./Header.style";
+import { HeaderContainer, Nav } from "./Header.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faBriefcase,
-  faArrowRightToBracket,
-} from "@fortawesome/free-solid-svg-icons";
-import { useLoggedIn } from "../../../context/Context";
+import { faUser, faBriefcase } from "@fortawesome/free-solid-svg-icons";
+import { get } from "../../../js/storage/localStorage";
 
 export default function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useLoggedIn();
+  const token = get("token");
+  const path = window.location.pathname;
 
   return (
     <HeaderContainer>
@@ -80,30 +77,25 @@ export default function Header() {
             />
           </svg>
         </Link>
-
-        {/* MAKE OWN NAV COMPONENTS FOR EACH STATE!!! */}
-        <nav>
-          <>
+        {token !== null && (
+          <Nav className="auth">
             <Link to="/profile/manage/">
-              <span>Manager</span>
+              <span className="hide">Manager</span>
               <FontAwesomeIcon icon={faBriefcase} />
             </Link>
             <Link to="/profile/">
-              <span>Profile</span>
+              <span className="hide">Profile</span>
               <FontAwesomeIcon icon={faUser} />
             </Link>
-          </>
-          <>
-            <Link to="/user/login">
+          </Nav>
+        )}
+        {(token === null || token === undefined) && (
+          <Nav className="unauth">
+            <Link to="/user/login" className="show">
               <span>Log in</span>
-              <FontAwesomeIcon icon={faArrowRightToBracket} />
             </Link>
-            <Link to="/user/login">
-              <span>Register</span>
-              <FontAwesomeIcon icon={faArrowRightToBracket} />
-            </Link>
-          </>
-        </nav>
+          </Nav>
+        )}
       </div>
     </HeaderContainer>
   );

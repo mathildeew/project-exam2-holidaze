@@ -8,6 +8,7 @@ export const GlobalStyle = createGlobalStyle`
 html {
   font-size: 62.5%;
   --primary:  #4B3D60;
+  --primary-light: #F9F9FD;
   --light-yellow: #FAFAEA;
   --orange: #fd9b54;
   --light-orange: #FEC49A;
@@ -16,8 +17,11 @@ html {
 }
 
 body {
-  min-height: 100vh;
   margin: 0;
+}
+
+main {
+  min-height: 100vh;
 }
 
 h1, h2, h3, h4, p, a, label {
@@ -62,7 +66,7 @@ p, a, label {
     margin: 30px 0;
   }
 
-  input{
+  input, textarea{
     border: 2px solid var(--primary);
     border-radius: 10px;
     ::placeholder {
@@ -70,12 +74,11 @@ p, a, label {
     }
   }
   
-  input, .inputContainer  {
+  input, .inputContainer, textarea  {
     padding: 10px;
     outline: none;
 
     &:focus {
-      font-size: 1.6rem;
       border: 2px solid var(--primary);
       outline: none;
       }
@@ -83,7 +86,7 @@ p, a, label {
 
     ::placeholder {
       color: var(--primary);
-      font-size: 1.6rem;
+      font-size: 1.4rem;
     }
 
     [type="checkbox"] {
@@ -119,7 +122,7 @@ p, a, label {
 }
 
 
-.react-datepicker__day--in-range, {
+.react-datepicker__day--in-range {
   background-color: rgba(75, 61, 96, 0.4);
 }
 `;

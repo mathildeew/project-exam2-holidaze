@@ -9,6 +9,7 @@ export default function apiEndpoints(id, name) {
     profileVenues: `${holidaze}/profiles/${name}/venues`,
     updateAvatar: `${holidaze}/profiles/${name}/media`,
     makeBooking: `${holidaze}/bookings`,
+    deleteBooking: `${holidaze}/venues/${id}`,
   };
   return endpoints;
 }

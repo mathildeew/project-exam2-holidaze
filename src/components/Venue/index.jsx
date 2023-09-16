@@ -8,8 +8,20 @@ import {
   faLocationDot,
   faStar,
   faClose,
+  faDollarSign,
 } from "@fortawesome/free-solid-svg-icons";
-import { VenueContainer } from "./VenueContainer";
+import {
+  BookNowBtn,
+  Fascilities,
+  Host,
+  Price,
+  VenueContainer,
+  VenueDetails,
+  VenueInfo,
+  Icons,
+  HostInfo,
+  Updates,
+} from "./VenueContainer";
 import { BoldText, SmallText } from "../../styles/Text";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -17,6 +29,7 @@ import UseAPI from "../../hooks/useApi";
 import apiEndpoints from "../../../endpoints.js/endpoints";
 import { Overlay, Popup } from "../../styles/Popup";
 import MakeBooking from "./MakeBooking";
+import { MainButton, OutlineButton } from "../../styles/Buttons";
 
 export default function Venue() {
   const [showPopup, setShowPopup] = useState(false);
@@ -27,105 +40,116 @@ export default function Venue() {
   const created = new Date(content.created).toLocaleString();
   const updated = new Date(content.updated).toLocaleString();
 
+  console.log(content);
+
   if (isLoading) return <VenueContainer>Loading...</VenueContainer>;
   if (isError) return <VenueContainer>Error!</VenueContainer>;
 
   return (
     <>
-      <Overlay className={showPopup ? "overlay active" : "overlay inactive"} />
+      {/* <Overlay className={showPopup ? "overlay active" : "overlay inactive"} />
       <Popup className={showPopup ? "popup active" : "popup inactive"}>
         <FontAwesomeIcon icon={faClose} onClick={() => setShowPopup(false)} />
 
         <MakeBooking data={content} />
       </Popup>
-      <VenueContainer>
-        <div className="bookNow">
+      <BookNowBtn>
           <button onClick={() => setShowPopup(!showPopup)}>Book now</button>
-        </div>
-        <main>
-          <section className="info">
-            {content.media?.length === 0 ? (
-              <img src="/src/assets/placeholders/image-placeholder-350x350-1.png" />
-            ) : (
-              <img src={content.media} />
-            )}
+        </BookNowBtn> */}
+      <VenueContainer className="maxWidth">
+        <VenueInfo>
+          {content.media?.length === 0 ? (
+            <img src="/src/assets/placeholders/image-placeholder-350x350-1.png" />
+          ) : (
+            <img src={content.media} />
+          )}
 
-            <h1>{content.name}</h1>
-            <div className="infoTop">
+          <h1>{content.name}</h1>
+          <VenueDetails>
+            <div>
               <div className="flexLine">
                 <FontAwesomeIcon icon={faLocationDot} />
                 <p>
                   {content.location?.city}, {content.location?.country}
                 </p>
               </div>
-              <div className="flexLine">
-                <FontAwesomeIcon icon={faStar} />
-                <p>4.5/5</p>
-              </div>
-              <p>${content.price}</p>
+              {content.rating > 0 ? (
+                <div className="flexLine">
+                  <FontAwesomeIcon icon={faStar} />
+                  <p>{content.rating}/5</p>
+                </div>
+              ) : (
+                <div className="flexLine">
+                  <FontAwesomeIcon icon={faStar} />
+                  <p>No ratings yet</p>
+                </div>
+              )}
             </div>
-            <p>{content.description}</p>
-            <hr />
-          </section>
 
-          <section className="fascilities">
-            <h2>This place offers</h2>
-            <div className="icons">
+            <Price>
+              <FontAwesomeIcon icon={faDollarSign} />
+              <p>{content.price} pr. night</p>
+            </Price>
+          </VenueDetails>
+          <p>{content.description}</p>
+          <hr />
+        </VenueInfo>
+
+        <Fascilities>
+          <h2>This place offers</h2>
+          <Icons>
+            <div>
               <FontAwesomeIcon icon={faPeopleRoof} />
               <p>{content.maxGuests} guests</p>
-              {content.meta?.wifi === true && (
-                <>
-                  <FontAwesomeIcon icon={faWifi} />
-                  <p>Wifi</p>
-                </>
-              )}
-
-              {content.meta?.breakfast === true && (
-                <>
-                  <FontAwesomeIcon icon={faCutlery} />
-                  <p>Breakfast</p>
-                </>
-              )}
-              {content.meta?.parking === true && (
-                <>
-                  <FontAwesomeIcon icon={faParking} />
-                  <p>Parking</p>
-                </>
-              )}
-              {content.meta?.pets === true && (
-                <>
-                  <FontAwesomeIcon icon={faDog} />
-                  <p>Pet firendly</p>
-                </>
-              )}
             </div>
-            <hr />
-          </section>
-
-          <section className="host">
-            <h2>Your host is</h2>
-            <div className="hostInfo">
-              {/* <img src={content.owner.avatar} /> */}
+            {content.meta?.wifi === true && (
               <div>
-                {/* <BoldText>{content.owner.name}</BoldText> */}
-                <div className="flexLine">
-                  <BoldText>Mail:</BoldText>
-                  {/* <p>{content.owner.email}</p> */}
-                </div>
+                <FontAwesomeIcon icon={faWifi} />
+                <p>Wifi included</p>
               </div>
-            </div>
-            <hr />
-          </section>
+            )}
 
-          <div className="updates">
-            <div className="flexLine">
-              <p>Created: {created}</p>
+            {content.meta?.breakfast === true && (
+              <div>
+                <FontAwesomeIcon icon={faCutlery} />
+                <p>Breakfast included</p>
+              </div>
+            )}
+            {content.meta?.parking === true && (
+              <div>
+                <FontAwesomeIcon icon={faParking} />
+                <p>Parking</p>
+              </div>
+            )}
+            {content.meta?.pets === true && (
+              <div>
+                <FontAwesomeIcon icon={faDog} />
+                <p>Pet firendly</p>
+              </div>
+            )}
+          </Icons>
+          <hr />
+        </Fascilities>
+
+        <Host>
+          <h2>Your host is</h2>
+          <HostInfo>
+            {content.owner?.avatar ? (
+              <img src={content.owner?.avatar} />
+            ) : (
+              <img src="/images/placeholder/Profile_avatar_placeholder_large.png" />
+            )}
+            <div>
+              <BoldText>{content.owner?.name}</BoldText>
+              <OutlineButton>Contact</OutlineButton>
             </div>
-            <div className="flexLine">
-              <p>Last updated: {updated}</p>
-            </div>
-          </div>
-        </main>
+          </HostInfo>
+        </Host>
+
+        <Updates>
+          <p>Created: {created}</p>
+          <p>Last updated: {updated}</p>
+        </Updates>
       </VenueContainer>
     </>
   );

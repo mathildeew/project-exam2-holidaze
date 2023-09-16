@@ -1,10 +1,10 @@
 import { createContext } from "react";
 import { useState } from "react";
-import { useReducer } from "react";
 import { useContext } from "react";
-import { reducer } from "./reducer";
+import { get } from "../js/storage/localStorage";
 
 const LoggedInContext = createContext();
+const token = get("token");
 
 export function AuthProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

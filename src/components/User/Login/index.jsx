@@ -11,11 +11,10 @@ const schema = yup.object({
   email: yup
     .string()
     .email("Must be a valid stud.noroff.no or noroff.no email")
-
     .required("Please enter your email"),
   password: yup
     .string()
-    .min(8, "* Must be at least 8 characters")
+    .min(8, "Must be at least 8 characters")
     .required("Please enter your password"),
 });
 
@@ -33,6 +32,10 @@ export default function Login() {
     setData(data);
     console.log(data);
     setBtnText("Logging in");
+
+    setTimeout(() => {
+      setBtnText("Try again");
+    }, 500);
   };
 
   return (
@@ -67,10 +70,12 @@ export default function Login() {
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="formContent flexCol">
+            <div className="formContent">
               <div className="flexCol">
                 <label htmlFor="email">Email</label>
                 <input
+                  type="email"
+                  placeholder="post@noroff.no"
                   {...register("email", { required: true, type: "email" })}
                 />
                 <p className="errorMsg">{errors.email?.message}</p>
@@ -80,6 +85,7 @@ export default function Login() {
                 <label htmlFor="password">Password</label>
                 <input
                   type="password"
+                  placeholder="Your password"
                   {...register("password", {
                     required: true,
                     type: "password",
@@ -87,9 +93,9 @@ export default function Login() {
                 />
                 <p className="errorMsg">{errors.password?.message}</p>
               </div>
+              {data && <LoginAPI data={data} />}
             </div>
             <MainButton type="submit">{btnText}</MainButton>
-            {data && <LoginAPI data={data} />}
           </form>
 
           <div className="loginContent flexLine">
@@ -97,9 +103,9 @@ export default function Login() {
             <Link to={"/user/register"}>Register here</Link>
           </div>
 
-          <div className="footer">
+          {/* <div className="footer">
             <p>&copy;2023 Holidaze - Mathilde Elinor Wiik</p>
-          </div>
+          </div> */}
         </section>
 
         <div className="banner">
