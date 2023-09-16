@@ -23,60 +23,74 @@ import {
   Updates,
 } from "./VenueContainer";
 import { BoldText, SmallText } from "../../styles/Text";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import UseAPI from "../../hooks/useApi";
 import apiEndpoints from "../../../endpoints.js/endpoints";
 import { Overlay, Popup } from "../../styles/Popup";
 import MakeBooking from "./MakeBooking";
 import { MainButton, OutlineButton } from "../../styles/Buttons";
+import useApi from "../../hooks/useApi";
+import { useCallback } from "react";
 
 export default function Venue() {
   const [showPopup, setShowPopup] = useState(false);
 
   const { id } = useParams();
-  const { content, isLoading, isError } = UseAPI(apiEndpoints(id).singleVenue);
+  const {
+    fetchApi,
+    data: venue,
+    isLoading,
+    isError,
+    isSuccess,
+    errorMsg,
+  } = useApi();
 
-  const created = new Date(content.created).toLocaleString();
-  const updated = new Date(content.updated).toLocaleString();
+  const getData = useCallback(async () => {
+    await fetchApi(apiEndpoints(id).singleVenue);
+  }, []);
 
-  console.log(content);
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
+  console.log(venue);
 
   if (isLoading) return <VenueContainer>Loading...</VenueContainer>;
   if (isError) return <VenueContainer>Error!</VenueContainer>;
 
   return (
     <>
-      {/* <Overlay className={showPopup ? "overlay active" : "overlay inactive"} />
+      <Overlay className={showPopup ? "overlay active" : "overlay inactive"} />
       <Popup className={showPopup ? "popup active" : "popup inactive"}>
         <FontAwesomeIcon icon={faClose} onClick={() => setShowPopup(false)} />
 
-        <MakeBooking data={content} />
+        <MakeBooking data={venue} />
       </Popup>
       <BookNowBtn>
-          <button onClick={() => setShowPopup(!showPopup)}>Book now</button>
-        </BookNowBtn> */}
+        <button onClick={() => setShowPopup(!showPopup)}>Book now</button>
+      </BookNowBtn>
       <VenueContainer className="maxWidth">
         <VenueInfo>
-          {content.media?.length === 0 ? (
+          {venue.media?.length === 0 ? (
             <img src="/src/assets/placeholders/image-placeholder-350x350-1.png" />
           ) : (
-            <img src={content.media} />
+            <img src={venue.media} />
           )}
 
-          <h1>{content.name}</h1>
+          <h1>{venue.name}</h1>
           <VenueDetails>
             <div>
               <div className="flexLine">
                 <FontAwesomeIcon icon={faLocationDot} />
                 <p>
-                  {content.location?.city}, {content.location?.country}
+                  {venue.location?.city}, {venue.location?.country}
                 </p>
               </div>
-              {content.rating > 0 ? (
+              {venue.rating > 0 ? (
                 <div className="flexLine">
                   <FontAwesomeIcon icon={faStar} />
-                  <p>{content.rating}/5</p>
+                  <p>{venue.rating}/5</p>
                 </div>
               ) : (
                 <div className="flexLine">
@@ -88,10 +102,10 @@ export default function Venue() {
 
             <Price>
               <FontAwesomeIcon icon={faDollarSign} />
-              <p>{content.price} pr. night</p>
+              <p>{venue.price} pr. night</p>
             </Price>
           </VenueDetails>
-          <p>{content.description}</p>
+          <p>{venue.description}</p>
           <hr />
         </VenueInfo>
 
@@ -100,28 +114,28 @@ export default function Venue() {
           <Icons>
             <div>
               <FontAwesomeIcon icon={faPeopleRoof} />
-              <p>{content.maxGuests} guests</p>
+              <p>{venue.maxGuests} guests</p>
             </div>
-            {content.meta?.wifi === true && (
+            {venue.meta?.wifi === true && (
               <div>
                 <FontAwesomeIcon icon={faWifi} />
                 <p>Wifi included</p>
               </div>
             )}
 
-            {content.meta?.breakfast === true && (
+            {venue.meta?.breakfast === true && (
               <div>
                 <FontAwesomeIcon icon={faCutlery} />
                 <p>Breakfast included</p>
               </div>
             )}
-            {content.meta?.parking === true && (
+            {venue.meta?.parking === true && (
               <div>
                 <FontAwesomeIcon icon={faParking} />
                 <p>Parking</p>
               </div>
             )}
-            {content.meta?.pets === true && (
+            {venue.meta?.pets === true && (
               <div>
                 <FontAwesomeIcon icon={faDog} />
                 <p>Pet firendly</p>
@@ -134,21 +148,21 @@ export default function Venue() {
         <Host>
           <h2>Your host is</h2>
           <HostInfo>
-            {content.owner?.avatar ? (
-              <img src={content.owner?.avatar} />
+            {venue.owner?.avatar ? (
+              <img src={venue.owner?.avatar} />
             ) : (
               <img src="/images/placeholder/Profile_avatar_placeholder_large.png" />
             )}
             <div>
-              <BoldText>{content.owner?.name}</BoldText>
+              <BoldText>{venue.owner?.name}</BoldText>
               <OutlineButton>Contact</OutlineButton>
             </div>
           </HostInfo>
         </Host>
 
         <Updates>
-          <p>Created: {created}</p>
-          <p>Last updated: {updated}</p>
+          <p>Created: {venue.created}</p>
+          <p>Last updated: {venue.updated}</p>
         </Updates>
       </VenueContainer>
     </>
