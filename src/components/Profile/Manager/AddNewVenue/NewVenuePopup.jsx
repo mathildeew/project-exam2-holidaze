@@ -20,17 +20,41 @@ export default function NewVenuePopup() {
   const [btnText, setBtnText] = useState("Register new venue");
 
   const schema = yup.object({
-    name: yup.string().required(),
-    description: yup.string().required(),
-    maxGuests: yup.number().required(),
-    price: yup.number().required(),
-    meta: yup.object({
-      wifi: yup.boolean(),
-      breakfast: yup.boolean(),
-      parking: yup.boolean(),
-      pets: yup.boolean(),
-    }),
+    name: yup.string().required("Please enter the venues title"),
+    description: yup
+      .string()
+      .required("Please enter a description of the venue"),
+    media: yup.object({}).notRequired(),
+    price: yup
+      .number("Price must be a number")
+      .positive("Price must have a positive number")
+      .required("Price must be a number"),
+    maxGuests: yup
+      .number("Max guests must be a number")
+      .integer("Max guest must be an integer")
+      .positive("Max guests must have a positive value")
+      .required("Max guests must be a number"),
+    rating: yup.number().positive().notRequired(),
+    meta: yup
+      .object({
+        wifi: yup.boolean(),
+        breakfast: yup.boolean(),
+        parking: yup.boolean(),
+        pets: yup.boolean(),
+      })
+      .notRequired(),
+    media: yup.string().url("Please enter a valid image URL").notRequired(),
   });
+
+  // location: yup.object({
+  //   address: yup.string(),
+  //   city: yup.string(),
+  //   zip: yup.number().positive(),
+  //   country: yup.string(),
+  //   continent: yup.string(),
+  //   lat: yup.number().positive(),
+  //   lng: yup.number().positive(),
+  // }),
 
   const {
     register,
@@ -43,11 +67,13 @@ export default function NewVenuePopup() {
 
   const onSubmit = async (formData) => {
     setData(formData);
+    formData.media = [formData.media];
     const response = await fetchApi(apiEndpoints().venues, "POST", formData);
-    console.log(response);
-    if (response === 201) {
-      window.location.reload();
-    }
+    // console.log(response);
+    // if (response === 201) {
+    //   window.location.reload();
+    // }
+    console.log(formData);
   };
 
   return (
@@ -55,20 +81,13 @@ export default function NewVenuePopup() {
       <h2>Register new venue</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <NewVenueInfo>
-          <label htmlFor="name">Name of venue</label>
+          <label htmlFor="name">Title</label>
           <input
             type="text"
             name="name"
             {...register("name", { required: true, type: "text" })}
           />
-
-          <label htmlFor="maxGuests">Max guests</label>
-          <input
-            type="number"
-            name="maxGuest"
-            placeholder="Max guests"
-            {...register("maxGuests", { required: true, type: "text" })}
-          />
+          <p className="errorMsg">{errors.name?.message}</p>
 
           <label htmlFor="maxGuests">Price per night</label>
           <input
@@ -77,6 +96,16 @@ export default function NewVenuePopup() {
             placeholder="Price per night"
             {...register("price", { required: true, type: "number" })}
           />
+          <p className="errorMsg">{errors.price?.message}</p>
+
+          <label htmlFor="maxGuests">Max guests</label>
+          <input
+            type="number"
+            name="maxGuest"
+            placeholder="Max guests"
+            {...register("maxGuests", { required: true, type: "text" })}
+          />
+          <p className="errorMsg">{errors.maxGuests?.message}</p>
 
           <label htmlFor="description">Description of your place</label>
           <textarea
@@ -85,7 +114,75 @@ export default function NewVenuePopup() {
             placeholder="Description"
             {...register("description", { required: true, type: "text" })}
           ></textarea>
+          <p className="errorMsg">{errors.description?.message}</p>
         </NewVenueInfo>
+
+        {/* <section>
+          <h3>Location</h3>
+          <div className="flexLine">
+            <input
+              type="text"
+              name="address"
+              placeholder="Address"
+              {...register("address", { required: false, type: "text" })}
+            />
+            <input
+              type="text"
+              name="zip"
+              placeholder="Zip code"
+              {...register("zip", { required: false, type: "text" })}
+            />
+          </div>
+          <div className="flexLine">
+            <input
+              type="text"
+              name="city"
+              placeholder="City"
+              {...register("medcityia", { required: false, type: "text" })}
+            />
+
+            <input
+              type="text"
+              name="country"
+              placeholder="Country"
+              {...register("country", { required: false, type: "text" })}
+            />
+            <input
+              type="text"
+              name="continent"
+              placeholder="Continent"
+              {...register("continent", { required: false, type: "text" })}
+            />
+          </div>
+
+          <h4>Latitude & longitude</h4>
+          <p>We will use these coordinates to show your location at the map</p>
+          <div className="flexLine">
+            <input
+              type="number"
+              name="lat"
+              placeholder="Latitude"
+              {...register("lat", { required: false, type: "" })}
+            />
+            <input
+              type="number"
+              name="lng"
+              placeholder="Longitude"
+              {...register("lng", { required: false, type: "" })}
+            />
+          </div>
+        </section> */}
+
+        <section>
+          <h3>Add photos</h3>
+          <p>Add up to three photos</p>
+          <input
+            type="url"
+            name="meida"
+            placeholder="Image one"
+            {...register("media", { required: false, type: "url" })}
+          />
+        </section>
 
         <NewVenueFasc>
           <h3>Fascilities</h3>

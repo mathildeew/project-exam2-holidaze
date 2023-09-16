@@ -15,7 +15,7 @@ export const Overlay = styled.div`
   }
   &.active {
     display: block;
-    height: 100vh;
+    height: 100%;
     width: 100%;
     opacity: 1;
     top: 0;
@@ -38,7 +38,7 @@ export const Popup = styled.section`
 
   &.active {
     /* height: 100%; */
-    bottom: 0;
+    top: 0;
   }
 
   .close {

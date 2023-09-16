@@ -17,8 +17,6 @@ export default function Venues(data) {
   const [venueInfo, setVenueInfo] = useState([]);
   const [venueId, setVenueId] = useState([]);
 
-  console.log(data);
-
   return (
     <>
       <Overlay className={editVenue ? "overlay active" : "overlay inactive"} />
@@ -49,14 +47,6 @@ export default function Venues(data) {
                   >
                     Edit venue
                   </p>
-                  <OutlineButton
-                    onClick={() => {
-                      setVenueId(venue.id);
-                      deleteVenueAPI(venueId);
-                    }}
-                  >
-                    Delete venue
-                  </OutlineButton>
                 </div>
               </VenueCard>
             ))}
