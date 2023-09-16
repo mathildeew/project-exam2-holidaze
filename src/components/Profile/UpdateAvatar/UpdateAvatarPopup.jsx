@@ -38,8 +38,9 @@ export default function UpdateAvatarPopup() {
           placeholder="Must be URL"
           {...register("avatar", { required: true, type: "url" })}
         />
-        <MainButton type="submit">{btnText}</MainButton>
         {data && <UpdateAvatarAPI data={data} />}
+
+        <MainButton type="submit">{btnText}</MainButton>
       </form>
     </UpdateAvatarContainer>
   );

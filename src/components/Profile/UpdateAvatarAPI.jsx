@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useEffect } from "react";
 import UseAPI from "../../hooks/useApi";
 import * as storage from "../../js/storage/localStorage";
@@ -5,6 +6,7 @@ import * as storage from "../../js/storage/localStorage";
 export default function UpdateAvatarAPI({ data }) {
   const name = storage.get("name");
   const token = storage.get("token");
+  const [errorMessage, setErrorMessage] = useState();
 
   const {
     content: response,
@@ -20,15 +22,20 @@ export default function UpdateAvatarAPI({ data }) {
     body: JSON.stringify(data),
   });
 
-  console.log(response);
+  if (isSuccess) {
+    storage.set("avatar", JSON.stringify(data.avatar));
+    console.log("yes");
 
-  useEffect(() => {
-    if (isSuccess) {
-      storage.set("avatar", JSON.stringify(data.avatar));
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 1500);
+  }
 
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
-    }
-  }, [isSuccess]);
+  if (isError) {
+    // setErrorMessage(response.errors[0].message);
+    console.log(response);
+    console.log("no");
+  }
+
+  // return <p className="errorMsg">{errorMessage}</p>;
 }

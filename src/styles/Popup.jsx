@@ -49,6 +49,11 @@ export const Popup = styled.section`
     margin-bottom: 20px;
   }
 
+  .errorMsg {
+    color: red;
+    font-size: 1.4rem;
+  }
+
   form {
     ${displayFlex({
       direction: "column",
