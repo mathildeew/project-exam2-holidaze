@@ -2,40 +2,60 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { MainButton } from "../../../styles/Buttons";
 import { FormContainer } from "../FormContainer.style";
-import LoginAPI from "./LogInAPI";
-
-const schema = yup.object({
-  email: yup
-    .string()
-    .email("Must be a valid stud.noroff.no or noroff.no email")
-    .required("Please enter your email"),
-  password: yup
-    .string()
-    .min(8, "Must be at least 8 characters")
-    .required("Please enter your password"),
-});
+import useApi from "../../../hooks/useApi";
+import apiEndpoints from "../../../../endpoints.js/endpoints";
+import { set } from "../../../js/storage/localStorage";
 
 export default function Login() {
-  const [data, setData] = useState(null);
+  const navigate = useNavigate();
+  const [data, setData] = useState("");
   const [btnText, setBtnText] = useState("Log in");
+
+  const schema = yup.object({
+    email: yup
+      .string()
+      .email("Must be a valid stud.noroff.no or noroff.no email")
+      .required("Please enter your email"),
+    password: yup
+      .string()
+      .min(8, "Must be at least 8 characters")
+      .required("Please enter your password"),
+  });
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = async (data) => {
-    setData(data);
-    console.log(data);
+  const { isLoading, fetchApi, errorMsg, isError } = useApi();
+
+  const onSubmit = async (formData) => {
     setBtnText("Logging in");
 
-    setTimeout(() => {
-      setBtnText("Try again");
-    }, 500);
+    setData(formData);
+    const response = await fetchApi(apiEndpoints().login, "POST", formData);
+    // console.log(response.data);
+
+    if (response.status === 200) {
+      set("token", JSON.stringify(response.data.accessToken));
+      set("avatar", JSON.stringify(response.data.avatar));
+      set("name", JSON.stringify(response.data.name));
+      set("manager", JSON.stringify(response.data.venueManager));
+      set("email", JSON.stringify(response.data.email));
+
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    }
+
+    if (!errorMsg) {
+      console.log(response);
+    }
   };
 
   return (
@@ -91,11 +111,12 @@ export default function Login() {
                     type: "password",
                   })}
                 />
-                <p className="errorMsg">{errors.password?.message}</p>
+                {isError && <p className="errorMsg">{errorMsg}</p>}
               </div>
-              {data && <LoginAPI data={data} />}
             </div>
-            <MainButton type="submit">{btnText}</MainButton>
+            <MainButton type="submit">
+              {isLoading ? "Logging in..." : "Log in"}
+            </MainButton>
           </form>
 
           <div className="loginContent flexLine">

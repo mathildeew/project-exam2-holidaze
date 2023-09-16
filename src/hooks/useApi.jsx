@@ -3,12 +3,13 @@ import { useState, useEffect } from "react";
 import { get } from "../js/storage/localStorage";
 
 const useApi = () => {
+  const token = get("token");
+
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(null);
   const [isError, setIsError] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-
-  const token = get("token");
+  const [errorMsg, setErrorMessage] = useState(null);
 
   const headers = {
     "Content-Type": "application/json",
@@ -24,16 +25,44 @@ const useApi = () => {
         headers: headers,
         data: data,
       });
-      console.log(response);
+      setData(response.data);
+      setIsSuccess(true);
+      setIsError(false);
+      setErrorMessage(null);
+
+      return response;
     } catch (error) {
-      console.log(error);
       setIsError(true);
       setIsSuccess(false);
+      setData([]);
+
+      if (!error.response) {
+        setErrorMessage(`Client-side error: ${error.message}`);
+        return isError;
+      } else {
+        const serverErrorMessage =
+          error.response.data.errors &&
+          Array.isArray(error.response.data.errors) &&
+          error.response.data.errors.length > 0
+            ? error.response.data.errors[0].message
+            : "Unknown server error";
+
+        setErrorMessage(`${serverErrorMessage}`);
+      }
+      return null;
     } finally {
       setIsLoading(false);
     }
   };
-  return { data, isSuccess, isLoading, isError, fetchApi };
+
+  return {
+    fetchApi,
+    data,
+    isLoading,
+    isSuccess,
+    isError,
+    errorMsg,
+  };
 };
 
 export default useApi;
