@@ -1,14 +1,6 @@
-import {
-  FilterButton,
-  FilterContent,
-  Hero,
-  HomeContainer,
-  InputContainer,
-  Search,
-} from "./Home.styles";
-import { BoldText } from "../../styles/Text";
-import { MainButton } from "../../styles/Buttons";
+import { useCallback, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 import {
   faLocationDot,
   faFilter,
@@ -19,15 +11,20 @@ import {
   faCircleMinus,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
-import { faCalendar } from "@fortawesome/free-regular-svg-icons";
-import { useCallback, useState } from "react";
-
-import Venues from "./Venues/Venues";
-import UseAPI from "../../hooks/useApi";
-import apiEndpoints from "../../../endpoints.js/endpoints";
-import { Popup } from "../../styles/Popup";
-import useApi from "../../hooks/useApi";
-import { useEffect } from "react";
+import { Popup } from "../../../styles/Popup";
+import { BoldText } from "../../../styles/Text";
+import { MainButton } from "../../../styles/Buttons";
+import useApi from "../../../hooks/useApi";
+import apiEndpoints from "../../../../endpoints.js/endpoints";
+import Venues from "../../Venues/Venues";
+import {
+  FilterButton,
+  FilterContent,
+  Hero,
+  HomeContainer,
+  InputContainer,
+  Search,
+} from "./Home.styles";
 
 export default function Home() {
   const [showSearch, setShowSearch] = useState(false);

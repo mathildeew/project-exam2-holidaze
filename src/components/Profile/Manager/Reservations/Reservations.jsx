@@ -1,5 +1,5 @@
 import { BoldText } from "../../../../styles/Text";
-import { Qwe, ReservationsContainer } from "../Manager.style";
+import { ReservationsContainer } from "../../../pages/profile/manager/Manager.style";
 
 export default function Reservations(data) {
   const { data: bookings } = data;

@@ -8,9 +8,9 @@ import {
   faWifi,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { BoldText } from "../../../styles/Text";
-import apiEndpoints from "../../../../endpoints.js/endpoints";
-import UseAPI from "../../../hooks/useApi";
+import { BoldText } from "../../styles/Text";
+import apiEndpoints from "../../../endpoints.js/endpoints";
+import UseAPI from "../../hooks/useApi";
 import {
   VenuesContainer,
   VenueCard,
@@ -25,10 +25,10 @@ export default function Venues(data) {
   const { data: venues } = data;
 
   return (
-    <VenuesContainer id="venues">
+    <VenuesContainer>
       {venues.map((venue) => (
         <VenueCard key={venue.id}>
-          <Link to={`/venue/${venue.id}`} c key={venue.id}>
+          <Link to={`/venue/${venue.id}`} key={venue.id}>
             <VenueImg>
               {venue.media.length > 0 && <img src={venue.media[0]} />}
               {venue.media.length === 0 && (

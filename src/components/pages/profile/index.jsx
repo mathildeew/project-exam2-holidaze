@@ -5,14 +5,13 @@ import {
   faXmark,
   faCircleCheck,
 } from "@fortawesome/free-solid-svg-icons";
-import * as storage from "../../js/storage/localStorage";
-import useApi from "../../hooks/useApi";
-import apiEndpoints from "../../../endpoints.js/endpoints";
-import { MainButton } from "../../styles/Buttons";
-import { BoldText } from "../../styles/Text";
-import { Overlay, Popup } from "../../styles/Popup";
-import Bookings from "./Bookings";
-import UpdateAvatarPopup from "./UpdateAvatar/UpdateAvatarPopup";
+import * as storage from "../../../js/storage/localStorage";
+import useApi from "../../../hooks/useApi";
+import apiEndpoints from "../../../../endpoints.js/endpoints";
+import { MainButton } from "../../../styles/Buttons";
+import { BoldText } from "../../../styles/Text";
+import { Overlay, Popup } from "../../../styles/Popup";
+import UpdateAvatarPopup from "../../Profile/UpdateAvatar/UpdateAvatarPopup";
 import {
   AvatarContainer,
   Card,
@@ -20,7 +19,8 @@ import {
   ProfileContainer,
   ProfileContent,
   ProfileDetails,
-} from "./Profile.styles";
+} from "./profile.styles";
+import Bookings from "../../Profile/Bookings/Bookings";
 
 export default function Profile() {
   const name = storage.get("name");

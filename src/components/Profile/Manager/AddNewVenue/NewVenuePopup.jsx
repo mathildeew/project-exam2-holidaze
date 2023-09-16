@@ -6,7 +6,11 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
-import { NewVenue, NewVenueFasc, NewVenueInfo } from "../Manager.style";
+import {
+  NewVenue,
+  NewVenueFasc,
+  NewVenueInfo,
+} from "../../../pages/profile/manager/Manager.style";
 import { useEffect } from "react";
 import apiEndpoints from "../../../../../endpoints.js/endpoints";
 import useApi from "../../../../hooks/useApi";
@@ -79,6 +83,7 @@ export default function VenuePopup({ state, venue }) {
     if (formData.media) {
       formData.media = [formData.media];
     }
+
     // const response = await fetchApi(apiEndpoints().venues, "POST", formData);
     // console.log(response);
     // if (response === 201) {

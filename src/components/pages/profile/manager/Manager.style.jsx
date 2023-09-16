@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { displayFlex } from "../../../styles/mixins";
+import { displayFlex } from "../../../../styles/mixins";
 
 export const ManagerContainer = styled.main`
   margin: 50px auto;

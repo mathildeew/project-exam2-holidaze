@@ -1,22 +1,23 @@
 import { useCallback, useState, useEffect } from "react";
-import { get } from "../../../js/storage/localStorage";
-import useApi from "../../../hooks/useApi";
-import apiEndpoints from "../../../../endpoints.js/endpoints";
+import { get } from "../../../../js/storage/localStorage";
+
+import useApi from "../../../../hooks/useApi";
+import apiEndpoints from "../../../../../endpoints.js/endpoints";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouseCircleCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
-import { MainButton } from "../../../styles/Buttons";
-import { Overlay, Popup } from "../../../styles/Popup";
-import { BoldText } from "../../../styles/Text";
+import { MainButton } from "../../../../styles/Buttons";
+import { Overlay, Popup } from "../../../../styles/Popup";
+import { BoldText } from "../../../../styles/Text";
 import {
   Buttons,
   Carousel,
   ManagerContainer,
   VenuesContainer,
 } from "./Manager.style";
-import Venues from "./Venues";
-import VenuePopup from "./AddNewVenue/NewVenuePopup";
-import Reservations from "./Reservations/Reservations";
+import VenuePopup from "../../../Profile/Manager/AddNewVenue/NewVenuePopup";
+import Reservations from "../../../Profile/Manager/Reservations/Reservations";
+import Venues from "../../../Venues/Venues";
 
 export default function Manage() {
   const name = get("name");
