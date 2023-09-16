@@ -35,11 +35,8 @@ export default function Login() {
   const { isLoading, fetchApi, errorMsg, isError } = useApi();
 
   const onSubmit = async (formData) => {
-    setBtnText("Logging in");
-
     setData(formData);
     const response = await fetchApi(apiEndpoints().login, "POST", formData);
-    // console.log(response.data);
 
     if (response.status === 200) {
       set("token", JSON.stringify(response.data.accessToken));
@@ -54,7 +51,6 @@ export default function Login() {
     }
 
     if (!errorMsg) {
-      console.log(response);
     }
   };
 

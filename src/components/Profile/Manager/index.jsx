@@ -16,7 +16,6 @@ import {
 } from "./Manager.style";
 import Venues from "./Venues";
 import NewVenuePopup from "./AddNewVenue/NewVenuePopup";
-import NewVenueAPI from "./AddNewVenue/NewVenueAPI";
 import Reservations from "./Reservations/Reservations";
 
 export default function Manage() {
@@ -45,8 +44,6 @@ export default function Manage() {
   }, [getData]);
 
   const venues = profile.venues;
-
-  console.log(venues);
 
   return (
     <>

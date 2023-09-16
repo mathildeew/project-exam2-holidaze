@@ -6,22 +6,10 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
-import NewVenueAPI from "./NewVenueAPI";
 import { NewVenue, NewVenueFasc, NewVenueInfo } from "../Manager.style";
 import { useEffect } from "react";
-
-const schema = yup.object({
-  name: yup.string().required(),
-  description: yup.string().required(),
-  maxGuests: yup.number().required(),
-  price: yup.number().required(),
-  meta: yup.object({
-    wifi: yup.boolean(),
-    breakfast: yup.boolean(),
-    parking: yup.boolean(),
-    pets: yup.boolean(),
-  }),
-});
+import apiEndpoints from "../../../../../endpoints.js/endpoints";
+import useApi from "../../../../hooks/useApi";
 
 export default function NewVenuePopup() {
   const [data, setData] = useState(null);
@@ -31,19 +19,35 @@ export default function NewVenuePopup() {
   const [addPets, setAddPets] = useState(false);
   const [btnText, setBtnText] = useState("Register new venue");
 
+  const schema = yup.object({
+    name: yup.string().required(),
+    description: yup.string().required(),
+    maxGuests: yup.number().required(),
+    price: yup.number().required(),
+    meta: yup.object({
+      wifi: yup.boolean(),
+      breakfast: yup.boolean(),
+      parking: yup.boolean(),
+      pets: yup.boolean(),
+    }),
+  });
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = async (data) => {
-    setData(data);
-    setBtnText("Registering...");
+  const { isLoading, fetchApi, errorMsg, isError } = useApi();
 
-    setTimeout(() => {
-      setBtnText("Registered!");
-    }, 500);
+  const onSubmit = async (formData) => {
+    setData(formData);
+    const response = await fetchApi(apiEndpoints().venues, "POST", formData);
+    console.log(response);
+    if (response === 201) {
+      window.location.reload();
+    }
   };
 
   return (
@@ -124,8 +128,9 @@ export default function NewVenuePopup() {
             <label htmlFor="pets">Pets</label>
           </div>
         </NewVenueFasc>
-        {data && <NewVenueAPI data={data} />}
-        <MainButton type="submit">{btnText}</MainButton>
+        <MainButton type="submit">
+          {isLoading ? "Registering..." : "Register new venue"}
+        </MainButton>
       </form>
     </NewVenue>
   );

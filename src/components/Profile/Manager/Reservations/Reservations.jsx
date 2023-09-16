@@ -8,8 +8,6 @@ export default function Reservations(data) {
   //   if (venue.bookings.length !== 0) return true;
   // });
 
-  // console.log(bookings);
-
   return (
     <ReservationsContainer>
       {bookings !== undefined ? (

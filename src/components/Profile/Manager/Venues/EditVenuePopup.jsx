@@ -41,7 +41,6 @@ export default function EditVenuePopup(venue) {
       setBtnText("Registered!");
     }, 500);
   };
-  console.log(venueInfo);
 
   return (
     <EditVenue>

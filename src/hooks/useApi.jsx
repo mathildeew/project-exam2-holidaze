@@ -48,6 +48,7 @@ const useApi = () => {
             ? error.response.data.errors[0].message
             : "Unknown server error";
 
+        console.log(error);
         setErrorMessage(`${serverErrorMessage}`);
       }
       return null;

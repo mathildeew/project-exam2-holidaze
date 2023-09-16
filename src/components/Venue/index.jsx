@@ -54,8 +54,6 @@ export default function Venue() {
     getData();
   }, [getData]);
 
-  console.log(venue);
-
   if (isLoading) return <VenueContainer>Loading...</VenueContainer>;
   if (isError) return <VenueContainer>Error!</VenueContainer>;
 

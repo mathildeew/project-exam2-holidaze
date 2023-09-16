@@ -9,7 +9,6 @@ import { OutlineButton } from "../../../styles/Buttons";
 import apiEndpoints from "../../../../endpoints.js/endpoints";
 import { get } from "../../../js/storage/localStorage";
 import { useEffect } from "react";
-import { deleteVenueAPI } from "./Venues/DeleteVenueAPI";
 
 export default function Venues(data) {
   const token = get("token");
@@ -18,7 +17,8 @@ export default function Venues(data) {
   const [venueInfo, setVenueInfo] = useState([]);
   const [venueId, setVenueId] = useState([]);
 
-  console.log(venues);
+  console.log(data);
+
   return (
     <>
       <Overlay className={editVenue ? "overlay active" : "overlay inactive"} />
@@ -32,7 +32,7 @@ export default function Venues(data) {
       </Popup>
 
       <VenuesContainer>
-        {venues && Array.isArray() ? (
+        {venues || Array.isArray() ? (
           <>
             {venues.map((venue) => (
               <VenueCard key={venue.id}>

@@ -55,8 +55,6 @@ export default function Home() {
   if (isLoading) return <section>Loading...</section>;
   if (isError) return <section>Error!</section>;
 
-  console.log(venues);
-
   const searchResults = venues.filter((venue) =>
     venue.name.toLowerCase().includes(searchedVenue.toLowerCase())
   );
