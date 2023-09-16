@@ -20,12 +20,14 @@ import {
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import Venues from "./Venues/Venues";
 import UseAPI from "../../hooks/useApi";
 import apiEndpoints from "../../../endpoints.js/endpoints";
 import { Popup } from "../../styles/Popup";
+import useApi from "../../hooks/useApi";
+import { useEffect } from "react";
 
 export default function Home() {
   const [showSearch, setShowSearch] = useState(false);
@@ -33,7 +35,22 @@ export default function Home() {
   const [searchedVenue, setSearchedVenue] = useState("");
   const [filteredVenue, setFilteredVenue] = useState("");
 
-  const { content: venues, isLoading, isError } = UseAPI(apiEndpoints().venues);
+  const {
+    fetchApi,
+    data: venues,
+    isLoading,
+    isError,
+    isSuccess,
+    errorMsg,
+  } = useApi();
+
+  const getData = useCallback(async () => {
+    await fetchApi(apiEndpoints().venues);
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
 
   if (isLoading) return <section>Loading...</section>;
   if (isError) return <section>Error!</section>;
@@ -46,12 +63,11 @@ export default function Home() {
 
   function onSearch(event) {
     setSearchedVenue(event.target.value);
-    console.log(searchResults);
   }
 
   return (
     <>
-      <FilterButton onClick={() => setShowPopup(!showPopup)}>
+      {/* <FilterButton onClick={() => setShowPopup(!showPopup)}>
         <FontAwesomeIcon icon={faFilter} />
       </FilterButton>
       <Popup className={showPopup ? "popup active" : "popup inactive"}>
@@ -144,7 +160,7 @@ export default function Home() {
             </div>
           </section>
         </FilterContent>
-      </Popup>
+      </Popup> */}
 
       <HomeContainer>
         <Hero>
