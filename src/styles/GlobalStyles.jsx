@@ -24,7 +24,7 @@ main {
   min-height: 100vh;
 }
 
-h1, h2, h3, h4, p, a, label {
+h1, h2, h3, h4, p, a, label, textarea[placeholder] {
   font-family: OpenSans, Roboto, Arial, sans-serif;
   margin-top: 0;
 }
@@ -95,6 +95,10 @@ p, a, label {
       &:checked {
         accent-color: var(--primary);
       }
+    }
+
+    textarea {
+      resize: vertical;
     }
 
   .maxWidth {

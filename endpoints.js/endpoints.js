@@ -7,7 +7,7 @@ export default function apiEndpoints(id) {
     login: `${holidaze}/auth/login`,
     venues: `${holidaze}/venues`,
     singleVenue: `${holidaze}/venues/${id}?_bookings=true&_owner=true`,
-
+    updateVenue: `${holidaze}/venues/${id}`,
     profile: `${holidaze}/profiles`,
     updateAvatar: `${holidaze}/profiles/${name}/media`,
     makeBooking: `${holidaze}/bookings`,

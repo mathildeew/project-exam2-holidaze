@@ -20,7 +20,9 @@ export default function VenuesForm({ state, venue }) {
   const [addBreakfast, setAddBreakfast] = useState(false);
   const [addParking, setAddParking] = useState(false);
   const [addPets, setAddPets] = useState(false);
-  const [btnText, setBtnText] = useState("Register new venue");
+  const [btnText, setBtnText] = useState(
+    isNewState ? "Register new venue" : "Update venue"
+  );
 
   const schema = yup.object({
     name: yup
@@ -70,7 +72,7 @@ export default function VenuesForm({ state, venue }) {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const { isLoading, fetchApi, errorMsg, isError } = useApi();
+  const { isLoading, fetchApi, errorMsg, isError, isSuccess } = useApi();
 
   const onSubmit = async (formData) => {
     setData(formData);
@@ -78,15 +80,30 @@ export default function VenuesForm({ state, venue }) {
       formData.media = [formData.media];
     }
 
-    // const response = await fetchApi(apiEndpoints().venues, "POST", formData);
-    // console.log(response);
-    // if (response === 201) {
-    //   window.location.reload();
-    // }
-    console.log(formData);
-  };
+    if (isUpdateState) {
+      const response = await fetchApi(
+        apiEndpoints(venue.id).updateVenue,
+        "PUT",
+        formData
+      );
+      console.log(response.status);
 
-  console.log(venue.meta);
+      if (isSuccess) {
+        window.location.reload();
+      } else if (response !== 200) {
+        // Put in error message
+      }
+    } else if (isNewState) {
+      const response = await fetchApi(apiEndpoints().venues, "POST", formData);
+      console.log(response.status);
+
+      if (isSuccess) {
+        window.location.reload();
+      } else if (response !== 200) {
+        // Put in error message
+      }
+    }
+  };
 
   return (
     <FormContainer>
@@ -127,6 +144,7 @@ export default function VenuesForm({ state, venue }) {
           <label htmlFor="description">Description of your place</label>
           <textarea
             type="textbox"
+            rows={10}
             name="description"
             placeholder={isUpdateState ? "" : "Description of your venue"}
             defaultValue={isUpdateState ? `${venue?.description}` : ""}
@@ -248,9 +266,8 @@ export default function VenuesForm({ state, venue }) {
             <label htmlFor="pets">Pets</label>
           </div>
         </VenueFasc>
-        <MainButton type="submit">
-          {isNewState ? "Register new venue" : "Update venue"}
-        </MainButton>
+        {isUpdateState && <MainButton type="submit">{btnText}</MainButton>}
+        {isNewState && <MainButton type="submit">{btnText}</MainButton>}
       </form>
     </FormContainer>
   );
