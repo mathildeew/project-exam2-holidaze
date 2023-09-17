@@ -12,12 +12,12 @@ import apiEndpoints from "../../../endpoints.js/endpoints";
 import { get } from "../../js/storage/localStorage";
 import { useEffect } from "react";
 import useApi from "../../hooks/useApi";
-import VenuePopup from "./VenuesForm";
+import VenuesForm from "./VenuesForm";
 
 export default function VenuesManager(data) {
   const token = get("token");
   const { data: venues } = data;
-  const [editVenue, setEditVenue] = useState(false);
+  const [updateVenueModal, setUpdateVenueModal] = useState(false);
   const [venueInfo, setVenueInfo] = useState([]);
   const [venueId, setVenueId] = useState([]);
 
@@ -33,14 +33,18 @@ export default function VenuesManager(data) {
 
   return (
     <>
-      <Overlay className={editVenue ? "overlay active" : "overlay inactive"} />
-      <Popup className={editVenue ? "overlay active" : "overlay inactive"}>
+      <Overlay
+        className={updateVenueModal ? "overlay active" : "overlay inactive"}
+      />
+      <Popup
+        className={updateVenueModal ? "overlay active" : "overlay inactive"}
+      >
         <FontAwesomeIcon
           icon={faXmark}
           className="close"
-          onClick={() => setEditVenue(false)}
+          onClick={() => setUpdateVenueModal(false)}
         />
-        <VenuePopup venue={venueInfo} state={"edit"} />
+        {updateVenueModal && <VenuesForm venue={venueInfo} state={"update"} />}
       </Popup>
 
       <VenuesContainer>
@@ -55,7 +59,7 @@ export default function VenuesManager(data) {
                   <h3>{venue.name}</h3>
                   <p
                     onClick={() => {
-                      setEditVenue(!editVenue);
+                      setUpdateVenueModal(!updateVenueModal);
                       setVenueInfo(venue);
                     }}
                   >

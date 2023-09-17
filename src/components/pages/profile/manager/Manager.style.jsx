@@ -53,46 +53,6 @@ export const VenueCard = styled.div`
   }
 `;
 
-export const NewVenue = styled.div`
-  height: 100%;
-  padding: 20px;
-
-  section {
-    ${displayFlex({
-      direction: "column",
-    })}
-  }
-`;
-
-export const NewVenueInfo = styled.section`
-  input,
-  textarea {
-    border: 2px solid var(--primary);
-    margin-bottom: 20px;
-  }
-`;
-
-export const NewVenueFasc = styled.section`
-  div {
-    input {
-      margin-bottom: 15px;
-    }
-  }
-`;
-
-export const EditVenue = styled.div`
-  height: 100%;
-  padding: 20px;
-
-  section {
-    ${displayFlex({
-      direction: "column",
-    })}
-  }
-`;
-
-export const Qwe = styled.div``;
-
 export const ReservationsContainer = styled.section`
   position: absolute;
   transition: all 0.4s ease-in-out;

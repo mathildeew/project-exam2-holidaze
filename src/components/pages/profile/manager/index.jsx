@@ -15,7 +15,7 @@ import {
   ManagerContainer,
   VenuesContainer,
 } from "./manager.style";
-import VenuePopup from "../../../ManagerVenues/VenuesForm";
+import VenuesForm from "../../../ManagerVenues/VenuesForm";
 import Reservations from "../../../ManagerReservations";
 import VenuesManager from "../../../ManagerVenues";
 
@@ -23,7 +23,7 @@ export default function Manage() {
   const name = get("name");
   const [showVenues, setShowVenues] = useState(true);
   const [showReservations, setShowReservations] = useState(false);
-  const [newVenue, setNewVenue] = useState(false);
+  const [newVenueModal, setNewVenueModal] = useState(false);
 
   const {
     fetchApi,
@@ -48,21 +48,23 @@ export default function Manage() {
 
   return (
     <>
-      <Overlay className={newVenue ? "overlay active" : "overlay inactive"} />
-      <Popup className={newVenue ? "popup active" : "popup inactive"}>
+      <Overlay
+        className={newVenueModal ? "overlay active" : "overlay inactive"}
+      />
+      <Popup className={newVenueModal ? "popup active" : "popup inactive"}>
         <FontAwesomeIcon
           icon={faXmark}
           className="close"
-          onClick={() => setNewVenue(false)}
+          onClick={() => setNewVenueModal(false)}
         />
-        <VenuePopup venue={""} state={"new"} />
+        {newVenueModal && <VenuesForm venue={{}} state={"new"} />}
       </Popup>
 
       <ManagerContainer className="maxWidth">
         <MainButton
           className="regBtn"
           onClick={() => {
-            setNewVenue(!newVenue);
+            setNewVenueModal(!newVenueModal);
           }}
         >
           Register new venue

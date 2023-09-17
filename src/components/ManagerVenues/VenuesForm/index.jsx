@@ -6,20 +6,14 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
-import {
-  NewVenue,
-  NewVenueFasc,
-  NewVenueInfo,
-} from "../../pages/profile/manager/manager.style";
+import { FormContainer, VenueFasc, VenueInfo } from "./VenuesForm.style.jsx";
 import { useEffect } from "react";
 import apiEndpoints from "../../../../endpoints.js/endpoints";
 import useApi from "../../../hooks/useApi";
 
-export default function VenuePopup({ state, venue }) {
-  console.log(venue);
-
+export default function VenuesForm({ state, venue }) {
   const isNewState = state === "new";
-  const isEditState = state === "edit";
+  const isUpdateState = state === "update";
 
   const [data, setData] = useState(null);
   const [addWifi, setAddWifi] = useState(false);
@@ -92,16 +86,20 @@ export default function VenuePopup({ state, venue }) {
     console.log(formData);
   };
 
+  console.log(venue.meta);
+
   return (
-    <NewVenue>
+    <FormContainer>
       {isNewState ? <h2>Register new venue</h2> : <h2>Edit venue</h2>}
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <NewVenueInfo>
+        <VenueInfo>
           <label htmlFor="name">Title</label>
           <input
             type="text"
             name="name"
+            placeholder={isUpdateState ? "" : "Title of your venue"}
+            defaultValue={isUpdateState ? `${venue?.name}` : ""}
             {...register("name", { required: true, type: "text" })}
           />
           <p className="errorMsg">{errors.name?.message}</p>
@@ -110,7 +108,8 @@ export default function VenuePopup({ state, venue }) {
           <input
             type="number"
             name="price"
-            placeholder="Price per night"
+            placeholder={isUpdateState ? "" : "Price per night"}
+            defaultValue={isUpdateState ? `${venue?.price}` : ""}
             {...register("price", { required: true, type: "number" })}
           />
           <p className="errorMsg">{errors.price?.message}</p>
@@ -119,7 +118,8 @@ export default function VenuePopup({ state, venue }) {
           <input
             type="number"
             name="maxGuest"
-            placeholder="Max guests"
+            placeholder={isUpdateState ? "" : "Number of max guests"}
+            defaultValue={isUpdateState ? `${venue?.maxGuests}` : ""}
             {...register("maxGuests", { required: true, type: "text" })}
           />
           <p className="errorMsg">{errors.maxGuests?.message}</p>
@@ -128,11 +128,12 @@ export default function VenuePopup({ state, venue }) {
           <textarea
             type="textbox"
             name="description"
-            placeholder="Description"
+            placeholder={isUpdateState ? "" : "Description of your venue"}
+            defaultValue={isUpdateState ? `${venue?.description}` : ""}
             {...register("description", { required: true, type: "text" })}
           ></textarea>
           <p className="errorMsg">{errors.description?.message}</p>
-        </NewVenueInfo>
+        </VenueInfo>
 
         {/* <section>
           <h3>Location</h3>
@@ -202,12 +203,13 @@ export default function VenuePopup({ state, venue }) {
           <p className="errorMsg">{errors.media?.message}</p>
         </section>
 
-        <NewVenueFasc>
+        <VenueFasc>
           <h3>Fascilities</h3>
           <div>
             <input
               type="checkbox"
               name="wifi"
+              defaultChecked={isUpdateState ? `${venue.meta.wifi}` : ""}
               onClick={() => !addWifi}
               {...register("meta.wifi")}
             />
@@ -217,6 +219,7 @@ export default function VenuePopup({ state, venue }) {
             <input
               type="checkbox"
               name="breakfast"
+              defaultChecked={isUpdateState ? `${venue.meta.breakfast}` : ""}
               onClick={() => !addBreakfast}
               {...register("meta.breakfast")}
             />
@@ -227,6 +230,7 @@ export default function VenuePopup({ state, venue }) {
             <input
               type="checkbox"
               name="Parking"
+              defaultChecked={isUpdateState ? `${venue.meta.parking}` : ""}
               onClick={() => !addParking}
               {...register("meta.parking")}
             />
@@ -237,16 +241,17 @@ export default function VenuePopup({ state, venue }) {
             <input
               type="checkbox"
               name="pets"
+              defaultChecked={isUpdateState ? `${venue.meta.pets}` : ""}
               onClick={() => !addPets}
               {...register("meta.pets")}
             />
             <label htmlFor="pets">Pets</label>
           </div>
-        </NewVenueFasc>
+        </VenueFasc>
         <MainButton type="submit">
-          {isLoading ? "Registering..." : "Register new venue"}
+          {isNewState ? "Register new venue" : "Update venue"}
         </MainButton>
       </form>
-    </NewVenue>
+    </FormContainer>
   );
 }
