@@ -1,17 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import { Overlay, Popup } from "../../../styles/Popup";
-import { VenueCard, VenuesContainer } from "./Manager.style";
+import { Overlay, Popup } from "../../styles/Popup";
+import {
+  VenueCard,
+  VenuesContainer,
+} from "../pages/profile/manager/manager.style";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { OutlineButton } from "../../../styles/Buttons";
-import apiEndpoints from "../../../../endpoints.js/endpoints";
-import { get } from "../../../js/storage/localStorage";
+import { OutlineButton } from "../../styles/Buttons";
+import apiEndpoints from "../../../endpoints.js/endpoints";
+import { get } from "../../js/storage/localStorage";
 import { useEffect } from "react";
-import useApi from "../../../hooks/useApi";
-import VenuePopup from "./AddNewVenue/NewVenuePopup";
+import useApi from "../../hooks/useApi";
+import VenuePopup from "./VenuesForm";
 
-export default function Venues(data) {
+export default function VenuesManager(data) {
   const token = get("token");
   const { data: venues } = data;
   const [editVenue, setEditVenue] = useState(false);

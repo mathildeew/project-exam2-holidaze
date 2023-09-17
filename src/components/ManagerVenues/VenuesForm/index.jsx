@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { MainButton } from "../../../../styles/Buttons";
+import { MainButton } from "../../../styles/Buttons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 
@@ -10,10 +10,10 @@ import {
   NewVenue,
   NewVenueFasc,
   NewVenueInfo,
-} from "../../../pages/profile/manager/Manager.style";
+} from "../../pages/profile/manager/manager.style";
 import { useEffect } from "react";
-import apiEndpoints from "../../../../../endpoints.js/endpoints";
-import useApi from "../../../../hooks/useApi";
+import apiEndpoints from "../../../../endpoints.js/endpoints";
+import useApi from "../../../hooks/useApi";
 
 export default function VenuePopup({ state, venue }) {
   console.log(venue);

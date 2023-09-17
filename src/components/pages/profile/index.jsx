@@ -11,7 +11,7 @@ import apiEndpoints from "../../../../endpoints.js/endpoints";
 import { MainButton } from "../../../styles/Buttons";
 import { BoldText } from "../../../styles/Text";
 import { Overlay, Popup } from "../../../styles/Popup";
-import UpdateAvatarPopup from "../../Profile/UpdateAvatar/UpdateAvatarPopup";
+
 import {
   AvatarContainer,
   Card,
@@ -20,7 +20,8 @@ import {
   ProfileContent,
   ProfileDetails,
 } from "./profile.styles";
-import Bookings from "../../Profile/Bookings/Bookings";
+import UpdateAvatarPopup from "../../UpdateAvatar";
+import Bookings from "../../ProfileBookings";
 
 export default function Profile() {
   const name = storage.get("name");
@@ -51,7 +52,7 @@ export default function Profile() {
     getData();
   }, [getData]);
 
-  const bookings = profile.bookings;
+  const bookings = profile?.bookings;
 
   return (
     <>
@@ -140,7 +141,6 @@ export default function Profile() {
           </ProfileContent>
         </ProfileDetails>
         <hr />
-
         <Bookings data={bookings} />
       </ProfileContainer>
     </>

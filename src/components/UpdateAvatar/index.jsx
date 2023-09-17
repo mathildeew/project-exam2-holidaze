@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { MainButton } from "../../../styles/Buttons";
+import { MainButton } from "../../styles/Buttons";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { UpdateAvatarContainer } from "../../../styles/Popup";
-import { get, set } from "../../../js/storage/localStorage";
+import { UpdateAvatarContainer } from "../../styles/Popup";
+import { get, set } from "../../js/storage/localStorage";
 import { useEffect } from "react";
 import axios from "axios";
-import useApi from "../../../hooks/useApi";
+import useApi from "../../hooks/useApi";
 
 export default function UpdateAvatarPopup() {
   const [avatar, setNewAvatar] = useState("");

@@ -14,10 +14,10 @@ import {
   Carousel,
   ManagerContainer,
   VenuesContainer,
-} from "./Manager.style";
-import VenuePopup from "../../../Profile/Manager/AddNewVenue/NewVenuePopup";
-import Reservations from "../../../Profile/Manager/Reservations/Reservations";
-import Venues from "../../../Venues/Venues";
+} from "./manager.style";
+import VenuePopup from "../../../ManagerVenues/VenuesForm";
+import Reservations from "../../../ManagerReservations";
+import VenuesManager from "../../../ManagerVenues";
 
 export default function Manage() {
   const name = get("name");
@@ -93,7 +93,7 @@ export default function Manage() {
         </Buttons>
 
         <Carousel>
-          {showVenues && <Venues data={venues} />}
+          {showVenues && <VenuesManager data={venues} />}
           {showReservations && <Reservations data={venues?.bookings} />}
         </Carousel>
       </ManagerContainer>

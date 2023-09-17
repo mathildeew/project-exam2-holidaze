@@ -1,5 +1,5 @@
-import { BoldText } from "../../../../styles/Text";
-import { ReservationsContainer } from "../../../pages/profile/manager/Manager.style";
+import { BoldText } from "../../styles/Text";
+import { ReservationsContainer } from "../pages/profile/manager/manager.style";
 
 export default function Reservations(data) {
   const { data: bookings } = data;

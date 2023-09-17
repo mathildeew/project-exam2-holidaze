@@ -1,17 +1,16 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { Overlay, Popup } from "../../../styles/Popup";
-import { MainButton } from "../../../styles/Buttons";
-import { BoldText } from "../../../styles/Text";
-import CancelPopup from "./CancelPopup";
+import { Overlay, Popup } from "../../styles/Popup";
+import { MainButton } from "../../styles/Buttons";
+import { BoldText } from "../../styles/Text";
 import {
   BookingsContent,
   BookingCard,
   BookingInfo,
   BookingsContainer,
-} from "../../pages/profile/profile.styles";
-import UpdateAvatarPopup from "../UpdateAvatar/UpdateAvatarPopup";
+} from "../pages/profile/profile.styles";
+import CancelPopup from "../BookingCancel";
 
 export default function Bookings(data) {
   const { data: bookings } = data;
