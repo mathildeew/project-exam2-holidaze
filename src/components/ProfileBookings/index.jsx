@@ -10,7 +10,7 @@ import {
   BookingInfo,
   BookingsContainer,
 } from "../pages/profile/profile.styles";
-import CancelPopup from "../BookingCancel";
+import CancelPopup from "../Modals/BookingCancel";
 
 export default function Bookings(data) {
   const { data: bookings } = data;
@@ -20,7 +20,9 @@ export default function Bookings(data) {
   return (
     <>
       <Overlay className={showCancel ? "overlay active" : "overlay inactive"} />
-      <Popup className={showCancel ? "popup active" : "popup inactive"}>
+      <Popup
+        className={showCancel ? "popup active cancelBooking" : "popup inactive"}
+      >
         <FontAwesomeIcon
           icon={faXmark}
           className="close"

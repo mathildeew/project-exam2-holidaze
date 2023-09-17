@@ -103,7 +103,6 @@ p, a, label {
 
     .errorMsg{
       font-size: 1.4rem;
-
       color: red;
     }
 
