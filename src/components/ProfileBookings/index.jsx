@@ -17,6 +17,8 @@ export default function Bookings(data) {
   const [showCancel, setShowCancel] = useState(false);
   const [bookingId, setBookingId] = useState("");
 
+  console.log(bookings?.length);
+
   return (
     <>
       <Overlay className={showCancel ? "overlay active" : "overlay inactive"} />
@@ -35,37 +37,43 @@ export default function Bookings(data) {
         <h2>Your bookings</h2>
 
         <BookingsContent>
-          {bookings?.map((booking) => (
-            <BookingCard key={booking.id}>
-              <img src={booking.venue.media} alt={booking.venue.name} />
-              <BookingInfo>
-                <BoldText>{booking.venue.name}</BoldText>
+          {bookings?.length > 0 ? (
+            <>
+              {bookings?.map((booking) => (
+                <BookingCard key={booking.id}>
+                  <img src={booking.venue.media} alt={booking.venue.name} />
+                  <BookingInfo>
+                    <BoldText>{booking.venue.name}</BoldText>
 
-                <div className="flexLine">
-                  <BoldText>
-                    {booking.venue.loacation?.city},
-                    {booking.venue.loacation?.country},
-                  </BoldText>
-                </div>
-                <div className="flexLine">
-                  <BoldText>Price pr. night:</BoldText>
-                  <p>{booking.venue.price}$</p>
-                </div>
-                <div className="flexLine">
-                  <BoldText>Guests:</BoldText> <p>{booking.guests}</p>
-                </div>
-                <MainButton
-                  isSmall={true}
-                  onClick={() => {
-                    setBookingId(booking.id);
-                    setShowCancel(!showCancel);
-                  }}
-                >
-                  Cancel booking
-                </MainButton>
-              </BookingInfo>
-            </BookingCard>
-          ))}
+                    <div className="flexLine">
+                      <BoldText>
+                        {booking.venue.loacation?.city},
+                        {booking.venue.loacation?.country},
+                      </BoldText>
+                    </div>
+                    <div className="flexLine">
+                      <BoldText>Price pr. night:</BoldText>
+                      <p>{booking.venue.price}$</p>
+                    </div>
+                    <div className="flexLine">
+                      <BoldText>Guests:</BoldText> <p>{booking.guests}</p>
+                    </div>
+                    <MainButton
+                      isSmall={true}
+                      onClick={() => {
+                        setBookingId(booking.id);
+                        setShowCancel(!showCancel);
+                      }}
+                    >
+                      Cancel booking
+                    </MainButton>
+                  </BookingInfo>
+                </BookingCard>
+              ))}
+            </>
+          ) : (
+            <p>You have no bookings yet!</p>
+          )}
         </BookingsContent>
       </BookingsContainer>
     </>
