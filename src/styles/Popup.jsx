@@ -19,26 +19,26 @@ export const Overlay = styled.div`
     width: 100%;
     opacity: 1;
     top: 0;
+    overflow: hidden;
   }
 `;
 
 export const Popup = styled.section`
   background: white;
   width: 100%;
+  max-width: 767px;
   z-index: 3;
   position: absolute;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
+  border-radius: 10px;
   overflow: hidden;
 
   &.inactive {
-    display: none;
     height: 0px;
   }
 
   &.active {
     /* height: 100%; */
-    top: 0;
+    /* top: 0; */
   }
 
   .close {
@@ -47,11 +47,6 @@ export const Popup = styled.section`
     top: 25px;
     left: 90%;
     margin-bottom: 20px;
-  }
-
-  .errorMsg {
-    color: red;
-    font-size: 1.4rem;
   }
 
   form {
@@ -68,14 +63,32 @@ export const Popup = styled.section`
       /* margin-bottom: 50px; */
     }
   }
+
+  h2 {
+    margin-bottom: 30px;
+  }
+
+  button {
+    margin-top: 30px;
+  }
+
+  &.updateAvatar {
+    bottom: 0;
+    height: 300px;
+  }
+
+  @media (min-width: 768px) {
+    width: 450px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 export const UpdateAvatarContainer = styled.div`
   padding: 20px;
-
-  input {
-    margin-bottom: 40px;
-  }
+  height: 100%;
 `;
 
 export const CancelBookingContainer = styled.div`

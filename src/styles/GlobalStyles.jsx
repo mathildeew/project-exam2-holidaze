@@ -101,6 +101,12 @@ p, a, label {
       resize: vertical;
     }
 
+    .errorMsg{
+      font-size: 1.4rem;
+
+      color: red;
+    }
+
   .maxWidth {
     max-width: 568px;
     padding: 0px 10px;

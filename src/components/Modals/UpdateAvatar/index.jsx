@@ -1,17 +1,18 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { MainButton } from "../../styles/Buttons";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { UpdateAvatarContainer } from "../../styles/Popup";
-import { get, set } from "../../js/storage/localStorage";
+import { get, set } from "../../../js/storage/localStorage";
 import { useEffect } from "react";
 import axios from "axios";
-import useApi from "../../hooks/useApi";
+import useApi from "../../../hooks/useApi";
+import { MainButton } from "../../../styles/Buttons";
+import { UpdateAvatarContainer } from "../../../styles/Popup";
 
-export default function UpdateAvatarPopup() {
+export default function UpdateAvatar() {
   const [avatar, setNewAvatar] = useState("");
   const [btnText, setBtnText] = useState("Update avatar");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const name = get("name");
 
@@ -26,28 +27,32 @@ export default function UpdateAvatarPopup() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const { fetchApi, isError, isLoading, isSuccess } = useApi();
+  const { fetchApi, isError } = useApi();
 
   const onSubmit = async (formData) => {
     setBtnText("Updating...");
     setNewAvatar(formData.avatar);
     console.log(formData.avatar);
 
-    await fetchApi(
+    const response = await fetchApi(
       `https://api.noroff.dev/api/v1/holidaze/profiles/${name}/media`,
       "PUT",
       { avatar }
     );
 
-    set("avatar", JSON.stringify(formData.avatar));
+    if (response.status === 200) {
+      set("avatar", JSON.stringify(formData.avatar));
 
-    setTimeout(() => {
-      setBtnText("Updated!");
-    }, 1000);
+      setTimeout(() => {
+        setBtnText("Updated!");
+      }, 1000);
 
-    setTimeout(() => {
-      window.location.reload();
-    }, 1500);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
+    } else if (response.status !== 200) {
+      setErrorMsg("An error occured, please try again later");
+    }
   };
 
   return (
@@ -60,7 +65,8 @@ export default function UpdateAvatarPopup() {
           placeholder="Must be URL"
           {...register("avatar")}
         />
-        {/* {data && <UpdateAvatarAPI data={data} />} */}
+        <p className="errorMsg">{errors.avatar?.message}</p>
+        <p className="errorMsg">{errorMsg}</p>
 
         <MainButton type="submit">{btnText}</MainButton>
       </form>

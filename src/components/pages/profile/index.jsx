@@ -20,7 +20,7 @@ import {
   ProfileContent,
   ProfileDetails,
 } from "./profile.styles";
-import UpdateAvatarPopup from "../../UpdateAvatar";
+import UpdateAvatar from "../../Modals/UpdateAvatar";
 import Bookings from "../../ProfileBookings";
 
 export default function Profile() {
@@ -61,13 +61,15 @@ export default function Profile() {
           showUpdate || showRegister ? "overlay active" : "overlay inactive"
         }
       />
-      <Popup className={showUpdate ? "popup active" : "popup inactive"}>
+      <Popup
+        className={showUpdate ? "popup active updateAvatar" : "popup inactive"}
+      >
         <FontAwesomeIcon
           icon={faXmark}
           className="close"
           onClick={() => setShowUpdate(false)}
         />
-        <UpdateAvatarPopup />
+        <UpdateAvatar />
       </Popup>
 
       {/* <Popup className={showRegister ? "popup active" : "popup inactive"}>
