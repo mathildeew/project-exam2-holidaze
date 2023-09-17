@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { displayFlex } from "../../styles/mixins";
 import "react-calendar/dist/Calendar.css";
+import { displayFlex } from "../../../styles/mixins";
 
 export const VenueContainer = styled.main`
   margin-top: 50px;

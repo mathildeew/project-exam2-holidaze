@@ -5,7 +5,7 @@ import Register from "./components/pages/user/Register";
 import Login from "./components/pages/user/login";
 import Manage from "./components/pages/profile/manager";
 import NotFound from "./components/pages/notfound";
-import Venue from "./components/Venue";
+import Venue from "./components/pages/venue";
 import Profile from "./components/pages/profile";
 
 export default function App() {

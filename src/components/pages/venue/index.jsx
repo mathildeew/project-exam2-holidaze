@@ -1,3 +1,5 @@
+import { useEffect, useState, useCallback } from "react";
+import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPeopleRoof,
@@ -21,17 +23,13 @@ import {
   Icons,
   HostInfo,
   Updates,
-} from "./VenueContainer";
-import { BoldText, SmallText } from "../../styles/Text";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import UseAPI from "../../hooks/useApi";
-import apiEndpoints from "../../../endpoints.js/endpoints";
-import { Overlay, Popup } from "../../styles/Popup";
-import MakeBooking from "./MakeBooking";
-import { MainButton, OutlineButton } from "../../styles/Buttons";
-import useApi from "../../hooks/useApi";
-import { useCallback } from "react";
+} from "./Venue.style";
+import { BoldText, SmallText } from "../../../styles/Text";
+import { Overlay, Popup } from "../../../styles/Popup";
+import { MainButton, OutlineButton } from "../../../styles/Buttons";
+import useApi from "../../../hooks/useApi";
+import apiEndpoints from "../../../../endpoints.js/endpoints";
+import MakeBooking from "../../MakeBooking";
 
 export default function Venue() {
   const [showPopup, setShowPopup] = useState(false);

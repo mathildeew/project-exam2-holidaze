@@ -1,65 +1,64 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import DatePicker, { CalendarContainer } from "react-datepicker";
-import { MainButton } from "../../../styles/Buttons";
-
-import { BoldText } from "../../../styles/Text";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleMinus, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { MainButton } from "../../styles/Buttons";
+import { BoldText } from "../../styles/Text";
 
 export default function MakeBooking(venueBookings) {
-  // const [data, setData] = useState(null);
-  // const [showPopup, setShowPopup] = useState(false);
-  // const [btnText, setBtnText] = useState("Make reservation");
+  const [data, setData] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [btnText, setBtnText] = useState("Make reservation");
 
-  // const { data: venue } = venueBookings;
-  // const id = venue.id;
-  // const bookings = venue?.bookings;
+  const { data: venue } = venueBookings;
+  const id = venue.id;
+  const bookings = venue?.bookings;
 
-  // const [numberOfGuests, setNumberOfGuests] = useState(1);
-  // const [startDate, setStartDate] = useState(new Date());
-  // const [endDate, setEndDate] = useState(null);
+  const [numberOfGuests, setNumberOfGuests] = useState(1);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
 
-  // function addGuest() {
-  //   setNumberOfGuests(numberOfGuests + 1);
-  // }
-  // function removeGuest() {
-  //   setNumberOfGuests(numberOfGuests - 1);
-  // }
+  function addGuest() {
+    setNumberOfGuests(numberOfGuests + 1);
+  }
+  function removeGuest() {
+    setNumberOfGuests(numberOfGuests - 1);
+  }
 
-  // const onSelectDateRange = (dates) => {
-  //   const [start, end] = dates;
-  //   setStartDate(start);
-  //   setEndDate(end);
-  // };
+  const onSelectDateRange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  };
 
-  // const bookedDates = bookings?.map((booking) => {
-  //   return {
-  //     start: new Date(booking.dateFrom),
-  //     end: new Date(booking.dateTo),
-  //   };
-  // });
+  const bookedDates = bookings?.map((booking) => {
+    return {
+      start: new Date(booking.dateFrom),
+      end: new Date(booking.dateTo),
+    };
+  });
 
-  // function onGuestChange(event) {
-  //   setGuests(event.target.value);
-  // }
+  function onGuestChange(event) {
+    setGuests(event.target.value);
+  }
 
-  // const { handleSubmit } = useForm();
+  const { handleSubmit } = useForm();
 
-  // const onSubmit = async (data) => {
-  //   // event.preventDefault();
-  //   if (endDate === null) {
-  //     setEndDate(startDate);
-  //   }
+  const onSubmit = async (data) => {
+    // event.preventDefault();
+    if (endDate === null) {
+      setEndDate(startDate);
+    }
 
-  //   setData({
-  //     ...data,
-  //     guests: Number(numberOfGuests),
-  //     dateFrom: new Date(startDate).toISOString(),
-  //     dateTo: new Date(endDate).toISOString(),
-  //     venueId: id,
-  //   });
-  // };
+    setData({
+      ...data,
+      guests: Number(numberOfGuests),
+      dateFrom: new Date(startDate).toISOString(),
+      dateTo: new Date(endDate).toISOString(),
+      venueId: id,
+    });
+  };
 
   return (
     <div>
