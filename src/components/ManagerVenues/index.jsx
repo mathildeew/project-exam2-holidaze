@@ -1,10 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { Overlay, Popup } from "../../styles/Popup";
-import {
-  VenueCard,
-  VenuesContainer,
-} from "../pages/profile/manager/manager.style";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { OutlineButton } from "../../styles/Buttons";
@@ -13,6 +9,13 @@ import { get } from "../../js/storage/localStorage";
 import { useEffect } from "react";
 import useApi from "../../hooks/useApi";
 import VenuesForm from "./VenuesForm";
+import {
+  VenuesContainer,
+  VenueCard,
+  VenueDetails,
+  VenueManageButtons,
+} from "./ManagerVenues.style";
+import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default function VenuesManager(data) {
   const token = get("token");
@@ -48,32 +51,43 @@ export default function VenuesManager(data) {
       </Popup>
 
       <VenuesContainer>
-        {venues || Array.isArray() ? (
+        {venues?.length > 0 ? (
           <>
             {venues.map((venue) => (
               <VenueCard key={venue.id}>
                 <Link to={`/venue/${venue.id}`}>
                   <img src={venue.media} />
                 </Link>
-                <div>
+                <VenueDetails>
                   <h3>{venue.name}</h3>
-                  <p
-                    onClick={() => {
-                      setUpdateVenueModal(!updateVenueModal);
-                      setVenueInfo(venue);
-                    }}
-                  >
-                    Edit venue
-                  </p>
-                  <p
-                    onClick={() => {
-                      setVenueId(venue.id);
-                      onDelete(venueId);
-                    }}
-                  >
-                    Delete venue
-                  </p>
-                </div>
+                  <VenueManageButtons>
+                    <div className="flexLine">
+                      <FontAwesomeIcon icon={faPenToSquare} />
+
+                      <p
+                        onClick={() => {
+                          setUpdateVenueModal(!updateVenueModal);
+                          setVenueInfo(venue);
+                        }}
+                      >
+                        Edit venue
+                      </p>
+                    </div>
+
+                    <div className="flexLine">
+                      <FontAwesomeIcon icon={faTrash} />
+
+                      <p
+                        onClick={() => {
+                          setVenueId(venue.id);
+                          onDelete(venueId);
+                        }}
+                      >
+                        Delete venue
+                      </p>
+                    </div>
+                  </VenueManageButtons>
+                </VenueDetails>
               </VenueCard>
             ))}
           </>

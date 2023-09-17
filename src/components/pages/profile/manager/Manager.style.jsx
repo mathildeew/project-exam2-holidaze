@@ -11,46 +11,31 @@ export const ManagerContainer = styled.main`
   .regBtn {
     margin-bottom: 50px;
   }
+
+  hr {
+    width: 100%;
+    border: 0.5px solid var(--primary);
+    margin-bottom: 50px;
+  }
 `;
 
 export const Buttons = styled.div`
   width: 100%;
   max-width: 300px;
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
   ${displayFlex({
     direction: "row",
     justify: "space-between",
   })}
+
+  svg {
+    margin-right: 5px;
+  }
 `;
 
 export const Carousel = styled.div`
   width: 100%;
   ${displayFlex({})}/* position: relative; */
-`;
-
-export const VenuesContainer = styled.section`
-  width: 100%;
-  opacity: 1;
-  transition: all 0.4s ease-in-out;
-`;
-
-export const VenueCard = styled.div`
-  width: 100%;
-  margin-bottom: 50px;
-  ${displayFlex({
-    direction: "row",
-  })}
-
-  a {
-    width: 40%;
-    margin-right: 30px;
-  }
-
-  img {
-    height: 100%;
-    width: 100%;
-    margin-right: 20px;
-  }
 `;
 
 export const ReservationsContainer = styled.section`

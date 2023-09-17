@@ -5,6 +5,8 @@ export const Overlay = styled.div`
   background-color: rgba(89, 89, 89, 0.4);
   position: absolute;
   margin: 0 auto;
+  height: 100vmax;
+  overflow: hidden;
 
   &.inactive {
     height: 0px;
@@ -73,6 +75,16 @@ export const Popup = styled.section`
   &.cancelBooking {
     bottom: 0;
     height: 300px;
+  }
+
+  &.venueModal {
+    @media (max-width: 767px) {
+      top: 0;
+    }
+
+    @media (min-width: 768px) {
+      overflow: scroll;
+    }
   }
 
   @media (min-width: 768px) {
