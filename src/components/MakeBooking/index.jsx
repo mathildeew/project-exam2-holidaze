@@ -14,16 +14,21 @@ import { useEffect } from "react";
 import apiEndpoints from "../../../endpoints.js/endpoints";
 
 export default function MakeBooking(data) {
+  const { data: venue } = data;
+  const id = venue.id;
+  const bookings = venue?.bookings;
+
   const [showPopup, setShowPopup] = useState(false);
   const [btnText, setBtnText] = useState("Make reservation");
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(startDate);
-  const [bookingData, setBookingData] = useState([]);
-
-  const { data: venue } = data;
-  const id = venue.id;
-  const bookings = venue?.bookings;
+  // const [bookingData, setBookingData] = useState({
+  //   guests: numberOfGuests,
+  //   dateFrom: startDate,
+  //   dateTo: endDate,
+  //   venueId: id,
+  // });
 
   const bookedDates = bookings?.map((booking) => {
     return {
@@ -36,6 +41,10 @@ export default function MakeBooking(data) {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
+
+    if (endDate === null) {
+      setEndDate(startDate);
+    }
   };
 
   function addGuest() {
@@ -46,7 +55,7 @@ export default function MakeBooking(data) {
   }
 
   function removeGuest() {
-    if (numberOfGuests === 0) {
+    if (numberOfGuests === 1) {
       return;
     }
     setNumberOfGuests(numberOfGuests - 1);
@@ -56,31 +65,49 @@ export default function MakeBooking(data) {
     setGuests(event.target.value);
   }
 
-  const { fetchApi } = useApi();
+  const bookingData = {
+    guests: Number(numberOfGuests),
+    dateFrom: new Date(startDate).toISOString(),
+    dateTo: new Date(endDate).toISOString(),
+    venueId: `${id}`,
+  };
 
-  async function onFormSubmit() {
+  const { fetchApi, isSuccess, isError } = useApi();
+
+  const onFormSubmit = async () => {
     event.preventDefault();
-    // if (endDate === null) {
-    //   setEndDate(startDate);
-    // }
-    setBtnText("Reservating...");
 
-    setBookingData({
-      ...bookingData,
-      guests: Number(numberOfGuests),
-      dateFrom: new Date(startDate).toISOString(),
-      dateTo: new Date(endDate).toISOString(),
-      venueId: id,
-    });
+    // setBookingData({
+    //   guests: Number(numberOfGuests),
+    //   dateFrom: new Date(startDate).toISOString(),
+    //   dateTo: new date(endDate).toISOString,
+    //   venueId: id,
+    // });
 
     console.log(bookingData);
 
-    // const response = await fetchApi(
-    //   apiEndpoints().makeBooking,
-    //   "POST",
-    //   formData
-    // );
-  }
+    setBtnText("Reservating...");
+
+    // setBookingData({
+    //   ...bookingData,
+    //   guests: Number(numberOfGuests),
+    //   dateFrom: new Date(startDate).toISOString(),
+    //   dateTo: new Date(endDate).toISOString(),
+    //   venueId: id,
+    // });
+
+    const response = await fetchApi(
+      apiEndpoints().makeBooking,
+      "POST",
+      bookingData
+    );
+
+    console.log(response);
+
+    if (response.status === 201) {
+      setBtnText("Reservation complete!");
+    }
+  };
 
   return (
     <MakeBookingContainer>
