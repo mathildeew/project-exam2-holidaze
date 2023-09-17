@@ -1,14 +1,13 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { MainButton } from "../../../styles/Buttons";
-import { FormContainer } from "../FormContainer.style";
+import { MainButton } from "../../../../styles/Buttons";
+import { FormContainer } from "../User.style";
 import { useState } from "react";
 import { useEffect } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import UseAPI from "../../../hooks/useApi";
-import apiEndpoints from "../../../../endpoints.js/endpoints";
-import useApi from "../../../hooks/useApi";
+import apiEndpoints from "../../../../../endpoints.js/endpoints";
+import useApi from "../../../../hooks/useApi";
 
 export default function register() {
   const navigate = useNavigate();

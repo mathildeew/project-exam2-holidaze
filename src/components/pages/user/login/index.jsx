@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { MainButton } from "../../../styles/Buttons";
-import { FormContainer } from "../FormContainer.style";
-import useApi from "../../../hooks/useApi";
-import apiEndpoints from "../../../../endpoints.js/endpoints";
-import { set } from "../../../js/storage/localStorage";
+import { MainButton } from "../../../../styles/Buttons";
+import { FormContainer } from "../User.style";
+import useApi from "../../../../hooks/useApi";
+import apiEndpoints from "../../../../../endpoints.js/endpoints";
+import { set } from "../../../../js/storage/localStorage";
 
 export default function Login() {
   const navigate = useNavigate();
