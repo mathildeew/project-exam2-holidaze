@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
-import Home from "./components/Home";
-import Register from "./components/User/Register";
-import Login from "./components/User/Login";
-import Profile from "./components/Profile";
-import Manage from "./components/Profile/Manage";
-import NotFound from "./components/NotFound";
-import Venue from "./components/Venue";
+import Home from "./components/pages/home";
+import Register from "./components/pages/user/Register";
+import Login from "./components/pages/user/login";
+import Manage from "./components/pages/profile/manager";
+import NotFound from "./components/pages/notfound";
+import Venue from "./components/pages/venue";
+import Profile from "./components/pages/profile";
 
 export default function App() {
   return (
@@ -16,7 +16,7 @@ export default function App() {
         <Route path="user/login" element={<Login />} />
         <Route path="user/register" element={<Register />} />
         <Route path="profile" element={<Profile />} />
-        <Route path="profile/manage" element={<Manage />} />
+        <Route path="profile/manager" element={<Manage />} />
         <Route path="venue/:id" element={<Venue />} />
         <Route path="*" element={<NotFound />} />
       </Route>
