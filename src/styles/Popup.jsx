@@ -77,6 +77,9 @@ export const Popup = styled.section`
     height: 300px;
   }
 
+  &.makebooking {
+  }
+
   &.venueModal {
     @media (max-width: 767px) {
       top: 0;

@@ -1,36 +1,29 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import DatePicker, { CalendarContainer } from "react-datepicker";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleMinus, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { MainButton } from "../../styles/Buttons";
 import { BoldText } from "../../styles/Text";
+import { MakeBookingContainer } from "./MakeBooking.style";
+import { date, number, string } from "yup";
+import useApi from "../../hooks/useApi";
+import { useEffect } from "react";
+import apiEndpoints from "../../../endpoints.js/endpoints";
 
-export default function MakeBooking(venueBookings) {
-  const [data, setData] = useState(null);
+export default function MakeBooking(data) {
   const [showPopup, setShowPopup] = useState(false);
   const [btnText, setBtnText] = useState("Make reservation");
-
-  const { data: venue } = venueBookings;
-  const id = venue.id;
-  const bookings = venue?.bookings;
-
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(null);
+  const [endDate, setEndDate] = useState(startDate);
+  const [bookingData, setBookingData] = useState([]);
 
-  function addGuest() {
-    setNumberOfGuests(numberOfGuests + 1);
-  }
-  function removeGuest() {
-    setNumberOfGuests(numberOfGuests - 1);
-  }
-
-  const onSelectDateRange = (dates) => {
-    const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
-  };
+  const { data: venue } = data;
+  const id = venue.id;
+  const bookings = venue?.bookings;
 
   const bookedDates = bookings?.map((booking) => {
     return {
@@ -39,31 +32,60 @@ export default function MakeBooking(venueBookings) {
     };
   });
 
+  const onSelectDateRange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  };
+
+  function addGuest() {
+    if (numberOfGuests === venue.maxGuests) {
+      return;
+    }
+    setNumberOfGuests(numberOfGuests + 1);
+  }
+
+  function removeGuest() {
+    if (numberOfGuests === 0) {
+      return;
+    }
+    setNumberOfGuests(numberOfGuests - 1);
+  }
+
   function onGuestChange(event) {
     setGuests(event.target.value);
   }
 
-  const { handleSubmit } = useForm();
+  const { fetchApi } = useApi();
 
-  const onSubmit = async (data) => {
-    // event.preventDefault();
-    if (endDate === null) {
-      setEndDate(startDate);
-    }
+  async function onFormSubmit() {
+    event.preventDefault();
+    // if (endDate === null) {
+    //   setEndDate(startDate);
+    // }
+    setBtnText("Reservating...");
 
-    setData({
-      ...data,
+    setBookingData({
+      ...bookingData,
       guests: Number(numberOfGuests),
       dateFrom: new Date(startDate).toISOString(),
       dateTo: new Date(endDate).toISOString(),
       venueId: id,
     });
-  };
+
+    console.log(bookingData);
+
+    // const response = await fetchApi(
+    //   apiEndpoints().makeBooking,
+    //   "POST",
+    //   formData
+    // );
+  }
 
   return (
-    <div>
+    <MakeBookingContainer>
       <h3>Make reservation</h3>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={onFormSubmit}>
         <CalendarContainer>
           <DatePicker
             name="dates"
@@ -74,8 +96,7 @@ export default function MakeBooking(venueBookings) {
             onChange={onSelectDateRange}
             excludeDateIntervals={bookedDates}
             selectsRange
-            // selectsDisabledDaysInRange
-
+            selectsDisabledDaysInRange
             inline
           />
         </CalendarContainer>
@@ -86,7 +107,7 @@ export default function MakeBooking(venueBookings) {
           <input
             type="number"
             name="guests"
-            min={1}
+            min=""
             max={venue.maxGuests}
             value={numberOfGuests}
             onChange={onGuestChange}
@@ -95,11 +116,10 @@ export default function MakeBooking(venueBookings) {
           <FontAwesomeIcon icon={faCircleMinus} onClick={removeGuest} />
         </div>
         <div>
-          <BoldText>Price</BoldText>
+          <h3>Your stay</h3>
         </div>
-
-        <MainButton type="submit">Make reservation</MainButton>
+        <MainButton type="submit">{btnText}</MainButton>
       </form>
-    </div>
+    </MakeBookingContainer>
   );
 }

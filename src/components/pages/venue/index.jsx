@@ -58,14 +58,21 @@ export default function Venue() {
   return (
     <>
       <Overlay className={showPopup ? "overlay active" : "overlay inactive"} />
-      <Popup className={showPopup ? "popup active" : "popup inactive"}>
-        <FontAwesomeIcon icon={faClose} onClick={() => setShowPopup(false)} />
-
+      <Popup
+        className={showPopup ? "popup active makeBooking" : "popup inactive"}
+      >
+        <FontAwesomeIcon
+          icon={faClose}
+          className="close"
+          onClick={() => setShowPopup(false)}
+        />
         <MakeBooking data={venue} />
       </Popup>
+
       <BookNowBtn>
         <button onClick={() => setShowPopup(!showPopup)}>Book now</button>
       </BookNowBtn>
+
       <VenueContainer className="maxWidth">
         <VenueInfo>
           {venue.media?.length === 0 ? (
