@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { truncate } from "../../js/storage/truncate";
+import { calculatePrice } from "../../js/storage/calculatePrice";
 import { Overlay, Popup } from "../../styles/Popup";
 import { MainButton } from "../../styles/Buttons";
 import { BoldText } from "../../styles/Text";
@@ -18,19 +19,6 @@ export default function Bookings(data) {
   const { data: bookings } = data;
   const [showCancel, setShowCancel] = useState(false);
   const [bookingId, setBookingId] = useState("");
-
-  function calculatePrice(startDate, endDate, price) {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    const difference = Math.abs(end.getTime() - start.getTime());
-    const numberOfNights = Math.ceil(difference / (1000 * 60 * 60 * 24));
-    const totalPrice = numberOfNights * price;
-
-    if (numberOfNights < 1) {
-      return price;
-    }
-    return totalPrice;
-  }
 
   return (
     <>
