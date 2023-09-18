@@ -1,31 +1,11 @@
 import { useCallback, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendar } from "@fortawesome/free-regular-svg-icons";
-import {
-  faLocationDot,
-  faFilter,
-  faClose,
-  faSortDown,
-  faPeopleRoof,
-  faCirclePlus,
-  faCircleMinus,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
-import { Popup } from "../../../styles/Popup";
-import { BoldText } from "../../../styles/Text";
-import { MainButton } from "../../../styles/Buttons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../../endpoints.js/endpoints";
 import Venues from "../../Venues";
-import {
-  FilterButton,
-  FilterContent,
-  Hero,
-  HomeContainer,
-  InputContainer,
-  Search,
-} from "./Home.styles";
-import { useLoggedIn } from "../../../context/Context";
+import { Hero, HomeContainer, InputContainer, Search } from "./Home.styles";
+import Loader from "../../Loader";
 
 export default function Home() {
   const [showSearch, setShowSearch] = useState(false);
@@ -50,7 +30,7 @@ export default function Home() {
     getData();
   }, [getData]);
 
-  if (isLoading) return <section>Loading...</section>;
+  if (isLoading) return <Loader />;
   if (isError) return <section>Error!</section>;
 
   const searchResults = venues.filter((venue) =>
@@ -174,9 +154,14 @@ export default function Home() {
             </InputContainer>
           </Search>
         </Hero>
+        {isLoading && <Loader />}
         {!searchedVenue && <Venues data={venues} />}
         {searchedVenue && <Venues data={searchResults} />}
-        {/* {searchedVenue.length === 0 } */}
+        {/* {searchedVenue.length === 0 && (
+          <div>
+            <p>No results</p>
+          </div>
+        )} */}
       </HomeContainer>
     </>
   );
