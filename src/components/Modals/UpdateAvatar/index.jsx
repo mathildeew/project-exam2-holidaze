@@ -8,9 +8,10 @@ import axios from "axios";
 import useApi from "../../../hooks/useApi";
 import { MainButton } from "../../../styles/Buttons";
 import { UpdateAvatarContainer } from "../../../styles/Popup";
+import { useLoggedIn } from "../../../context/Context";
 
 export default function UpdateAvatar() {
-  const [avatar, setNewAvatar] = useState("");
+  const { avatar, setAvatar } = useLoggedIn();
   const [btnText, setBtnText] = useState("Update avatar");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -31,7 +32,7 @@ export default function UpdateAvatar() {
 
   const onSubmit = async (formData) => {
     setBtnText("Updating...");
-    setNewAvatar(formData.avatar);
+    setAvatar(formData.avatar);
     console.log(formData.avatar);
 
     const response = await fetchApi(
@@ -39,6 +40,8 @@ export default function UpdateAvatar() {
       "PUT",
       { avatar }
     );
+
+    console.log(response);
 
     if (response.status === 200) {
       set("avatar", JSON.stringify(formData.avatar));
