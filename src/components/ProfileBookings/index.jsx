@@ -17,8 +17,6 @@ export default function Bookings(data) {
   const [showCancel, setShowCancel] = useState(false);
   const [bookingId, setBookingId] = useState("");
 
-  console.log(bookings?.length);
-
   return (
     <>
       <Overlay className={showCancel ? "overlay active" : "overlay inactive"} />

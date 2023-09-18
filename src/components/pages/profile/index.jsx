@@ -1,17 +1,19 @@
 import { useState, useCallback, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCamera,
   faXmark,
   faCircleCheck,
 } from "@fortawesome/free-solid-svg-icons";
-import * as storage from "../../../js/storage/localStorage";
+import { useLoggedIn } from "../../../context/Context";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../../endpoints.js/endpoints";
 import { MainButton } from "../../../styles/Buttons";
 import { BoldText } from "../../../styles/Text";
 import { Overlay, Popup } from "../../../styles/Popup";
-
+import UpdateAvatar from "../../Modals/UpdateAvatar";
+import Bookings from "../../ProfileBookings";
 import {
   AvatarContainer,
   Card,
@@ -20,10 +22,6 @@ import {
   ProfileContent,
   ProfileDetails,
 } from "./profile.styles";
-import UpdateAvatar from "../../Modals/UpdateAvatar";
-import Bookings from "../../ProfileBookings";
-import { useLoggedIn } from "../../../context/Context";
-import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -32,6 +30,11 @@ export default function Profile() {
   const [showUpdate, setShowUpdate] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [showVenueManager, setVenueManager] = useState(false);
+
+  function logOut() {
+    setIsLoggedIn(false);
+    navigate("/");
+  }
 
   const {
     fetchApi,
@@ -53,11 +56,6 @@ export default function Profile() {
   }, [getData]);
 
   const bookings = profile?.bookings;
-
-  function logOut() {
-    setIsLoggedIn(false);
-    navigate("/");
-  }
 
   return (
     <>
@@ -101,8 +99,50 @@ export default function Profile() {
       </Popup> */}
 
       <ProfileContainer className="maxWidth">
+        <ProfileDetails>
+          <ProfileContent>
+            <AvatarContainer
+              onClick={() => setShowUpdate(!showUpdate)}
+              aria-label="Open update avatar"
+            >
+              {avatar ? (
+                <img src={avatar} alt={name} />
+              ) : (
+                <img
+                  src="/public/images/placeholder/Profile_avatar_placeholder_large.png"
+                  alt={name}
+                />
+              )}
+              <FontAwesomeIcon icon={faCamera} />
+            </AvatarContainer>
+
+            <InfoContainer>
+              <h1>{name}</h1>
+              {isManager === true && (
+                <div className="flexLine">
+                  <FontAwesomeIcon icon={faCircleCheck} />
+                  <BoldText>Venue manager</BoldText>
+                </div>
+              )}
+              <p>{email}</p>
+
+              <MainButton
+                isSmall={true}
+                isWhite={true}
+                onClick={() => logOut()}
+                aria-label="Log out"
+              >
+                Log out
+              </MainButton>
+            </InfoContainer>
+          </ProfileContent>
+        </ProfileDetails>
+
         {isManager === false ? (
-          <Card onClick={() => setShowRegister(!showRegister)}>
+          <Card
+            onClick={() => setShowRegister(!showRegister)}
+            aria-label="Open venue manager register"
+          >
             <span className="heading">Register as venue manager</span>
             <span className="content">
               Rent out your property through us. Easy peasy money in your
@@ -110,44 +150,16 @@ export default function Profile() {
             </span>
           </Card>
         ) : (
-          <Card>
-            <span className="heading">Add new venue</span>
-            <span className="content">Add a new venue here!</span>
-          </Card>
+          <Link to={"/profile/manager"}>
+            <Card>
+              <span className="heading">Ready to list a new venue?</span>
+              <span className="content">Let's get started!</span>
+            </Card>
+          </Link>
         )}
 
-        <ProfileDetails>
-          <h1>Profile</h1>
-          <ProfileContent>
-            <AvatarContainer onClick={() => setShowUpdate(!showUpdate)}>
-              {avatar ? (
-                <img src={avatar} alt={name} />
-              ) : (
-                <img src="/public/images/placeholder/Profile_avatar_placeholder_large.png" />
-              )}
-              <FontAwesomeIcon icon={faCamera} />
-            </AvatarContainer>
-
-            <InfoContainer>
-              <BoldText>{name}</BoldText>
-              <p>{email}</p>
-              {isManager === true && (
-                <div className="flexLine">
-                  <FontAwesomeIcon icon={faCircleCheck} />
-                  <BoldText>Venue manager</BoldText>
-                </div>
-              )}
-              <MainButton
-                isSmall={true}
-                isWhite={true}
-                onClick={() => logOut()}
-              >
-                Log out
-              </MainButton>
-            </InfoContainer>
-          </ProfileContent>
-        </ProfileDetails>
         <hr />
+
         <Bookings data={bookings} />
       </ProfileContainer>
     </>

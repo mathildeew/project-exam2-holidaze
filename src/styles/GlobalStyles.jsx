@@ -32,7 +32,6 @@ h1, h2, h3, h4, p, a, label, textarea[placeholder] {
 h1 {
   font-size: 22px;
   font-weight: 600;
-  margin-bottom: 20px;
 }
 
 h2 {
@@ -63,7 +62,7 @@ p, a, label {
   }
 
   hr {
-    margin: 30px 0;
+    margin: 50px 0;
   }
 
   input, textarea{
