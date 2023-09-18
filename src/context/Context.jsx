@@ -12,6 +12,10 @@ export function AuthProvider({ children }) {
   const [name, setName] = useLocalStorage("name", "");
   const [email, setEmail] = useLocalStorage("email", "");
 
+  if (isLoggedIn === false) {
+    localStorage.clear();
+  }
+
   return (
     <LoggedInContext.Provider
       value={{

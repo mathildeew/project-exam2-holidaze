@@ -23,13 +23,12 @@ import {
 import UpdateAvatar from "../../Modals/UpdateAvatar";
 import Bookings from "../../ProfileBookings";
 import { useLoggedIn } from "../../../context/Context";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
-  const name = storage.get("name");
-  const email = storage.get("email");
-  const manager = storage.get("manager");
-  const avatar = storage.get("avatar");
-
+  const navigate = useNavigate();
+  const { isLoggedIn, setIsLoggedIn, isManager, token, avatar, name, email } =
+    useLoggedIn();
   const [showUpdate, setShowUpdate] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [showVenueManager, setVenueManager] = useState(false);
@@ -54,6 +53,11 @@ export default function Profile() {
   }, [getData]);
 
   const bookings = profile?.bookings;
+
+  function logOut() {
+    setIsLoggedIn(false);
+    navigate("/");
+  }
 
   return (
     <>
@@ -97,7 +101,7 @@ export default function Profile() {
       </Popup> */}
 
       <ProfileContainer className="maxWidth">
-        {manager === false ? (
+        {isManager === false ? (
           <Card onClick={() => setShowRegister(!showRegister)}>
             <span className="heading">Register as venue manager</span>
             <span className="content">
@@ -127,7 +131,7 @@ export default function Profile() {
             <InfoContainer>
               <BoldText>{name}</BoldText>
               <p>{email}</p>
-              {manager === true && (
+              {isManager === true && (
                 <div className="flexLine">
                   <FontAwesomeIcon icon={faCircleCheck} />
                   <BoldText>Venue manager</BoldText>
@@ -136,7 +140,7 @@ export default function Profile() {
               <MainButton
                 isSmall={true}
                 isWhite={true}
-                onClick={() => setIsLoggedIn(null)}
+                onClick={() => logOut()}
               >
                 Log out
               </MainButton>
