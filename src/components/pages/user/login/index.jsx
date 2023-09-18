@@ -8,11 +8,26 @@ import { FormContainer } from "../User.style";
 import useApi from "../../../../hooks/useApi";
 import apiEndpoints from "../../../../../endpoints.js/endpoints";
 import { set } from "../../../../js/storage/localStorage";
+import { useLoggedIn } from "../../../../context/Context";
 
 export default function Login() {
-  const navigate = useNavigate();
+  const [
+    isLoggedIn,
+    setIsLoggedIn,
+    isManager,
+    setIsManager,
+    token,
+    setToken,
+    avatar,
+    setAvatar,
+    name,
+    setName,
+    email,
+    setEmail,
+  ] = useLoggedIn();
   const [data, setData] = useState("");
   const [btnText, setBtnText] = useState("Log in");
+  const navigate = useNavigate();
 
   const schema = yup.object({
     email: yup
@@ -39,11 +54,12 @@ export default function Login() {
     const response = await fetchApi(apiEndpoints().login, "POST", formData);
 
     if (response.status === 200) {
-      set("token", JSON.stringify(response.data.accessToken));
-      set("avatar", JSON.stringify(response.data.avatar));
-      set("name", JSON.stringify(response.data.name));
-      set("manager", JSON.stringify(response.data.venueManager));
-      set("email", JSON.stringify(response.data.email));
+      setIsLoggedIn(true);
+      setIsManager(response.data.venueManager);
+      setToken(response.data.accessToken);
+      setAvatar(response.data.avatar);
+      setName(response.data.name);
+      setEmail(response.data.email);
 
       setTimeout(() => {
         navigate("/");
