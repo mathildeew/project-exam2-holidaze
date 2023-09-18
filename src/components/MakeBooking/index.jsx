@@ -145,6 +145,7 @@ export default function MakeBooking(data) {
         <div>
           <h3>Your stay</h3>
           <p>
+            Total: $
             {calculatePrice(dates[0].startDate, dates[0].endDate, venue.price)}
           </p>
         </div>
