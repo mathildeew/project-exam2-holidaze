@@ -3,7 +3,7 @@ import { displayFlex } from "./mixins";
 
 export const Overlay = styled.div`
   background-color: rgba(89, 89, 89, 0.4);
-  position: absolute;
+  position: fixed;
   margin: 0 auto;
   height: 100vmax;
   overflow: hidden;
@@ -27,7 +27,7 @@ export const Popup = styled.section`
   width: 100%;
   max-width: 767px;
   z-index: 3;
-  position: absolute;
+  position: fixed;
   border-radius: 10px;
   overflow: hidden;
 
