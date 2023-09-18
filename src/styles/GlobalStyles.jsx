@@ -1,6 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import "react-date-range/dist/styles.css";
-import "react-date-range/dist/theme/default.css";
+
 import { displayFlex } from "./mixins";
 
 export const GlobalStyle = createGlobalStyle`
@@ -36,7 +35,6 @@ h1 {
 h2 {
   font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 10px;
   
 }
 

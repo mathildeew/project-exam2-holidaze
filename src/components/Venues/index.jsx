@@ -8,7 +8,7 @@ import {
   faWifi,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { BoldText } from "../../styles/Text";
+import { BoldText, SmallText } from "../../styles/Text";
 import apiEndpoints from "../../../endpoints.js/endpoints";
 import UseAPI from "../../hooks/useApi";
 import {
@@ -17,12 +17,16 @@ import {
   VenueImg,
   VenueLocation,
   VenueInfo,
-  VenueFasc,
+  VenuePrice,
+  VenueDetails,
 } from "./Venues.style";
 import { useState } from "react";
+import { truncate } from "../../js/storage/truncate";
 
 export default function Venues(data) {
   const { data: venues } = data;
+
+  console.log(venues);
 
   return (
     <VenuesContainer>
@@ -35,44 +39,22 @@ export default function Venues(data) {
                 <img src="src/assets/placeholders/image-placeholder-350x350-1.png" />
               )}
               <VenueLocation>
-                <FontAwesomeIcon icon={faLocationDot} />
-                <p>
+                <SmallText>
                   {venue.location.city}, {venue.location.country}
-                </p>
+                </SmallText>
               </VenueLocation>
             </VenueImg>
-            <h2>{venue.name}</h2>
-
             <VenueInfo>
-              <VenueFasc>
+              <h2>{truncate(venue.name)}</h2>
+              <VenueDetails>
                 <div className="flexLine">
                   <FontAwesomeIcon icon={faStar} /> <p>{venue.rating}</p>
                 </div>
-                {venue.meta.breakfast === true && (
-                  <div className="flexLine">
-                    <FontAwesomeIcon icon={faCoffee} /> <p>Breakfast</p>
-                  </div>
-                )}
-                {venue.meta.parking === true && (
-                  <div className="flexLine">
-                    <FontAwesomeIcon icon={faDog} /> <p>Pet friendly</p>
-                  </div>
-                )}
-                {venue.meta.pets === true && (
-                  <div className="flexLine">
-                    <FontAwesomeIcon icon={faParking} /> <p>Parking</p>
-                  </div>
-                )}
-                {venue.meta.wifi === true && (
-                  <div className="flexLine">
-                    <FontAwesomeIcon icon={faWifi} /> <p>Wifi</p>
-                  </div>
-                )}
-              </VenueFasc>
-              <div className="flexLine">
-                <BoldText>${venue.price}</BoldText>
-                <p>night</p>
-              </div>
+                <VenuePrice>
+                  <BoldText>${venue.price}</BoldText>
+                  <p>night</p>
+                </VenuePrice>
+              </VenueDetails>
             </VenueInfo>
           </Link>
         </VenueCard>

@@ -16,7 +16,7 @@ import { BoldText } from "../../../styles/Text";
 import { MainButton } from "../../../styles/Buttons";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../../endpoints.js/endpoints";
-import Venues from "../../Venues/Venues";
+import Venues from "../../Venues";
 import {
   FilterButton,
   FilterContent,
@@ -156,7 +156,7 @@ export default function Home() {
             </div>
           </section>
         </FilterContent>
-      </Popup> */}
+      </Popup>  */}
 
       <HomeContainer>
         <Hero>
@@ -169,6 +169,7 @@ export default function Home() {
                 type="search"
                 onChange={onSearch}
                 value={searchedVenue}
+                aria-label="Search"
               ></input>
             </InputContainer>
           </Search>
