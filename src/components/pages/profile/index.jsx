@@ -9,6 +9,7 @@ import {
 import { useLoggedIn } from "../../../context/Context";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../../endpoints.js/endpoints";
+import Loader from "../../Loader";
 import { MainButton } from "../../../styles/Buttons";
 import { BoldText } from "../../../styles/Text";
 import { Overlay, Popup } from "../../../styles/Popup";
@@ -56,6 +57,8 @@ export default function Profile() {
   }, [getData]);
 
   const bookings = profile?.bookings;
+
+  if (isLoading) return <Loader />;
 
   return (
     <>

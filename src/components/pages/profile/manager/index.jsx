@@ -13,6 +13,7 @@ import { Buttons, Carousel, ManagerContainer } from "./manager.style";
 import VenuesForm from "../../../ManagerVenues/VenuesForm";
 import Reservations from "../../../ManagerReservations";
 import VenuesManager from "../../../ManagerVenues";
+import Loader from "../../../Loader";
 
 export default function Manage() {
   const name = get("name");
@@ -40,6 +41,8 @@ export default function Manage() {
   }, [getData]);
 
   const venues = profile.venues;
+
+  if (isLoading) return <Loader />;
 
   return (
     <>

@@ -30,7 +30,14 @@ export const VenueInfo = styled.section`
     height: 300px;
     border-radius: 10px;
     object-fit: cover;
+    margin-bottom: 20px;
   }
+`;
+
+export const VenueRating = styled.div`
+  margin-bottom: 20px;
+
+  ${displayFlex({})}
 
   svg {
     color: var(--primary);
@@ -39,51 +46,31 @@ export const VenueInfo = styled.section`
   }
 `;
 
-export const VenueDetails = styled.div`
-  margin-bottom: 40px;
-  /* ${displayFlex({
-    align: "start",
-    justify: "space-between",
-  })} */
-`;
-
-export const Price = styled.div`
-  margin-top: 20px;
-
-  ${displayFlex({
-    align: "center",
-  })}
-  p {
-    font-size: 2rem;
-    font-weight: 700;
-  }
-`;
-
 export const Fascilities = styled.section`
   width: 100%;
 `;
 
 export const Icons = styled.div`
+  width: 160px;
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 20px;
 
-  div {
-    ${displayFlex({})}
-  }
-
   svg {
     color: var(--primary);
-    font-size: 2.5rem;
-    margin-right: 20px;
-  }
-
-  p {
-    overflow-wrap: normal;
-    /* width: 100%; */
+    font-size: 2rem;
   }
 `;
+
+export const IconsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+`;
+
+export const AboutVenue = styled.section``;
+
+export const Location = styled.section``;
 
 export const Host = styled.section`
   width: 100%;
@@ -114,23 +101,26 @@ export const Updates = styled.div`
 
 export const BookNowBtn = styled.div`
   width: 100%;
+  height: 80px;
   max-width: 442px;
+  background-color: white;
   position: fixed;
-  bottom: 20px;
+  bottom: 0px;
   left: 0px;
   filter: drop-shadow(0px -1px 8px rgba(0, 0, 0, 0.2));
   ${displayFlex({
-    direction: "column",
+    direction: "row",
+    justify: "space-around",
+    align: "center",
   })}
 
   button {
-    color: var(--primary);
-    font-family: Kyrial-Display-Pro;
-    font-size: 2rem;
-    text-transform: uppercase;
+    color: white;
+    font-size: 1.6rem;
     font-weight: 900;
-    background: var(--light-red);
+    background: var(--primary);
     border: none;
-    padding: 15px 0;
+    border-radius: 100px;
+    padding: 10px 16px;
   }
 `;

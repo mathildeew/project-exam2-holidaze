@@ -14,6 +14,8 @@ import apiEndpoints from "../../../endpoints.js/endpoints";
 import { DateRange } from "react-date-range";
 import { eachDayOfInterval } from "date-fns";
 import { calculatePrice } from "../../js/storage/calculatePrice";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 
 export default function MakeBooking(data) {
   // https://www.npmjs.com/package/react-date-range
