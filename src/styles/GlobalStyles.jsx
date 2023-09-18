@@ -101,6 +101,11 @@ p, a, label {
       resize: vertical;
     }
 
+    .errorMsg{
+      font-size: 1.4rem;
+      color: red;
+    }
+
   .maxWidth {
     max-width: 568px;
     padding: 0px 10px;
@@ -112,21 +117,5 @@ p, a, label {
     })}
   }
 
-  .react-datepicker__month-container {
-    float: none!important;
-    width: 300px !important;
-}
 
-.react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range, .react-datepicker__month-text--selected, .react-datepicker__month-text--in-selecting-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--selected, .react-datepicker__quarter-text--in-selecting-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--selected, .react-datepicker__year-text--in-selecting-range, .react-datepicker__year-text--in-range, .react-datepicker__day--selected:hover {
-  background-color: var(--primary);
-}
-
-.react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--in-range), .react-datepicker__month-text--in-selecting-range:not(.react-datepicker__day--in-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--in-range), .react-datepicker__quarter-text--in-selecting-range:not(.react-datepicker__day--in-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--in-range), .react-datepicker__year-text--in-selecting-range:not(.react-datepicker__day--in-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--in-range) {
-  background-color: none !important;
-}
-
-
-.react-datepicker__day--in-range {
-  background-color: rgba(75, 61, 96, 0.4);
-}
 `;

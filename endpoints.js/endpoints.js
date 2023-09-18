@@ -8,10 +8,11 @@ export default function apiEndpoints(id) {
     venues: `${holidaze}/venues`,
     singleVenue: `${holidaze}/venues/${id}?_bookings=true&_owner=true`,
     updateVenue: `${holidaze}/venues/${id}`,
+    deleteVenue: `${holidaze}/venues/${id}`,
     profile: `${holidaze}/profiles`,
     updateAvatar: `${holidaze}/profiles/${name}/media`,
     makeBooking: `${holidaze}/bookings`,
-    deleteBooking: `${holidaze}/venues/${id}`,
+    deleteBooking: `${holidaze}/bookings/${id}`,
   };
   return endpoints;
 }

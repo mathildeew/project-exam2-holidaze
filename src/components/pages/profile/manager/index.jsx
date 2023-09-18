@@ -9,12 +9,7 @@ import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { MainButton } from "../../../../styles/Buttons";
 import { Overlay, Popup } from "../../../../styles/Popup";
 import { BoldText } from "../../../../styles/Text";
-import {
-  Buttons,
-  Carousel,
-  ManagerContainer,
-  VenuesContainer,
-} from "./manager.style";
+import { Buttons, Carousel, ManagerContainer } from "./manager.style";
 import VenuesForm from "../../../ManagerVenues/VenuesForm";
 import Reservations from "../../../ManagerReservations";
 import VenuesManager from "../../../ManagerVenues";
@@ -51,7 +46,9 @@ export default function Manage() {
       <Overlay
         className={newVenueModal ? "overlay active" : "overlay inactive"}
       />
-      <Popup className={newVenueModal ? "popup active" : "popup inactive"}>
+      <Popup
+        className={newVenueModal ? "popup active venueModal" : "popup inactive"}
+      >
         <FontAwesomeIcon
           icon={faXmark}
           className="close"
@@ -93,7 +90,7 @@ export default function Manage() {
             Reservations
           </MainButton>
         </Buttons>
-
+        <hr />
         <Carousel>
           {showVenues && <VenuesManager data={venues} />}
           {showReservations && <Reservations data={venues?.bookings} />}

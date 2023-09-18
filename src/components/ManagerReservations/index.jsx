@@ -10,7 +10,7 @@ export default function Reservations(data) {
 
   return (
     <ReservationsContainer>
-      {bookings !== undefined ? (
+      {bookings?.lenght > 0 ? (
         <div className="reservation">
           <h2>Name of venue</h2>
           <div className="flexLine">

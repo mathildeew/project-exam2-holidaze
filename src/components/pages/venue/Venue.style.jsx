@@ -112,14 +112,6 @@ export const Updates = styled.div`
   width: 100%;
 `;
 
-export const CalendarContainer = styled.div`
-  width: 100%;
-
-  .react-datepicker__month-container {
-    float: none !important;
-  }
-`;
-
 export const BookNowBtn = styled.div`
   width: 100%;
   max-width: 442px;
