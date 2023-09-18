@@ -11,7 +11,7 @@ import { set } from "../../../../js/storage/localStorage";
 import { useLoggedIn } from "../../../../context/Context";
 
 export default function Login() {
-  const [
+  const {
     isLoggedIn,
     setIsLoggedIn,
     isManager,
@@ -24,7 +24,8 @@ export default function Login() {
     setName,
     email,
     setEmail,
-  ] = useLoggedIn();
+  } = useLoggedIn();
+
   const [data, setData] = useState("");
   const [btnText, setBtnText] = useState("Log in");
   const navigate = useNavigate();

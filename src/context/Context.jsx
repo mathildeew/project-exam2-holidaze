@@ -1,8 +1,5 @@
 import { createContext } from "react";
-import { useEffect } from "react";
-import { useState } from "react";
 import { useContext } from "react";
-import * as storage from "../js/storage/localStorage";
 import useLocalStorage from "../hooks/useLocalStorage";
 
 const LoggedInContext = createContext();
@@ -17,7 +14,7 @@ export function AuthProvider({ children }) {
 
   return (
     <LoggedInContext.Provider
-      value={[
+      value={{
         isLoggedIn,
         setIsLoggedIn,
         isManager,
@@ -30,7 +27,7 @@ export function AuthProvider({ children }) {
         setName,
         email,
         setEmail,
-      ]}
+      }}
     >
       {children}
     </LoggedInContext.Provider>

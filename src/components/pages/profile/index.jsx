@@ -22,6 +22,7 @@ import {
 } from "./profile.styles";
 import UpdateAvatar from "../../Modals/UpdateAvatar";
 import Bookings from "../../ProfileBookings";
+import { useLoggedIn } from "../../../context/Context";
 
 export default function Profile() {
   const name = storage.get("name");

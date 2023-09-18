@@ -3,9 +3,11 @@ import { HeaderContainer, Nav } from "./Header.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faBriefcase } from "@fortawesome/free-solid-svg-icons";
 import { get } from "../../../js/storage/localStorage";
+import { useLoggedIn } from "../../../context/Context";
 
 export default function Header() {
-  const token = get("token");
+  const { isLoggedIn } = useLoggedIn();
+
   const path = window.location.pathname;
 
   return (
@@ -77,7 +79,7 @@ export default function Header() {
             />
           </svg>
         </Link>
-        {token !== null && (
+        {isLoggedIn === true ? (
           <Nav className="auth">
             <Link to="/profile/manager/">
               <span className="hide">Manager</span>
@@ -88,8 +90,7 @@ export default function Header() {
               <FontAwesomeIcon icon={faUser} />
             </Link>
           </Nav>
-        )}
-        {(token === null || token === undefined) && (
+        ) : (
           <Nav className="unauth">
             <Link to="/user/login" className="show">
               <span>Log in</span>

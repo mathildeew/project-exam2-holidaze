@@ -25,6 +25,7 @@ import {
   InputContainer,
   Search,
 } from "./Home.styles";
+import { useLoggedIn } from "../../../context/Context";
 
 export default function Home() {
   const [showSearch, setShowSearch] = useState(false);
