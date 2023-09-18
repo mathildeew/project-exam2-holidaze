@@ -106,34 +106,3 @@ export const AvatarContainer = styled.div`
     }
   }
 `;
-
-export const BookingsContainer = styled.section``;
-
-export const BookingsContent = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-row-gap: 50px;
-`;
-
-export const BookingCard = styled.div`
-  ${displayFlex({
-    direction: "row",
-    justify: "space-between",
-  })}
-
-  img {
-    width: 40%;
-    max-height: 200px;
-    border-radius: 10px;
-    object-fit: cover;
-    object-position: center center;
-  }
-`;
-
-export const BookingInfo = styled.div`
-  height: 100%;
-  ${displayFlex({
-    direction: "column",
-    justify: "space-between",
-  })}
-`;
