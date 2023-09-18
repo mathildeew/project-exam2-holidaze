@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import DatePicker, { CalendarContainer } from "react-datepicker";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleMinus, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { MainButton } from "../../styles/Buttons";
@@ -12,8 +11,15 @@ import { date, number, string } from "yup";
 import useApi from "../../hooks/useApi";
 import { useEffect } from "react";
 import apiEndpoints from "../../../endpoints.js/endpoints";
+import { DateRange } from "react-date-range";
+import { eachDayOfInterval } from "date-fns";
+import { calculatePrice } from "../../js/storage/calculatePrice";
 
 export default function MakeBooking(data) {
+  // https://www.npmjs.com/package/react-date-range
+  // https://hypeserver.github.io/react-date-range/
+  // https://date-fns.org/docs/Getting-Started#installation
+
   const { data: venue } = data;
   const id = venue.id;
   const bookings = venue?.bookings;
@@ -29,23 +35,6 @@ export default function MakeBooking(data) {
   //   dateTo: endDate,
   //   venueId: id,
   // });
-
-  const bookedDates = bookings?.map((booking) => {
-    return {
-      start: new Date(booking.dateFrom),
-      end: new Date(booking.dateTo),
-    };
-  });
-
-  const onSelectDateRange = (dates) => {
-    const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
-
-    if (endDate === null) {
-      setEndDate(startDate);
-    }
-  };
 
   function addGuest() {
     if (numberOfGuests === venue.maxGuests) {
@@ -65,10 +54,28 @@ export default function MakeBooking(data) {
     setGuests(event.target.value);
   }
 
+  const bookedDates = bookings?.flatMap((booking) => {
+    const start = new Date(booking.dateFrom);
+    const end = new Date(booking.dateTo);
+    const days = eachDayOfInterval({
+      start: start,
+      end: end,
+    });
+    return days;
+  });
+
+  const [dates, setDates] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
+
   const bookingData = {
     guests: Number(numberOfGuests),
-    dateFrom: new Date(startDate).toISOString(),
-    dateTo: new Date(endDate).toISOString(),
+    dateFrom: new Date(dates[0].startDate).toISOString(),
+    dateTo: new Date(dates[0].endDate).toISOString(),
     venueId: `${id}`,
   };
 
@@ -113,20 +120,13 @@ export default function MakeBooking(data) {
     <MakeBookingContainer>
       <h3>Make reservation</h3>
       <form onSubmit={onFormSubmit}>
-        <CalendarContainer>
-          <DatePicker
-            name="dates"
-            minDate={new Date()}
-            selected={startDate}
-            startDate={startDate}
-            endDate={endDate}
-            onChange={onSelectDateRange}
-            excludeDateIntervals={bookedDates}
-            selectsRange
-            selectsDisabledDaysInRange
-            inline
-          />
-        </CalendarContainer>
+        <DateRange
+          editableDateInputs={true}
+          onChange={(item) => setDates([item.selection])}
+          moveRangeOnFirstSelection={false}
+          ranges={dates}
+          disabledDates={bookedDates}
+        />
         <label htmlFor="guests">How many guests?</label>
 
         <div className="inputContainer">
@@ -144,6 +144,9 @@ export default function MakeBooking(data) {
         </div>
         <div>
           <h3>Your stay</h3>
+          <p>
+            {calculatePrice(dates[0].startDate, dates[0].endDate, venue.price)}
+          </p>
         </div>
         <MainButton type="submit">{btnText}</MainButton>
       </form>

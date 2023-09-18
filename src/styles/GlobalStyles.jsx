@@ -1,7 +1,6 @@
-import "react-datepicker/dist/react-datepicker-cssmodules.css";
-import "react-datepicker/dist/react-datepicker.css";
-
 import { createGlobalStyle } from "styled-components";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 import { displayFlex } from "./mixins";
 
 export const GlobalStyle = createGlobalStyle`

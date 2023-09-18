@@ -66,7 +66,7 @@ export default function Venue() {
           className="close"
           onClick={() => setShowPopup(false)}
         />
-        <MakeBooking data={venue} />
+        <MakeBooking className="makeBooking" data={venue} />
       </Popup>
 
       <BookNowBtn>

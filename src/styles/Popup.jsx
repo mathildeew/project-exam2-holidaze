@@ -78,6 +78,7 @@ export const Popup = styled.section`
   }
 
   &.makebooking {
+    top: 0;
   }
 
   &.venueModal {
