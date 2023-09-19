@@ -114,17 +114,10 @@ export default function Venue() {
             {location?.city}, {location?.country}
           </SmallText>
           <h1>{venue.name}</h1>
-          {rating > 0 ? (
-            <VenueRating>
-              <FontAwesomeIcon icon={faStar} />
-              <p>{rating}/5</p>
-            </VenueRating>
-          ) : (
-            <VenueRating>
-              <FontAwesomeIcon icon={faStar} />
-              <p>No ratings yet</p>
-            </VenueRating>
-          )}
+          <VenueRating>
+            <FontAwesomeIcon icon={faStar} />
+            {rating > 0 ? <p>{rating}/5</p> : <p>No ratings yet</p>}
+          </VenueRating>
 
           <Fascilities>
             <h2>This place offers</h2>
