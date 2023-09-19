@@ -1,9 +1,21 @@
+import { faUsersBetweenLines } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-import "react-calendar/dist/Calendar.css";
 import { displayFlex } from "../../../styles/mixins";
 
 export const VenueContainer = styled.main`
   margin-top: 50px;
+
+  img {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-bottom: 20px;
+  }
+
+  .makeBookingBig {
+    display: none;
+  }
 
   @media (min-width: 442px) {
     .bookNow {
@@ -22,16 +34,14 @@ export const VenueContainer = styled.main`
   }
 `;
 
+export const VenueFlex = styled.div`
+  @media (min-width: 1024px) {
+    ${displayFlex({ justify: "space-between" })}
+  }
+`;
+
 export const VenueInfo = styled.section`
   width: 100%;
-
-  img {
-    width: 100%;
-    height: 300px;
-    border-radius: 10px;
-    object-fit: cover;
-    margin-bottom: 20px;
-  }
 `;
 
 export const VenueRating = styled.div`
@@ -102,7 +112,7 @@ export const Updates = styled.div`
 export const BookNowBtn = styled.div`
   width: 100%;
   height: 80px;
-  max-width: 442px;
+  /* max-width: 442px; */
   background-color: white;
   position: fixed;
   bottom: 0px;
@@ -122,5 +132,9 @@ export const BookNowBtn = styled.div`
     border: none;
     border-radius: 100px;
     padding: 10px 16px;
+  }
+
+  @media (min-width: 1024px) {
+    display: none;
   }
 `;

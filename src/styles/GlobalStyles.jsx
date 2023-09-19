@@ -105,7 +105,12 @@ p, a, label {
   .maxWidth {
     max-width: 568px;
     padding: 0px 10px;
-  }   
+  }
+
+  .padding {
+    padding: 0px 10px;
+
+  }
 
   .flexLine {
     ${displayFlex({

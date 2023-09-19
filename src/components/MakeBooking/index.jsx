@@ -129,9 +129,10 @@ export default function MakeBooking(data) {
           ranges={dates}
           disabledDates={bookedDates}
         />
-        <label htmlFor="guests">How many guests?</label>
 
         <div className="inputContainer">
+          <label htmlFor="guests">How many guests?</label>
+
           <label htmlFor="guests"></label>
           <input
             type="number"

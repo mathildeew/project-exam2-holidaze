@@ -24,6 +24,7 @@ import {
   Location,
   VenueRating,
   AboutVenue,
+  VenueFlex,
 } from "./Venue.style";
 import { BoldText, SmallText } from "../../../styles/Text";
 import { Overlay, Popup } from "../../../styles/Popup";
@@ -77,7 +78,7 @@ export default function Venue() {
 
   return (
     <>
-      <Overlay className={showPopup ? "overlay active" : "overlay inactive"} />
+      {/* <Overlay className={showPopup ? "overlay active" : "overlay inactive"} />
       <Popup
         className={showPopup ? "popup active makeBooking" : "popup inactive"}
       >
@@ -87,7 +88,7 @@ export default function Venue() {
           onClick={() => setShowPopup(false)}
         />
         <MakeBooking className="makeBooking" data={venue} />
-      </Popup>
+      </Popup> */}
 
       <BookNowBtn>
         <div className="flexLine">
@@ -99,14 +100,16 @@ export default function Venue() {
         </button>
       </BookNowBtn>
 
-      <VenueContainer className="maxWidth">
-        <VenueInfo>
+      <VenueContainer className="">
+        <div className="imagecontainer padding">
           {media?.length === 0 ? (
             <img src="/src/assets/placeholders/image-placeholder-350x350-1.png" />
           ) : (
             <img src={venue.media} />
           )}
+        </div>
 
+        <VenueInfo>
           <SmallText>
             {location?.city}, {location?.country}
           </SmallText>
@@ -122,42 +125,42 @@ export default function Venue() {
               <p>No ratings yet</p>
             </VenueRating>
           )}
+
+          <Fascilities>
+            <h2>This place offers</h2>
+            <Icons>
+              <>
+                <FontAwesomeIcon icon={faPeopleRoof} />
+                <SmallText>{maxGuests}&nbsp;guests</SmallText>
+              </>
+              {meta?.wifi === true && (
+                <>
+                  <FontAwesomeIcon icon={faWifi} />
+                  <SmallText>Wifi&nbsp;included</SmallText>
+                </>
+              )}
+
+              {meta?.breakfast === true && (
+                <>
+                  <FontAwesomeIcon icon={faCutlery} />
+                  <SmallText>Breakfast&nbsp;included</SmallText>
+                </>
+              )}
+              {meta?.parking === true && (
+                <>
+                  <FontAwesomeIcon icon={faParking} />
+                  <SmallText>Parking</SmallText>
+                </>
+              )}
+              {meta?.pets === true && (
+                <>
+                  <FontAwesomeIcon icon={faDog} />
+                  <SmallText>Pet&nbsp;friendly</SmallText>
+                </>
+              )}
+            </Icons>
+          </Fascilities>
         </VenueInfo>
-
-        <Fascilities>
-          <h2>This place offers</h2>
-          <Icons>
-            <>
-              <FontAwesomeIcon icon={faPeopleRoof} />
-              <SmallText>{maxGuests}&nbsp;guests</SmallText>
-            </>
-            {meta?.wifi === true && (
-              <>
-                <FontAwesomeIcon icon={faWifi} />
-                <SmallText>Wifi&nbsp;included</SmallText>
-              </>
-            )}
-
-            {meta?.breakfast === true && (
-              <>
-                <FontAwesomeIcon icon={faCutlery} />
-                <SmallText>Breakfast&nbsp;included</SmallText>
-              </>
-            )}
-            {meta?.parking === true && (
-              <>
-                <FontAwesomeIcon icon={faParking} />
-                <SmallText>Parking</SmallText>
-              </>
-            )}
-            {meta?.pets === true && (
-              <>
-                <FontAwesomeIcon icon={faDog} />
-                <SmallText>Pet&nbsp;friendly</SmallText>
-              </>
-            )}
-          </Icons>
-        </Fascilities>
         <hr />
 
         <AboutVenue>
@@ -166,7 +169,7 @@ export default function Venue() {
         </AboutVenue>
         <hr />
 
-        <Location>
+        <Location className="padding">
           <h2>Location</h2>
 
           {location?.address && (
@@ -201,7 +204,7 @@ export default function Venue() {
         </Location>
 
         <hr />
-        <Host>
+        <Host className="padding">
           <h2>Your host is</h2>
           <HostInfo>
             {owner?.avatar ? (
@@ -216,10 +219,12 @@ export default function Venue() {
           </HostInfo>
         </Host>
 
-        <Updates>
+        <Updates className="padding">
           <SmallText>Created: {createdDate}</SmallText>
           <SmallText>Last updated: {updatedDate}</SmallText>
         </Updates>
+
+        <MakeBooking className="makeBooking makeBookingBig" data={venue} />
       </VenueContainer>
     </>
   );
