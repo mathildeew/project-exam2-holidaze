@@ -19,12 +19,10 @@ import {
   VenueContainer,
   VenueInfo,
   Icons,
-  HostInfo,
   Updates,
   Location,
-  VenueRating,
+  VenueTopLine,
   AboutVenue,
-  VenueFlex,
 } from "./Venue.style";
 import { BoldText, SmallText } from "../../../styles/Text";
 import { Overlay, Popup } from "../../../styles/Popup";
@@ -71,14 +69,14 @@ export default function Venue() {
 
   const createdDate = new Date(created).toLocaleDateString();
   const updatedDate = new Date(updated).toLocaleDateString();
-  console.log(location);
+  console.log(venue.owner);
 
   if (isLoading) return <Loader />;
   if (isError) return <VenueContainer>Error!</VenueContainer>;
 
   return (
     <>
-      {/* <Overlay className={showPopup ? "overlay active" : "overlay inactive"} />
+      {/* <Overlay className={showPopup ? "overlay active" : "overlay inactive"} /> */}
       <Popup
         className={showPopup ? "popup active makeBooking" : "popup inactive"}
       >
@@ -86,46 +84,56 @@ export default function Venue() {
           icon={faClose}
           className="close"
           onClick={() => setShowPopup(false)}
+          aria-label="Close booking modal"
         />
         <MakeBooking className="makeBooking" data={venue} />
-      </Popup> */}
+      </Popup>
 
       <BookNowBtn>
         <div className="flexLine">
           <BoldText>${price}</BoldText>
           <SmallText>night</SmallText>
         </div>
-        <button onClick={() => setShowPopup(!showPopup)}>
+        <button
+          onClick={() => setShowPopup(!showPopup)}
+          aria-label="Open booking calendar"
+        >
           Check availability
         </button>
       </BookNowBtn>
 
-      <VenueContainer className="">
-        <div className="imagecontainer padding">
+      <VenueContainer className="maxWidth">
+        <div className="imagecontainer">
           {media?.length === 0 ? (
             <img src="/src/assets/placeholders/image-placeholder-350x350-1.png" />
           ) : (
-            <img src={venue.media} />
+            <img src={media} />
           )}
         </div>
 
         <VenueInfo>
-          <SmallText>
-            {location?.city}, {location?.country}
-          </SmallText>
-          <h1>{venue.name}</h1>
-          <VenueRating>
-            <FontAwesomeIcon icon={faStar} />
-            {rating > 0 ? <p>{rating}/5</p> : <p>No ratings yet</p>}
-          </VenueRating>
+          <VenueTopLine>
+            <div className="flexLine">
+              <FontAwesomeIcon icon={faLocationDot} />
+              <SmallText>
+                {location?.city}, {location?.country}
+              </SmallText>
+            </div>
+            <div className="flexLine">
+              <FontAwesomeIcon icon={faStar} />
+              {rating > 0 ? (
+                <SmallText>{rating}/5</SmallText>
+              ) : (
+                <SmallText>No ratings yet</SmallText>
+              )}
+            </div>
+          </VenueTopLine>
+          <h1>{name}</h1>
 
           <Fascilities>
-            <h2>This place offers</h2>
             <Icons>
-              <>
-                <FontAwesomeIcon icon={faPeopleRoof} />
-                <SmallText>{maxGuests}&nbsp;guests</SmallText>
-              </>
+              <FontAwesomeIcon icon={faPeopleRoof} />
+              <SmallText>{maxGuests}&nbsp;guests</SmallText>
               {meta?.wifi === true && (
                 <>
                   <FontAwesomeIcon icon={faWifi} />
@@ -160,9 +168,24 @@ export default function Venue() {
           <h2>About this property</h2>
           <p>{description}</p>
         </AboutVenue>
+
+        <Host>
+          <BoldText>Your host is</BoldText>
+          {owner?.avatar ? (
+            <img src={owner?.avatar} />
+          ) : (
+            <img src="/images/placeholder/Profile_avatar_placeholder_large.png" />
+          )}
+          <p>{owner?.name}</p>
+        </Host>
+
+        <Updates>
+          <SmallText>Created: {createdDate}</SmallText>
+          <SmallText>Last updated: {updatedDate}</SmallText>
+        </Updates>
         <hr />
 
-        <Location className="padding">
+        <Location>
           <h2>Location</h2>
 
           {location?.address && (
@@ -195,30 +218,10 @@ export default function Venue() {
               </>
             )} */}
         </Location>
-
         <hr />
-        <Host className="padding">
-          <h2>Your host is</h2>
-          <HostInfo>
-            {owner?.avatar ? (
-              <img src={venue.owner?.avatar} />
-            ) : (
-              <img src="/images/placeholder/Profile_avatar_placeholder_large.png" />
-            )}
-            <div>
-              <BoldText>{venue.owner?.name}</BoldText>
-              <OutlineButton>Contact</OutlineButton>
-            </div>
-          </HostInfo>
-        </Host>
-
-        <Updates className="padding">
-          <SmallText>Created: {createdDate}</SmallText>
-          <SmallText>Last updated: {updatedDate}</SmallText>
-        </Updates>
-
-        <MakeBooking className="makeBooking makeBookingBig" data={venue} />
       </VenueContainer>
+
+      <MakeBooking className="makeBooking" data={venue} />
     </>
   );
 }

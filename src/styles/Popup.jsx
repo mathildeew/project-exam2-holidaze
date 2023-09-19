@@ -55,7 +55,6 @@ export const Popup = styled.section`
 
     svg {
       color: var(--primary);
-      font-size: 2.5rem;
     }
 
     input {
@@ -77,8 +76,9 @@ export const Popup = styled.section`
     height: 300px;
   }
 
-  &.makebooking {
+  &.makeBooking {
     top: 0;
+    width: 300px;
   }
 
   &.venueModal {

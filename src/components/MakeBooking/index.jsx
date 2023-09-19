@@ -6,7 +6,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleMinus, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { MainButton } from "../../styles/Buttons";
 import { BoldText } from "../../styles/Text";
-import { MakeBookingContainer } from "./MakeBooking.style";
+import {
+  BookingInfo,
+  Calendar,
+  Guests,
+  MakeBookingContainer,
+} from "./MakeBooking.style";
 import { date, number, string } from "yup";
 import useApi from "../../hooks/useApi";
 import { useEffect } from "react";
@@ -122,36 +127,43 @@ export default function MakeBooking(data) {
     <MakeBookingContainer>
       <h3>Make reservation</h3>
       <form onSubmit={onFormSubmit}>
-        <DateRange
-          editableDateInputs={true}
-          onChange={(item) => setDates([item.selection])}
-          moveRangeOnFirstSelection={false}
-          ranges={dates}
-          disabledDates={bookedDates}
-        />
-
-        <div className="inputContainer">
-          <label htmlFor="guests">How many guests?</label>
-
-          <label htmlFor="guests"></label>
-          <input
-            type="number"
-            name="guests"
-            min=""
-            max={venue.maxGuests}
-            value={numberOfGuests}
-            onChange={onGuestChange}
+        <Calendar>
+          <DateRange
+            onChange={(item) => setDates([item.selection])}
+            disabledDates={bookedDates}
+            editableDateInputs={true}
+            moveRangeOnFirstSelection={false}
+            ranges={dates}
+            rangeColors={"#b3a2cd"}
+            color={"#b3a2cd"}
+            showDateDisplay={false}
           />
-          <FontAwesomeIcon icon={faCirclePlus} onClick={addGuest} />
-          <FontAwesomeIcon icon={faCircleMinus} onClick={removeGuest} />
-        </div>
-        <div>
-          <h3>Your stay</h3>
-          <p>
+        </Calendar>
+
+        <Guests>
+          <label htmlFor="guests">How many guests?</label>
+          <div className="flexLine">
+            <input
+              type="number"
+              name="guests"
+              max={venue.maxGuests}
+              value={numberOfGuests}
+              onChange={onGuestChange}
+            />
+            <FontAwesomeIcon icon={faCirclePlus} onClick={addGuest} />
+            <FontAwesomeIcon icon={faCircleMinus} onClick={removeGuest} />
+          </div>
+        </Guests>
+
+        <BookingInfo>
+          <p>Price per night: ${venue.price}</p>
+          <BoldText>
             Total: $
-            {calculatePrice(dates[0].startDate, dates[0].endDate, venue.price)}
-          </p>
-        </div>
+            {calculatePrice(dates[0].startDate, dates[0].endDate, venue.price)}{" "}
+            x 5 nights
+          </BoldText>
+          <p></p>
+        </BookingInfo>
         <MainButton type="submit">{btnText}</MainButton>
       </form>
     </MakeBookingContainer>

@@ -3,7 +3,11 @@ import styled from "styled-components";
 import { displayFlex } from "../../../styles/mixins";
 
 export const VenueContainer = styled.main`
-  margin-top: 50px;
+  margin: 50px 0;
+
+  h1 {
+    margin-bottom: 40px;
+  }
 
   img {
     width: 100%;
@@ -11,10 +15,6 @@ export const VenueContainer = styled.main`
     border-radius: 10px;
     object-fit: cover;
     margin-bottom: 20px;
-  }
-
-  .makeBookingBig {
-    display: none;
   }
 
   @media (min-width: 442px) {
@@ -44,10 +44,12 @@ export const VenueInfo = styled.section`
   width: 100%;
 `;
 
-export const VenueRating = styled.div`
+export const VenueTopLine = styled.div`
   margin-bottom: 20px;
 
-  ${displayFlex({})}
+  ${displayFlex({
+    justify: "space-between",
+  })}
 
   svg {
     color: var(--primary);
@@ -56,16 +58,14 @@ export const VenueRating = styled.div`
   }
 `;
 
-export const Fascilities = styled.section`
-  width: 100%;
-`;
+export const Fascilities = styled.section``;
 
 export const Icons = styled.div`
   width: 160px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-column-gap: 0px;
-  grid-row-gap: 20px;
+  grid-row-gap: 25px;
 
   svg {
     color: var(--primary);
@@ -78,26 +78,34 @@ export const IconsGrid = styled.div`
   grid-template-columns: repeat(5, 1fr);
 `;
 
-export const AboutVenue = styled.section``;
+export const AboutVenue = styled.section`
+  margin-bottom: 20px;
 
-export const Location = styled.section``;
-
-export const Host = styled.section`
-  width: 100%;
+  p {
+    line-height: 3rem;
+  }
 `;
 
-export const HostInfo = styled.div`
+export const Location = styled.section`
+  p {
+    margin-bottom: 10px;
+  }
+`;
+
+export const Host = styled.div`
   width: 100%;
-  margin-bottom: 30px;
-  ${displayFlex({})}
+  margin-bottom: 20px;
+  ${displayFlex({
+    align: "center",
+  })}
 
   img {
-    width: 80px;
-    height: 80px;
+    width: 35px;
+    height: 35px;
     border-radius: 100px;
     object-fit: cover;
     object-position: center center;
-    margin-right: 20px;
+    margin-right: 10px;
   }
 
   p {
@@ -107,6 +115,10 @@ export const HostInfo = styled.div`
 
 export const Updates = styled.div`
   width: 100%;
+
+  p {
+    margin-bottom: 5px;
+  }
 `;
 
 export const BookNowBtn = styled.div`
