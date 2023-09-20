@@ -107,14 +107,18 @@ export default function Venue() {
                 showThumbs={false}
                 renderIndicator={(clickHandler, isSelected, index) => {
                   return (
-                    <FontAwesomeIcon
-                      icon={faCircle}
-                      onClick={() => {
-                        clickHandler();
-                        setSelected(!isSelected);
-                      }}
-                      className={isSelected ? "active" : ""}
-                    />
+                    <>
+                      {media?.length > 1 && (
+                        <FontAwesomeIcon
+                          icon={faCircle}
+                          onClick={() => {
+                            clickHandler();
+                            setSelected(!isSelected);
+                          }}
+                          className={isSelected ? "active" : ""}
+                        />
+                      )}
+                    </>
                   );
                 }}
               >
