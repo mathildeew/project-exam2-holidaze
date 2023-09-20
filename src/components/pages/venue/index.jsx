@@ -42,7 +42,6 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 export default function Venue() {
   const [showPopup, setShowPopup] = useState(false);
-  const [isSelected, setSelected] = useState(false);
   const { id } = useParams();
 
   const {
@@ -78,7 +77,13 @@ export default function Venue() {
 
   const createdDate = new Date(created).toLocaleDateString();
   const updatedDate = new Date(updated).toLocaleDateString();
-  console.log(media);
+
+  const ref = useRef(null);
+
+  const handleClickScroll = () => {
+    const scrollTop = ref.current;
+    scrollTop.scrollIntoView({ behavior: "smooth" });
+  };
 
   if (isLoading) return <Loader />;
   if (isError) return <VenueContent>Error!</VenueContent>;
@@ -90,7 +95,9 @@ export default function Venue() {
           <BoldText>${price}</BoldText>
           <SmallText>night</SmallText>
         </div>
-        <button aria-label="Scroll to make booking">Check availability</button>
+        <button onClick={handleClickScroll} aria-label="Scroll to make booking">
+          Check availability
+        </button>
       </BookNowBtn>
 
       <VenueContainer>
@@ -107,7 +114,6 @@ export default function Venue() {
                       icon={faCircle}
                       onClick={() => {
                         clickHandler();
-                        setSelected(!isSelected);
                       }}
                       className={isSelected ? "active" : ""}
                     />
@@ -230,6 +236,7 @@ export default function Venue() {
             </Location>
           </VenueInfo>
 
+          <div ref={ref} id="scrollTop"></div>
           <MakeBooking data={venue} />
         </VenueContent>
       </VenueContainer>
