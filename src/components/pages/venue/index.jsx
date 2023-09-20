@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPeopleRoof,
@@ -39,10 +39,12 @@ import { createRef } from "react";
 import { useRef } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { useLoggedIn } from "../../../context/Context";
 
 export default function Venue() {
   const [showPopup, setShowPopup] = useState(false);
   const { id } = useParams();
+  const { isLoggedIn } = useLoggedIn();
 
   const {
     fetchApi,
@@ -95,9 +97,18 @@ export default function Venue() {
           <BoldText>${price}</BoldText>
           <SmallText>night</SmallText>
         </div>
-        <button onClick={handleClickScroll} aria-label="Scroll to make booking">
-          Check availability
-        </button>
+        {isLoggedIn === true ? (
+          <button
+            onClick={handleClickScroll}
+            aria-label="Scroll to make booking"
+          >
+            Check availability
+          </button>
+        ) : (
+          <Link to="/user/login">
+            <button>Log in to check availability</button>
+          </Link>
+        )}
       </BookNowBtn>
 
       <VenueContainer>
@@ -237,7 +248,7 @@ export default function Venue() {
           </VenueInfo>
 
           <div ref={ref} id="scrollTop"></div>
-          <MakeBooking data={venue} />
+          {isLoggedIn === true && <MakeBooking data={venue} />}
         </VenueContent>
       </VenueContainer>
     </>

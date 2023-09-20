@@ -23,6 +23,7 @@ import {
   ProfileContent,
   ProfileDetails,
 } from "./profile.styles";
+import UnAuthUser from "../../UnauthUser";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -58,6 +59,7 @@ export default function Profile() {
 
   const bookings = profile?.bookings;
 
+  if (!isLoggedIn) return <UnAuthUser />;
   if (isLoading) return <Loader />;
 
   return (

@@ -4,13 +4,12 @@ import { displayFlex } from "../../styles/mixins";
 export const VenuesContainer = styled.section`
   width: 100%;
   opacity: 1;
-  transition: all 0.4s ease-in-out;
 `;
 
 export const VenueCard = styled.div`
   width: 100%;
   height: 130px;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
   ${displayFlex({
     direction: "row",
   })}
@@ -21,8 +20,8 @@ export const VenueCard = styled.div`
   }
 
   img {
+    width: 130px;
     height: 100%;
-    width: 100%;
     margin-right: 20px;
     object-fit: cover;
     object-position: center center;

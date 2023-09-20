@@ -16,6 +16,7 @@ import {
   VenueManageButtons,
 } from "./ManagerVenues.style";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { truncate } from "../../js/storage/truncate";
 
 export default function VenuesManager(data) {
   const token = get("token");
@@ -59,7 +60,7 @@ export default function VenuesManager(data) {
                   <img src={venue.media} />
                 </Link>
                 <VenueDetails>
-                  <h3>{venue.name}</h3>
+                  <h3>{truncate(venue.name)}</h3>
                   <VenueManageButtons>
                     <div className="flexLine">
                       <FontAwesomeIcon icon={faPenToSquare} />

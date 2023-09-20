@@ -19,16 +19,38 @@ export const ManagerContainer = styled.main`
   }
 `;
 
-export const Buttons = styled.div`
+export const ButtonsContainer = styled.div`
   width: 100%;
-  max-width: 300px;
-  /* margin-bottom: 50px; */
+  margin-bottom: 50px;
+  /* max-width: 300px; */
+  /* border: 2px solid red; */
+  position: relative;
+
+  div {
+    ${displayFlex({
+      justify: "space-between",
+    })}
+  }
+
+  hr {
+    width: 50%;
+    margin: 5px 0;
+    position: absolute;
+
+    &.right {
+      right: 0px;
+    }
+  }
+`;
+
+export const ButtonsShift = styled.div`
   ${displayFlex({
-    direction: "row",
-    justify: "space-between",
+    align: "center",
   })}
 
   svg {
+    color: var(--primary);
+    font-size: 2rem;
     margin-right: 5px;
   }
 `;

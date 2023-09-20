@@ -9,13 +9,21 @@ import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { MainButton } from "../../../../styles/Buttons";
 import { Overlay, Popup } from "../../../../styles/Popup";
 import { BoldText } from "../../../../styles/Text";
-import { Buttons, Carousel, ManagerContainer } from "./manager.style";
+import {
+  ButtonsContainer,
+  ButtonsShift,
+  Carousel,
+  ManagerContainer,
+} from "./manager.style";
 import VenuesForm from "../../../ManagerVenues/VenuesForm";
 import Reservations from "../../../ManagerReservations";
 import VenuesManager from "../../../ManagerVenues";
 import Loader from "../../../Loader";
+import { useLoggedIn } from "../../../../context/Context";
+import UnAuthUser from "../../../UnauthUser";
 
 export default function Manage() {
+  const { isLoggedIn, isManager } = useLoggedIn();
   const name = get("name");
   const [showVenues, setShowVenues] = useState(true);
   const [showReservations, setShowReservations] = useState(false);
@@ -41,7 +49,7 @@ export default function Manage() {
   }, [getData]);
 
   const venues = profile.venues;
-
+  if (!isLoggedIn || !isManager) return <UnAuthUser />;
   if (isLoading) return <Loader />;
 
   return (
@@ -55,6 +63,7 @@ export default function Manage() {
         <FontAwesomeIcon
           icon={faXmark}
           className="close"
+          aria-label="Close register new venue modal"
           onClick={() => setNewVenueModal(false)}
         />
         {newVenueModal && <VenuesForm venue={{}} state={"new"} />}
@@ -63,6 +72,7 @@ export default function Manage() {
       <ManagerContainer className="maxWidth">
         <MainButton
           className="regBtn"
+          aria-label="Open new venue modal"
           onClick={() => {
             setNewVenueModal(!newVenueModal);
           }}
@@ -71,29 +81,34 @@ export default function Manage() {
         </MainButton>
         <h1>Manage your venues & reservations</h1>
 
-        <Buttons>
-          <MainButton
-            isSmall={true}
-            onClick={() => {
-              setShowVenues(true);
-              setShowReservations(false);
-            }}
-          >
-            <FontAwesomeIcon icon={faHouse} />
-            Venues
-          </MainButton>
-          <MainButton
-            isSmall={true}
-            onClick={() => {
-              setShowReservations(true);
-              setShowVenues(false);
-            }}
-          >
-            <FontAwesomeIcon icon={faHouseCircleCheck} />
-            Reservations
-          </MainButton>
-        </Buttons>
-        <hr />
+        <ButtonsContainer>
+          <div>
+            <ButtonsShift
+              aria-label="Show my registered venues"
+              isSmall={true}
+              onClick={() => {
+                setShowVenues(true);
+                setShowReservations(false);
+              }}
+            >
+              <FontAwesomeIcon icon={faHouse} />
+              <p>Venues</p>
+            </ButtonsShift>
+            <ButtonsShift
+              aria-label="Show my venues bookings"
+              isSmall={true}
+              onClick={() => {
+                setShowReservations(true);
+                setShowVenues(false);
+              }}
+            >
+              <FontAwesomeIcon icon={faHouseCircleCheck} />
+              <p> Reservations</p>
+            </ButtonsShift>
+          </div>
+          <hr className={showVenues === true ? "left" : "right"} />
+        </ButtonsContainer>
+
         <Carousel>
           {showVenues && <VenuesManager data={venues} />}
           {showReservations && <Reservations data={venues?.bookings} />}
