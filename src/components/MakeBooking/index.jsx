@@ -9,8 +9,12 @@ import { BoldText } from "../../styles/Text";
 import {
   BookingInfo,
   Calendar,
+  DatesContainer,
   Guests,
   MakeBookingContainer,
+  Inputs,
+  GuestsIcons,
+  BookingText,
 } from "./MakeBooking.style";
 import { date, number, string } from "yup";
 import useApi from "../../hooks/useApi";
@@ -36,6 +40,7 @@ export default function MakeBooking(data) {
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(startDate);
+
   // const [bookingData, setBookingData] = useState({
   //   guests: numberOfGuests,
   //   dateFrom: startDate,
@@ -98,8 +103,6 @@ export default function MakeBooking(data) {
     //   venueId: id,
     // });
 
-    console.log(bookingData);
-
     setBtnText("Reservating...");
 
     // setBookingData({
@@ -116,8 +119,6 @@ export default function MakeBooking(data) {
       bookingData
     );
 
-    console.log(response);
-
     if (response.status === 201) {
       setBtnText("Reservation complete!");
     }
@@ -125,7 +126,7 @@ export default function MakeBooking(data) {
 
   return (
     <MakeBookingContainer>
-      <h3>Make reservation</h3>
+      <h2>Make reservation</h2>
       <form onSubmit={onFormSubmit}>
         <Calendar>
           <DateRange
@@ -134,15 +135,33 @@ export default function MakeBooking(data) {
             editableDateInputs={true}
             moveRangeOnFirstSelection={false}
             ranges={dates}
-            rangeColors={"#b3a2cd"}
-            color={"#b3a2cd"}
+            // rangeColors={"#b3a2cd"}
+            // color={"#b3a2cd"}
             showDateDisplay={false}
           />
         </Calendar>
 
+        <DatesContainer>
+          <Inputs>
+            <label htmlFor={"fromDate"}>From</label>
+            <input
+              name="fromDate"
+              defaultValue={dates[0].startDate.toLocaleDateString()}
+            />
+          </Inputs>
+
+          <Inputs>
+            <label htmlFor={"toDate"}>To</label>
+            <input
+              name="toDate"
+              defaultValue={dates[0].endDate.toLocaleDateString()}
+            />
+          </Inputs>
+        </DatesContainer>
+
         <Guests>
-          <label htmlFor="guests">How many guests?</label>
-          <div className="flexLine">
+          <Inputs>
+            <label htmlFor="guests">How many guests?</label>
             <input
               type="number"
               name="guests"
@@ -150,19 +169,30 @@ export default function MakeBooking(data) {
               value={numberOfGuests}
               onChange={onGuestChange}
             />
-            <FontAwesomeIcon icon={faCirclePlus} onClick={addGuest} />
+          </Inputs>
+          <GuestsIcons>
             <FontAwesomeIcon icon={faCircleMinus} onClick={removeGuest} />
-          </div>
+            <FontAwesomeIcon icon={faCirclePlus} onClick={addGuest} />
+          </GuestsIcons>
         </Guests>
 
         <BookingInfo>
-          <p>Price per night: ${venue.price}</p>
-          <BoldText>
-            Total: $
-            {calculatePrice(dates[0].startDate, dates[0].endDate, venue.price)}{" "}
-            x 5 nights
-          </BoldText>
-          <p></p>
+          <BookingText>
+            <p>Price per night:</p>
+            <p> $ {venue.price}</p>
+          </BookingText>
+          <hr />
+          <BookingText>
+            <BoldText>Total: </BoldText>
+            <BoldText>
+              $&nbsp;
+              {calculatePrice(
+                dates[0].startDate,
+                dates[0].endDate,
+                venue.price
+              )}
+            </BoldText>
+          </BookingText>
         </BookingInfo>
         <MainButton type="submit">{btnText}</MainButton>
       </form>

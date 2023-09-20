@@ -4,10 +4,7 @@ import { displayFlex } from "../../../styles/mixins";
 
 export const VenueContainer = styled.main`
   margin: 50px 0;
-
-  h1 {
-    margin-bottom: 40px;
-  }
+  padding: 20px;
 
   img {
     width: 100%;
@@ -16,39 +13,40 @@ export const VenueContainer = styled.main`
     object-fit: cover;
     margin-bottom: 20px;
   }
-
-  @media (min-width: 442px) {
-    .bookNow {
-      left: unset;
-    }
-  }
-
-  @media (min-width: 768px) {
-    padding: 0 30px;
-    align-items: start;
-
-    .bookNow {
-      width: 300px;
-      left: 500px;
-    }
-  }
 `;
 
-export const VenueFlex = styled.div`
+export const VenueContent = styled.section`
+  width: 100%;
+  max-width: 1400px;
+  height: 100%;
+
+  h1 {
+    margin-bottom: 40px;
+  }
+
   @media (min-width: 1024px) {
-    ${displayFlex({ justify: "space-between" })}
+    ${displayFlex({
+      direction: "row",
+      justify: " space-between",
+    })}
   }
 `;
 
-export const VenueInfo = styled.section`
+export const VenueInfo = styled.div`
+  max-width: 500px;
+`;
+
+export const VenueDetails = styled.div`
   width: 100%;
 `;
 
 export const VenueTopLine = styled.div`
+  max-width: 380px;
   margin-bottom: 20px;
 
   ${displayFlex({
     justify: "space-between",
+    align: "center",
   })}
 
   svg {
@@ -58,10 +56,10 @@ export const VenueTopLine = styled.div`
   }
 `;
 
-export const Fascilities = styled.section``;
+export const Fascilities = styled.div``;
 
 export const Icons = styled.div`
-  width: 160px;
+  width: 130px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-column-gap: 0px;
@@ -78,7 +76,7 @@ export const IconsGrid = styled.div`
   grid-template-columns: repeat(5, 1fr);
 `;
 
-export const AboutVenue = styled.section`
+export const AboutVenue = styled.div`
   margin-bottom: 20px;
 
   p {
@@ -86,7 +84,7 @@ export const AboutVenue = styled.section`
   }
 `;
 
-export const Location = styled.section`
+export const Location = styled.div`
   p {
     margin-bottom: 10px;
   }
@@ -124,8 +122,8 @@ export const Updates = styled.div`
 export const BookNowBtn = styled.div`
   width: 100%;
   height: 80px;
-  /* max-width: 442px; */
   background-color: white;
+  z-index: 10;
   position: fixed;
   bottom: 0px;
   left: 0px;
