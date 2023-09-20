@@ -29,7 +29,18 @@ export const VenueContent = styled.section`
   }
 `;
 
-export const ImageContainer = styled.div``;
+export const ImageContainer = styled.div`
+  svg {
+    color: grey;
+    margin-right: 3px;
+    position: relative;
+    bottom: 15px;
+    margin-right: 8px;
+    &.active {
+      color: lightgray;
+    }
+  }
+`;
 
 export const VenueInfo = styled.div`
   max-width: 500px;

@@ -11,6 +11,8 @@ import {
   faStar,
   faClose,
   faDollarSign,
+  faCircle,
+  faCaretRight,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   BookNowBtn,
@@ -35,9 +37,12 @@ import MakeBooking from "../../MakeBooking";
 import Loader from "../../Loader";
 import { createRef } from "react";
 import { useRef } from "react";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 export default function Venue() {
   const [showPopup, setShowPopup] = useState(false);
+  const [isSelected, setSelected] = useState(false);
   const { id } = useParams();
 
   const {
@@ -73,7 +78,7 @@ export default function Venue() {
 
   const createdDate = new Date(created).toLocaleDateString();
   const updatedDate = new Date(updated).toLocaleDateString();
-  // console.log(venue.owner);
+  console.log(media);
 
   if (isLoading) return <Loader />;
   if (isError) return <VenueContent>Error!</VenueContent>;
@@ -92,11 +97,31 @@ export default function Venue() {
         <VenueContent>
           <VenueInfo>
             <ImageContainer>
-              {media?.length === 0 ? (
+              {/* {media?.length === 0 ? (
                 <img src="/src/assets/placeholders/image-placeholder-350x350-1.png" />
               ) : (
                 <img src={media} />
-              )}
+              )} */}
+              <Carousel
+                useKeyboardArrows={true}
+                showThumbs={false}
+                renderIndicator={(clickHandler, isSelected, index) => {
+                  return (
+                    <FontAwesomeIcon
+                      icon={faCircle}
+                      onClick={() => {
+                        clickHandler();
+                        setSelected(!isSelected);
+                      }}
+                      className={isSelected ? "active" : ""}
+                    />
+                  );
+                }}
+              >
+                {media?.map((index) => (
+                  <img src={media} key={index} alt={name} />
+                ))}
+              </Carousel>
             </ImageContainer>
 
             <VenueDetails>
