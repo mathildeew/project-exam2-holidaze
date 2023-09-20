@@ -2,9 +2,16 @@ import styled from "styled-components";
 import { displayFlex } from "../../styles/mixins";
 
 export const MakeBookingContainer = styled.div`
-  ${displayFlex({
-    direction: "column",
-  })}
+  max-width: 400px;
+
+  form {
+    ${displayFlex({
+      direction: "column",
+      align: "center",
+    })}
+
+    padding: 0 20px;
+  }
 
   h3 {
     margin-bottom: 20px;
@@ -12,10 +19,6 @@ export const MakeBookingContainer = styled.div`
 
   button {
     margin-bottom: 20px;
-  }
-
-  @media (max-width: 1023px) {
-    max-width: 600px;
   }
 
   @media (min-width: 1024px) {
@@ -27,8 +30,11 @@ export const MakeBookingContainer = styled.div`
   }
 `;
 
-export const Calendar = styled.div`
-  width: 100%;
+export const CalendarContainer = styled.div`
+  /* width: 50px; */
+  height: 100%;
+  /* padding: 0 20px; */
+  /* margin: 0 30px; */
 `;
 
 export const DatesContainer = styled.div`
@@ -37,6 +43,7 @@ export const DatesContainer = styled.div`
 
   ${displayFlex({
     direction: "row",
+    justify: "space-between",
   })}
 
   div:nth-child(1) {
@@ -69,6 +76,7 @@ export const Inputs = styled.div`
 
 export const Guests = styled.div`
   margin-bottom: 30px;
+  width: 100%;
 
   ${displayFlex({
     align: "center",
@@ -95,6 +103,7 @@ export const GuestsIcons = styled.div`
 
 export const BookingInfo = styled.section`
   margin-bottom: 20px;
+  width: 100%;
 
   hr {
     margin: 20px 0 20px 0;

@@ -3,8 +3,7 @@ import styled from "styled-components";
 import { displayFlex } from "../../../styles/mixins";
 
 export const VenueContainer = styled.main`
-  margin: 50px 0;
-  padding: 20px;
+  margin: 40px 0;
 
   img {
     width: 100%;
@@ -17,7 +16,6 @@ export const VenueContainer = styled.main`
 
 export const VenueContent = styled.section`
   width: 100%;
-  max-width: 1400px;
   height: 100%;
 
   h1 {
@@ -25,15 +23,17 @@ export const VenueContent = styled.section`
   }
 
   @media (min-width: 1024px) {
-    ${displayFlex({
-      direction: "row",
-      justify: " space-between",
-    })}
+    max-width: 1400px;
+    flex-direction: row;
+    justify-content: space-between;
   }
 `;
 
+export const ImageContainer = styled.div``;
+
 export const VenueInfo = styled.div`
   max-width: 500px;
+  padding: 0 20px;
 `;
 
 export const VenueDetails = styled.div`

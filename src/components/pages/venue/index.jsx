@@ -25,6 +25,7 @@ import {
   VenueTopLine,
   AboutVenue,
   VenueInfo,
+  ImageContainer,
 } from "./Venue.style";
 import { BoldText, SmallText } from "../../../styles/Text";
 import { MainButton, OutlineButton } from "../../../styles/Buttons";
@@ -88,15 +89,16 @@ export default function Venue() {
       </BookNowBtn>
 
       <VenueContainer>
-        <div className="imagecontainer">
-          {media?.length === 0 ? (
-            <img src="/src/assets/placeholders/image-placeholder-350x350-1.png" />
-          ) : (
-            <img src={media} />
-          )}
-        </div>
         <VenueContent>
           <VenueInfo>
+            <ImageContainer>
+              {media?.length === 0 ? (
+                <img src="/src/assets/placeholders/image-placeholder-350x350-1.png" />
+              ) : (
+                <img src={media} />
+              )}
+            </ImageContainer>
+
             <VenueDetails>
               <VenueTopLine>
                 <div className="flexLine">
@@ -149,12 +151,10 @@ export default function Venue() {
               </Fascilities>
             </VenueDetails>
             <hr />
-
             <AboutVenue>
               <h2>About this property</h2>
               <p>{description}</p>
             </AboutVenue>
-
             <Host>
               <BoldText>Your host is</BoldText>
               {owner?.avatar ? (
@@ -164,13 +164,11 @@ export default function Venue() {
               )}
               <p>{owner?.name}</p>
             </Host>
-
             <Updates>
               <SmallText>Created: {createdDate}</SmallText>
               <SmallText>Last updated: {updatedDate}</SmallText>
             </Updates>
             <hr />
-
             <Location>
               <h2>Location</h2>
 

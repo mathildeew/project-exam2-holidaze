@@ -8,7 +8,7 @@ import { MainButton } from "../../styles/Buttons";
 import { BoldText } from "../../styles/Text";
 import {
   BookingInfo,
-  Calendar,
+  CalendarContainer,
   DatesContainer,
   Guests,
   MakeBookingContainer,
@@ -128,7 +128,7 @@ export default function MakeBooking(data) {
     <MakeBookingContainer>
       <h2>Make reservation</h2>
       <form onSubmit={onFormSubmit}>
-        <Calendar>
+        <CalendarContainer>
           <DateRange
             onChange={(item) => setDates([item.selection])}
             disabledDates={bookedDates}
@@ -139,7 +139,7 @@ export default function MakeBooking(data) {
             // color={"#b3a2cd"}
             showDateDisplay={false}
           />
-        </Calendar>
+        </CalendarContainer>
 
         <DatesContainer>
           <Inputs>
