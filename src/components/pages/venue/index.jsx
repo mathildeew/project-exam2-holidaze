@@ -94,40 +94,35 @@ export default function Venue() {
       </BookNowBtn>
 
       <VenueContainer>
+        <ImageContainer>
+          <Carousel
+            useKeyboardArrows={true}
+            showThumbs={false}
+            showStatus={false}
+            renderIndicator={(clickHandler, isSelected, index) => {
+              return (
+                <>
+                  {media?.length > 1 && (
+                    <FontAwesomeIcon
+                      icon={faCircle}
+                      onClick={() => {
+                        clickHandler();
+                        setSelected(!isSelected);
+                      }}
+                      className={isSelected ? "active" : ""}
+                    />
+                  )}
+                </>
+              );
+            }}
+          >
+            {media?.map((index) => (
+              <img src={media} key={index} alt={name} />
+            ))}
+          </Carousel>
+        </ImageContainer>
         <VenueContent>
           <VenueInfo>
-            <ImageContainer>
-              {/* {media?.length === 0 ? (
-                <img src="/src/assets/placeholders/image-placeholder-350x350-1.png" />
-              ) : (
-                <img src={media} />
-              )} */}
-              <Carousel
-                useKeyboardArrows={true}
-                showThumbs={false}
-                renderIndicator={(clickHandler, isSelected, index) => {
-                  return (
-                    <>
-                      {media?.length > 1 && (
-                        <FontAwesomeIcon
-                          icon={faCircle}
-                          onClick={() => {
-                            clickHandler();
-                            setSelected(!isSelected);
-                          }}
-                          className={isSelected ? "active" : ""}
-                        />
-                      )}
-                    </>
-                  );
-                }}
-              >
-                {media?.map((index) => (
-                  <img src={media} key={index} alt={name} />
-                ))}
-              </Carousel>
-            </ImageContainer>
-
             <VenueDetails>
               <VenueTopLine>
                 <div className="flexLine">
@@ -179,25 +174,27 @@ export default function Venue() {
                 </Icons>
               </Fascilities>
             </VenueDetails>
-            <hr />
+
             <AboutVenue>
               <h2>About this property</h2>
               <p>{description}</p>
+
+              <Host>
+                <BoldText>Your host is</BoldText>
+                {owner?.avatar ? (
+                  <img src={owner?.avatar} />
+                ) : (
+                  <img src="/images/placeholder/Profile_avatar_placeholder_large.png" />
+                )}
+                <p>{owner?.name}</p>
+              </Host>
+
+              <Updates>
+                <SmallText>Created: {createdDate}</SmallText>
+                <SmallText>Last updated: {updatedDate}</SmallText>
+              </Updates>
             </AboutVenue>
-            <Host>
-              <BoldText>Your host is</BoldText>
-              {owner?.avatar ? (
-                <img src={owner?.avatar} />
-              ) : (
-                <img src="/images/placeholder/Profile_avatar_placeholder_large.png" />
-              )}
-              <p>{owner?.name}</p>
-            </Host>
-            <Updates>
-              <SmallText>Created: {createdDate}</SmallText>
-              <SmallText>Last updated: {updatedDate}</SmallText>
-            </Updates>
-            <hr />
+
             <Location>
               <h2>Location</h2>
 
@@ -231,7 +228,6 @@ export default function Venue() {
               </>
             )} */}
             </Location>
-            <hr />
           </VenueInfo>
 
           <MakeBooking data={venue} />

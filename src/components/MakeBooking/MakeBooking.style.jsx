@@ -7,10 +7,7 @@ export const MakeBookingContainer = styled.div`
   form {
     ${displayFlex({
       direction: "column",
-      align: "center",
     })}
-
-    padding: 0 20px;
   }
 
   h3 {
@@ -26,16 +23,12 @@ export const MakeBookingContainer = styled.div`
     height: 100%;
     align-content: center;
     position: sticky;
-    top: 100px;
+    top: 40px;
+    margin-top: 40px;
   }
 `;
 
-export const CalendarContainer = styled.div`
-  /* width: 50px; */
-  height: 100%;
-  /* padding: 0 20px; */
-  /* margin: 0 30px; */
-`;
+export const CalendarContainer = styled.div``;
 
 export const DatesContainer = styled.div`
   width: 100%;

@@ -3,20 +3,14 @@ import styled from "styled-components";
 import { displayFlex } from "../../../styles/mixins";
 
 export const VenueContainer = styled.main`
-  margin: 40px 0;
-
-  img {
-    width: 100%;
-    height: 300px;
-    border-radius: 10px;
-    object-fit: cover;
-    margin-bottom: 20px;
-  }
+  margin: 40px 0px 100px 0px;
+  padding: 0 10px;
+  max-width: 1010px;
 `;
 
 export const VenueContent = styled.section`
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
 
   h1 {
     margin-bottom: 40px;
@@ -24,12 +18,30 @@ export const VenueContent = styled.section`
 
   @media (min-width: 1024px) {
     max-width: 1400px;
-    flex-direction: row;
-    justify-content: space-between;
+
+    ${displayFlex({
+      justify: "space-between",
+    })}
   }
 `;
 
 export const ImageContainer = styled.div`
+  img {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-bottom: 20px;
+
+    @media (min-width: 768px) {
+      height: 400px;
+    }
+
+    @media (min-width: 1024px) {
+      height: 500px;
+    }
+  }
+
   svg {
     color: grey;
     margin-right: 3px;
@@ -44,7 +56,6 @@ export const ImageContainer = styled.div`
 
 export const VenueInfo = styled.div`
   max-width: 500px;
-  padding: 0 20px;
 `;
 
 export const VenueDetails = styled.div`
@@ -67,13 +78,15 @@ export const VenueTopLine = styled.div`
   }
 `;
 
-export const Fascilities = styled.div``;
+export const Fascilities = styled.div`
+  margin-bottom: 60px;
+`;
 
 export const Icons = styled.div`
   width: 130px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: 0px;
+  grid-column-gap: 10px;
   grid-row-gap: 25px;
 
   svg {
@@ -88,7 +101,7 @@ export const IconsGrid = styled.div`
 `;
 
 export const AboutVenue = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 60px;
 
   p {
     line-height: 3rem;
@@ -96,6 +109,7 @@ export const AboutVenue = styled.div`
 `;
 
 export const Location = styled.div`
+  margin-bottom: 60px;
   p {
     margin-bottom: 10px;
   }
@@ -103,7 +117,8 @@ export const Location = styled.div`
 
 export const Host = styled.div`
   width: 100%;
-  margin-bottom: 20px;
+  margin: 20px 0;
+
   ${displayFlex({
     align: "center",
   })}
