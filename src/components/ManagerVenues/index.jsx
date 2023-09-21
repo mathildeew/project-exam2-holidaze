@@ -21,7 +21,7 @@ import { truncate } from "../../js/storage/truncate";
 export default function VenuesManager(data) {
   const token = get("token");
   const { data: venues } = data;
-  const [updateVenueModal, setUpdateVenueModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [venueInfo, setVenueInfo] = useState([]);
   const [venueId, setVenueId] = useState([]);
 
@@ -37,19 +37,7 @@ export default function VenuesManager(data) {
 
   return (
     <>
-      <Overlay
-        className={updateVenueModal ? "overlay active" : "overlay inactive"}
-      />
-      <Popup
-        className={updateVenueModal ? "overlay active" : "overlay inactive"}
-      >
-        <FontAwesomeIcon
-          icon={faXmark}
-          className="close"
-          onClick={() => setUpdateVenueModal(false)}
-        />
-        {updateVenueModal && <VenuesForm venue={venueInfo} state={"update"} />}
-      </Popup>
+      {/* {showModal && <VenuesForm venue={venueInfo} state={"update"} />} */}
 
       <VenuesContainer>
         {venues?.length > 0 ? (
@@ -58,37 +46,10 @@ export default function VenuesManager(data) {
               <VenueCard key={venue.id}>
                 <Link to={`/venue/${venue.id}`}>
                   <img src={venue.media} />
+                  <VenueDetails>
+                    <h3>{truncate(venue.name)}</h3>
+                  </VenueDetails>
                 </Link>
-                <VenueDetails>
-                  <h3>{truncate(venue.name)}</h3>
-                  <VenueManageButtons>
-                    <div className="flexLine">
-                      <FontAwesomeIcon icon={faPenToSquare} />
-
-                      <p
-                        onClick={() => {
-                          setUpdateVenueModal(!updateVenueModal);
-                          setVenueInfo(venue);
-                        }}
-                      >
-                        Edit venue
-                      </p>
-                    </div>
-
-                    <div className="flexLine">
-                      <FontAwesomeIcon icon={faTrash} />
-
-                      <p
-                        onClick={() => {
-                          setVenueId(venue.id);
-                          onDelete(venueId);
-                        }}
-                      >
-                        Delete venue
-                      </p>
-                    </div>
-                  </VenueManageButtons>
-                </VenueDetails>
               </VenueCard>
             ))}
           </>

@@ -13,6 +13,7 @@ import {
   faDollarSign,
   faCircle,
   faCaretRight,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   BookNowBtn,
@@ -40,11 +41,16 @@ import { useRef } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useLoggedIn } from "../../../context/Context";
+import { get } from "../../../js/storage/localStorage";
+import { Overlay, Popup } from "../../../styles/Popup";
+import VenuesForm from "../../ManagerVenues/VenuesForm";
 
 export default function Venue() {
-  const [showPopup, setShowPopup] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
   const { id } = useParams();
   const { isLoggedIn } = useLoggedIn();
+  const userName = get("name");
 
   const {
     fetchApi,
@@ -92,26 +98,49 @@ export default function Venue() {
 
   return (
     <>
-      <BookNowBtn>
-        <div className="flexLine">
-          <BoldText>${price}</BoldText>
-          <SmallText>night</SmallText>
-        </div>
-        {isLoggedIn === true ? (
-          <button
-            onClick={handleClickScroll}
-            aria-label="Scroll to make booking"
-          >
-            Check availability
-          </button>
-        ) : (
-          <Link to="/user/login">
-            <button>Log in to check availability</button>
-          </Link>
-        )}
-      </BookNowBtn>
+      <Overlay className={showModal ? "overlay active" : "overlay inactive"} />
+      <Popup
+        className={showModal ? "popup active venueModal" : "popup inactive"}
+      >
+        <FontAwesomeIcon
+          icon={faXmark}
+          className="close"
+          aria-label="Close register new venu"
+          onClick={() => setShowModal(false)}
+        />
+        {showModal && <VenuesForm venue={{ venue }} state={"edit"} />}
+      </Popup>
+
+      {owner?.name !== userName && (
+        <BookNowBtn>
+          <div className="flexLine">
+            <BoldText>${price}</BoldText>
+            <SmallText>night</SmallText>
+          </div>
+          {isLoggedIn === true ? (
+            <button
+              onClick={handleClickScroll}
+              aria-label="Scroll to make booking"
+            >
+              Check availability
+            </button>
+          ) : (
+            <Link to="/user/login">
+              <button>Log in to check availability</button>
+            </Link>
+          )}
+        </BookNowBtn>
+      )}
 
       <VenueContainer>
+        {owner?.name === userName && (
+          <>
+            <MainButton onClick={() => setShowModal(!showModal)}>
+              Edit
+            </MainButton>
+            <MainButton>Delete</MainButton>
+          </>
+        )}
         <ImageContainer>
           <Carousel
             useKeyboardArrows={true}
@@ -247,8 +276,13 @@ export default function Venue() {
             </Location>
           </VenueInfo>
 
-          <div ref={ref} id="scrollTop"></div>
-          {isLoggedIn === true && <MakeBooking data={venue} />}
+          {isLoggedIn === true && owner?.name !== userName && (
+            <>
+              <div ref={ref} id="scrollTop"></div>
+
+              <MakeBooking data={venue} />
+            </>
+          )}
         </VenueContent>
       </VenueContainer>
     </>

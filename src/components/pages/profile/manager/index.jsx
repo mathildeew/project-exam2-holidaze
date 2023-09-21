@@ -4,7 +4,11 @@ import { get } from "../../../../js/storage/localStorage";
 import useApi from "../../../../hooks/useApi";
 import apiEndpoints from "../../../../../endpoints.js/endpoints";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouseCircleCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHouseCircleCheck,
+  faXmark,
+  faSquarePlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { MainButton } from "../../../../styles/Buttons";
 import { Overlay, Popup } from "../../../../styles/Popup";
@@ -13,6 +17,7 @@ import {
   ButtonsContainer,
   ButtonsShift,
   Carousel,
+  ManageButton,
   ManagerContainer,
 } from "./manager.style";
 import VenuesForm from "../../../ManagerVenues/VenuesForm";
@@ -27,7 +32,7 @@ export default function Manage() {
   const name = get("name");
   const [showVenues, setShowVenues] = useState(true);
   const [showReservations, setShowReservations] = useState(false);
-  const [newVenueModal, setNewVenueModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const {
     fetchApi,
@@ -54,32 +59,33 @@ export default function Manage() {
 
   return (
     <>
-      <Overlay
-        className={newVenueModal ? "overlay active" : "overlay inactive"}
-      />
+      <Overlay className={showModal ? "overlay active" : "overlay inactive"} />
       <Popup
-        className={newVenueModal ? "popup active venueModal" : "popup inactive"}
+        className={showModal ? "popup active venueModal" : "popup inactive"}
       >
         <FontAwesomeIcon
           icon={faXmark}
           className="close"
-          aria-label="Close register new venue modal"
-          onClick={() => setNewVenueModal(false)}
+          aria-label="Close register new venu"
+          onClick={() => setShowModal(false)}
         />
-        {newVenueModal && <VenuesForm venue={{}} state={"new"} />}
+        {showModal && <VenuesForm venue={{}} state={"new"} />}
       </Popup>
 
       <ManagerContainer className="maxWidth">
-        <MainButton
-          className="regBtn"
-          aria-label="Open new venue modal"
-          onClick={() => {
-            setNewVenueModal(!newVenueModal);
-          }}
-        >
-          Register new venue
-        </MainButton>
         <h1>Manage your venues & reservations</h1>
+
+        <ManageButton>
+          <MainButton
+            aria-label="Open new venue modal"
+            onClick={() => {
+              setShowModal(!showModal);
+            }}
+          >
+            <FontAwesomeIcon icon={faSquarePlus} />
+            New venue
+          </MainButton>
+        </ManageButton>
 
         <ButtonsContainer>
           <div>
