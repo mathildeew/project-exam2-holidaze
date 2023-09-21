@@ -25,6 +25,16 @@ export const VenueContent = styled.section`
   }
 `;
 
+export const ManagerButtons = styled.div`
+  max-width: 300px;
+  margin-bottom: 40px;
+
+  ${displayFlex({
+    align: "center",
+    justify: "space-between",
+  })}
+`;
+
 export const ImageContainer = styled.div`
   img {
     width: 100%;

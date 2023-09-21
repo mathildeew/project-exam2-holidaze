@@ -29,6 +29,7 @@ import {
   AboutVenue,
   VenueInfo,
   ImageContainer,
+  ManagerButtons,
 } from "./Venue.style";
 import { BoldText, SmallText } from "../../../styles/Text";
 import { MainButton, OutlineButton } from "../../../styles/Buttons";
@@ -157,10 +158,10 @@ export default function Venue() {
 
       <VenueContainer>
         {owner?.name === userName && (
-          <>
+          <ManagerButtons>
             <MainButton onClick={() => setShowEdit(true)}>Edit</MainButton>
             <MainButton onClick={() => setShowDelete(true)}>Delete</MainButton>
-          </>
+          </ManagerButtons>
         )}
         <ImageContainer>
           <Carousel
