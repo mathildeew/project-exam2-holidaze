@@ -44,9 +44,12 @@ import { useLoggedIn } from "../../../context/Context";
 import { get } from "../../../js/storage/localStorage";
 import { Overlay, Popup } from "../../../styles/Popup";
 import VenuesForm from "../../ManagerVenues/VenuesForm";
+import DeleteVenue from "../../DeleteVenue";
 
 export default function Venue() {
-  const [showModal, setShowModal] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
 
   const { id } = useParams();
   const { isLoggedIn } = useLoggedIn();
@@ -96,19 +99,39 @@ export default function Venue() {
   if (isLoading) return <Loader />;
   if (isError) return <VenueContent>Error!</VenueContent>;
 
+  console.log();
+
   return (
     <>
-      <Overlay className={showModal ? "overlay active" : "overlay inactive"} />
+      <Overlay
+        className={
+          showEdit
+            ? "overlay active"
+            : showDelete
+            ? "overlay active"
+            : "overlay inactive"
+        }
+      />
       <Popup
-        className={showModal ? "popup active venueModal" : "popup inactive"}
+        className={
+          showEdit
+            ? "popup active venueModal"
+            : showDelete
+            ? "popup active deleteModal"
+            : "popup inactive"
+        }
       >
         <FontAwesomeIcon
           icon={faXmark}
           className="close"
           aria-label="Close register new venu"
-          onClick={() => setShowModal(false)}
+          onClick={() => {
+            setShowEdit(false);
+            setShowDelete(false);
+          }}
         />
-        {showModal && <VenuesForm venue={{ venue }} state={"edit"} />}
+        {showEdit && <VenuesForm venue={{ venue }} state={"edit"} />}
+        {showDelete && <DeleteVenue data={id} />}
       </Popup>
 
       {owner?.name !== userName && (
@@ -135,10 +158,8 @@ export default function Venue() {
       <VenueContainer>
         {owner?.name === userName && (
           <>
-            <MainButton onClick={() => setShowModal(!showModal)}>
-              Edit
-            </MainButton>
-            <MainButton>Delete</MainButton>
+            <MainButton onClick={() => setShowEdit(true)}>Edit</MainButton>
+            <MainButton onClick={() => setShowDelete(true)}>Delete</MainButton>
           </>
         )}
         <ImageContainer>

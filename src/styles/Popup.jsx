@@ -36,7 +36,7 @@ export const Popup = styled.section`
   }
 
   &.active {
-    height: 100%;
+    /* height: 100%; */
     /* top: 0; */
   }
 
@@ -91,6 +91,11 @@ export const Popup = styled.section`
     @media (min-width: 768px) {
       overflow: scroll;
     }
+  }
+
+  &.deleteModal {
+    bottom: 0px;
+    height: 200px;
   }
 
   @media (min-width: 768px) {
