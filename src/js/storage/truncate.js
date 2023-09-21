@@ -1,6 +1,6 @@
-export function truncate(string) {
-  if (string.length > 30) {
-    string = string.substring(0, 35) + "...";
+export function truncate(string, maxLenghth) {
+  if (string.length > maxLenghth) {
+    string = string.substring(0, maxLenghth) + "...";
   }
   return string;
 }

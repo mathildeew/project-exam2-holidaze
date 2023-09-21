@@ -3,7 +3,10 @@ import { displayFlex } from "../../styles/mixins";
 
 export const VenuesContainer = styled.section`
   width: 100%;
-  opacity: 1;
+
+  a {
+    color: black;
+  }
 `;
 
 export const VenueCard = styled.div`
@@ -12,36 +15,25 @@ export const VenueCard = styled.div`
   margin-bottom: 60px;
   ${displayFlex({
     direction: "row",
+    justify: "space-between",
   })}
 
-  a {
-    width: 40%;
-    margin-right: 30px;
-  }
-
   img {
-    width: 130px;
+    width: 45%;
     height: 100%;
-    margin-right: 20px;
     object-fit: cover;
     object-position: center center;
   }
 `;
 
 export const VenueDetails = styled.div`
-  ${displayFlex({
-    direction: "column",
-    justify: "space-between",
-  })}
-`;
+  width: 50%;
 
-export const VenueManageButtons = styled.div`
   div {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 
   svg {
-    font-size: 1.6rem;
-    margin-right: 5px;
+    margin-right: 10px;
   }
 `;
