@@ -3,7 +3,7 @@ import { displayFlex } from "./mixins";
 
 export const Overlay = styled.div`
   background-color: rgba(89, 89, 89, 0.4);
-  position: fixed;
+  position: absolute;
   margin: 0 auto;
   height: 100vmax;
   overflow: hidden;
@@ -36,7 +36,7 @@ export const Popup = styled.section`
   }
 
   &.active {
-    /* height: 100%; */
+    height: 100%;
     /* top: 0; */
   }
 
@@ -84,6 +84,8 @@ export const Popup = styled.section`
   &.venueModal {
     @media (max-width: 767px) {
       top: 0;
+      /* position: fixed; */
+      overflow: scroll;
     }
 
     @media (min-width: 768px) {

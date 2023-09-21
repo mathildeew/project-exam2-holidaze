@@ -8,7 +8,7 @@ export const ManagerContainer = styled.main`
     align: "center",
   })}
 
-  .regBtn {
+  h1 {
     margin-bottom: 50px;
   }
 
@@ -16,6 +16,28 @@ export const ManagerContainer = styled.main`
     width: 100%;
     border: 0.5px solid var(--primary);
     margin-bottom: 50px;
+  }
+`;
+
+export const ManageButton = styled.div`
+  background-color: white;
+  width: 100%;
+  padding: 2px;
+  margin-bottom: 0px;
+  position: fixed;
+  bottom: 0px;
+
+  ${displayFlex({
+    justify: "center",
+  })}
+
+  svg {
+    margin-right: 10px;
+  }
+
+  @media (min-width: 1024px) {
+    margin-bottom: 50px;
+    position: inherit;
   }
 `;
 

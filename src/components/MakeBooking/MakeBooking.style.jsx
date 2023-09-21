@@ -22,9 +22,10 @@ export const MakeBookingContainer = styled.div`
     width: 50%;
     height: 100%;
     align-content: center;
-    position: sticky;
+    position: fixed;
     top: 40px;
     margin-top: 40px;
+    overflow: auto;
   }
 `;
 
