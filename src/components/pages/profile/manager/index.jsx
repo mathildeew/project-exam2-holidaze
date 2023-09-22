@@ -36,7 +36,7 @@ export default function Manage() {
 
   const {
     fetchApi,
-    data: profile,
+    data: venues,
     isLoading,
     isError,
     isSuccess,
@@ -44,18 +44,17 @@ export default function Manage() {
   } = useApi();
 
   const getData = useCallback(async () => {
-    await fetchApi(
-      `${apiEndpoints().profile}/${name}?_bookings=true&_venues=true`
-    );
+    await fetchApi(`${apiEndpoints().profile}/${name}/venues?_bookings=true`);
   }, []);
 
   useEffect(() => {
     getData();
   }, [getData]);
 
-  const venues = profile.venues;
   if (!isLoggedIn || !isManager) return <UnAuthUser />;
   if (isLoading) return <Loader />;
+
+  // console.log(venues);
 
   return (
     <>
@@ -117,7 +116,7 @@ export default function Manage() {
 
         <Carousel>
           {showVenues && <VenuesManager data={venues} />}
-          {showReservations && <Reservations data={venues?.bookings} />}
+          {showReservations && <Reservations data={venues} />}
         </Carousel>
       </ManagerContainer>
     </>

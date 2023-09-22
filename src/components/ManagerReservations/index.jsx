@@ -2,19 +2,28 @@ import { BoldText } from "../../styles/Text";
 import { ReservationsContainer } from "../pages/profile/manager/manager.style";
 
 export default function Reservations(data) {
-  const { data: bookings } = data;
+  const { data: venues } = data;
 
   // const bookings = venues.filter((venue) => {
   //   if (venue.bookings.length !== 0) return true;
   // });
 
+  // console.log(venues);
+
+  const bookings = venues.flatMap((venue) => {
+    return venue.bookings;
+  });
+
+  console.log(bookings);
+
   return (
     <ReservationsContainer>
-      {bookings?.lenght > 0 ? (
+      {bookings.map((booking) => {
         <div className="reservation">
-          <h2>Name of venue</h2>
+          <h2>{booking.id}</h2>
           <div className="flexLine">
-            <BoldText>Check-in:</BoldText>s<p>21. aug 2023</p>
+            <BoldText>Check-in:</BoldText>
+            <p>{booking.dateFrom}</p>
           </div>
           <div className="flexLine">
             <BoldText>Check-out:</BoldText>
@@ -27,10 +36,10 @@ export default function Reservations(data) {
           </div>
           <BoldText>Total income: $1234</BoldText>
           <hr />
-        </div>
-      ) : (
-        <p>No Reservations yet</p>
-      )}
+        </div>;
+      })}
+
+      {/* <p>No Reservations yet</p> */}
     </ReservationsContainer>
   );
 }
