@@ -71,7 +71,8 @@ export const Popup = styled.section`
   }
 
   &.updateAvatar,
-  &.cancelBooking {
+  &.cancelBooking,
+  &.registerManager {
     bottom: 0;
     height: 300px;
   }

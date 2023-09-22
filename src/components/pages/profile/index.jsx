@@ -24,14 +24,22 @@ import {
   ProfileDetails,
 } from "./profile.styles";
 import UnAuthUser from "../../UnauthUser";
+import { RegisterManager } from "../../ManagerReg";
 
 export default function Profile() {
   const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn, isManager, token, avatar, name, email } =
-    useLoggedIn();
-  const [showUpdate, setShowUpdate] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
-  const [showVenueManager, setVenueManager] = useState(false);
+  const {
+    isLoggedIn,
+    setIsLoggedIn,
+    isManager,
+    setIsManager,
+    token,
+    avatar,
+    name,
+    email,
+  } = useLoggedIn();
+  const [showUpdateAvatar, setShowUpdate] = useState(false);
+  const [showManagerReg, setShowManagerReg] = useState(false);
 
   function logOut() {
     setIsLoggedIn(false);
@@ -66,48 +74,39 @@ export default function Profile() {
     <>
       <Overlay
         className={
-          showUpdate || showRegister ? "overlay active" : "overlay inactive"
+          showUpdateAvatar
+            ? "overlay active"
+            : showManagerReg
+            ? "overlay active"
+            : "overlay inactive"
         }
       />
       <Popup
-        className={showUpdate ? "popup active updateAvatar" : "popup inactive"}
+        className={
+          showUpdateAvatar
+            ? "popup active updateAvatar"
+            : showManagerReg
+            ? "popup active registerManager"
+            : "popup inactive"
+        }
       >
         <FontAwesomeIcon
           icon={faXmark}
           className="close"
-          onClick={() => setShowUpdate(false)}
+          onClick={() => {
+            setShowUpdate(false);
+            setShowManagerReg(false);
+          }}
         />
-        <UpdateAvatar />
+        {showUpdateAvatar && <UpdateAvatar />}
+        {showManagerReg && <RegisterManager />}
       </Popup>
-
-      {/* <Popup className={showRegister ? "popup active" : "popup inactive"}>
-        <FontAwesomeIcon
-          icon={faXmark}
-          className="close"
-          onClick={() => setShowRegister(false)}
-        />
-        <div className="formContainer">
-          <h2>Register as venue manager</h2>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <p>Easy money in your pocket!</p>
-            <input
-              type="checkbox"
-              onChange={() => !venueManager}
-              {...register("manager", {
-                type: "checkbox", {required: true, type: yup.boolean}
-              })}
-            />
-            <MainButton type="submit">Register</MainButton>
-            {data && <RegisterManagerAPI data={data} />}
-          </form>
-        </div>
-      </Popup> */}
 
       <ProfileContainer className="maxWidth">
         <ProfileDetails>
           <ProfileContent>
             <AvatarContainer
-              onClick={() => setShowUpdate(!showUpdate)}
+              onClick={() => setShowUpdate(!showUpdateAvatar)}
               aria-label="Open update avatar"
             >
               {avatar ? (
@@ -145,7 +144,7 @@ export default function Profile() {
 
         {isManager === false ? (
           <Card
-            onClick={() => setShowRegister(!showRegister)}
+            onClick={() => setShowManagerReg(!showManagerReg)}
             aria-label="Open venue manager register"
           >
             <span className="heading">Register as venue manager</span>
