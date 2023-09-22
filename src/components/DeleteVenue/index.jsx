@@ -10,8 +10,8 @@ export default function DeleteVenue() {
       `https://api.noroff.dev/api/v1/holidaze/venues/${id}`,
       "DELETE"
     );
-    console.log(id);
   };
+
   return (
     <DeleteVenueContainer>
       <p>Are you sure you want to delete this venue?</p>

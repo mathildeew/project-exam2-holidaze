@@ -27,8 +27,6 @@ import { NoResults } from "../pages/venue/Venue.style";
 export default function Venues(data) {
   const { data: venues } = data;
 
-  console.log(venues);
-
   return (
     <VenuesContainer>
       {venues?.map((venue) => (

@@ -90,8 +90,6 @@ export default function MakeBooking(data) {
     }
   };
 
-  console.log(dates);
-
   return (
     <MakeBookingContainer>
       <h2>Make reservation</h2>

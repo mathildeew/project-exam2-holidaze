@@ -33,15 +33,12 @@ export default function UpdateAvatar() {
   const onSubmit = async (formData) => {
     setBtnText("Updating...");
     setAvatar(formData.avatar);
-    console.log(formData.avatar);
 
     const response = await fetchApi(
       `https://api.noroff.dev/api/v1/holidaze/profiles/${name}/media`,
       "PUT",
       { avatar }
     );
-
-    console.log(response);
 
     if (response.status === 200) {
       set("avatar", JSON.stringify(formData.avatar));

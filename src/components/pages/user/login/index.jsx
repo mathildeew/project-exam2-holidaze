@@ -50,7 +50,6 @@ export default function Login() {
 
   const onSubmit = async (formData) => {
     const response = await fetchApi(apiEndpoints().login, "POST", formData);
-    console.log(response);
 
     if (response.status === 200) {
       setIsLoggedIn(true);

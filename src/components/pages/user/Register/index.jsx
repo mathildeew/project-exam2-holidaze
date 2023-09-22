@@ -44,7 +44,6 @@ export default function Register() {
 
   const onSubmit = async (formData) => {
     const response = await fetchApi(apiEndpoints().register, "POST", formData);
-    console.log(response);
 
     if (response.status === 201) {
       setTimeout(() => {
