@@ -22,6 +22,7 @@ import {
 } from "./Venues.style";
 import { useState } from "react";
 import { truncate } from "../../js/storage/truncate";
+import { NoResults } from "../pages/venue/Venue.style";
 
 export default function Venues(data) {
   const { data: venues } = data;
@@ -59,6 +60,11 @@ export default function Venues(data) {
           </Link>
         </VenueCard>
       ))}
+      {venues.length === 0 && (
+        <NoResults>
+          <p>No results!</p>
+        </NoResults>
+      )}
     </VenuesContainer>
   );
 }

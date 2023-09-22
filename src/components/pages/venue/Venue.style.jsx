@@ -184,3 +184,7 @@ export const BookNowBtn = styled.div`
     display: none;
   }
 `;
+
+export const NoResults = styled.div`
+  margin: 0 auto;
+`;

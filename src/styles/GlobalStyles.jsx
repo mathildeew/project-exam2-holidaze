@@ -76,7 +76,6 @@ p, a, label {
     outline: none;
 
     &:focus {
-      border: 2px solid var(--primary);
       outline: none;
       }
     }

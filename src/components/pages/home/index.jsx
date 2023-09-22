@@ -6,6 +6,7 @@ import apiEndpoints from "../../../../endpoints.js/endpoints";
 import Venues from "../../Venues";
 import { Hero, HomeContainer, InputContainer, Search } from "./Home.styles";
 import Loader from "../../Loader";
+import Error from "../../Error";
 
 export default function Home() {
   const [showSearch, setShowSearch] = useState(false);
@@ -31,7 +32,7 @@ export default function Home() {
   }, [getData]);
 
   if (isLoading) return <Loader />;
-  if (isError) return <section>Error!</section>;
+  if (isError) return <Error />;
 
   const searchResults = venues.filter((venue) =>
     venue.name.toLowerCase().includes(searchedVenue.toLowerCase())
@@ -154,14 +155,8 @@ export default function Home() {
             </InputContainer>
           </Search>
         </Hero>
-        {isLoading && <Loader />}
         {!searchedVenue && <Venues data={venues} />}
         {searchedVenue && <Venues data={searchResults} />}
-        {/* {searchedVenue.length === 0 && (
-          <div>
-            <p>No results</p>
-          </div>
-        )} */}
       </HomeContainer>
     </>
   );
