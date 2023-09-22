@@ -1,11 +1,15 @@
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleMinus, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { DateRange } from "react-date-range";
+import { eachDayOfInterval } from "date-fns";
+import { calculateDays, calculatePrice } from "../../js/storage/calculatePrice";
 import { MainButton } from "../../styles/Buttons";
 import { BoldText } from "../../styles/Text";
+import useApi from "../../hooks/useApi";
+import apiEndpoints from "../../../endpoints.js/endpoints";
 import {
   BookingInfo,
   CalendarContainer,
@@ -16,15 +20,6 @@ import {
   GuestsIcons,
   BookingText,
 } from "./MakeBooking.style";
-import { date, number, string } from "yup";
-import useApi from "../../hooks/useApi";
-import { useEffect } from "react";
-import apiEndpoints from "../../../endpoints.js/endpoints";
-import { DateRange } from "react-date-range";
-import { eachDayOfInterval } from "date-fns";
-import { calculatePrice } from "../../js/storage/calculatePrice";
-import "react-date-range/dist/styles.css";
-import "react-date-range/dist/theme/default.css";
 
 export default function MakeBooking(data) {
   // https://www.npmjs.com/package/react-date-range
@@ -35,18 +30,22 @@ export default function MakeBooking(data) {
   const id = venue.id;
   const bookings = venue?.bookings;
 
-  const [showPopup, setShowPopup] = useState(false);
-  const [btnText, setBtnText] = useState("Make reservation");
   const [numberOfGuests, setNumberOfGuests] = useState(1);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(startDate);
 
-  // const [bookingData, setBookingData] = useState({
-  //   guests: numberOfGuests,
-  //   dateFrom: startDate,
-  //   dateTo: endDate,
-  //   venueId: id,
-  // });
+  const [dates, setDates] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
+
+  const bookingData = {
+    venueId: `${id}`,
+    guests: numberOfGuests,
+    dateFrom: dates[0].startDate.toDateString(),
+    dateTo: dates[0].endDate.toDateString(),
+  };
 
   function addGuest() {
     if (numberOfGuests === venue.maxGuests) {
@@ -76,42 +75,10 @@ export default function MakeBooking(data) {
     return days;
   });
 
-  const [dates, setDates] = useState([
-    {
-      startDate: new Date(),
-      endDate: new Date(),
-      key: "selection",
-    },
-  ]);
-
-  const bookingData = {
-    guests: Number(numberOfGuests),
-    dateFrom: new Date(dates[0].startDate).toISOString(),
-    dateTo: new Date(dates[0].endDate).toISOString(),
-    venueId: `${id}`,
-  };
-
-  const { fetchApi, isSuccess, isError } = useApi();
+  const { fetchApi, isSuccess, isError, isLoading } = useApi();
 
   const onFormSubmit = async () => {
     event.preventDefault();
-
-    // setBookingData({
-    //   guests: Number(numberOfGuests),
-    //   dateFrom: new Date(startDate).toISOString(),
-    //   dateTo: new date(endDate).toISOString,
-    //   venueId: id,
-    // });
-
-    setBtnText("Reservating...");
-
-    // setBookingData({
-    //   ...bookingData,
-    //   guests: Number(numberOfGuests),
-    //   dateFrom: new Date(startDate).toISOString(),
-    //   dateTo: new Date(endDate).toISOString(),
-    //   venueId: id,
-    // });
 
     const response = await fetchApi(
       apiEndpoints().makeBooking,
@@ -120,9 +87,10 @@ export default function MakeBooking(data) {
     );
 
     if (response.status === 201) {
-      setBtnText("Reservation complete!");
     }
   };
+
+  console.log(dates);
 
   return (
     <MakeBookingContainer>
@@ -131,6 +99,7 @@ export default function MakeBooking(data) {
         <CalendarContainer>
           <DateRange
             onChange={(item) => setDates([item.selection])}
+            weekStartsOn={1}
             disabledDates={bookedDates}
             editableDateInputs={true}
             moveRangeOnFirstSelection={false}
@@ -140,22 +109,15 @@ export default function MakeBooking(data) {
             showDateDisplay={false}
           />
         </CalendarContainer>
-
         <DatesContainer>
           <Inputs>
-            <label htmlFor={"fromDate"}>From</label>
-            <input
-              name="fromDate"
-              defaultValue={dates[0].startDate.toLocaleDateString()}
-            />
+            <label>From</label>
+            <p>{dates[0].startDate.toLocaleDateString()}</p>
           </Inputs>
 
           <Inputs>
-            <label htmlFor={"toDate"}>To</label>
-            <input
-              name="toDate"
-              defaultValue={dates[0].endDate.toLocaleDateString()}
-            />
+            <label>To</label>
+            <p>{dates[0].endDate.toLocaleDateString()}</p>
           </Inputs>
         </DatesContainer>
 
@@ -178,8 +140,18 @@ export default function MakeBooking(data) {
 
         <BookingInfo>
           <BookingText>
-            <p>Price per night:</p>
-            <p> $ {venue.price}</p>
+            <BoldText>
+              {calculateDays(dates[0].startDate, dates[0].endDate)}
+              &nbsp;nights x $ {venue.price} per night
+            </BoldText>
+            <BoldText>
+              $&nbsp;
+              {calculatePrice(
+                dates[0].startDate,
+                dates[0].endDate,
+                venue.price
+              )}
+            </BoldText>
           </BookingText>
           <hr />
           <BookingText>
@@ -194,7 +166,13 @@ export default function MakeBooking(data) {
             </BoldText>
           </BookingText>
         </BookingInfo>
-        <MainButton type="submit">{btnText}</MainButton>
+        <MainButton type="submit">
+          {isLoading
+            ? "Reservating..."
+            : isSuccess
+            ? "Reservated!"
+            : "Make reservation"}
+        </MainButton>
       </form>
     </MakeBookingContainer>
   );

@@ -20,6 +20,8 @@ export default function Bookings(data) {
   const [showCancel, setShowCancel] = useState(false);
   const [bookingId, setBookingId] = useState("");
 
+  console.log(bookings);
+
   return (
     <>
       <Overlay className={showCancel ? "overlay active" : "overlay inactive"} />
@@ -47,7 +49,7 @@ export default function Bookings(data) {
                     <h3>{truncate(booking.venue.name)}</h3>
                     <div className="flexline">
                       <BoldText>
-                        {dayjs(booking.datefrom).format("DD.MM.YYYY")} -&nbsp;
+                        {dayjs(booking.dateFrom).format("DD.MM.YYYY")} -&nbsp;
                         {dayjs(booking.dateTo).format("DD.MM.YYYY")}
                       </BoldText>
                     </div>

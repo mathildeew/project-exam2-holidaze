@@ -45,6 +45,7 @@ export const DatesContainer = styled.div`
 `;
 
 export const Inputs = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
