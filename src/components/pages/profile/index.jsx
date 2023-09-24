@@ -10,11 +10,13 @@ import { useLoggedIn } from "../../../context/Context";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../../endpoints.js/endpoints";
 import Loader from "../../Loader";
+import UnAuthUser from "../../UnauthUser";
+import RegisterManager from "../../ManagerReg";
+import UpdateAvatar from "../../Modals/UpdateAvatar";
+import Bookings from "../../ProfileBookings";
 import { MainButton } from "../../../styles/Buttons";
 import { BoldText } from "../../../styles/Text";
 import { Overlay, Popup } from "../../../styles/Popup";
-import UpdateAvatar from "../../Modals/UpdateAvatar";
-import Bookings from "../../ProfileBookings";
 import {
   AvatarContainer,
   Card,
@@ -23,21 +25,11 @@ import {
   ProfileContent,
   ProfileDetails,
 } from "./Profile.styles";
-import UnAuthUser from "../../UnauthUser";
-import { RegisterManager } from "../../ManagerReg";
 
 export default function Profile() {
   const navigate = useNavigate();
-  const {
-    isLoggedIn,
-    setIsLoggedIn,
-    isManager,
-    setIsManager,
-    token,
-    avatar,
-    name,
-    email,
-  } = useLoggedIn();
+  const { isLoggedIn, setIsLoggedIn, isManager, avatar, name, email } =
+    useLoggedIn();
   const [showUpdateAvatar, setShowUpdate] = useState(false);
   const [showManagerReg, setShowManagerReg] = useState(false);
 
@@ -46,14 +38,7 @@ export default function Profile() {
     navigate("/");
   }
 
-  const {
-    fetchApi,
-    data: profile,
-    isLoading,
-    isError,
-    isSuccess,
-    errorMsg,
-  } = useApi();
+  const { fetchApi, data: profile, isLoading } = useApi();
 
   const getData = useCallback(async () => {
     await fetchApi(
@@ -65,7 +50,7 @@ export default function Profile() {
     getData();
   }, [getData]);
 
-  const bookings = profile?.bookings;
+  const bookings = profile.bookings;
 
   if (!isLoggedIn) return <UnAuthUser />;
   if (isLoading) return <Loader />;

@@ -3,7 +3,7 @@ import useApi from "../../hooks/useApi";
 import { MainButton } from "../../styles/Buttons";
 import { RegisterManagerContainer } from "./ManagerReg.style";
 
-export function RegisterManager() {
+export default function RegisterManager() {
   const { name, setIsManager } = useLoggedIn();
   const { fetchApi, isLoading, isSuccess } = useApi();
 
