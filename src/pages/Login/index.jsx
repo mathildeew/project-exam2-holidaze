@@ -38,7 +38,7 @@ export default function Login() {
 
         <RegisterLink>
           <p>Dont have an account?</p>
-          <Link to={"/user/register"}>Register here</Link>
+          <Link to={"/register"}>Register here</Link>
         </RegisterLink>
       </LoginContent>
       <Banner />
