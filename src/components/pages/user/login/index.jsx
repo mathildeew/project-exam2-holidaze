@@ -4,7 +4,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useLoggedIn } from "../../../../context/Context";
 import useApi from "../../../../hooks/useApi";
-import apiEndpoints from "../../../../../endpoints.js/endpoints";
+import apiEndpoints from "../../../../constants/endpoints";
 import { MainButton } from "../../../../styles/Buttons";
 import {
   FormContainer,

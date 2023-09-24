@@ -9,7 +9,7 @@ import { calculateDays, calculatePrice } from "../../js/storage/calculatePrice";
 import { MainButton } from "../../styles/Buttons";
 import { BoldText } from "../../styles/Text";
 import useApi from "../../hooks/useApi";
-import apiEndpoints from "../../../endpoints.js/endpoints";
+import apiEndpoints from "../../constants/endpoints";
 import {
   BookingInfo,
   CalendarContainer,

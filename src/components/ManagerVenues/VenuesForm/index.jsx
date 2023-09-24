@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { FormContainer, VenueFasc, VenueInfo } from "./VenuesForm.style.jsx";
 import { useEffect } from "react";
-import apiEndpoints from "../../../../endpoints.js/endpoints";
+import apiEndpoints from "../../../constants/endpoints";
 import useApi from "../../../hooks/useApi";
 
 export default function VenuesForm({ state, venue }) {

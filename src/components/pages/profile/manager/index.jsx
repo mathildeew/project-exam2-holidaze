@@ -2,7 +2,7 @@ import { useCallback, useState, useEffect } from "react";
 import { get } from "../../../../js/storage/localStorage";
 
 import useApi from "../../../../hooks/useApi";
-import apiEndpoints from "../../../../../endpoints.js/endpoints";
+import apiEndpoints from "../../../../constants/endpoints";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHouseCircleCheck,

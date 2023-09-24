@@ -1,4 +1,4 @@
-import { get } from "../src/js/storage/localStorage";
+import { get } from "../js/storage/localStorage";
 
 export default function apiEndpoints(id) {
   const holidaze = `https://api.noroff.dev/api/v1/holidaze`;

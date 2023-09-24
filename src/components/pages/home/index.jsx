@@ -2,7 +2,7 @@ import { useCallback, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import useApi from "../../../hooks/useApi";
-import apiEndpoints from "../../../../endpoints.js/endpoints";
+import apiEndpoints from "../../../constants/endpoints";
 import Loader from "../../Loader";
 import Error from "../../Error";
 import Venues from "../../Venues";

@@ -17,7 +17,7 @@ import {
 import { get } from "../../../js/storage/localStorage";
 import { useLoggedIn } from "../../../context/Context";
 import useApi from "../../../hooks/useApi";
-import apiEndpoints from "../../../../endpoints.js/endpoints";
+import apiEndpoints from "../../../constants/endpoints";
 import { BoldText, SmallText } from "../../../styles/Text";
 import { MainButton } from "../../../styles/Buttons";
 import { Overlay, Popup } from "../../../styles/Popup";

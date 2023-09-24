@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { MainButton } from "../../../styles/Buttons";
 import { CancelBookingContainer } from "../../../styles/Popup";
 import useApi from "../../../hooks/useApi";
-import apiEndpoints from "../../../../endpoints.js/endpoints";
+import apiEndpoints from "../../../constants/endpoints";
 
 export default function CancelPopup(data) {
   const { data: id } = data;

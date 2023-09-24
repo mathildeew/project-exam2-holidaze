@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useApi from "../../../../hooks/useApi";
-import apiEndpoints from "../../../../../endpoints.js/endpoints";
+import apiEndpoints from "../../../../constants/endpoints";
 import { MainButton } from "../../../../styles/Buttons";
 import {
   Banner,

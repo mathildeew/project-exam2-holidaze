@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useLoggedIn } from "../../../context/Context";
 import useApi from "../../../hooks/useApi";
-import apiEndpoints from "../../../../endpoints.js/endpoints";
+import apiEndpoints from "../../../constants/endpoints";
 import Loader from "../../Loader";
 import UnAuthUser from "../../UnauthUser";
 import RegisterManager from "../../ManagerReg";
