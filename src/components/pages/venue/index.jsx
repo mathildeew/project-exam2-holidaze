@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPeopleRoof,
@@ -11,30 +11,51 @@ import {
   faStar,
   faClose,
   faDollarSign,
+  faCircle,
+  faCaretRight,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   BookNowBtn,
   Fascilities,
   Host,
-  Price,
+  VenueContent,
   VenueContainer,
   VenueDetails,
-  VenueInfo,
   Icons,
-  HostInfo,
   Updates,
+  Location,
+  VenueTopLine,
+  AboutVenue,
+  VenueInfo,
+  ImageContainer,
+  ManagerButtons,
 } from "./Venue.style";
 import { BoldText, SmallText } from "../../../styles/Text";
-import { Overlay, Popup } from "../../../styles/Popup";
 import { MainButton, OutlineButton } from "../../../styles/Buttons";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../../endpoints.js/endpoints";
 import MakeBooking from "../../MakeBooking";
+import Loader from "../../Loader";
+import { createRef } from "react";
+import { useRef } from "react";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { useLoggedIn } from "../../../context/Context";
+import { get } from "../../../js/storage/localStorage";
+import { Overlay, Popup } from "../../../styles/Popup";
+import VenuesForm from "../../ManagerVenues/VenuesForm";
+import DeleteVenue from "../../DeleteVenue";
 
 export default function Venue() {
-  const [showPopup, setShowPopup] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
 
   const { id } = useParams();
+  const { isLoggedIn } = useLoggedIn();
+  const userName = get("name");
+
   const {
     fetchApi,
     data: venue,
@@ -52,121 +73,239 @@ export default function Venue() {
     getData();
   }, [getData]);
 
-  if (isLoading) return <VenueContainer>Loading...</VenueContainer>;
-  if (isError) return <VenueContainer>Error!</VenueContainer>;
+  const {
+    name,
+    description,
+    location,
+    price,
+    rating,
+    maxGuests,
+    media,
+    meta,
+    owner,
+    created,
+    updated,
+  } = venue;
+
+  const createdDate = new Date(created).toLocaleDateString();
+  const updatedDate = new Date(updated).toLocaleDateString();
+
+  const ref = useRef(null);
+
+  const handleClickScroll = () => {
+    const scrollTop = ref.current;
+    scrollTop.scrollIntoView({ behavior: "smooth" });
+  };
+
+  if (isLoading) return <Loader />;
+  if (isError) return <VenueContent>Error!</VenueContent>;
+
+  console.log();
 
   return (
     <>
-      <Overlay className={showPopup ? "overlay active" : "overlay inactive"} />
+      <Overlay
+        className={
+          showEdit
+            ? "overlay active"
+            : showDelete
+            ? "overlay active"
+            : "overlay inactive"
+        }
+      />
       <Popup
-        className={showPopup ? "popup active makeBooking" : "popup inactive"}
+        className={
+          showEdit
+            ? "popup active venueModal"
+            : showDelete
+            ? "popup active deleteModal"
+            : "popup inactive"
+        }
       >
         <FontAwesomeIcon
-          icon={faClose}
+          icon={faXmark}
           className="close"
-          onClick={() => setShowPopup(false)}
+          aria-label="Close register new venu"
+          onClick={() => {
+            setShowEdit(false);
+            setShowDelete(false);
+          }}
         />
-        <MakeBooking data={venue} />
+        {showEdit && <VenuesForm venue={{ venue }} state={"edit"} />}
+        {showDelete && <DeleteVenue data={id} />}
       </Popup>
 
-      <BookNowBtn>
-        <button onClick={() => setShowPopup(!showPopup)}>Book now</button>
-      </BookNowBtn>
-
-      <VenueContainer className="maxWidth">
-        <VenueInfo>
-          {venue.media?.length === 0 ? (
-            <img src="/src/assets/placeholders/image-placeholder-350x350-1.png" />
+      {owner?.name !== userName && (
+        <BookNowBtn>
+          <div className="flexLine">
+            <BoldText>${price}</BoldText>
+            <SmallText>night</SmallText>
+          </div>
+          {isLoggedIn === true ? (
+            <button
+              onClick={handleClickScroll}
+              aria-label="Scroll to make booking"
+            >
+              Check availability
+            </button>
           ) : (
-            <img src={venue.media} />
+            <Link to="/user/login">
+              <button>Log in to check availability</button>
+            </Link>
           )}
+        </BookNowBtn>
+      )}
 
-          <h1>{venue.name}</h1>
-          <VenueDetails>
-            <div>
-              <div className="flexLine">
-                <FontAwesomeIcon icon={faLocationDot} />
-                <p>
-                  {venue.location?.city}, {venue.location?.country}
-                </p>
-              </div>
-              {venue.rating > 0 ? (
+      <VenueContainer>
+        {owner?.name === userName && (
+          <ManagerButtons>
+            <MainButton onClick={() => setShowEdit(true)}>Edit</MainButton>
+            <MainButton onClick={() => setShowDelete(true)}>Delete</MainButton>
+          </ManagerButtons>
+        )}
+        <ImageContainer>
+          <Carousel
+            useKeyboardArrows={true}
+            showThumbs={false}
+            showStatus={false}
+            renderIndicator={(clickHandler, isSelected, index) => {
+              return (
+                <>
+                  {media?.length > 1 && (
+                    <FontAwesomeIcon
+                      icon={faCircle}
+                      onClick={() => {
+                        clickHandler();
+                      }}
+                      className={isSelected ? "active" : ""}
+                    />
+                  )}
+                </>
+              );
+            }}
+          >
+            {media?.map((index) => (
+              <img src={media} key={index} alt={name} />
+            ))}
+          </Carousel>
+        </ImageContainer>
+        <VenueContent>
+          <VenueInfo>
+            <VenueDetails>
+              <VenueTopLine>
+                <div className="flexLine">
+                  <FontAwesomeIcon icon={faLocationDot} />
+                  <SmallText>
+                    {location?.city}, {location?.country}
+                  </SmallText>
+                </div>
                 <div className="flexLine">
                   <FontAwesomeIcon icon={faStar} />
-                  <p>{venue.rating}/5</p>
+                  {rating > 0 ? (
+                    <SmallText>{rating}/5</SmallText>
+                  ) : (
+                    <SmallText>No ratings yet</SmallText>
+                  )}
                 </div>
-              ) : (
-                <div className="flexLine">
-                  <FontAwesomeIcon icon={faStar} />
-                  <p>No ratings yet</p>
-                </div>
+              </VenueTopLine>
+              <h1>{name}</h1>
+
+              <Fascilities>
+                <Icons>
+                  <FontAwesomeIcon icon={faPeopleRoof} />
+                  <SmallText>{maxGuests}&nbsp;guests</SmallText>
+                  {meta?.wifi === true && (
+                    <>
+                      <FontAwesomeIcon icon={faWifi} />
+                      <SmallText>Wifi&nbsp;included</SmallText>
+                    </>
+                  )}
+
+                  {meta?.breakfast === true && (
+                    <>
+                      <FontAwesomeIcon icon={faCutlery} />
+                      <SmallText>Breakfast&nbsp;included</SmallText>
+                    </>
+                  )}
+                  {meta?.parking === true && (
+                    <>
+                      <FontAwesomeIcon icon={faParking} />
+                      <SmallText>Parking</SmallText>
+                    </>
+                  )}
+                  {meta?.pets === true && (
+                    <>
+                      <FontAwesomeIcon icon={faDog} />
+                      <SmallText>Pet&nbsp;friendly</SmallText>
+                    </>
+                  )}
+                </Icons>
+              </Fascilities>
+            </VenueDetails>
+
+            <AboutVenue>
+              <h2>About this property</h2>
+              <p>{description}</p>
+
+              <Host>
+                <BoldText>Your host is</BoldText>
+                {owner?.avatar ? (
+                  <img src={owner?.avatar} />
+                ) : (
+                  <img src="/images/placeholder/Profile_avatar_placeholder_large.png" />
+                )}
+                <p>{owner?.name}</p>
+              </Host>
+
+              <Updates>
+                <SmallText>Created: {createdDate}</SmallText>
+                <SmallText>Last updated: {updatedDate}</SmallText>
+              </Updates>
+            </AboutVenue>
+
+            <Location>
+              <h2>Location</h2>
+
+              {location?.address && (
+                <>
+                  <p>{location?.address}</p>
+                </>
               )}
-            </div>
-
-            <Price>
-              <FontAwesomeIcon icon={faDollarSign} />
-              <p>{venue.price} pr. night</p>
-            </Price>
-          </VenueDetails>
-          <p>{venue.description}</p>
-          <hr />
-        </VenueInfo>
-
-        <Fascilities>
-          <h2>This place offers</h2>
-          <Icons>
-            <div>
-              <FontAwesomeIcon icon={faPeopleRoof} />
-              <p>{venue.maxGuests} guests</p>
-            </div>
-            {venue.meta?.wifi === true && (
-              <div>
-                <FontAwesomeIcon icon={faWifi} />
-                <p>Wifi included</p>
+              <div className="flexLine">
+                {location?.zip && (
+                  <>
+                    <p>{location?.zip}&nbsp;</p>
+                  </>
+                )}
+                {location?.city && (
+                  <>
+                    <p>{location?.city}</p>
+                  </>
+                )}
               </div>
-            )}
+              {location?.country && (
+                <>
+                  <p>{location?.country}</p>
+                </>
+              )}
+              {/* {location?.continent !==
+            `Unknown`(
+              <>
+                <BoldText>Continent:</BoldText>
+                <p>{location?.continent}</p>
+              </>
+            )} */}
+            </Location>
+          </VenueInfo>
 
-            {venue.meta?.breakfast === true && (
-              <div>
-                <FontAwesomeIcon icon={faCutlery} />
-                <p>Breakfast included</p>
-              </div>
-            )}
-            {venue.meta?.parking === true && (
-              <div>
-                <FontAwesomeIcon icon={faParking} />
-                <p>Parking</p>
-              </div>
-            )}
-            {venue.meta?.pets === true && (
-              <div>
-                <FontAwesomeIcon icon={faDog} />
-                <p>Pet firendly</p>
-              </div>
-            )}
-          </Icons>
-          <hr />
-        </Fascilities>
+          {isLoggedIn === true && owner?.name !== userName && (
+            <>
+              <div ref={ref} id="scrollTop"></div>
 
-        <Host>
-          <h2>Your host is</h2>
-          <HostInfo>
-            {venue.owner?.avatar ? (
-              <img src={venue.owner?.avatar} />
-            ) : (
-              <img src="/images/placeholder/Profile_avatar_placeholder_large.png" />
-            )}
-            <div>
-              <BoldText>{venue.owner?.name}</BoldText>
-              <OutlineButton>Contact</OutlineButton>
-            </div>
-          </HostInfo>
-        </Host>
-
-        <Updates>
-          <p>Created: {venue.created}</p>
-          <p>Last updated: {venue.updated}</p>
-        </Updates>
+              <MakeBooking data={venue} />
+            </>
+          )}
+        </VenueContent>
       </VenueContainer>
     </>
   );

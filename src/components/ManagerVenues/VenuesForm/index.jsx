@@ -86,7 +86,6 @@ export default function VenuesForm({ state, venue }) {
         "PUT",
         formData
       );
-      console.log(response.status);
 
       if (isSuccess) {
         window.location.reload();
@@ -95,7 +94,6 @@ export default function VenuesForm({ state, venue }) {
       }
     } else if (isNewState) {
       const response = await fetchApi(apiEndpoints().venues, "POST", formData);
-      console.log(response.status);
 
       if (isSuccess) {
         window.location.reload();

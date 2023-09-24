@@ -42,11 +42,13 @@ export const Card = styled.div`
 
 export const ProfileDetails = styled.section`
   width: 100%;
+  margin-bottom: 50px;
 `;
 
 export const ProfileContent = styled.section`
   max-width: 350px;
   height: 150px;
+  margin: 0 auto;
   ${displayFlex({
     direction: "row",
     justify: "space-between",
@@ -54,10 +56,9 @@ export const ProfileContent = styled.section`
 `;
 
 export const InfoContainer = styled.div`
-  ${displayFlex({
-    direction: "column",
-    justify: "space-between",
-  })}
+  h1 {
+    margin-bottom: 0;
+  }
 
   svg {
     color: var(--primary);
@@ -65,6 +66,11 @@ export const InfoContainer = styled.div`
     margin-right: 5px;
     z-index: 1;
   }
+
+  ${displayFlex({
+    direction: "column",
+    justify: "space-between",
+  })}
 `;
 
 export const AvatarContainer = styled.div`
@@ -84,38 +90,19 @@ export const AvatarContainer = styled.div`
     border-radius: 50px;
     padding: 5px;
     position: absolute;
-    left: 45px;
+    left: 42px;
     bottom: 15px;
   }
-`;
 
-export const BookingsContainer = styled.section``;
+  @media (min-width: 768px) {
+    img {
+      width: 150px;
+      height: 150px;
+    }
 
-export const BookingsContent = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-row-gap: 50px;
-`;
-
-export const BookingCard = styled.div`
-  ${displayFlex({
-    direction: "row",
-    justify: "space-between",
-  })}
-
-  img {
-    width: 40%;
-    max-height: 200px;
-    border-radius: 10px;
-    object-fit: cover;
-    object-position: center center;
+    svg {
+      bottom: -15px;
+      left: 56px;
+    }
   }
-`;
-
-export const BookingInfo = styled.div`
-  height: 100%;
-  ${displayFlex({
-    direction: "column",
-    justify: "space-between",
-  })}
 `;

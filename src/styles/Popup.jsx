@@ -3,7 +3,7 @@ import { displayFlex } from "./mixins";
 
 export const Overlay = styled.div`
   background-color: rgba(89, 89, 89, 0.4);
-  position: fixed;
+  position: absolute;
   margin: 0 auto;
   height: 100vmax;
   overflow: hidden;
@@ -55,7 +55,6 @@ export const Popup = styled.section`
 
     svg {
       color: var(--primary);
-      font-size: 2.5rem;
     }
 
     input {
@@ -72,22 +71,32 @@ export const Popup = styled.section`
   }
 
   &.updateAvatar,
-  &.cancelBooking {
+  &.cancelBooking,
+  &.registerManager {
     bottom: 0;
     height: 300px;
   }
 
-  &.makebooking {
+  &.makeBooking {
+    top: 0;
+    width: 300px;
   }
 
   &.venueModal {
     @media (max-width: 767px) {
       top: 0;
+      /* position: fixed; */
+      overflow: scroll;
     }
 
     @media (min-width: 768px) {
       overflow: scroll;
     }
+  }
+
+  &.deleteModal {
+    bottom: 0px;
+    height: 200px;
   }
 
   @media (min-width: 768px) {

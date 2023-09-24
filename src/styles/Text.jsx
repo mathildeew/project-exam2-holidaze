@@ -8,3 +8,8 @@ export const BoldText = styled.p`
 export const SmallText = styled.p`
   font-size: 1.4rem;
 `;
+
+export const ErrorMsg = styled.p`
+  color: darkgray;
+  font-size: 1.2rem;
+`;

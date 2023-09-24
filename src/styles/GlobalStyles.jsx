@@ -1,7 +1,5 @@
-import "react-datepicker/dist/react-datepicker-cssmodules.css";
-import "react-datepicker/dist/react-datepicker.css";
-
 import { createGlobalStyle } from "styled-components";
+
 import { displayFlex } from "./mixins";
 
 export const GlobalStyle = createGlobalStyle`
@@ -18,10 +16,12 @@ html {
 
 body {
   margin: 0;
+  width: 100%;
 }
 
 main {
   min-height: 100vh;
+  height: 100%;
 }
 
 h1, h2, h3, h4, p, a, label, textarea[placeholder] {
@@ -30,20 +30,18 @@ h1, h2, h3, h4, p, a, label, textarea[placeholder] {
 }
 
 h1 {
-  font-size: 22px;
+  font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 20px;
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 600;
-  margin-bottom: 10px;
   
 }
 
 h3 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 600;
   margin-bottom: 10px;
 }
@@ -63,7 +61,7 @@ p, a, label {
   }
 
   hr {
-    margin: 30px 0;
+    margin: 50px 0;
   }
 
   input, textarea{
@@ -79,7 +77,6 @@ p, a, label {
     outline: none;
 
     &:focus {
-      border: 2px solid var(--primary);
       outline: none;
       }
     }
@@ -109,7 +106,12 @@ p, a, label {
   .maxWidth {
     max-width: 568px;
     padding: 0px 10px;
-  }   
+  }
+
+  .padding {
+    padding: 0px 10px;
+
+  }
 
   .flexLine {
     ${displayFlex({

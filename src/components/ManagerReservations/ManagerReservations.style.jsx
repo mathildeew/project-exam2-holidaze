@@ -1,25 +1,13 @@
 import styled from "styled-components";
 import { displayFlex } from "../../styles/mixins";
 
-export const VenuesContainer = styled.section`
+export const ReservationsContainer = styled.section`
   width: 100%;
-
-  a {
-    color: black;
-  }
 `;
 
-export const VenueCard = styled.div`
-  width: 100%;
-  height: 130px;
-  margin-bottom: 60px;
-  ${displayFlex({
-    direction: "column",
-    justify: "space-between",
-  })}
-`;
+export const ReservationCard = styled.div``;
 
-export const VenueInfo = styled.div`
+export const ReservationVenue = styled.div`
   margin-bottom: 10px;
 
   ${displayFlex({
@@ -40,14 +28,9 @@ export const VenueInfo = styled.div`
   }
 `;
 
-export const VenueDetails = styled.div`
+export const ReservationDetails = styled.div`
   margin-bottom: 5px;
   ${displayFlex({
-    direction: "row",
-    align: "center",
+    justify: "space-between",
   })};
-
-  svg {
-    margin-right: 10px;
-  }
 `;

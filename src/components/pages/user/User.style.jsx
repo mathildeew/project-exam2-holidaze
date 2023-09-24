@@ -2,112 +2,138 @@ import styled from "styled-components";
 import { displayFlex } from "../../../styles/mixins";
 
 export const FormContainer = styled.main`
-  height: 100vh;
-  padding: 0 10px;
+  padding: 20px 0;
+
   ${displayFlex({
     direction: "column",
     align: "center",
     justify: "center",
   })}
 
-  .formContent {
-    ${displayFlex({
-      direction: "column",
-    })}
+  @media (min-width: 1024px) {
+    height: 100vh;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
+`;
 
-  .top {
+export const FormSection = styled.section`
+  margin: 0 auto;
+
+  @media (min-width: 1024px) {
+    width: 50%;
     ${displayFlex({
       direction: "column",
       align: "center",
-    })}
+    })};
   }
+`;
 
-  form {
-    min-width: 290px;
-    ${displayFlex({
-      direction: "column",
-    })}
-  }
+export const Logo = styled.section`
+  margin-bottom: 20px;
 
-  .flexCol {
-    height: 90px;
-    ${displayFlex({
-      direction: "column",
-    })}
-  }
+  ${displayFlex({
+    direction: "column",
+    align: "center",
+  })}
+`;
 
-  form,
-  .formContent,
-  .flexLine {
-    margin-bottom: 20px;
-  }
+export const Form = styled.form`
+  margin-bottom: 20px;
+  height: 100%;
+  ${displayFlex({
+    direction: "column",
+  })}
 
-  .errorMsg {
-    color: red;
-    font-size: 1.2rem;
-  }
-
-  .loginContent {
-    p {
-      margin-right: 5px;
-    }
-
-    a {
-      color: var(--primary);
-      text-decoration: underline;
-    }
-  }
-
-  .footer {
-    position: fixed;
-    bottom: 10px;
-  }
-
-  .banner {
-    display: none;
+  button {
+    margin-top: 30px;
   }
 
   @media (min-width: 1024px) {
+    width: 300px;
+  }
+`;
+
+export const InputContainer = styled.div`
+  margin-bottom: 20px;
+`;
+
+export const Inputs = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid grey;
+  padding: 8px;
+
+  label {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  input {
+    font-size: 1.6rem;
+    background-color: white;
     width: 100%;
-    padding: 0;
-    flex-direction: row;
-    align-items: unset;
+    border: none;
+    padding: 2px;
+    outline: none;
 
-    .formSection {
-      height: 100%;
-      width: 50%;
-      ${displayFlex({
-        direction: "column",
-        align: "center",
-        justify: "center",
-      })}
+    ::placeholder {
+      font-size: 1.6rem;
     }
 
-    form {
-      width: 280px;
+    :focus {
+      font-size: 1.6rem;
+      border: none;
+      outline: none;
     }
+  }
 
-    .banner {
-      display: inline-block;
-      width: 50%;
-      height: 100%;
-      background: url(/public/content/bannerballon.jpg);
-      background-size: cover;
-      background-position: center right;
-      ${displayFlex({
-        align: "center",
-        justify: "center",
-      })}
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+  }
+`;
 
-      span {
-        color: var(--white);
-        font-family: kyrial-display-pro, sans-serif;
-        font-size: 8rem;
-        font-weight: 900;
-        text-transform: uppercase;
-        margin-left: 20px;
-      }
+export const LogOrReg = styled.div`
+  ${displayFlex({})}
+
+  p {
+    margin-right: 5px;
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: underline;
+  }
+`;
+
+export const Banner = styled.div`
+  display: none;
+
+  @media (min-width: 1024px) {
+    width: fit-content;
+    height: 100%;
+    background: url(/public/content/bannerballon.jpg);
+    background-size: cover;
+    background-position: center right;
+    ${displayFlex({
+      align: "center",
+      justify: "center",
+    })}
+
+    span {
+      color: var(--white);
+      font-family: kyrial-display-pro, sans-serif;
+      font-size: 8rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-left: 20px;
     }
   }
 `;

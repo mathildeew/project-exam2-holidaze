@@ -1,36 +1,85 @@
+import { faUsersBetweenLines } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-import "react-calendar/dist/Calendar.css";
 import { displayFlex } from "../../../styles/mixins";
 
 export const VenueContainer = styled.main`
-  margin-top: 50px;
+  margin: 40px 0px 100px 0px;
+  padding: 0 10px;
+  max-width: 1010px;
+`;
 
-  @media (min-width: 442px) {
-    .bookNow {
-      left: unset;
-    }
+export const VenueContent = styled.section`
+  width: 100%;
+  /* height: 100%; */
+
+  h1 {
+    margin-bottom: 40px;
   }
 
-  @media (min-width: 768px) {
-    padding: 0 30px;
-    align-items: start;
+  @media (min-width: 1024px) {
+    max-width: 1400px;
 
-    .bookNow {
-      width: 300px;
-      left: 500px;
-    }
+    ${displayFlex({
+      justify: "space-between",
+    })}
   }
 `;
 
-export const VenueInfo = styled.section`
-  width: 100%;
+export const ManagerButtons = styled.div`
+  max-width: 300px;
+  margin-bottom: 40px;
 
+  ${displayFlex({
+    align: "center",
+    justify: "space-between",
+  })}
+`;
+
+export const ImageContainer = styled.div`
   img {
     width: 100%;
     height: 300px;
     border-radius: 10px;
     object-fit: cover;
+    margin-bottom: 20px;
+
+    @media (min-width: 768px) {
+      height: 400px;
+    }
+
+    @media (min-width: 1024px) {
+      height: 500px;
+    }
   }
+
+  svg {
+    color: grey;
+    margin-right: 3px;
+    position: relative;
+    bottom: 15px;
+    margin-right: 8px;
+    &.active {
+      color: lightgray;
+    }
+  }
+`;
+
+export const VenueInfo = styled.div`
+  max-width: 500px;
+`;
+
+export const VenueDetails = styled.div`
+  width: 100%;
+`;
+
+export const VenueTopLine = styled.div`
+  max-width: 380px;
+  margin-bottom: 20px;
+
+  ${displayFlex({
+    justify: "space-between",
+    align: "center",
+  })}
 
   svg {
     color: var(--primary);
@@ -39,68 +88,58 @@ export const VenueInfo = styled.section`
   }
 `;
 
-export const VenueDetails = styled.div`
-  margin-bottom: 40px;
-  /* ${displayFlex({
-    align: "start",
-    justify: "space-between",
-  })} */
+export const Fascilities = styled.div`
+  margin-bottom: 60px;
 `;
 
-export const Price = styled.div`
-  margin-top: 20px;
+export const Icons = styled.div`
+  width: 130px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 25px;
+
+  svg {
+    color: var(--primary);
+    font-size: 2rem;
+  }
+`;
+
+export const IconsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+`;
+
+export const AboutVenue = styled.div`
+  margin-bottom: 60px;
+
+  p {
+    line-height: 3rem;
+  }
+`;
+
+export const Location = styled.div`
+  margin-bottom: 60px;
+  p {
+    margin-bottom: 10px;
+  }
+`;
+
+export const Host = styled.div`
+  width: 100%;
+  margin: 20px 0;
 
   ${displayFlex({
     align: "center",
   })}
-  p {
-    font-size: 2rem;
-    font-weight: 700;
-  }
-`;
-
-export const Fascilities = styled.section`
-  width: 100%;
-`;
-
-export const Icons = styled.div`
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 20px;
-
-  div {
-    ${displayFlex({})}
-  }
-
-  svg {
-    color: var(--primary);
-    font-size: 2.5rem;
-    margin-right: 20px;
-  }
-
-  p {
-    overflow-wrap: normal;
-    /* width: 100%; */
-  }
-`;
-
-export const Host = styled.section`
-  width: 100%;
-`;
-
-export const HostInfo = styled.div`
-  width: 100%;
-  margin-bottom: 30px;
-  ${displayFlex({})}
 
   img {
-    width: 80px;
-    height: 80px;
+    width: 35px;
+    height: 35px;
     border-radius: 100px;
     object-fit: cover;
     object-position: center center;
-    margin-right: 20px;
+    margin-right: 10px;
   }
 
   p {
@@ -110,27 +149,42 @@ export const HostInfo = styled.div`
 
 export const Updates = styled.div`
   width: 100%;
+
+  p {
+    margin-bottom: 5px;
+  }
 `;
 
 export const BookNowBtn = styled.div`
   width: 100%;
-  max-width: 442px;
+  height: 80px;
+  background-color: white;
+  z-index: 10;
   position: fixed;
-  bottom: 20px;
+  bottom: 0px;
   left: 0px;
   filter: drop-shadow(0px -1px 8px rgba(0, 0, 0, 0.2));
   ${displayFlex({
-    direction: "column",
+    direction: "row",
+    justify: "space-around",
+    align: "center",
   })}
 
   button {
-    color: var(--primary);
-    font-family: Kyrial-Display-Pro;
-    font-size: 2rem;
-    text-transform: uppercase;
+    color: white;
+    font-size: 1.6rem;
     font-weight: 900;
-    background: var(--light-red);
+    background: var(--primary);
     border: none;
-    padding: 15px 0;
+    border-radius: 100px;
+    padding: 10px 16px;
   }
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+`;
+
+export const NoResults = styled.div`
+  margin: 0 auto;
 `;

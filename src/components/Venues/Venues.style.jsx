@@ -1,16 +1,17 @@
 import styled from "styled-components";
 import { displayFlex } from "../../styles/mixins";
 
-export const VenuesContainer = styled.main`
+export const VenuesContainer = styled.section`
   margin: 0 5px;
   display: grid;
   margin-bottom: 50px;
   max-width: 1400px;
+  grid-column-gap: 30px;
+  grid-row-gap: 30px;
 
   @media (min-width: 550px) {
     grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 30px;
-    grid-row-gap: 30px;
+    grid-auto-rows: 1fr;
   }
 
   @media (min-width: 1024px) {
@@ -18,19 +19,18 @@ export const VenuesContainer = styled.main`
   }
 `;
 export const VenueCard = styled.div`
-  margin-bottom: 50px;
+  padding: 5px;
   ${displayFlex({ direction: "column" })}
+
   a {
     color: black;
   }
 `;
 
 export const VenueImg = styled.div`
-  position: relative;
-
   img {
     width: 100%;
-    min-height: 250px;
+    height: 180px;
     max-height: 450px;
     object-position: center center;
     object-fit: cover;
@@ -45,45 +45,31 @@ export const VenueImg = styled.div`
   }
 `;
 
+export const VenueInfo = styled.div`
+  h2 {
+    font-size: 1.6rem;
+  }
+`;
+
 export const VenueLocation = styled.div`
   color: var(--primary);
-  background-color: var(--primary-light);
-  border-radius: 50px;
-  padding: 8px 12px;
-  position: absolute;
-  top: 5px;
-  left: 5px;
   ${displayFlex({
     align: "center",
   })}
-
-  svg {
-    font-size: 1.6rem;
-    margin-right: 5px;
-  }
 `;
 
-export const VenueInfo = styled.div`
+export const VenueDetails = styled.div`
   ${displayFlex({
     direction: "row",
     justify: "space-between",
-    align: "start",
+    align: "center",
   })}
 `;
 
-export const VenueFasc = styled.div`
-  width: 100%;
-  ${displayFlex({
-    direction: "column",
-    justify: "space-between",
-  })}
+export const VenuePrice = styled.div`
+  ${displayFlex({})}
 
-  .flexLine {
-    margin-bottom: 5px;
-  }
-
-  svg {
-    color: var(--primary);
-    margin-right: 10px;
+  p {
+    font-size: 1.8rem;
   }
 `;

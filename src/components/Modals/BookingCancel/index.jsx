@@ -18,8 +18,6 @@ export default function CancelPopup(data) {
 
     const response = await fetchApi(apiEndpoints(id).deleteBooking, "DELETE");
 
-    console.log(response);
-
     setTimeout(() => {
       setBtnText("Deleted!");
     }, 1000);
