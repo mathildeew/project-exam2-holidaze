@@ -5,7 +5,7 @@ export default function apiEndpoints(id) {
   const endpoints = {
     register: `${holidaze}/auth/register`,
     login: `${holidaze}/auth/login`,
-    venues: `${holidaze}/venues`,
+    venues: `${holidaze}/venues?sort=created`,
     singleVenue: `${holidaze}/venues/${id}?_bookings=true&_owner=true`,
     updateVenue: `${holidaze}/venues/${id}`,
     deleteVenue: `${holidaze}/venues/${id}`,
