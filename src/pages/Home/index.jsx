@@ -6,8 +6,7 @@ import apiEndpoints from "../../constants/endpoints";
 import Loader from "../../components/Loader/";
 import Error from "../../components/Error";
 import Venues from "../../components/Venues";
-import { Hero, HomeContainer, Search } from "./Home.styles";
-import { InputContainer } from "../../styles/Forms";
+import { Hero, HomeContainer, Search, InputContainer } from "./Home.styles";
 
 export default function Home() {
   const [searchedVenue, setSearchedVenue] = useState("");

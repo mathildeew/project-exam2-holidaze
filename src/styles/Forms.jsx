@@ -1,37 +1,68 @@
 import styled from "styled-components";
+import { displayFlex } from "./mixins";
+
+export const Form = styled.form`
+  margin-bottom: 20px;
+  height: 100%;
+  ${displayFlex({
+    direction: "column",
+  })}
+
+  button {
+    margin-top: 30px;
+  }
+
+  @media (min-width: 1024px) {
+    width: 300px;
+  }
+`;
 
 export const InputContainer = styled.div`
-  color: white;
-  background: rgba(75, 61, 96, 0.6);
-  border-radius: 10px;
-  padding: 10px;
+  margin-bottom: 20px;
+`;
+
+export const Inputs = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid grey;
+  padding: 8px;
+
+  label {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
 
   input {
-    background: none;
+    font-size: 1.6rem;
+    background-color: white;
+    width: 100%;
     border: none;
-    padding: 3px;
+    padding: 2px;
+    outline: none;
 
     ::placeholder {
-      color: var(--light-yellow);
       font-size: 1.6rem;
     }
 
     :focus {
-      color: white;
       font-size: 1.6rem;
+      border: none;
       outline: none;
     }
   }
-  input[type="search"]::-webkit-search-cancel-button {
-    display: none;
-  }
-  input[value] {
-    color: white;
-  }
 
-  svg {
-    color: var(--light-yellow);
-    font-size: 2rem;
-    margin-right: 10px;
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
   }
+`;
+
+export const ErrorMsg = styled.p`
+  color: darkgray;
+  font-size: 1.2rem;
 `;

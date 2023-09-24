@@ -6,11 +6,12 @@ import { HeaderContainer, Nav } from "./Header.style";
 
 export default function Header() {
   const { isLoggedIn } = useLoggedIn();
-  const path = useMatch("/user/*");
+  const login = useMatch("/login");
+  const register = useMatch("/register");
 
   return (
     <>
-      {!path && (
+      {!login && !register && (
         <HeaderContainer>
           <div className="headerContent">
             <Link to="/">
@@ -92,7 +93,7 @@ export default function Header() {
               </Nav>
             ) : (
               <Nav className="unauth">
-                <Link to="/user/login" className="show">
+                <Link to="/login" className="show">
                   <span>Log in</span>
                 </Link>
               </Nav>
