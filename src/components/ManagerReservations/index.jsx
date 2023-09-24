@@ -23,18 +23,33 @@ export default function Reservations(data) {
     });
   });
 
-  console.log(bookings);
+  // console.log(bookings);
+
+  function showStatus(startDate, endDate) {
+    if (new Date(startDate) > new Date()) {
+      return "Confirmed";
+    }
+
+    if (new Date(startDate) < new Date() || new Date(endDate) < new Date()) {
+      return "On going";
+    }
+
+    if (new Date(endDate) < new Date()) {
+      return "Checked out";
+    }
+  }
 
   return (
     <ReservationsContainer>
       {bookings.map((booking) => (
-        <ReservationCard>
+        <ReservationCard key={booking.id}>
           <ReservationVenue>
             <img src={booking.media} />
-            <h2>{truncate(booking.name, 30)}</h2>
+            <h2>{truncate(booking.name, 35)}</h2>
           </ReservationVenue>
           <div className="flexLine">
             <BoldText>Status:</BoldText>
+            <p>{showStatus(booking.dateFrom, booking.dateTo)}</p>
           </div>
           <div className="flexLine">
             <BoldText>Check-in:</BoldText>

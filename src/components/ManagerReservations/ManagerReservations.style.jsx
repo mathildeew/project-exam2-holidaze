@@ -6,6 +6,8 @@ export const ReservationsContainer = styled.section``;
 export const ReservationCard = styled.div``;
 
 export const ReservationVenue = styled.div`
+  margin-bottom: 10px;
+
   ${displayFlex({
     align: "center",
   })}
