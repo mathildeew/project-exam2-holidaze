@@ -14,17 +14,17 @@ import {
   faCircle,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import { get } from "../../../js/storage/localStorage";
-import { useLoggedIn } from "../../../context/Context";
-import useApi from "../../../hooks/useApi";
-import apiEndpoints from "../../../constants/endpoints";
-import { BoldText, SmallText } from "../../../styles/Text";
-import { MainButton } from "../../../styles/Buttons";
-import { Overlay, Popup } from "../../../styles/Popup";
-import VenuesForm from "../../ManagerVenues/VenuesForm";
-import DeleteVenue from "../../DeleteVenue";
-import MakeBooking from "../../MakeBooking";
-import Loader from "../../Loader";
+import { get } from "../../js/storage/localStorage";
+import { useLoggedIn } from "../../context/Context";
+import useApi from "../../hooks/useApi";
+import apiEndpoints from "../../constants/endpoints";
+import { BoldText, SmallText } from "../../styles/Text";
+import { MainButton } from "../../styles/Buttons";
+import { Overlay, Popup } from "../../styles/Popup";
+import VenuesForm from "../../components/ManagerVenues/VenuesForm";
+import DeleteVenue from "../../components/DeleteVenue";
+import MakeBooking from "../../components/MakeBooking";
+import Loader from "../../components/Loader/";
 import {
   BookNowBtn,
   Fascilities,

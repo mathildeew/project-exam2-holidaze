@@ -1,8 +1,6 @@
 import { useCallback, useState, useEffect } from "react";
-import { get } from "../../../../js/storage/localStorage";
-
-import useApi from "../../../../hooks/useApi";
-import apiEndpoints from "../../../../constants/endpoints";
+import { get } from "../../../js/storage/localStorage";
+import useApi from "../../../hooks/useApi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHouseCircleCheck,
@@ -10,9 +8,10 @@ import {
   faSquarePlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
-import { MainButton } from "../../../../styles/Buttons";
-import { Overlay, Popup } from "../../../../styles/Popup";
-import { BoldText } from "../../../../styles/Text";
+import { useLoggedIn } from "../../../context/Context";
+import { MainButton } from "../../../styles/Buttons";
+import { Overlay, Popup } from "../../../styles/Popup";
+import { BoldText } from "../../../styles/Text";
 import {
   ButtonsContainer,
   ButtonsShift,
@@ -20,12 +19,12 @@ import {
   ManageButton,
   ManagerContainer,
 } from "./Manager.style";
-import VenuesForm from "../../../ManagerVenues/VenuesForm";
-import Reservations from "../../../ManagerReservations";
-import VenuesManager from "../../../ManagerVenues";
-import Loader from "../../../Loader";
-import { useLoggedIn } from "../../../../context/Context";
-import UnAuthUser from "../../../UnauthUser";
+import Reservations from "../../../components/ManagerReservations";
+import VenuesForm from "../../../components/ManagerVenues/VenuesForm";
+import VenuesManager from "../../../components/ManagerVenues";
+import Loader from "../../../components/Loader/";
+import UnAuthUser from "../../../components/UnauthUser";
+import apiEndpoints from "../../../constants/endpoints";
 
 export default function Manage() {
   const { isLoggedIn, isManager } = useLoggedIn();
@@ -34,17 +33,10 @@ export default function Manage() {
   const [showReservations, setShowReservations] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
-  const {
-    fetchApi,
-    data: venues,
-    isLoading,
-    isError,
-    isSuccess,
-    errorMsg,
-  } = useApi();
+  const { fetchApi, data: venues, isLoading } = useApi();
 
   const getData = useCallback(async () => {
-    await fetchApi(`${apiEndpoints(null, name).profile}`);
+    await fetchApi(apiEndpoints(null, name).profileVenues);
   }, []);
 
   useEffect(() => {
@@ -53,8 +45,6 @@ export default function Manage() {
 
   if (!isLoggedIn || !isManager) return <UnAuthUser />;
   if (isLoading) return <Loader />;
-
-  // console.log(name);
 
   return (
     <>

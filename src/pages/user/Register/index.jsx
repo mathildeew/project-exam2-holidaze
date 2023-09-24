@@ -2,9 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import useApi from "../../../../hooks/useApi";
-import apiEndpoints from "../../../../constants/endpoints";
-import { MainButton } from "../../../../styles/Buttons";
+import useApi from "../../../hooks/useApi";
+import apiEndpoints from "../../../constants/endpoints";
+import { MainButton } from "../../../styles/Buttons";
 import {
   Banner,
   Form,
@@ -15,7 +15,7 @@ import {
   Logo,
   LogOrReg,
 } from "../User.style";
-import { ErrorMsg } from "../../../../styles/Text";
+import { ErrorMsg } from "../../../styles/Text";
 
 export default function Register() {
   const navigate = useNavigate();

@@ -8,8 +8,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { FormContainer, VenueFasc, VenueInfo } from "./VenuesForm.style.jsx";
 import { useEffect } from "react";
-import apiEndpoints from "../../../constants/endpoints";
 import useApi from "../../../hooks/useApi";
+import apiEndpoints from "../../../constants/endpoints";
 
 export default function VenuesForm({ state, venue }) {
   const isNewState = state === "new";
@@ -93,7 +93,7 @@ export default function VenuesForm({ state, venue }) {
         // Put in error message
       }
     } else if (isNewState) {
-      const response = await fetchApi(apiEndpoints().venues, "POST", formData);
+      const response = await fetchApi(endpoints().venues, "POST", formData);
 
       if (isSuccess) {
         window.location.reload();

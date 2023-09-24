@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { displayFlex } from "../../../styles/mixins";
+import { displayFlex } from "../../styles/mixins";
 
 export const ProfileContainer = styled.main`
   height: 100%;

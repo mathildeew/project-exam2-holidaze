@@ -1,13 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
-import Home from "./components/pages/Home";
-import Login from "./components/pages/user/Login";
-import Register from "./components/pages/user/Register";
-import Profile from "./components/pages/Profile";
-import Manage from "./components/pages/Profile/Manager";
-import Venue from "./components/pages/Venue";
-import NotFound from "./components/pages/NotFound";
-
+import Home from "./pages/Home";
+import Login from "./pages/user/Login";
+import Register from "./pages/user/Register";
+import Profile from "./pages/Profile";
+import Manage from "./pages/Profile/Manager";
+import Venue from "./pages/Venue";
+import NotFound from "./pages/NotFound";
 export default function App() {
   return (
     <Routes>

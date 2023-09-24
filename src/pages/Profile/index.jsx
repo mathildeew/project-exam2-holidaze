@@ -6,17 +6,17 @@ import {
   faXmark,
   faCircleCheck,
 } from "@fortawesome/free-solid-svg-icons";
-import { useLoggedIn } from "../../../context/Context";
-import useApi from "../../../hooks/useApi";
-import apiEndpoints from "../../../constants/endpoints";
-import Loader from "../../Loader";
-import UnAuthUser from "../../UnauthUser";
-import RegisterManager from "../../ManagerReg";
-import UpdateAvatar from "../../Modals/UpdateAvatar";
-import Bookings from "../../ProfileBookings";
-import { MainButton } from "../../../styles/Buttons";
-import { BoldText } from "../../../styles/Text";
-import { Overlay, Popup } from "../../../styles/Popup";
+import { useLoggedIn } from "../../context/Context";
+import useApi from "../../hooks/useApi";
+import apiEndpoints from "../../constants/endpoints";
+import Loader from "../../components/Loader";
+import UnAuthUser from "../../components/UnauthUser";
+import RegisterManager from "../../components/ManagerReg";
+import UpdateAvatar from "../../components/Modals/UpdateAvatar";
+import Bookings from "../../components/ProfileBookings";
+import { MainButton } from "../../styles/Buttons";
+import { BoldText } from "../../styles/Text";
+import { Overlay, Popup } from "../../styles/Popup";
 import {
   AvatarContainer,
   Card,
@@ -46,7 +46,7 @@ export default function Profile() {
   } = useApi();
 
   const getData = useCallback(async () => {
-    await fetchApi(`${apiEndpoints(null, name).profile}`);
+    await fetchApi(apiEndpoints(null, name).profile);
   }, []);
 
   useEffect(() => {

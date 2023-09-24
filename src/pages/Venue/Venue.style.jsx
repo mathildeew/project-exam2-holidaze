@@ -1,6 +1,6 @@
 import { faUsersBetweenLines } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-import { displayFlex } from "../../../styles/mixins";
+import { displayFlex } from "../../styles/mixins";
 
 export const VenueContainer = styled.main`
   margin: 40px 0px 100px 0px;

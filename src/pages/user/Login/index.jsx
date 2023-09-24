@@ -2,10 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useLoggedIn } from "../../../../context/Context";
-import useApi from "../../../../hooks/useApi";
-import apiEndpoints from "../../../../constants/endpoints";
-import { MainButton } from "../../../../styles/Buttons";
+import { useLoggedIn } from "../../../context/Context";
+import useApi from "../../../hooks/useApi";
+import apiEndpoints from "../../../constants/endpoints";
+import { MainButton } from "../../../styles/Buttons";
 import {
   FormContainer,
   LogOrReg,
@@ -16,7 +16,7 @@ import {
   InputContainer,
   FormSection,
 } from "../User.style";
-import { ErrorMsg } from "../../../../styles/Text";
+import { ErrorMsg } from "../../../styles/Text";
 
 export default function Login() {
   const navigate = useNavigate();

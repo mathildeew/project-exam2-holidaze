@@ -3,7 +3,6 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { truncate } from "../../js/storage/truncate";
 import { BoldText, SmallText } from "../../styles/Text";
-import { NoResults } from "../pages/Venue/Venue.style";
 import {
   VenuesContainer,
   VenueCard,
@@ -14,6 +13,7 @@ import {
   VenueDetails,
   VenueRating,
 } from "./Venues.style";
+import { NoResults } from "../../pages/Venue/Venue.style";
 
 export default function Venues(data) {
   const { data: venues } = data;

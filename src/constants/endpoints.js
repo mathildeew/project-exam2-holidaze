@@ -8,10 +8,10 @@ export default function apiEndpoints(id, name) {
     updateVenue: `${holidaze}/venues/${id}`,
     deleteVenue: `${holidaze}/venues/${id}`,
     profile: `${holidaze}/profiles/${name}?_bookings=true`,
+    profileVenues: `${holidaze}/profiles/${name}/venues?_bookings=true`,
     updateAvatar: `${holidaze}/profiles/${name}/media`,
     makeBooking: `${holidaze}/bookings`,
     deleteBooking: `${holidaze}/bookings/${id}`,
   };
-  console.log();
   return endpoints;
 }
