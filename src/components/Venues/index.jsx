@@ -22,7 +22,7 @@ import {
 } from "./Venues.style";
 import { useState } from "react";
 import { truncate } from "../../js/storage/truncate";
-import { NoResults } from "../pages/venue/Venue.style";
+import { NoResults } from "../pages/Venue/Venue.style";
 
 export default function Venues(data) {
   const { data: venues } = data;

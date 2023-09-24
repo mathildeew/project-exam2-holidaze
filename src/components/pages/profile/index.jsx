@@ -22,7 +22,7 @@ import {
   ProfileContainer,
   ProfileContent,
   ProfileDetails,
-} from "./profile.styles";
+} from "./Profile.styles";
 import UnAuthUser from "../../UnauthUser";
 import { RegisterManager } from "../../ManagerReg";
 
