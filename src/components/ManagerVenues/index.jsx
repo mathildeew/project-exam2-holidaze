@@ -12,34 +12,32 @@ export default function VenuesManager(data) {
   const { data: venues } = data;
 
   return (
-    <>
-      <VenuesContainer>
-        {venues?.length > 0 ? (
-          <>
-            {venues.map((venue) => (
-              <Link to={`/venue/${venue.id}`} key={venue.id}>
-                <VenueCard>
-                  <img src={venue.media} />
-                  <VenueDetails>
-                    <h2>{truncate(venue.name, 30)}</h2>
-                    <div className="flexLine">
-                      <FontAwesomeIcon icon={faLocationDot} />
-                      <p>{venue.location?.city},&nbsp;</p>
-                      <p>{venue.location?.country}</p>
-                    </div>
-                    <div className="flexLine">
-                      <FontAwesomeIcon icon={faPeopleRoof} />
-                      <p>{venue.maxGuests}</p>
-                    </div>
-                  </VenueDetails>
-                </VenueCard>
-              </Link>
-            ))}
-          </>
-        ) : (
-          <p>You have no registered venues yet!</p>
-        )}
-      </VenuesContainer>
-    </>
+    <VenuesContainer>
+      {venues?.length > 0 ? (
+        <>
+          {venues.map((venue) => (
+            <Link to={`/venue/${venue.id}`} key={venue.id}>
+              <VenueCard>
+                <img src={venue.media} />
+                <VenueDetails>
+                  <h2>{truncate(venue.name, 30)}</h2>
+                  <div className="flexLine">
+                    <FontAwesomeIcon icon={faLocationDot} />
+                    <p>{venue.location?.city},&nbsp;</p>
+                    <p>{venue.location?.country}</p>
+                  </div>
+                  <div className="flexLine">
+                    <FontAwesomeIcon icon={faPeopleRoof} />
+                    <p>{venue.maxGuests}</p>
+                  </div>
+                </VenueDetails>
+              </VenueCard>
+            </Link>
+          ))}
+        </>
+      ) : (
+        <p>You have no registered venues yet!</p>
+      )}
+    </VenuesContainer>
   );
 }

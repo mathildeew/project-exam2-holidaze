@@ -45,7 +45,6 @@ export const ButtonsContainer = styled.div`
   width: 100%;
   margin-bottom: 50px;
   /* max-width: 300px; */
-  /* border: 2px solid red; */
   position: relative;
 
   div {
@@ -79,25 +78,6 @@ export const ButtonsShift = styled.div`
 
 export const Carousel = styled.div`
   width: 100%;
-  ${displayFlex({})}/* position: relative; */
-`;
-
-export const ReservationsContainer = styled.section`
-  position: absolute;
-  transition: all 0.4s ease-in-out;
-
-  .reservationsContainer {
-    &.inactive {
-      right: -100vw;
-    }
-
-    &.active {
-      right: 0;
-    }
-
-    width: 100%;
-    p {
-      margin-bottom: 10px;
-    }
-  }
+  border: 2px solid orange;
+  ${displayFlex({})};
 `;

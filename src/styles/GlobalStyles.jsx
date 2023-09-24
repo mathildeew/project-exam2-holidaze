@@ -21,6 +21,7 @@ body {
 
 main {
   min-height: 100vh;
+  height: 100%;
 }
 
 h1, h2, h3, h4, p, a, label, textarea[placeholder] {
