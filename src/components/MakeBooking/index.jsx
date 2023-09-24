@@ -21,14 +21,10 @@ import {
   BookingText,
 } from "./MakeBooking.style";
 
-export default function MakeBooking(data) {
+export default function MakeBooking({ id, bookings, price, maxGuests }) {
   // https://www.npmjs.com/package/react-date-range
   // https://hypeserver.github.io/react-date-range/
   // https://date-fns.org/docs/Getting-Started#installation
-
-  const { data: venue } = data;
-  const id = venue.id;
-  const bookings = venue?.bookings;
 
   const [numberOfGuests, setNumberOfGuests] = useState(1);
 
@@ -48,7 +44,7 @@ export default function MakeBooking(data) {
   };
 
   function addGuest() {
-    if (numberOfGuests === venue.maxGuests) {
+    if (numberOfGuests === maxGuests) {
       return;
     }
     setNumberOfGuests(numberOfGuests + 1);
@@ -125,7 +121,7 @@ export default function MakeBooking(data) {
             <input
               type="number"
               name="guests"
-              max={venue.maxGuests}
+              max={maxGuests}
               value={numberOfGuests}
               onChange={onGuestChange}
             />
@@ -140,15 +136,11 @@ export default function MakeBooking(data) {
           <BookingText>
             <BoldText>
               {calculateDays(dates[0].startDate, dates[0].endDate)}
-              &nbsp;nights x $ {venue.price} per night
+              &nbsp;nights x $ {price} per night
             </BoldText>
             <BoldText>
               $&nbsp;
-              {calculatePrice(
-                dates[0].startDate,
-                dates[0].endDate,
-                venue.price
-              )}
+              {calculatePrice(dates[0].startDate, dates[0].endDate, price)}
             </BoldText>
           </BookingText>
           <hr />
@@ -156,11 +148,7 @@ export default function MakeBooking(data) {
             <BoldText>Total: </BoldText>
             <BoldText>
               $&nbsp;
-              {calculatePrice(
-                dates[0].startDate,
-                dates[0].endDate,
-                venue.price
-              )}
+              {calculatePrice(dates[0].startDate, dates[0].endDate, price)}
             </BoldText>
           </BookingText>
         </BookingInfo>

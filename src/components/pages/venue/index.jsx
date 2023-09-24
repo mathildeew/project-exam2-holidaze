@@ -50,7 +50,25 @@ export default function Venue() {
   const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
 
-  const { fetchApi, data: venue, isLoading, isError } = useApi();
+  const {
+    fetchApi,
+    data: {
+      name,
+      description,
+      location,
+      price,
+      rating,
+      maxGuests,
+      media,
+      meta,
+      owner,
+      created,
+      updated,
+      bookings,
+    },
+    isLoading,
+    isError,
+  } = useApi();
 
   const getData = useCallback(async () => {
     await fetchApi(apiEndpoints(id).singleVenue);
@@ -60,19 +78,7 @@ export default function Venue() {
     getData();
   }, [getData]);
 
-  const {
-    name,
-    description,
-    location,
-    price,
-    rating,
-    maxGuests,
-    media,
-    meta,
-    owner,
-    created,
-    updated,
-  } = venue;
+  // const {} = venue;
 
   const createdDate = new Date(created).toLocaleDateString();
   const updatedDate = new Date(updated).toLocaleDateString();
@@ -278,7 +284,12 @@ export default function Venue() {
             <>
               <div ref={ref} id="scrollTop"></div>
 
-              <MakeBooking data={venue} />
+              <MakeBooking
+                id={id}
+                bookings={bookings}
+                price={price}
+                maxGuests={maxGuests}
+              />
             </>
           )}
         </VenueContent>
