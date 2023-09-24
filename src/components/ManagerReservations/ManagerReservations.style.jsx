@@ -23,6 +23,8 @@ export const ReservationVenue = styled.div`
     width: 50px;
     border-radius: 10px;
     margin-right: 10px;
+    object-fit: cover;
+    object-position: center center;
   }
 `;
 
