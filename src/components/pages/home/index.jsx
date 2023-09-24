@@ -45,7 +45,7 @@ export default function Home() {
               type="search"
               onChange={onSearch}
               value={searchedVenue}
-              aria-label="Search"
+              aria-label="Search for venue"
             ></input>
           </InputContainer>
         </Search>
