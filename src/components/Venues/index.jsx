@@ -1,16 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCoffee,
-  faDog,
-  faLocationDot,
-  faParking,
-  faStar,
-  faWifi,
-} from "@fortawesome/free-solid-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { truncate } from "../../js/storage/truncate";
 import { BoldText, SmallText } from "../../styles/Text";
-import apiEndpoints from "../../../endpoints.js/endpoints";
-import UseAPI from "../../hooks/useApi";
+import { NoResults } from "../pages/Venue/Venue.style";
 import {
   VenuesContainer,
   VenueCard,
@@ -19,10 +12,8 @@ import {
   VenueInfo,
   VenuePrice,
   VenueDetails,
+  VenueRating,
 } from "./Venues.style";
-import { useState } from "react";
-import { truncate } from "../../js/storage/truncate";
-import { NoResults } from "../pages/Venue/Venue.style";
 
 export default function Venues(data) {
   const { data: venues } = data;
@@ -35,7 +26,7 @@ export default function Venues(data) {
             <VenueImg>
               {venue.media.length > 0 && <img src={venue.media[0]} />}
               {venue.media.length === 0 && (
-                <img src="src/assets/placeholders/image-placeholder-350x350-1.png" />
+                <img src="/images/placeholder/image-placeholder-350x350-1.png" />
               )}
               <VenueLocation>
                 <SmallText>
@@ -46,9 +37,9 @@ export default function Venues(data) {
             <VenueInfo>
               <h2>{truncate(venue.name)}</h2>
               <VenueDetails>
-                <div className="flexLine">
+                <VenueRating>
                   <FontAwesomeIcon icon={faStar} /> <p>{venue.rating}</p>
-                </div>
+                </VenueRating>
                 <VenuePrice>
                   <BoldText>${venue.price}</BoldText>
                   <p>night</p>

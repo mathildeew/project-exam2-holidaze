@@ -1,5 +1,7 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPeopleRoof,
@@ -9,12 +11,20 @@ import {
   faDog,
   faLocationDot,
   faStar,
-  faClose,
-  faDollarSign,
   faCircle,
-  faCaretRight,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import { get } from "../../../js/storage/localStorage";
+import { useLoggedIn } from "../../../context/Context";
+import useApi from "../../../hooks/useApi";
+import apiEndpoints from "../../../../endpoints.js/endpoints";
+import { BoldText, SmallText } from "../../../styles/Text";
+import { MainButton } from "../../../styles/Buttons";
+import { Overlay, Popup } from "../../../styles/Popup";
+import VenuesForm from "../../ManagerVenues/VenuesForm";
+import DeleteVenue from "../../DeleteVenue";
+import MakeBooking from "../../MakeBooking";
+import Loader from "../../Loader";
 import {
   BookNowBtn,
   Fascilities,
@@ -31,39 +41,16 @@ import {
   ImageContainer,
   ManagerButtons,
 } from "./Venue.style";
-import { BoldText, SmallText } from "../../../styles/Text";
-import { MainButton, OutlineButton } from "../../../styles/Buttons";
-import useApi from "../../../hooks/useApi";
-import apiEndpoints from "../../../../endpoints.js/endpoints";
-import MakeBooking from "../../MakeBooking";
-import Loader from "../../Loader";
-import { createRef } from "react";
-import { useRef } from "react";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { useLoggedIn } from "../../../context/Context";
-import { get } from "../../../js/storage/localStorage";
-import { Overlay, Popup } from "../../../styles/Popup";
-import VenuesForm from "../../ManagerVenues/VenuesForm";
-import DeleteVenue from "../../DeleteVenue";
 
 export default function Venue() {
+  const { isLoggedIn } = useLoggedIn();
+  const { id } = useParams();
+  const userName = get("name");
+  const ref = useRef(null);
   const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
-  // const [showModal, setShowModal] = useState(false);
 
-  const { id } = useParams();
-  const { isLoggedIn } = useLoggedIn();
-  const userName = get("name");
-
-  const {
-    fetchApi,
-    data: venue,
-    isLoading,
-    isError,
-    isSuccess,
-    errorMsg,
-  } = useApi();
+  const { fetchApi, data: venue, isLoading, isError } = useApi();
 
   const getData = useCallback(async () => {
     await fetchApi(apiEndpoints(id).singleVenue);
@@ -90,8 +77,6 @@ export default function Venue() {
   const createdDate = new Date(created).toLocaleDateString();
   const updatedDate = new Date(updated).toLocaleDateString();
 
-  const ref = useRef(null);
-
   const handleClickScroll = () => {
     const scrollTop = ref.current;
     scrollTop.scrollIntoView({ behavior: "smooth" });
@@ -99,8 +84,6 @@ export default function Venue() {
 
   if (isLoading) return <Loader />;
   if (isError) return <VenueContent>Error!</VenueContent>;
-
-  console.log();
 
   return (
     <>
@@ -288,13 +271,6 @@ export default function Venue() {
                   <p>{location?.country}</p>
                 </>
               )}
-              {/* {location?.continent !==
-            `Unknown`(
-              <>
-                <BoldText>Continent:</BoldText>
-                <p>{location?.continent}</p>
-              </>
-            )} */}
             </Location>
           </VenueInfo>
 
