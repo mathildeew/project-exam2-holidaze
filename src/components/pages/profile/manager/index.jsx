@@ -44,7 +44,7 @@ export default function Manage() {
   } = useApi();
 
   const getData = useCallback(async () => {
-    await fetchApi(`${apiEndpoints().profile}/${name}/venues?_bookings=true`);
+    await fetchApi(`${apiEndpoints(null, name).profile}`);
   }, []);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function Manage() {
   if (!isLoggedIn || !isManager) return <UnAuthUser />;
   if (isLoading) return <Loader />;
 
-  // console.log(venues);
+  // console.log(name);
 
   return (
     <>

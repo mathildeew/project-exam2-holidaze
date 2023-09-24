@@ -30,6 +30,7 @@ export default function Profile() {
   const navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn, isManager, avatar, name, email } =
     useLoggedIn();
+
   const [showUpdateAvatar, setShowUpdate] = useState(false);
   const [showManagerReg, setShowManagerReg] = useState(false);
 
@@ -38,19 +39,19 @@ export default function Profile() {
     navigate("/");
   }
 
-  const { fetchApi, data: profile, isLoading } = useApi();
+  const {
+    fetchApi,
+    data: { bookings, _count },
+    isLoading,
+  } = useApi();
 
   const getData = useCallback(async () => {
-    await fetchApi(
-      `${apiEndpoints().profile}/${name}?_bookings=true&_venues=true`
-    );
+    await fetchApi(`${apiEndpoints(null, name).profile}`);
   }, []);
 
   useEffect(() => {
     getData();
   }, [getData]);
-
-  const bookings = profile.bookings;
 
   if (!isLoggedIn) return <UnAuthUser />;
   if (isLoading) return <Loader />;

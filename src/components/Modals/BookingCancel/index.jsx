@@ -16,7 +16,10 @@ export default function CancelPopup(data) {
   const onSubmit = async () => {
     setBtnText("Deleting...");
 
-    const response = await fetchApi(apiEndpoints(id).deleteBooking, "DELETE");
+    const response = await fetchApi(
+      apiEndpoints(id, null).deleteBooking,
+      "DELETE"
+    );
 
     setTimeout(() => {
       setBtnText("Deleted!");
