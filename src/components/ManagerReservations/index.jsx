@@ -30,7 +30,7 @@ export default function Reservations(data) {
       return "Confirmed";
     }
 
-    if (new Date(startDate) < new Date() || new Date(endDate) < new Date()) {
+    if (new Date(startDate) > new Date() || new Date(endDate) > new Date()) {
       return "On going";
     }
 
@@ -41,40 +41,49 @@ export default function Reservations(data) {
 
   return (
     <ReservationsContainer>
-      {bookings.map((booking) => (
-        <ReservationCard key={booking.id}>
-          <ReservationVenue>
-            <img src={booking.media} />
-            <h2>{truncate(booking.name, 35)}</h2>
-          </ReservationVenue>
-          <div className="flexLine">
-            <BoldText>Status:</BoldText>
-            <p>{showStatus(booking.dateFrom, booking.dateTo)}</p>
-          </div>
-          <div className="flexLine">
-            <BoldText>Check-in:</BoldText>
-            <p>{dayjs(booking.dateFrom).format("DD.MM.YYYY")}</p>
-          </div>
-          <div className="flexLine">
-            <BoldText>Check-out:</BoldText>
-            <p>{dayjs(booking.dateTo).format("DD.MM.YYYY")}</p>
-          </div>
+      {bookings.length > 0 ? (
+        <>
+          {bookings.map((booking) => (
+            <ReservationCard key={booking.id}>
+              <ReservationVenue>
+                <img src={booking.media} />
+                <h2>{truncate(booking.name, 35)}</h2>
+              </ReservationVenue>
+              <div className="flexLine">
+                <BoldText>Status:</BoldText>
+                <p>{showStatus(booking.dateFrom, booking.dateTo)}</p>
+              </div>
+              <div className="flexLine">
+                <BoldText>Check-in:</BoldText>
+                <p>{dayjs(booking.dateFrom).format("DD.MM.YYYY")}</p>
+              </div>
+              <div className="flexLine">
+                <BoldText>Check-out:</BoldText>
+                <p>{dayjs(booking.dateTo).format("DD.MM.YYYY")}</p>
+              </div>
 
-          <div className="flexLine">
-            <BoldText>Guests:</BoldText>
-            <p>{booking.guests}</p>
-          </div>
-          <div className="flexLine">
-            <BoldText>Total income:</BoldText>
-            <p>
-              ${calculatePrice(booking.dateFrom, booking.dateTo, booking.price)}
-            </p>
-          </div>
-          <hr />
-        </ReservationCard>
-      ))}
-
-      {/* <p>No Reservations yet</p> */}
+              <div className="flexLine">
+                <BoldText>Guests:</BoldText>
+                <p>{booking.guests}</p>
+              </div>
+              <div className="flexLine">
+                <BoldText>Total income:</BoldText>
+                <p>
+                  $
+                  {calculatePrice(
+                    booking.dateFrom,
+                    booking.dateTo,
+                    booking.price
+                  )}
+                </p>
+              </div>
+              <hr />
+            </ReservationCard>
+          ))}
+        </>
+      ) : (
+        <p>Your venues has no reservations yet.</p>
+      )}
     </ReservationsContainer>
   );
 }

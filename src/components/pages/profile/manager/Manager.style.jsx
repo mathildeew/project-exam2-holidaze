@@ -78,6 +78,5 @@ export const ButtonsShift = styled.div`
 
 export const Carousel = styled.div`
   width: 100%;
-  border: 2px solid orange;
   ${displayFlex({})};
 `;

@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { displayFlex } from "../../styles/mixins";
 
-export const ReservationsContainer = styled.section``;
+export const ReservationsContainer = styled.section`
+  width: 100%;
+`;
 
 export const ReservationCard = styled.div``;
 
