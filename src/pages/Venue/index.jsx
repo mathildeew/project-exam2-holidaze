@@ -21,7 +21,7 @@ import apiEndpoints from "../../constants/endpoints";
 import { BoldText, SmallText } from "../../styles/Text";
 import { MainButton } from "../../styles/Buttons";
 import { Overlay, Popup } from "../../styles/Popup";
-import VenuesForm from "../../components/ManagerVenues/VenuesForm";
+import VenuesForm from "../../components/Forms/VenuesForm";
 import DeleteVenue from "../../components/DeleteVenue";
 import MakeBooking from "../../components/MakeBooking";
 import Loader from "../../components/Loader/";
@@ -118,7 +118,20 @@ export default function Venue() {
             setShowDelete(false);
           }}
         />
-        {showEdit && <VenuesForm venue={{ venue }} state={"edit"} />}
+        {showEdit && (
+          <VenuesForm
+            venue={{
+              name,
+              description,
+              location,
+              price,
+              maxGuests,
+              media,
+              meta,
+            }}
+            state={"edit"}
+          />
+        )}
         {showDelete && <DeleteVenue data={id} />}
       </Popup>
 

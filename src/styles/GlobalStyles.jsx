@@ -64,15 +64,15 @@ p, a, label {
     margin: 50px 0;
   }
 
-  input, textarea{
+  /* input{
     border: 2px solid var(--primary);
     border-radius: 10px;
     ::placeholder {
       color: var(--primary);
     }
-  }
+  } */
   
-  input, .inputContainer, textarea  {
+  /* input, .inputContainer  {
     padding: 10px;
     outline: none;
 
@@ -94,14 +94,17 @@ p, a, label {
       }
     }
 
-    textarea {
-      resize: vertical;
-    }
+   
 
     .errorMsg{
       font-size: 1.4rem;
       color: red;
-    }
+    } */
+
+textarea{
+  border: none;
+  outline: none;
+}
 
   .maxWidth {
     max-width: 568px;

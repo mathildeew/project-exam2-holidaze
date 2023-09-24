@@ -10,10 +10,13 @@ import { FormContainer, VenueFasc, VenueInfo } from "./VenuesForm.style.jsx";
 import { useEffect } from "react";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
+import { InputContainer, Inputs } from "../../../styles/Forms";
 
 export default function VenuesForm({ state, venue }) {
+  const { name, description, location, maxGuests, media, meta, price } = venue;
   const isNewState = state === "new";
   const isUpdateState = state === "update";
+  console.log(meta);
 
   const [data, setData] = useState(null);
   const [addWifi, setAddWifi] = useState(false);
@@ -108,48 +111,64 @@ export default function VenuesForm({ state, venue }) {
       {isNewState ? <h2>Register new venue</h2> : <h2>Edit venue</h2>}
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <VenueInfo>
-          <label htmlFor="name">Title</label>
-          <input
-            type="text"
-            name="name"
-            placeholder={isUpdateState ? "" : "Title of your venue"}
-            defaultValue={isUpdateState ? `${venue?.name}` : ""}
-            {...register("name", { required: true, type: "text" })}
-          />
+        <InputContainer>
+          <Inputs>
+            <label htmlFor="name">Title</label>
+            <input
+              type="text"
+              name="name"
+              placeholder={isNewState ? "A catching title for your venue" : ""}
+              defaultValue={isNewState ? "" : `${name}`}
+              {...register("name", { required: true, type: "text" })}
+            />
+          </Inputs>
           <p className="errorMsg">{errors.name?.message}</p>
+        </InputContainer>
 
-          <label htmlFor="maxGuests">Price per night</label>
-          <input
-            type="number"
-            name="price"
-            placeholder={isUpdateState ? "" : "Price per night"}
-            defaultValue={isUpdateState ? `${venue?.price}` : ""}
-            {...register("price", { required: true, type: "number" })}
-          />
+        <InputContainer>
+          <Inputs>
+            <label htmlFor="maxGuests">Price per night</label>
+            <input
+              type="number"
+              name="price"
+              placeholder={isNewState ? "The cost for one night in $" : ""}
+              defaultValue={isNewState ? "" : `${price}`}
+              {...register("price", { required: true, type: "number" })}
+            />
+          </Inputs>
           <p className="errorMsg">{errors.price?.message}</p>
+        </InputContainer>
 
-          <label htmlFor="maxGuests">Max guests</label>
-          <input
-            type="number"
-            name="maxGuest"
-            placeholder={isUpdateState ? "" : "Number of max guests"}
-            defaultValue={isUpdateState ? `${venue?.maxGuests}` : ""}
-            {...register("maxGuests", { required: true, type: "text" })}
-          />
+        <InputContainer>
+          <Inputs>
+            <label htmlFor="maxGuests">Max guests</label>
+            <input
+              type="number"
+              name="maxGuest"
+              placeholder={isNewState ? "Number of max guests" : ""}
+              defaultValue={isNewState ? "" : `${maxGuests}`}
+              {...register("maxGuests", { required: true, type: "text" })}
+            />
+          </Inputs>
           <p className="errorMsg">{errors.maxGuests?.message}</p>
+        </InputContainer>
 
-          <label htmlFor="description">Description of your place</label>
-          <textarea
-            type="textbox"
-            rows={10}
-            name="description"
-            placeholder={isUpdateState ? "" : "Description of your venue"}
-            defaultValue={isUpdateState ? `${venue?.description}` : ""}
-            {...register("description", { required: true, type: "text" })}
-          ></textarea>
+        <InputContainer>
+          <Inputs>
+            <label htmlFor="description">Description of the venue</label>
+            <textarea
+              type="textbox"
+              rows={10}
+              name="description"
+              placeholder={
+                isNewState ? "A good description generates more visitors" : ""
+              }
+              defaultValue={isNewState ? "" : `${description}`}
+              {...register("description", { required: true, type: "text" })}
+            ></textarea>
+          </Inputs>
           <p className="errorMsg">{errors.description?.message}</p>
-        </VenueInfo>
+        </InputContainer>
 
         {/* <section>
           <h3>Location</h3>
@@ -210,13 +229,19 @@ export default function VenuesForm({ state, venue }) {
         <section>
           <h3>Add photos</h3>
           <p>Add up to three photos</p>
-          <input
-            type="url"
-            name="media"
-            placeholder="Image one"
-            {...register("media", { required: false, type: "url" })}
-          />
-          <p className="errorMsg">{errors.media?.message}</p>
+          <InputContainer>
+            <Inputs>
+              <label htmlFor="media">Add image</label>
+              <input
+                type="url"
+                name="media"
+                placeholder={isNewState ? "Must be a valid URL" : ""}
+                defaultValue={isUpdateState ? `${media[0]}` : ""}
+                {...register("media", { required: false, type: "url" })}
+              />
+            </Inputs>
+            <p className="errorMsg">{errors.media?.message}</p>
+          </InputContainer>
         </section>
 
         <VenueFasc>
@@ -225,7 +250,7 @@ export default function VenuesForm({ state, venue }) {
             <input
               type="checkbox"
               name="wifi"
-              defaultChecked={isUpdateState ? `${venue.meta.wifi}` : ""}
+              defaultChecked={isNewState ? "" : `${meta.wifi}`}
               onClick={() => !addWifi}
               {...register("meta.wifi")}
             />
@@ -235,7 +260,7 @@ export default function VenuesForm({ state, venue }) {
             <input
               type="checkbox"
               name="breakfast"
-              defaultChecked={isUpdateState ? `${venue.meta.breakfast}` : ""}
+              defaultChecked={isUpdateState ? `${meta.breakfast}` : ``}
               onClick={() => !addBreakfast}
               {...register("meta.breakfast")}
             />
@@ -246,7 +271,7 @@ export default function VenuesForm({ state, venue }) {
             <input
               type="checkbox"
               name="Parking"
-              defaultChecked={isUpdateState ? `${venue.meta.parking}` : ""}
+              defaultChecked={isUpdateState ? `${meta.parking}` : ``}
               onClick={() => !addParking}
               {...register("meta.parking")}
             />
@@ -257,7 +282,7 @@ export default function VenuesForm({ state, venue }) {
             <input
               type="checkbox"
               name="pets"
-              defaultChecked={isUpdateState ? `${venue.meta.pets}` : ""}
+              defaultChecked={isNewState ? "" : `${meta.pets}`}
               onClick={() => !addPets}
               {...register("meta.pets")}
             />

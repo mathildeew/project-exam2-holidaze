@@ -12,7 +12,7 @@ import { useLoggedIn } from "../../../context/Context";
 import { MainButton } from "../../../styles/Buttons";
 import { Overlay, Popup } from "../../../styles/Popup";
 import Reservations from "../../../components/ManagerReservations";
-import VenuesForm from "../../../components/ManagerVenues/VenuesForm";
+import VenuesForm from "../../../components/Forms/VenuesForm";
 import VenuesManager from "../../../components/ManagerVenues";
 import Loader from "../../../components/Loader/";
 import UnAuthUser from "../../../components/UnauthUser";

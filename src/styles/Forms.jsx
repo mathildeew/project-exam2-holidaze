@@ -52,6 +52,13 @@ export const Inputs = styled.div`
       border: none;
       outline: none;
     }
+
+    textarea {
+      border: 2px solid red;
+      outline: none;
+      margin-bottom: 20px;
+      resize: vertical;
+    }
   }
 
   input:-webkit-autofill,
