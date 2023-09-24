@@ -25,3 +25,10 @@ export const ReservationVenue = styled.div`
     margin-right: 10px;
   }
 `;
+
+export const ReservationDetails = styled.div`
+  margin-bottom: 5px;
+  ${displayFlex({
+    justify: "space-between",
+  })};
+`;

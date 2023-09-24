@@ -14,24 +14,38 @@ export const VenueCard = styled.div`
   height: 130px;
   margin-bottom: 60px;
   ${displayFlex({
-    direction: "row",
+    direction: "column",
     justify: "space-between",
   })}
+`;
+
+export const VenueInfo = styled.div`
+  margin-bottom: 10px;
+
+  ${displayFlex({
+    align: "center",
+  })}
+
+  h2 {
+    margin-bottom: 0;
+  }
 
   img {
-    width: 45%;
-    height: 100%;
+    height: 50px;
+    width: 50px;
+    border-radius: 10px;
+    margin-right: 10px;
     object-fit: cover;
     object-position: center center;
   }
 `;
 
 export const VenueDetails = styled.div`
-  width: 50%;
-
-  div {
-    margin-bottom: 10px;
-  }
+  margin-bottom: 5px;
+  ${displayFlex({
+    direction: "row",
+    align: "center",
+  })};
 
   svg {
     margin-right: 10px;

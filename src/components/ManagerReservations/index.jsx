@@ -4,6 +4,7 @@ import { truncate } from "../../js/storage/truncate";
 import { BoldText } from "../../styles/Text";
 import {
   ReservationCard,
+  ReservationDetails,
   ReservationsContainer,
   ReservationVenue,
 } from "./ManagerReservations.style";
@@ -49,24 +50,28 @@ export default function Reservations(data) {
                 <img src={booking.media} />
                 <h2>{truncate(booking.name, 35)}</h2>
               </ReservationVenue>
-              <div className="flexLine">
+
+              <ReservationDetails>
                 <BoldText>Status:</BoldText>
                 <p>{showStatus(booking.dateFrom, booking.dateTo)}</p>
-              </div>
-              <div className="flexLine">
+              </ReservationDetails>
+
+              <ReservationDetails>
                 <BoldText>Check-in:</BoldText>
                 <p>{dayjs(booking.dateFrom).format("DD.MM.YYYY")}</p>
-              </div>
-              <div className="flexLine">
+              </ReservationDetails>
+
+              <ReservationDetails>
                 <BoldText>Check-out:</BoldText>
                 <p>{dayjs(booking.dateTo).format("DD.MM.YYYY")}</p>
-              </div>
+              </ReservationDetails>
 
-              <div className="flexLine">
+              <ReservationDetails>
                 <BoldText>Guests:</BoldText>
                 <p>{booking.guests}</p>
-              </div>
-              <div className="flexLine">
+              </ReservationDetails>
+
+              <ReservationDetails>
                 <BoldText>Total income:</BoldText>
                 <p>
                   $
@@ -76,7 +81,8 @@ export default function Reservations(data) {
                     booking.price
                   )}
                 </p>
-              </div>
+              </ReservationDetails>
+
               <hr />
             </ReservationCard>
           ))}

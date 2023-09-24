@@ -6,6 +6,7 @@ import {
   VenuesContainer,
   VenueCard,
   VenueDetails,
+  VenueInfo,
 } from "./ManagerVenues.style";
 
 export default function VenuesManager(data) {
@@ -18,20 +19,25 @@ export default function VenuesManager(data) {
           {venues.map((venue) => (
             <Link to={`/venue/${venue.id}`} key={venue.id}>
               <VenueCard>
-                <img src={venue.media} />
+                <VenueInfo>
+                  <img src={venue.media} />
+                  <h2>{truncate(venue.name, 35)}</h2>
+                </VenueInfo>
+
                 <VenueDetails>
-                  <h2>{truncate(venue.name, 30)}</h2>
-                  <div className="flexLine">
-                    <FontAwesomeIcon icon={faLocationDot} />
-                    <p>{venue.location?.city},&nbsp;</p>
-                    <p>{venue.location?.country}</p>
-                  </div>
-                  <div className="flexLine">
-                    <FontAwesomeIcon icon={faPeopleRoof} />
-                    <p>{venue.maxGuests}</p>
-                  </div>
+                  <FontAwesomeIcon icon={faLocationDot} />
+                  <p>
+                    {venue.location?.address}, {venue.location?.zip},{" "}
+                    {venue.location?.city}, {venue.location?.country}
+                  </p>
+                </VenueDetails>
+
+                <VenueDetails>
+                  <FontAwesomeIcon icon={faPeopleRoof} />
+                  <p>{venue.maxGuests}</p>
                 </VenueDetails>
               </VenueCard>
+              <hr />
             </Link>
           ))}
         </>
