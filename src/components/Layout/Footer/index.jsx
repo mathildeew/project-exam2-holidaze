@@ -1,5 +1,5 @@
 import { useMatch } from "react-router-dom";
-import { FooterContainer } from "./Footer.style";
+import { FooterContainer, FooterContent } from "./Footer.style";
 
 export default function Footer() {
   const path = useMatch("/user/*");
@@ -8,9 +8,8 @@ export default function Footer() {
     <>
       {!path && (
         <FooterContainer>
-          <div className="footerContent">
+          <FooterContent>
             <svg
-              id="Logo"
               xmlns="http://www.w3.org/2000/svg"
               width="580"
               height="109.695"
@@ -73,8 +72,8 @@ export default function Footer() {
                 fill="#4b3d60"
               />
             </svg>
-            <p>2023 Holidaze - Mathilde Elinor Wiik</p>
-          </div>
+            <p>&#169; 2023 Holidaze - Mathilde Elinor Wiik</p>
+          </FooterContent>
         </FooterContainer>
       )}
     </>

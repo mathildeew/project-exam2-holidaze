@@ -22,7 +22,7 @@ export const ManagerContainer = styled.main`
 export const ManageButton = styled.div`
   background-color: white;
   width: 100%;
-  padding: 2px;
+  padding: 20px;
   margin-bottom: 0px;
   position: fixed;
   bottom: 0px;
@@ -74,9 +74,4 @@ export const ButtonsShift = styled.div`
     font-size: 2rem;
     margin-right: 5px;
   }
-`;
-
-export const Carousel = styled.div`
-  width: 100%;
-  ${displayFlex({})};
 `;

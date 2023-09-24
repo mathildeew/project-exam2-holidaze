@@ -11,20 +11,18 @@ import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { useLoggedIn } from "../../../context/Context";
 import { MainButton } from "../../../styles/Buttons";
 import { Overlay, Popup } from "../../../styles/Popup";
-import { BoldText } from "../../../styles/Text";
-import {
-  ButtonsContainer,
-  ButtonsShift,
-  Carousel,
-  ManageButton,
-  ManagerContainer,
-} from "./Manager.style";
 import Reservations from "../../../components/ManagerReservations";
 import VenuesForm from "../../../components/ManagerVenues/VenuesForm";
 import VenuesManager from "../../../components/ManagerVenues";
 import Loader from "../../../components/Loader/";
 import UnAuthUser from "../../../components/UnauthUser";
 import apiEndpoints from "../../../constants/endpoints";
+import {
+  ButtonsContainer,
+  ButtonsShift,
+  ManageButton,
+  ManagerContainer,
+} from "./Manager.style";
 
 export default function Manage() {
   const { isLoggedIn, isManager } = useLoggedIn();
@@ -62,7 +60,7 @@ export default function Manage() {
       </Popup>
 
       <ManagerContainer className="maxWidth">
-        <h1>Manage your venues & reservations</h1>
+        <h1>Manage your venues &#x26; reservations</h1>
 
         <ManageButton>
           <MainButton
@@ -104,10 +102,8 @@ export default function Manage() {
           <hr className={showVenues === true ? "left" : "right"} />
         </ButtonsContainer>
 
-        <Carousel>
-          {showVenues && <VenuesManager data={venues} />}
-          {showReservations && <Reservations data={venues} />}
-        </Carousel>
+        {showVenues && <VenuesManager data={venues} />}
+        {showReservations && <Reservations data={venues} />}
       </ManagerContainer>
     </>
   );

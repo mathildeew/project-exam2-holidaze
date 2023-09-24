@@ -3,24 +3,23 @@ import { displayFlex } from "../../../styles/mixins";
 
 export const FooterContainer = styled.footer`
   background-color: var(--light-red);
-  height: 320px;
   margin: 0 auto;
   ${displayFlex({
     align: "center",
     justify: "center",
   })}
+`;
 
-  .footerContent {
-    width: 100%;
-    max-width: 558px;
-    padding: 0 20px;
+export const FooterContent = styled.div`
+  width: 100%;
+  max-width: 558px;
+  padding: 20px 0;
 
-    svg {
-      width: 200px;
-    }
+  svg {
+    width: 200px;
+  }
 
-    p {
-      color: var(--primary);
-    }
+  p {
+    color: var(--primary);
   }
 `;
