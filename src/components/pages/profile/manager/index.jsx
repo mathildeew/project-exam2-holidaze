@@ -19,7 +19,7 @@ import {
   Carousel,
   ManageButton,
   ManagerContainer,
-} from "./manager.style";
+} from "./Manager.style";
 import VenuesForm from "../../../ManagerVenues/VenuesForm";
 import Reservations from "../../../ManagerReservations";
 import VenuesManager from "../../../ManagerVenues";
