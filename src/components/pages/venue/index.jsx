@@ -46,7 +46,6 @@ export default function Venue() {
   const { isLoggedIn } = useLoggedIn();
   const { id } = useParams();
   const userName = get("name");
-  const ref = useRef(null);
   const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
 
@@ -78,11 +77,10 @@ export default function Venue() {
     getData();
   }, [getData]);
 
-  // const {} = venue;
-
   const createdDate = new Date(created).toLocaleDateString();
   const updatedDate = new Date(updated).toLocaleDateString();
 
+  const ref = useRef(null);
   const handleClickScroll = () => {
     const scrollTop = ref.current;
     scrollTop.scrollIntoView({ behavior: "smooth" });
