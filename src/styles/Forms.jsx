@@ -38,16 +38,12 @@ export const Inputs = styled.div`
   }
 
   input {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     background-color: white;
     width: 100%;
     border: none;
     padding: 1px;
     outline: none;
-
-    ::placeholder {
-      font-size: 1.4rem;
-    }
 
     :focus {
       font-size: 1.6rem;
