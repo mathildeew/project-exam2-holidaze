@@ -11,7 +11,7 @@ export const OverlayContainer = styled.div`
     opacity: 0;
   }
   &.active {
-    height: 100%;
+    height: 1000%;
     width: 100%;
     opacity: 1;
     top: 0;

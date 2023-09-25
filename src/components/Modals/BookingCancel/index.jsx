@@ -1,7 +1,7 @@
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
 import { MainButton } from "../../../styles/Buttons";
-import { CancelBookingContainer } from "../Modal/Modal.style";
+import { CancelBookingContainer } from "./BookingCancel.style";
 
 export default function CancelReservation(data) {
   const { data: id } = data;

@@ -8,7 +8,7 @@ import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
 import { MainButton } from "../../../styles/Buttons";
 import { Form, InputContainer, Inputs } from "../../../styles/Forms";
-import { UpdateAvatarContainer } from "../Modal/Modal.style";
+import { UpdateAvatarContainer } from "./UpdateAvatar.style";
 
 export default function UpdateAvatar() {
   const { name, setAvatar } = useLoggedIn();

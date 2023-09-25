@@ -14,11 +14,6 @@ export const ModalContainer = styled.section`
     top: -100px;
   }
 
-  &.active {
-    height: 100%;
-    /* top: 0; */
-  }
-
   .close {
     font-size: 2.5rem;
     position: relative;
@@ -36,23 +31,33 @@ export const ModalContainer = styled.section`
   }
 
   &.updateAvatar,
+  &.registerManager,
   &.cancelBooking,
-  &.registerManager {
+  &.deleteModal {
     bottom: 0;
     height: 300px;
-    overflow-y: hidden;
+  }
+
+  &.updateAvatar,
+  &.registerManager,
+  &.cancelBooking {
+    height: 300px;
+  }
+
+  &.deleteModal {
+    height: 200px;
   }
 
   &.venueModal {
     overflow-y: scroll;
     @media (max-width: 767px) {
-      top: 0;
+      height: 100%;
+      top: 0px;
     }
-  }
 
-  &.deleteModal {
-    bottom: 0px;
-    height: 200px;
+    @media (min-width: 768px) {
+      height: 750px;
+    }
   }
 
   @media (min-width: 768px) {
@@ -62,21 +67,4 @@ export const ModalContainer = styled.section`
     left: 50%;
     transform: translate(-50%, -50%);
   }
-`;
-
-export const UpdateAvatarContainer = styled.div`
-  padding: 20px;
-  height: 100%;
-`;
-
-export const CancelBookingContainer = styled.div`
-  /* ${displayFlex({
-    direction: "column",
-    align: "center",
-  })}
-  padding: 20px;
-
-  p {
-    margin-bottom: 30px;
-  } */
 `;

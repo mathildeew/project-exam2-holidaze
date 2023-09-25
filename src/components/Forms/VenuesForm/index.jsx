@@ -151,7 +151,7 @@ export default function VenuesForm({ state, venue }) {
             <label htmlFor="description">Description of the venue</label>
             <textarea
               type="textbox"
-              rows={10}
+              rows={5}
               name="description"
               placeholder={
                 isNewState ? "A good description generates more visitors" : ""
