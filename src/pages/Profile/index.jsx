@@ -45,6 +45,7 @@ export default function Profile() {
           "Welcome back! Discover your perfect getaway with Holidaze. Manage your upcoming bookings."
         }
       />
+
       <Overlay showModal={showModal} />
       <Modal
         showModal={showModal}
@@ -54,10 +55,7 @@ export default function Profile() {
       />
 
       <ProfileContainer className="maxWidth">
-        <ProfileDetails
-          // setShowUpdateAvatar={setShowUpdateAvatar}
-          setShowModal={setShowModal}
-        />
+        <ProfileDetails setShowModal={setShowModal} />
 
         <ProfileCards setShowModal={setShowModal} />
         <hr />

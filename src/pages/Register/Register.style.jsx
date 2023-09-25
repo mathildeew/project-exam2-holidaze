@@ -30,6 +30,10 @@ export const RegisterContent = styled.section`
   }
 `;
 
+export const Logo = styled.div`
+  ${displayFlex({ direction: "column", align: "center" })}
+`;
+
 export const LoginLink = styled.div`
   ${displayFlex({})}
 
