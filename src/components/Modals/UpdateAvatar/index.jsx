@@ -28,12 +28,10 @@ export default function UpdateAvatar() {
   const { fetchApi, isLoading, isSuccess } = useApi();
 
   const onSubmit = async (formData) => {
-    setAvatar(formData.avatar);
-
     const response = await fetchApi(
       apiEndpoints(null, name).updateAvatar,
       "PUT",
-      { formData }
+      formData
     );
 
     if (response.status === 200) {

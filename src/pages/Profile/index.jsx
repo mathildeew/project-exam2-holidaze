@@ -17,30 +17,19 @@ import Bookings from "../../components/ProfileBookings";
 import { MainButton } from "../../styles/Buttons";
 import { BoldText } from "../../styles/Text";
 import { Overlay, Popup } from "../../styles/Popup";
-import {
-  AvatarContainer,
-  Card,
-  InfoContainer,
-  ProfileContainer,
-  ProfileContent,
-  ProfileDetails,
-} from "./Profile.styles";
+import { Card, ProfileContainer } from "./Profile.styles";
 import CancelReservation from "../../components/Modals/BookingCancel";
+import ProfileDetails from "../../components/ProfileDetails";
 
 export default function Profile() {
   const navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn, isManager, avatar, name, email } =
     useLoggedIn();
 
-  const [showUpdateAvatar, setShowUpdate] = useState(false);
+  const [showUpdateAvatar, setShowUpdateAvatar] = useState(false);
   const [showManagerReg, setShowManagerReg] = useState(false);
   const [showCancel, setShowCancel] = useState(false);
   const [bookingId, setBookingId] = useState("");
-
-  function logOut() {
-    setIsLoggedIn(false);
-    navigate("/");
-  }
 
   const {
     fetchApi,
@@ -87,7 +76,7 @@ export default function Profile() {
           icon={faXmark}
           className="close"
           onClick={() => {
-            setShowUpdate(false);
+            setShowUpdateAvatar(false);
             setShowManagerReg(false);
             setShowCancel(false);
           }}
@@ -98,44 +87,7 @@ export default function Profile() {
       </Popup>
 
       <ProfileContainer className="maxWidth">
-        <ProfileDetails>
-          <ProfileContent>
-            <AvatarContainer
-              onClick={() => setShowUpdate(!showUpdateAvatar)}
-              aria-label="Open update avatar"
-            >
-              {avatar ? (
-                <img src={avatar} alt={name} />
-              ) : (
-                <img
-                  src="/public/images/placeholder/Profile_avatar_placeholder_large.png"
-                  alt={name}
-                />
-              )}
-              <FontAwesomeIcon icon={faCamera} />
-            </AvatarContainer>
-
-            <InfoContainer>
-              <h1>{name}</h1>
-              {isManager === true && (
-                <div className="flexLine">
-                  <FontAwesomeIcon icon={faCircleCheck} />
-                  <BoldText>Venue manager</BoldText>
-                </div>
-              )}
-              <p>{email}</p>
-
-              <MainButton
-                isSmall={true}
-                isWhite={true}
-                onClick={() => logOut()}
-                aria-label="Log out"
-              >
-                Log out
-              </MainButton>
-            </InfoContainer>
-          </ProfileContent>
-        </ProfileDetails>
+        <ProfileDetails setShowUpdateAvatar={setShowUpdateAvatar} />
 
         {isManager === false ? (
           <Card

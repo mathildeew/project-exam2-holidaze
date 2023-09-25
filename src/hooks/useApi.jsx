@@ -29,7 +29,6 @@ const useApi = () => {
       setIsSuccess(true);
       setIsError(false);
       setErrorMessage(null);
-
       return response;
     } catch (error) {
       setIsError(true);
