@@ -16,12 +16,13 @@ import UpdateAvatar from "../../components/Modals/UpdateAvatar";
 import Bookings from "../../components/ProfileBookings";
 import { MainButton } from "../../styles/Buttons";
 import { BoldText } from "../../styles/Text";
-import { Overlay, ModalContainer } from "../../styles/Modals";
+import { ModalContainer } from "../../styles/Modals";
 import { ProfileContainer } from "./Profile.styles";
 import CancelReservation from "../../components/Modals/BookingCancel";
 import ProfileDetails from "../../components/ProfileDetails";
 import ProfileCards from "../../components/ProfileCards";
 import { openOverlay } from "../../js/noScroll";
+import Overlay from "../../components/Modals/Overlay";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ export default function Profile() {
   const [showManagerReg, setShowManagerReg] = useState(false);
   const [showCancel, setShowCancel] = useState(false);
   const [bookingId, setBookingId] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const {
     fetchApi,
@@ -47,8 +49,6 @@ export default function Profile() {
     getData();
   }, [getData]);
 
-  const [showOverlay, setShowOverlay] = useState(false);
-
   function openOverlay() {
     document.body.style.overflor = "hidden";
   }
@@ -58,7 +58,7 @@ export default function Profile() {
 
   return (
     <>
-      <Overlay
+      {/* <Overlay
         className={
           showUpdateAvatar
             ? "overlay active"
@@ -69,7 +69,8 @@ export default function Profile() {
             : "overlay inactive"
         }
         open={showOverlay}
-      />
+      /> */}
+      <Overlay showModal={showModal} />
       <ModalContainer
         className={
           showUpdateAvatar
@@ -88,7 +89,7 @@ export default function Profile() {
             setShowUpdateAvatar(false);
             setShowManagerReg(false);
             setShowCancel(false);
-            setShowOverlay(true);
+            setShowModal(false);
           }}
         />
         {showUpdateAvatar && <UpdateAvatar />}
@@ -97,7 +98,10 @@ export default function Profile() {
       </ModalContainer>
 
       <ProfileContainer className="maxWidth">
-        <ProfileDetails setShowUpdateAvatar={setShowUpdateAvatar} />
+        <ProfileDetails
+          setShowUpdateAvatar={setShowUpdateAvatar}
+          setShowModal={setShowModal}
+        />
 
         <ProfileCards setShowManagerReg={setShowManagerReg} />
         <hr />
@@ -106,6 +110,7 @@ export default function Profile() {
           bookings={bookings}
           setShowCancel={setShowCancel}
           setBookingId={setBookingId}
+          setShowModal={setShowModal}
         />
       </ProfileContainer>
     </>

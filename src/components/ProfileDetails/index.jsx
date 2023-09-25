@@ -12,7 +12,7 @@ import {
 import { useLoggedIn } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
 
-export default function ProfileDetails({ setShowUpdateAvatar }) {
+export default function ProfileDetails({ setShowUpdateAvatar, setShowModal }) {
   const { name, avatar, isManager, email, setIsLoggedIn } = useLoggedIn();
   const navigate = useNavigate();
 
@@ -24,7 +24,10 @@ export default function ProfileDetails({ setShowUpdateAvatar }) {
   return (
     <ProfileContent>
       <AvatarContainer
-        onClick={() => setShowUpdateAvatar(true)}
+        onClick={() => {
+          setShowUpdateAvatar(true);
+          setShowModal(true);
+        }}
         aria-label="Open update avatar"
       >
         {avatar ? (

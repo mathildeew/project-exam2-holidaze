@@ -20,7 +20,7 @@ import useApi from "../../hooks/useApi";
 import apiEndpoints from "../../constants/endpoints";
 import { BoldText, SmallText } from "../../styles/Text";
 import { MainButton } from "../../styles/Buttons";
-import { Overlay, ModalContainer } from "../../styles/Modals";
+import { ModalContainer } from "../../styles/Modals";
 import VenuesForm from "../../components/Forms/VenuesForm";
 import DeleteVenue from "../../components/DeleteVenue";
 import MakeBooking from "../../components/Forms/MakeBooking";
@@ -41,6 +41,7 @@ import {
   ImageContainer,
   ManagerButtons,
 } from "./Venue.style";
+import Overlay from "../../components/Modals/Overlay";
 
 export default function Venue() {
   const { isLoggedIn } = useLoggedIn();
@@ -48,6 +49,7 @@ export default function Venue() {
   const userName = get("name");
   const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const {
     fetchApi,
@@ -91,7 +93,7 @@ export default function Venue() {
 
   return (
     <>
-      <Overlay
+      {/* <Overlay
         className={
           showEdit
             ? "overlay active"
@@ -99,7 +101,8 @@ export default function Venue() {
             ? "overlay active"
             : "overlay inactive"
         }
-      />
+      /> */}
+      <Overlay showModal={showModal} />
       <ModalContainer
         className={
           showEdit
@@ -116,6 +119,7 @@ export default function Venue() {
           onClick={() => {
             setShowEdit(false);
             setShowDelete(false);
+            setShowModal(false);
           }}
         />
         {showEdit && (
@@ -160,8 +164,22 @@ export default function Venue() {
       <VenueContainer>
         {owner?.name === userName && (
           <ManagerButtons>
-            <MainButton onClick={() => setShowEdit(true)}>Edit</MainButton>
-            <MainButton onClick={() => setShowDelete(true)}>Delete</MainButton>
+            <MainButton
+              onClick={() => {
+                setShowEdit(true);
+                setShowModal(true);
+              }}
+            >
+              Edit
+            </MainButton>
+            <MainButton
+              onClick={() => {
+                setShowDelete(true);
+                setShowModal(true);
+              }}
+            >
+              Delete
+            </MainButton>
           </ManagerButtons>
         )}
         <ImageContainer>

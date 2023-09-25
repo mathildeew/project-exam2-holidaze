@@ -10,7 +10,7 @@ import {
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { useLoggedIn } from "../../../context/Context";
 import { MainButton } from "../../../styles/Buttons";
-import { Overlay, ModalContainer } from "../../../styles/Modals";
+import { ModalContainer } from "../../../styles/Modals";
 import Reservations from "../../../components/ManagerReservations";
 import VenuesForm from "../../../components/Forms/VenuesForm";
 import VenuesManager from "../../../components/ManagerVenues";
@@ -23,6 +23,7 @@ import {
   ManageButton,
   ManagerContainer,
 } from "./Manager.style";
+import Overlay from "../../../components/Modals/Overlay";
 
 export default function Manage() {
   const { isLoggedIn, isManager } = useLoggedIn();
@@ -46,19 +47,18 @@ export default function Manage() {
 
   return (
     <>
-      <Overlay className={showModal ? "overlay active" : "overlay inactive"}>
-        <ModalContainer
-          className={showModal ? "popup active venueModal" : "popup inactive"}
-        >
-          <FontAwesomeIcon
-            icon={faXmark}
-            className="close"
-            aria-label="Close register new venu"
-            onClick={() => setShowModal(false)}
-          />
-          {showModal && <VenuesForm venue={{}} state={"new"} />}
-        </ModalContainer>
-      </Overlay>
+      <Overlay showModal={showModal} />
+      <ModalContainer
+        className={showModal ? "popup active venueModal" : "popup inactive"}
+      >
+        <FontAwesomeIcon
+          icon={faXmark}
+          className="close"
+          aria-label="Close register new venu"
+          onClick={() => setShowModal(false)}
+        />
+        {showModal && <VenuesForm venue={{}} state={"new"} />}
+      </ModalContainer>
 
       <ManagerContainer className="maxWidth">
         <h1>Manage your venues &#x26; reservations</h1>
