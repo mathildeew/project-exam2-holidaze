@@ -12,18 +12,14 @@ import {
   faLocationDot,
   faStar,
   faCircle,
-  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import { get } from "../../js/storage/localStorage";
 import { useLoggedIn } from "../../context/Context";
 import useApi from "../../hooks/useApi";
 import apiEndpoints from "../../constants/endpoints";
 import { BoldText, SmallText } from "../../styles/Text";
 import { MainButton } from "../../styles/Buttons";
-import { ModalContainer } from "../../styles/Modals";
 import Overlay from "../../components/Modals/Overlay";
-import VenuesForm from "../../components/Forms/VenuesForm";
-import DeleteVenue from "../../components/DeleteVenue";
+import Modal from "../../components/Modals/Modal";
 import MakeBooking from "../../components/Forms/MakeBooking";
 import Loader from "../../components/Loader/";
 import {
@@ -42,7 +38,6 @@ import {
   ImageContainer,
   ManagerButtons,
 } from "./Venue.style";
-import Modal from "../../components/Modals/Modal";
 
 export default function Venue() {
   const { id } = useParams();

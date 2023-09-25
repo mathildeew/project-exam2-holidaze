@@ -1,17 +1,12 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { MainButton } from "../../../styles/Buttons";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
-import { FormContainer, VenueFasc } from "./VenuesForm.style.jsx";
-import { useEffect } from "react";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
+import { MainButton } from "../../../styles/Buttons";
 import { InputContainer, Inputs } from "../../../styles/Forms";
-import { id } from "date-fns/locale";
+import { FormContainer, VenueFasc } from "./VenuesForm.style.jsx";
 
 export default function VenuesForm({ state, venue }) {
   const { id, name, description, location, maxGuests, media, meta, price } =

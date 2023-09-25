@@ -7,8 +7,8 @@ import { set } from "../../../js/storage/localStorage";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
 import { MainButton } from "../../../styles/Buttons";
-import { UpdateAvatarContainer } from "../../../styles/Modals";
 import { Form, InputContainer, Inputs } from "../../../styles/Forms";
+import { UpdateAvatarContainer } from "../Modal/Modal.style";
 
 export default function UpdateAvatar() {
   const { name, setAvatar } = useLoggedIn();

@@ -1,16 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { useLoggedIn } from "../../context/Context";
 import { MainButton } from "../../styles/Buttons";
 import { BoldText } from "../../styles/Text";
-
 import {
   ProfileContent,
   AvatarContainer,
   InfoContainer,
   ManagerCheck,
 } from "./ProfileDetails.style";
-import { useLoggedIn } from "../../context/Context";
-import { useNavigate } from "react-router-dom";
 
 export default function ProfileDetails({ setShowModal }) {
   const { name, avatar, isManager, email, setIsLoggedIn } = useLoggedIn();

@@ -1,6 +1,6 @@
-import apiEndpoints from "../../../constants/endpoints";
 import { useLoggedIn } from "../../../context/Context";
 import useApi from "../../../hooks/useApi";
+import apiEndpoints from "../../../constants/endpoints";
 import { MainButton } from "../../../styles/Buttons";
 import { RegisterManagerContainer } from "./ManagerReg.style";
 

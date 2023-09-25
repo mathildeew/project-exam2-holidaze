@@ -1,30 +1,26 @@
 import { useCallback, useState, useEffect } from "react";
-import { get } from "../../../js/storage/localStorage";
-import useApi from "../../../hooks/useApi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHouseCircleCheck,
-  faXmark,
   faSquarePlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { useLoggedIn } from "../../../context/Context";
+import UnAuthUser from "../../../components/UnauthUser";
+import useApi from "../../../hooks/useApi";
+import apiEndpoints from "../../../constants/endpoints";
 import { MainButton } from "../../../styles/Buttons";
-import { ModalContainer } from "../../../styles/Modals";
+import Overlay from "../../../components/Modals/Overlay";
+import Modal from "../../../components/Modals/Modal";
 import Reservations from "../../../components/ManagerReservations";
-import VenuesForm from "../../../components/Forms/VenuesForm";
 import VenuesManager from "../../../components/ManagerVenues";
 import Loader from "../../../components/Loader/";
-import UnAuthUser from "../../../components/UnauthUser";
-import apiEndpoints from "../../../constants/endpoints";
 import {
   ButtonsContainer,
   ButtonsShift,
   ManageButton,
   ManagerContainer,
 } from "./Manager.style";
-import Overlay from "../../../components/Modals/Overlay";
-import Modal from "../../../components/Modals/Modal";
 
 export default function Manage() {
   const { isLoggedIn, isManager, name } = useLoggedIn();

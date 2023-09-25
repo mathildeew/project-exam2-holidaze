@@ -10,17 +10,16 @@ import { MainButton } from "../../../styles/Buttons";
 import { BoldText } from "../../../styles/Text";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
+import { Form, InputContainer, Inputs } from "../../../styles/Forms";
 import {
   BookingInfo,
   CalendarContainer,
   DatesContainer,
   Guests,
   MakeBookingContainer,
-  // Inputs,
   GuestsIcons,
   BookingText,
 } from "./MakeBooking.style";
-import { Form, InputContainer, Inputs } from "../../../styles/Forms";
 
 export default function MakeBooking({ id, bookings, price, maxGuests }) {
   // https://www.npmjs.com/package/react-date-range

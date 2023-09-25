@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { truncate } from "../../js/truncate";
+import { NoResults } from "../../pages/Venue/Venue.style";
 import { BoldText, SmallText } from "../../styles/Text";
 import {
   VenuesContainer,
@@ -13,7 +14,6 @@ import {
   VenueDetails,
   VenueRating,
 } from "./Venues.style";
-import { NoResults } from "../../pages/Venue/Venue.style";
 
 export default function Venues(data) {
   const { data: venues } = data;
