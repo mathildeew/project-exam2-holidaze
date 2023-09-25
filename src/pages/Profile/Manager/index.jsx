@@ -24,13 +24,13 @@ import {
   ManagerContainer,
 } from "./Manager.style";
 import Overlay from "../../../components/Modals/Overlay";
+import Modal from "../../../components/Modals/Modal";
 
 export default function Manage() {
-  const { isLoggedIn, isManager } = useLoggedIn();
-  const name = get("name");
+  const { isLoggedIn, isManager, name } = useLoggedIn();
+  const [showModal, setShowModal] = useState(false);
   const [showVenues, setShowVenues] = useState(true);
   const [showReservations, setShowReservations] = useState(false);
-  const [showModal, setShowModal] = useState(false);
 
   const { fetchApi, data: venues, isLoading } = useApi();
 
@@ -48,17 +48,7 @@ export default function Manage() {
   return (
     <>
       <Overlay showModal={showModal} />
-      <ModalContainer
-        className={showModal ? "popup active venueModal" : "popup inactive"}
-      >
-        <FontAwesomeIcon
-          icon={faXmark}
-          className="close"
-          aria-label="Close register new venu"
-          onClick={() => setShowModal(false)}
-        />
-        {showModal && <VenuesForm venue={{}} state={"new"} />}
-      </ModalContainer>
+      <Modal showModal={showModal} setShowModal={setShowModal} />
 
       <ManagerContainer className="maxWidth">
         <h1>Manage your venues &#x26; reservations</h1>
@@ -67,7 +57,7 @@ export default function Manage() {
           <MainButton
             aria-label="Open new venue modal"
             onClick={() => {
-              setShowModal(!showModal);
+              setShowModal("newVenue");
             }}
           >
             <FontAwesomeIcon icon={faSquarePlus} />

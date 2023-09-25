@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 import { useLoggedIn } from "../../context/Context";
 import { Card } from "./ProfileCards.style";
 
-export default function ProfileCards({ setShowManagerReg }) {
+export default function ProfileCards({ setShowModal }) {
   const { isManager } = useLoggedIn();
 
   return (
     <>
       {isManager === false ? (
         <Card
-          onClick={() => setShowManagerReg(true)}
+          onClick={() => setShowModal("registerAsManager")}
           aria-label="Open venue manager register"
         >
           <span className="heading">Register as venue manager</span>

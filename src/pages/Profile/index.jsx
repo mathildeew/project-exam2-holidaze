@@ -23,15 +23,12 @@ import ProfileDetails from "../../components/ProfileDetails";
 import ProfileCards from "../../components/ProfileCards";
 import { openOverlay } from "../../js/noScroll";
 import Overlay from "../../components/Modals/Overlay";
+import Modal from "../../components/Modals/Modal";
 
 export default function Profile() {
   const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn, isManager, avatar, name, email } =
-    useLoggedIn();
+  const { isLoggedIn, name } = useLoggedIn();
 
-  const [showUpdateAvatar, setShowUpdateAvatar] = useState(false);
-  const [showManagerReg, setShowManagerReg] = useState(false);
-  const [showCancel, setShowCancel] = useState(false);
   const [bookingId, setBookingId] = useState("");
   const [showModal, setShowModal] = useState(false);
 
@@ -49,66 +46,30 @@ export default function Profile() {
     getData();
   }, [getData]);
 
-  function openOverlay() {
-    document.body.style.overflor = "hidden";
-  }
-
   if (!isLoggedIn) return <UnAuthUser />;
   if (isLoading) return <Loader />;
 
   return (
     <>
-      {/* <Overlay
-        className={
-          showUpdateAvatar
-            ? "overlay active"
-            : showManagerReg
-            ? "overlay active"
-            : showCancel
-            ? "overlay active"
-            : "overlay inactive"
-        }
-        open={showOverlay}
-      /> */}
       <Overlay showModal={showModal} />
-      <ModalContainer
-        className={
-          showUpdateAvatar
-            ? "popup active updateAvatar"
-            : showManagerReg
-            ? "popup active registerManager"
-            : showCancel
-            ? "popup active cancelBookin"
-            : "popup inactive"
-        }
-      >
-        <FontAwesomeIcon
-          icon={faXmark}
-          className="close"
-          onClick={() => {
-            setShowUpdateAvatar(false);
-            setShowManagerReg(false);
-            setShowCancel(false);
-            setShowModal(false);
-          }}
-        />
-        {showUpdateAvatar && <UpdateAvatar />}
-        {showManagerReg && <RegisterManager />}
-        {showCancel && <CancelReservation data={bookingId} />}
-      </ModalContainer>
+      <Modal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        modal={showModal}
+        bookingId={bookingId}
+      />
 
       <ProfileContainer className="maxWidth">
         <ProfileDetails
-          setShowUpdateAvatar={setShowUpdateAvatar}
+          // setShowUpdateAvatar={setShowUpdateAvatar}
           setShowModal={setShowModal}
         />
 
-        <ProfileCards setShowManagerReg={setShowManagerReg} />
+        <ProfileCards setShowModal={setShowModal} />
         <hr />
 
         <Bookings
           bookings={bookings}
-          setShowCancel={setShowCancel}
           setBookingId={setBookingId}
           setShowModal={setShowModal}
         />

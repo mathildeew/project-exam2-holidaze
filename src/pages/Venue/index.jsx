@@ -21,6 +21,7 @@ import apiEndpoints from "../../constants/endpoints";
 import { BoldText, SmallText } from "../../styles/Text";
 import { MainButton } from "../../styles/Buttons";
 import { ModalContainer } from "../../styles/Modals";
+import Overlay from "../../components/Modals/Overlay";
 import VenuesForm from "../../components/Forms/VenuesForm";
 import DeleteVenue from "../../components/DeleteVenue";
 import MakeBooking from "../../components/Forms/MakeBooking";
@@ -41,20 +42,17 @@ import {
   ImageContainer,
   ManagerButtons,
 } from "./Venue.style";
-import Overlay from "../../components/Modals/Overlay";
+import Modal from "../../components/Modals/Modal";
 
 export default function Venue() {
-  const { isLoggedIn } = useLoggedIn();
   const { id } = useParams();
-  const userName = get("name");
-  const [showEdit, setShowEdit] = useState(false);
-  const [showDelete, setShowDelete] = useState(false);
+  const { isLoggedIn, name } = useLoggedIn();
   const [showModal, setShowModal] = useState(false);
 
   const {
     fetchApi,
     data: {
-      name,
+      name: venueTitle,
       description,
       location,
       price,
@@ -93,54 +91,24 @@ export default function Venue() {
 
   return (
     <>
-      {/* <Overlay
-        className={
-          showEdit
-            ? "overlay active"
-            : showDelete
-            ? "overlay active"
-            : "overlay inactive"
-        }
-      /> */}
       <Overlay showModal={showModal} />
-      <ModalContainer
-        className={
-          showEdit
-            ? "popup active venueModal"
-            : showDelete
-            ? "popup active deleteModal"
-            : "popup inactive"
-        }
-      >
-        <FontAwesomeIcon
-          icon={faXmark}
-          className="close"
-          aria-label="Close register new venu"
-          onClick={() => {
-            setShowEdit(false);
-            setShowDelete(false);
-            setShowModal(false);
-          }}
-        />
-        {showEdit && (
-          <VenuesForm
-            venue={{
-              id,
-              name,
-              description,
-              location,
-              price,
-              maxGuests,
-              media,
-              meta,
-            }}
-            state={"edit"}
-          />
-        )}
-        {showDelete && <DeleteVenue data={id} />}
-      </ModalContainer>
+      <Modal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        modal={showModal}
+        venue={{
+          id,
+          name: venueTitle,
+          description,
+          location,
+          price,
+          maxGuests,
+          media,
+          meta,
+        }}
+      />
 
-      {owner?.name !== userName && (
+      {owner?.name !== name && (
         <BookNowBtn>
           <div className="flexLine">
             <BoldText>${price}</BoldText>
@@ -162,20 +130,18 @@ export default function Venue() {
       )}
 
       <VenueContainer>
-        {owner?.name === userName && (
+        {owner?.name === name && (
           <ManagerButtons>
             <MainButton
               onClick={() => {
-                setShowEdit(true);
-                setShowModal(true);
+                setShowModal("editVenue");
               }}
             >
               Edit
             </MainButton>
             <MainButton
               onClick={() => {
-                setShowDelete(true);
-                setShowModal(true);
+                setShowModal("deleteVenue");
               }}
             >
               Delete
@@ -204,7 +170,7 @@ export default function Venue() {
             }}
           >
             {media?.map((index) => (
-              <img src={media} key={index} alt={name} />
+              <img src={media} key={index} alt={venueTitle} />
             ))}
           </Carousel>
         </ImageContainer>
@@ -227,7 +193,7 @@ export default function Venue() {
                   )}
                 </div>
               </VenueTopLine>
-              <h1>{name}</h1>
+              <h1>{venueTitle}</h1>
 
               <Fascilities>
                 <Icons>
@@ -310,7 +276,7 @@ export default function Venue() {
             </Location>
           </VenueInfo>
 
-          {isLoggedIn === true && owner?.name !== userName && (
+          {isLoggedIn === true && owner?.name !== name && (
             <>
               <div ref={ref} id="scrollTop"></div>
 

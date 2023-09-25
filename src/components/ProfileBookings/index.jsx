@@ -10,12 +10,7 @@ import {
   BookingsContainer,
 } from "./ProfileBookings.style";
 
-export default function Bookings({
-  bookings,
-  setShowCancel,
-  setBookingId,
-  setShowModal,
-}) {
+export default function Bookings({ bookings, setBookingId, setShowModal }) {
   return (
     <BookingsContainer>
       <h2>Your bookings</h2>
@@ -53,8 +48,7 @@ export default function Bookings({
                     isSmall={true}
                     onClick={() => {
                       setBookingId(booking.id);
-                      setShowCancel(true);
-                      setShowModal(true);
+                      setShowModal("cancelBooking");
                     }}
                   >
                     Cancel booking

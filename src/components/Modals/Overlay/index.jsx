@@ -2,7 +2,7 @@ import { OverlayContainer } from "./Overlay.style";
 
 export default function Overlay({ showModal }) {
   function noScroll() {
-    if (showModal === true) {
+    if (showModal) {
       document.body.style.overflow = "hidden";
     }
   }
@@ -12,6 +12,8 @@ export default function Overlay({ showModal }) {
       document.body.style.overflow = "unset";
     }
   }
+
+  // console.log(typeof showModal);
 
   return (
     <OverlayContainer
