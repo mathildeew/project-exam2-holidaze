@@ -23,7 +23,7 @@ import { MainButton } from "../../styles/Buttons";
 import { Overlay, Popup } from "../../styles/Popup";
 import VenuesForm from "../../components/Forms/VenuesForm";
 import DeleteVenue from "../../components/DeleteVenue";
-import MakeBooking from "../../components/MakeBooking";
+import MakeBooking from "../../components/Forms/MakeBooking";
 import Loader from "../../components/Loader/";
 import {
   BookNowBtn,

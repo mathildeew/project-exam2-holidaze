@@ -4,6 +4,7 @@ import { displayFlex } from "./mixins";
 export const Form = styled.form`
   margin-bottom: 20px;
   height: 100%;
+
   ${displayFlex({
     direction: "column",
   })}
@@ -19,6 +20,7 @@ export const Form = styled.form`
 
 export const InputContainer = styled.div`
   margin-bottom: 20px;
+  width: 100%;
 `;
 
 export const Inputs = styled.div`

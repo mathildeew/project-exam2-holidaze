@@ -12,14 +12,6 @@ export const FormContainer = styled.div`
   }
 `;
 
-export const VenueInfo = styled.section`
-  /* input,
-  textarea {
-    border: 2px solid var(--primary);
-    margin-bottom: 20px;
-  } */
-`;
-
 export const VenueFasc = styled.section`
   div {
     input {

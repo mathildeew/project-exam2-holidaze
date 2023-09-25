@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
-import { FormContainer, VenueFasc, VenueInfo } from "./VenuesForm.style.jsx";
+import { FormContainer, VenueFasc } from "./VenuesForm.style.jsx";
 import { useEffect } from "react";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";

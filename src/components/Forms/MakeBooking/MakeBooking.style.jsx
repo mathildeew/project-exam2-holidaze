@@ -1,30 +1,23 @@
 import styled from "styled-components";
-import { displayFlex } from "../../styles/mixins";
+import { displayFlex } from "../../../styles/mixins";
 
-export const MakeBookingContainer = styled.div`
-  max-width: 400px;
-
-  form {
-    ${displayFlex({
-      direction: "column",
-    })}
-  }
+export const MakeBookingContainer = styled.section`
+  width: 100%;
 
   h3 {
-    margin-bottom: 20px;
-  }
-
-  button {
     margin-bottom: 20px;
   }
 
   @media (min-width: 1024px) {
     width: 50%;
     height: 100%;
-    align-content: center;
     position: sticky;
     top: 40px;
     margin-top: 40px;
+  }
+
+  form {
+    width: fit-content;
   }
 `;
 
@@ -35,36 +28,11 @@ export const DatesContainer = styled.div`
   margin-bottom: 20px;
 
   ${displayFlex({
-    direction: "row",
     justify: "space-between",
   })}
 
   div:nth-child(1) {
     margin-right: 10px;
-  }
-`;
-
-export const Inputs = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border-radius: 8px;
-  border: 1px solid grey;
-  padding: 8px;
-
-  label {
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    margin-bottom: 3px;
-  }
-
-  input {
-    font-size: 1.6rem;
-    width: 100%;
-    border: none;
-    padding: 0;
-    outline: none;
   }
 `;
 
@@ -77,13 +45,13 @@ export const Guests = styled.div`
     justify: "space-between",
   })}
 
-  div:nth-child(1) {
+  div {
     margin-right: 10px;
   }
 `;
 
 export const GuestsIcons = styled.div`
-  width: 70px;
+  width: 90px;
   ${displayFlex({
     justify: "space-between",
   })}

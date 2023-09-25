@@ -5,21 +5,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleMinus, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { DateRange } from "react-date-range";
 import { eachDayOfInterval } from "date-fns";
-import { calculateDays, calculatePrice } from "../../js/storage/calculatePrice";
-import { MainButton } from "../../styles/Buttons";
-import { BoldText } from "../../styles/Text";
-import useApi from "../../hooks/useApi";
-import apiEndpoints from "../../constants/endpoints";
+import {
+  calculateDays,
+  calculatePrice,
+} from "../../../js/storage/calculatePrice";
+import { MainButton } from "../../../styles/Buttons";
+import { BoldText } from "../../../styles/Text";
+import useApi from "../../../hooks/useApi";
+import apiEndpoints from "../../../constants/endpoints";
 import {
   BookingInfo,
   CalendarContainer,
   DatesContainer,
   Guests,
   MakeBookingContainer,
-  Inputs,
+  // Inputs,
   GuestsIcons,
   BookingText,
 } from "./MakeBooking.style";
+import { Form, InputContainer, Inputs } from "../../../styles/Forms";
 
 export default function MakeBooking({ id, bookings, price, maxGuests }) {
   // https://www.npmjs.com/package/react-date-range
@@ -89,7 +93,7 @@ export default function MakeBooking({ id, bookings, price, maxGuests }) {
   return (
     <MakeBookingContainer>
       <h2>Make reservation</h2>
-      <form onSubmit={onFormSubmit}>
+      <Form onSubmit={onFormSubmit}>
         <CalendarContainer>
           <DateRange
             onChange={(item) => setDates([item.selection])}
@@ -103,29 +107,37 @@ export default function MakeBooking({ id, bookings, price, maxGuests }) {
             showDateDisplay={false}
           />
         </CalendarContainer>
-        <DatesContainer>
-          <Inputs>
-            <label>From</label>
-            <p>{dates[0].startDate.toLocaleDateString()}</p>
-          </Inputs>
 
-          <Inputs>
-            <label>To</label>
-            <p>{dates[0].endDate.toLocaleDateString()}</p>
-          </Inputs>
+        <DatesContainer>
+          <InputContainer>
+            <Inputs>
+              <label>From</label>
+              <p>{dates[0].startDate.toLocaleDateString()}</p>
+            </Inputs>
+          </InputContainer>
+
+          <InputContainer>
+            <Inputs>
+              <label>To</label>
+              <p>{dates[0].endDate.toLocaleDateString()}</p>
+            </Inputs>
+          </InputContainer>
         </DatesContainer>
 
         <Guests>
-          <Inputs>
-            <label htmlFor="guests">How many guests?</label>
-            <input
-              type="number"
-              name="guests"
-              max={maxGuests}
-              value={numberOfGuests}
-              onChange={onGuestChange}
-            />
-          </Inputs>
+          <InputContainer>
+            <Inputs>
+              <label htmlFor="guests">How many guests?</label>
+              <input
+                type="number"
+                name="guests"
+                max={maxGuests}
+                value={numberOfGuests}
+                onChange={onGuestChange}
+              />
+            </Inputs>
+          </InputContainer>
+
           <GuestsIcons>
             <FontAwesomeIcon icon={faCircleMinus} onClick={removeGuest} />
             <FontAwesomeIcon icon={faCirclePlus} onClick={addGuest} />
@@ -159,7 +171,7 @@ export default function MakeBooking({ id, bookings, price, maxGuests }) {
             ? "Reservated!"
             : "Make reservation"}
         </MainButton>
-      </form>
+      </Form>
     </MakeBookingContainer>
   );
 }
