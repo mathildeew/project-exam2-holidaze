@@ -25,30 +25,17 @@ const useApi = () => {
         headers: headers,
         data: data,
       });
+
       setData(response.data);
       setIsSuccess(true);
       setIsError(false);
       setErrorMessage(null);
       return response;
     } catch (error) {
+      setErrorMessage("Something went wrong");
       setIsError(true);
       setIsSuccess(false);
       setData([]);
-
-      if (!error.response) {
-        setErrorMessage(`Client-side error: ${error.message}`);
-        return isError;
-      } else {
-        const serverErrorMessage =
-          error.response.data.errors &&
-          Array.isArray(error.response.data.errors) &&
-          error.response.data.errors.length > 0
-            ? error.response.data.errors[0].message
-            : "Unknown server error";
-
-        console.log(error);
-        setErrorMessage(`${serverErrorMessage}`);
-      }
       return null;
     } finally {
       setIsLoading(false);

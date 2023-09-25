@@ -6,7 +6,6 @@ export default function apiEndpoints(id, name) {
     venues: `${holidaze}/venues?sort=created`,
     singleVenue: `${holidaze}/venues/${id}?_bookings=true&_owner=true`,
     updateVenue: `${holidaze}/venues/${id}`,
-    deleteVenue: `${holidaze}/venues/${id}`,
     profile: `${holidaze}/profiles/${name}?_bookings=true`,
     profileVenues: `${holidaze}/profiles/${name}/venues?_bookings=true`,
     registerAsManager: `${holidaze}/profiles/${name}`,

@@ -49,7 +49,7 @@ export default function Modal({
       {cancelBookingModal && <CancelReservation data={id} />}
       {newVenueModal && <VenuesForm venue={{}} state={"new"} />}
       {editVenueModal && <VenuesForm venue={venue} state={"edit"} />}
-      {deleteVenueModal && <DeleteVenue data={venue.id} />}
+      {deleteVenueModal && <DeleteVenue venueId={venue.id} />}
     </ModalContainer>
   );
 }
