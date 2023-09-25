@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Banner from "../../components/Banner";
 import RegisterForm from "../../components/Forms/Register";
+import { SEOHelmet } from "../../components/Helmet";
 // import { Logo } from "../User.style";
 import {
   RegisterContainer,
@@ -10,9 +11,16 @@ import {
 
 export default function Register() {
   return (
-    <RegisterContainer>
-      <RegisterContent>
-        {/* <Logo>
+    <>
+      <SEOHelmet
+        title={"Register | Holidaze - Discover your next getaway!"}
+        description={
+          "Hello! Register to discover your perfect getaway with Holidaze."
+        }
+      />
+      <RegisterContainer>
+        <RegisterContent>
+          {/* <Logo>
           <svg
             id="Layer_1"
             data-name="Layer 1"
@@ -38,15 +46,16 @@ export default function Register() {
           </svg>
           <h1>Welcome to Holidaze!</h1>
         </Logo> */}
-        <RegisterForm />
+          <RegisterForm />
 
-        <LoginLink>
-          <p>Already have an account?</p>
-          <Link to={"/login"}>Log in here</Link>
-        </LoginLink>
-      </RegisterContent>
+          <LoginLink>
+            <p>Already have an account?</p>
+            <Link to={"/login"}>Log in here</Link>
+          </LoginLink>
+        </RegisterContent>
 
-      <Banner />
-    </RegisterContainer>
+        <Banner />
+      </RegisterContainer>
+    </>
   );
 }

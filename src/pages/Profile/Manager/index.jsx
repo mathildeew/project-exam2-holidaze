@@ -21,6 +21,7 @@ import {
   ManageButton,
   ManagerContainer,
 } from "./Manager.style";
+import { SEOHelmet } from "../../../components/Helmet";
 
 export default function Manage() {
   const { isLoggedIn, isManager, name } = useLoggedIn();
@@ -43,6 +44,13 @@ export default function Manage() {
 
   return (
     <>
+      <SEOHelmet
+        title={`${name} | Manage your venues & reservations - Holidaze - Discover your next getaway!`}
+        description={
+          "Welcome back! Discover your perfect getaway with Holidaze. Manage your venues & reservations."
+        }
+      />
+
       <Overlay showModal={showModal} />
       <Modal showModal={showModal} setShowModal={setShowModal} />
 

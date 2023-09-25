@@ -38,6 +38,7 @@ import {
   ImageContainer,
   ManagerButtons,
 } from "./Venue.style";
+import { SEOHelmet } from "../../components/Helmet";
 
 export default function Venue() {
   const { id } = useParams();
@@ -86,6 +87,13 @@ export default function Venue() {
 
   return (
     <>
+      <SEOHelmet
+        title={`${venueTitle} | Holidaze - Discover your next getaway!`}
+        description={
+          "Welcome back! Discover your perfect getaway with Holidaze. Manage your venues & reservations."
+        }
+      />
+
       <Overlay showModal={showModal} />
       <Modal
         showModal={showModal}

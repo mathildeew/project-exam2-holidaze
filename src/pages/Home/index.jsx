@@ -7,6 +7,7 @@ import Loader from "../../components/Loader/";
 import Error from "../../components/Error";
 import Venues from "../../components/Venues";
 import { Hero, HomeContainer, Search, InputContainer } from "./Home.styles";
+import { SEOHelmet } from "../../components/Helmet";
 
 export default function Home() {
   const [searchedVenue, setSearchedVenue] = useState("");
@@ -33,24 +34,31 @@ export default function Home() {
   }
 
   return (
-    <HomeContainer>
-      <Hero>
-        <Search>
-          <h1>Discover your next getaway</h1>
-          <InputContainer>
-            <FontAwesomeIcon icon={faSearch} />
-            <input
-              placeholder="Search venue"
-              type="search"
-              onChange={onSearch}
-              value={searchedVenue}
-              aria-label="Search for venue"
-            ></input>
-          </InputContainer>
-        </Search>
-      </Hero>
-      {!searchedVenue && <Venues data={venues} />}
-      {searchedVenue && <Venues data={searchResults} />}
-    </HomeContainer>
+    <>
+      <SEOHelmet
+        title={"Holidaze - Discover your next getaway!"}
+        description={"Discover your perfect getaway with Holidaze."}
+      />
+
+      <HomeContainer>
+        <Hero>
+          <Search>
+            <h1>Discover your next getaway</h1>
+            <InputContainer>
+              <FontAwesomeIcon icon={faSearch} />
+              <input
+                placeholder="Search venue"
+                type="search"
+                onChange={onSearch}
+                value={searchedVenue}
+                aria-label="Search for venue"
+              ></input>
+            </InputContainer>
+          </Search>
+        </Hero>
+        {!searchedVenue && <Venues data={venues} />}
+        {searchedVenue && <Venues data={searchResults} />}
+      </HomeContainer>
+    </>
   );
 }

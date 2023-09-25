@@ -11,6 +11,7 @@ import ProfileDetails from "../../components/ProfileDetails";
 import ProfileCards from "../../components/ProfileCards";
 import Overlay from "../../components/Modals/Overlay";
 import Modal from "../../components/Modals/Modal";
+import { SEOHelmet } from "../../components/Helmet";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -38,6 +39,12 @@ export default function Profile() {
 
   return (
     <>
+      <SEOHelmet
+        title={`${name} | Manage your upcoming bookings | Holidaze - Discover your next getaway!`}
+        description={
+          "Welcome back! Discover your perfect getaway with Holidaze. Manage your upcoming bookings."
+        }
+      />
       <Overlay showModal={showModal} />
       <Modal
         showModal={showModal}

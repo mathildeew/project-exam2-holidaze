@@ -2,12 +2,21 @@ import { Link } from "react-router-dom";
 import { LoginContainer, LoginContent, RegisterLink } from "./Login.style";
 import LoginForm from "../../components/Forms/Login";
 import Banner from "../../components/Banner";
+import { SEOHelmet } from "../../components/Helmet";
 
 export default function Login() {
   return (
-    <LoginContainer>
-      <LoginContent>
-        {/* <Logo>
+    <>
+      <SEOHelmet
+        title={"Log in | Holidaze - Discover your next getaway!"}
+        description={
+          "Welcome back! Log in to discover your perfect getaway with Holidaze."
+        }
+      />
+
+      <LoginContainer>
+        <LoginContent>
+          {/* <Logo>
           <svg
             id="Layer_1"
             data-name="Layer 1"
@@ -34,14 +43,15 @@ export default function Login() {
           <h1>Welcome to Holidaze!</h1>
         </Logo> */}
 
-        <LoginForm />
+          <LoginForm />
 
-        <RegisterLink>
-          <p>Dont have an account?</p>
-          <Link to={"/register"}>Register here</Link>
-        </RegisterLink>
-      </LoginContent>
-      <Banner />
-    </LoginContainer>
+          <RegisterLink>
+            <p>Dont have an account?</p>
+            <Link to={"/register"}>Register here</Link>
+          </RegisterLink>
+        </LoginContent>
+        <Banner />
+      </LoginContainer>
+    </>
   );
 }
