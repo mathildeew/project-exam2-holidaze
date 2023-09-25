@@ -66,42 +66,6 @@ p, a, label {
     margin: 50px 0;
   }
 
-  /* input{
-    border: 2px solid var(--primary);
-    border-radius: 10px;
-    ::placeholder {
-      color: var(--primary);
-    }
-  } */
-  
-  /* input, .inputContainer  {
-    padding: 10px;
-    outline: none;
-
-    &:focus {
-      outline: none;
-      }
-    }
-
-    ::placeholder {
-      color: var(--primary);
-      font-size: 1.4rem;
-    }
-
-    [type="checkbox"] {
-      height: 15px;
-      width: 15px;
-      &:checked {
-        accent-color: var(--primary);
-      }
-    }
-
-   
-
-    .errorMsg{
-      font-size: 1.4rem;
-      color: red;
-    } */
 
 textarea{
   border: none;

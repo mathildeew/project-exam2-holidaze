@@ -12,6 +12,38 @@ export const FormContainer = styled.div`
   }
 `;
 
+export const VenueLocation = styled.section``;
+
+export const VenueCity = styled.div`
+  ${displayFlex({
+    justify: "space-between",
+  })}
+
+  div:nth-child(1) {
+    margin-right: 10px;
+  }
+`;
+
+export const VenueCont = styled.div`
+  ${displayFlex({
+    justify: "space-between",
+  })}
+
+  div:nth-child(1) {
+    margin-right: 10px;
+  }
+`;
+
+export const VenueGeo = styled.div`
+  ${displayFlex({
+    justify: "space-between",
+  })}
+
+  div:nth-child(1) {
+    margin-right: 10px;
+  }
+`;
+
 export const VenueMedia = styled.section``;
 
 export const VenueFasc = styled.section`

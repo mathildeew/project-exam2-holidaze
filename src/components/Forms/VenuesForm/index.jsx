@@ -6,14 +6,22 @@ import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
 import { MainButton } from "../../../styles/Buttons";
 import { ErrorMsg, InputContainer, Inputs } from "../../../styles/Forms";
-import { FormContainer, VenueFasc, VenueMedia } from "./VenuesForm.style.jsx";
+import {
+  FormContainer,
+  VenueCity,
+  VenueCont,
+  VenueFasc,
+  VenueGeo,
+  VenueLocation,
+  VenueMedia,
+} from "./VenuesForm.style.jsx";
 
 export default function VenuesForm({ state, venue }) {
   const { id, name, description, location, maxGuests, media, meta, price } =
     venue;
   const isNewState = state === "new";
   const isEditState = state === "edit";
-
+  console.log(venue);
   const [data, setData] = useState({ venueId: id });
 
   const schema = yup.object({
@@ -45,18 +53,16 @@ export default function VenuesForm({ state, venue }) {
       })
       .notRequired(),
     media: yup.string().url("Please enter a valid image URL").notRequired(),
+    location: yup.object({
+      address: yup.string().notRequired(),
+      city: yup.string().notRequired(),
+      zip: yup.string().notRequired(),
+      country: yup.string(),
+      continent: yup.string(),
+      lat: yup.number().notRequired(),
+      lng: yup.number().notRequired(),
+    }),
   });
-
-  // location: yup.object({
-  //   address: yup.string(),
-  //   city: yup.string(),
-  //   zip: yup.number().positive(),
-  //   country: yup.string(),
-  //   continent: yup.string(),
-  //   lat: yup.number().positive(),
-  //   lng: yup.number().positive(),
-  // }),
-
   const {
     register,
     handleSubmit,
@@ -78,6 +84,7 @@ export default function VenuesForm({ state, venue }) {
         "PUT",
         formData
       );
+      console.log(response);
 
       if (response.status === 200) {
         setTimeout(() => {
@@ -159,6 +166,128 @@ export default function VenuesForm({ state, venue }) {
           </Inputs>
           <p className="errorMsg">{errors.description?.message}</p>
         </InputContainer>
+
+        <VenueLocation>
+          <h3>Location</h3>
+          <InputContainer>
+            <Inputs>
+              <label htmlFor="location.address">Address</label>
+              <input
+                type="text"
+                name="location.address"
+                placeholder={isNewState ? "" : ""}
+                defaultValue={isEditState ? location.address : ""}
+                {...register("location.address", {
+                  required: false,
+                  type: "text",
+                })}
+              />
+            </Inputs>
+          </InputContainer>
+
+          <VenueCity>
+            <InputContainer>
+              <Inputs>
+                <label htmlFor="location.zip">Zip code</label>
+                <input
+                  type="number"
+                  name="location.zip"
+                  placeholder={isNewState ? "" : ""}
+                  defaultValue={isEditState ? location.zip : ""}
+                  {...register("location.zip", {
+                    required: false,
+                    type: "number",
+                  })}
+                />
+              </Inputs>
+            </InputContainer>
+
+            <InputContainer>
+              <Inputs>
+                <label htmlFor="location.city">City</label>
+                <input
+                  type="text"
+                  name="location.city"
+                  placeholder={isNewState ? "" : ""}
+                  defaultValue={isEditState ? location.city : ""}
+                  {...register("location.city", {
+                    required: false,
+                    type: "text",
+                  })}
+                />
+              </Inputs>
+            </InputContainer>
+          </VenueCity>
+
+          <VenueCont>
+            <InputContainer>
+              <Inputs>
+                <label htmlFor="location.country">Country</label>
+                <input
+                  type="text"
+                  name="location.country"
+                  placeholder={isNewState ? "" : ""}
+                  defaultValue={isEditState ? location.country : ""}
+                  {...register("location.country", {
+                    required: false,
+                    type: "text",
+                  })}
+                />
+              </Inputs>
+            </InputContainer>
+
+            <InputContainer>
+              <Inputs>
+                <label htmlFor="location.continent">Continent</label>
+                <input
+                  type="text"
+                  name="location.continent"
+                  placeholder={isNewState ? "" : ""}
+                  defaultValue={isEditState ? location.continent : ""}
+                  {...register("location.continent", {
+                    required: false,
+                    type: "text",
+                  })}
+                />
+              </Inputs>
+            </InputContainer>
+          </VenueCont>
+
+          <h4>Geo location</h4>
+          <VenueGeo>
+            <InputContainer>
+              <Inputs>
+                <label htmlFor="location.lat">Latitude</label>
+                <input
+                  type="text"
+                  name="location.lat"
+                  placeholder={isNewState ? "" : ""}
+                  defaultValue={isEditState ? location.lat : ""}
+                  {...register("location.lat", {
+                    required: false,
+                    type: "text",
+                  })}
+                />
+              </Inputs>
+            </InputContainer>
+
+            <InputContainer>
+              <Inputs>
+                <label htmlFor="location.lng">Longitude</label>
+                <input
+                  type="text"
+                  name="location.lng"
+                  placeholder={isNewState ? "" : ""}
+                  defaultValue={isEditState ? location.lng : ""}
+                  {...register("location.lng", {
+                    required: false,
+                    type: "text",
+                  })}
+                />
+              </Inputs>
+            </InputContainer>
+          </VenueGeo>
+        </VenueLocation>
 
         <VenueMedia>
           <h3>Add photos</h3>

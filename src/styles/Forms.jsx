@@ -34,7 +34,7 @@ export const Inputs = styled.div`
   label {
     font-size: 1.2rem;
     text-transform: uppercase;
-    margin-bottom: 5px;
+    margin-bottom: 1px;
   }
 
   input {
@@ -42,11 +42,11 @@ export const Inputs = styled.div`
     background-color: white;
     width: 100%;
     border: none;
-    padding: 2px;
+    padding: 1px;
     outline: none;
 
     ::placeholder {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
     }
 
     :focus {
