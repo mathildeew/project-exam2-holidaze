@@ -15,7 +15,7 @@ export const FooterContent = styled.div`
   max-width: 558px;
   padding: 20px 0;
 
-  svg {
+  img {
     width: 200px;
   }
 
