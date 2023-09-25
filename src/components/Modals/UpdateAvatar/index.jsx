@@ -2,20 +2,17 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { get, set } from "../../../js/storage/localStorage";
-import { useEffect } from "react";
-import axios from "axios";
+import { useLoggedIn } from "../../../context/Context";
+import { set } from "../../../js/storage/localStorage";
 import useApi from "../../../hooks/useApi";
+import apiEndpoints from "../../../constants/endpoints";
 import { MainButton } from "../../../styles/Buttons";
 import { UpdateAvatarContainer } from "../../../styles/Popup";
-import { useLoggedIn } from "../../../context/Context";
+import { Form, InputContainer, Inputs } from "../../../styles/Forms";
 
 export default function UpdateAvatar() {
-  const { avatar, setAvatar } = useLoggedIn();
-  const [btnText, setBtnText] = useState("Update avatar");
+  const { name, setAvatar } = useLoggedIn();
   const [errorMsg, setErrorMsg] = useState("");
-
-  const name = get("name");
 
   const schema = yup.object({
     avatar: yup.string().url("Avatar must ba a valid URL"),
@@ -28,24 +25,19 @@ export default function UpdateAvatar() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const { fetchApi, isError } = useApi();
+  const { fetchApi, isLoading, isSuccess } = useApi();
 
   const onSubmit = async (formData) => {
-    setBtnText("Updating...");
     setAvatar(formData.avatar);
 
     const response = await fetchApi(
-      `https://api.noroff.dev/api/v1/holidaze/profiles/${name}/media`,
+      apiEndpoints(null, name).updateAvatar,
       "PUT",
-      { avatar }
+      { formData }
     );
 
     if (response.status === 200) {
       set("avatar", JSON.stringify(formData.avatar));
-
-      setTimeout(() => {
-        setBtnText("Updated!");
-      }, 1000);
 
       setTimeout(() => {
         window.location.reload();
@@ -58,18 +50,25 @@ export default function UpdateAvatar() {
   return (
     <UpdateAvatarContainer>
       <h2>Update profile picture</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          type="url"
-          name="avatar"
-          placeholder="Must be URL"
-          {...register("avatar")}
-        />
-        <p className="errorMsg">{errors.avatar?.message}</p>
-        <p className="errorMsg">{errorMsg}</p>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <InputContainer>
+          <Inputs>
+            <label htmlFor="avatar">Your new profile picture</label>
+            <input
+              type="url"
+              name="avatar"
+              placeholder="Must be URL"
+              {...register("avatar")}
+            />
+          </Inputs>
+          <p className="errorMsg">{errors.avatar?.message}</p>
+          <p className="errorMsg">{errorMsg}</p>
+        </InputContainer>
 
-        <MainButton type="submit">{btnText}</MainButton>
-      </form>
+        <MainButton type="submit">
+          {isLoading ? "Updating..." : isSuccess ? "Updated" : "Update avatar"}
+        </MainButton>
+      </Form>
     </UpdateAvatarContainer>
   );
 }

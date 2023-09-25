@@ -5,7 +5,7 @@ export const Overlay = styled.div`
   background-color: rgba(89, 89, 89, 0.4);
   position: absolute;
   margin: 0 auto;
-  height: 100vmax;
+  height: 100vh;
   overflow: hidden;
 
   &.inactive {
