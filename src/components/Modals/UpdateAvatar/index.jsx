@@ -7,12 +7,11 @@ import { set } from "../../../js/storage/localStorage";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
 import { MainButton } from "../../../styles/Buttons";
-import { Form, InputContainer, Inputs } from "../../../styles/Forms";
+import { ErrorMsg, Form, InputContainer, Inputs } from "../../../styles/Forms";
 import { UpdateAvatarContainer } from "./UpdateAvatar.style";
 
 export default function UpdateAvatar() {
   const { name, setAvatar } = useLoggedIn();
-  const [errorMsg, setErrorMsg] = useState("");
 
   const schema = yup.object({
     avatar: yup.string().url("Avatar must ba a valid URL"),
@@ -25,7 +24,7 @@ export default function UpdateAvatar() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const { fetchApi, isLoading, isSuccess } = useApi();
+  const { fetchApi, isLoading, isSuccess, isError, errorMsg } = useApi();
 
   const onSubmit = async (formData) => {
     const response = await fetchApi(
@@ -40,8 +39,6 @@ export default function UpdateAvatar() {
       setTimeout(() => {
         window.location.reload();
       }, 1500);
-    } else if (response.status !== 200) {
-      setErrorMsg("An error occured, please try again later");
     }
   };
 
@@ -60,9 +57,8 @@ export default function UpdateAvatar() {
             />
           </Inputs>
           <p className="errorMsg">{errors.avatar?.message}</p>
-          <p className="errorMsg">{errorMsg}</p>
+          {isError && <ErrorMsg>{errorMsg}</ErrorMsg>}
         </InputContainer>
-
         <MainButton type="submit">
           {isLoading ? "Updating..." : isSuccess ? "Updated" : "Update avatar"}
         </MainButton>

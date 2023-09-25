@@ -1,5 +1,4 @@
 import { useState, useCallback, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useLoggedIn } from "../../context/Context";
 import useApi from "../../hooks/useApi";
 import apiEndpoints from "../../constants/endpoints";
@@ -14,7 +13,6 @@ import Modal from "../../components/Modals/Modal";
 import { SEOHelmet } from "../../components/Helmet";
 
 export default function Profile() {
-  const navigate = useNavigate();
   const { isLoggedIn, name } = useLoggedIn();
 
   const [bookingId, setBookingId] = useState("");

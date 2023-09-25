@@ -9,14 +9,16 @@ export default function RegisterManager() {
   const { fetchApi, isLoading, isSuccess } = useApi();
 
   const handleOnRegister = async () => {
-    const response = await fetchApi(
-      apiEndpoints(null, name).registerAsManager,
-      "PUT",
-      { venueManager: true }
-    );
+    const response = await fetchApi(apiEndpoints(null, name).profile, "PUT", {
+      venueManager: true,
+    });
 
     if (response.status === 200) {
       setIsManager(true);
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 800);
     }
   };
 

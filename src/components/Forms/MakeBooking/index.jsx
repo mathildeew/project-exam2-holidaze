@@ -84,7 +84,7 @@ export default function MakeBooking({ id, bookings, price, maxGuests }) {
 
     if (response.status === 201) {
       setTimeout(() => {
-        window.location.reload();
+        navigate("/profile");
       }, 800);
     }
   };
