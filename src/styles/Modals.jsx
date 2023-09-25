@@ -5,8 +5,6 @@ export const Overlay = styled.div`
   background-color: rgba(89, 89, 89, 0.4);
   position: absolute;
   margin: 0 auto;
-  height: 100vh;
-  overflow: hidden;
 
   &.inactive {
     height: 0px;
@@ -17,26 +15,25 @@ export const Overlay = styled.div`
     width: 100%;
     opacity: 1;
     top: 0;
-    overflow: hidden;
     z-index: 2;
+    overflow: hidden;
   }
 `;
 
-export const Popup = styled.section`
+export const ModalContainer = styled.section`
   background: white;
   width: 100%;
   max-width: 767px;
   z-index: 3;
   position: fixed;
   border-radius: 10px;
-  overflow: hidden;
 
   &.inactive {
     height: 0px;
   }
 
   &.active {
-    /* height: 100%; */
+    height: 100%;
     /* top: 0; */
   }
 
@@ -46,20 +43,6 @@ export const Popup = styled.section`
     top: 25px;
     left: 90%;
     margin-bottom: 20px;
-  }
-
-  form {
-    ${displayFlex({
-      direction: "column",
-    })}
-
-    svg {
-      color: var(--primary);
-    }
-
-    input {
-      /* margin-bottom: 50px; */
-    }
   }
 
   h2 {
@@ -75,22 +58,13 @@ export const Popup = styled.section`
   &.registerManager {
     bottom: 0;
     height: 300px;
-  }
-
-  &.makeBooking {
-    top: 0;
-    width: 300px;
+    overflow-y: hidden;
   }
 
   &.venueModal {
+    overflow-y: scroll;
     @media (max-width: 767px) {
       top: 0;
-      /* position: fixed; */
-      overflow: scroll;
-    }
-
-    @media (min-width: 768px) {
-      overflow: scroll;
     }
   }
 

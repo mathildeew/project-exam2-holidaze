@@ -10,7 +10,7 @@ import {
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { useLoggedIn } from "../../../context/Context";
 import { MainButton } from "../../../styles/Buttons";
-import { Overlay, Popup } from "../../../styles/Popup";
+import { Overlay, ModalContainer } from "../../../styles/Modals";
 import Reservations from "../../../components/ManagerReservations";
 import VenuesForm from "../../../components/Forms/VenuesForm";
 import VenuesManager from "../../../components/ManagerVenues";
@@ -46,18 +46,19 @@ export default function Manage() {
 
   return (
     <>
-      <Overlay className={showModal ? "overlay active" : "overlay inactive"} />
-      <Popup
-        className={showModal ? "popup active venueModal" : "popup inactive"}
-      >
-        <FontAwesomeIcon
-          icon={faXmark}
-          className="close"
-          aria-label="Close register new venu"
-          onClick={() => setShowModal(false)}
-        />
-        {showModal && <VenuesForm venue={{}} state={"new"} />}
-      </Popup>
+      <Overlay className={showModal ? "overlay active" : "overlay inactive"}>
+        <ModalContainer
+          className={showModal ? "popup active venueModal" : "popup inactive"}
+        >
+          <FontAwesomeIcon
+            icon={faXmark}
+            className="close"
+            aria-label="Close register new venu"
+            onClick={() => setShowModal(false)}
+          />
+          {showModal && <VenuesForm venue={{}} state={"new"} />}
+        </ModalContainer>
+      </Overlay>
 
       <ManagerContainer className="maxWidth">
         <h1>Manage your venues &#x26; reservations</h1>

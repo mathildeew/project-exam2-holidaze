@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { MainButton } from "../../../styles/Buttons";
-import { CancelBookingContainer } from "../../../styles/Popup";
+import { CancelBookingContainer } from "../../../styles/Modals";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
 

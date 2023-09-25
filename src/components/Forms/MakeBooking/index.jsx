@@ -5,10 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleMinus, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { DateRange } from "react-date-range";
 import { eachDayOfInterval } from "date-fns";
-import {
-  calculateDays,
-  calculatePrice,
-} from "../../../js/storage/calculatePrice";
+import { calculateDays, calculatePrice } from "../../../js/calculatePrice";
 import { MainButton } from "../../../styles/Buttons";
 import { BoldText } from "../../../styles/Text";
 import useApi from "../../../hooks/useApi";

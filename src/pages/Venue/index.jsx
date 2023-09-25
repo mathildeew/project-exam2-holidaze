@@ -20,7 +20,7 @@ import useApi from "../../hooks/useApi";
 import apiEndpoints from "../../constants/endpoints";
 import { BoldText, SmallText } from "../../styles/Text";
 import { MainButton } from "../../styles/Buttons";
-import { Overlay, Popup } from "../../styles/Popup";
+import { Overlay, ModalContainer } from "../../styles/Modals";
 import VenuesForm from "../../components/Forms/VenuesForm";
 import DeleteVenue from "../../components/DeleteVenue";
 import MakeBooking from "../../components/Forms/MakeBooking";
@@ -100,7 +100,7 @@ export default function Venue() {
             : "overlay inactive"
         }
       />
-      <Popup
+      <ModalContainer
         className={
           showEdit
             ? "popup active venueModal"
@@ -134,7 +134,7 @@ export default function Venue() {
           />
         )}
         {showDelete && <DeleteVenue data={id} />}
-      </Popup>
+      </ModalContainer>
 
       {owner?.name !== userName && (
         <BookNowBtn>

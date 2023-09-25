@@ -1,7 +1,7 @@
 import { faLocationDot, faPeopleRoof } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import { truncate } from "../../js/storage/truncate";
+import { truncate } from "../../js/truncate";
 import {
   VenuesContainer,
   VenueCard,

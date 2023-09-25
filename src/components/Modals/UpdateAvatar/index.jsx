@@ -7,7 +7,7 @@ import { set } from "../../../js/storage/localStorage";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
 import { MainButton } from "../../../styles/Buttons";
-import { UpdateAvatarContainer } from "../../../styles/Popup";
+import { UpdateAvatarContainer } from "../../../styles/Modals";
 import { Form, InputContainer, Inputs } from "../../../styles/Forms";
 
 export default function UpdateAvatar() {

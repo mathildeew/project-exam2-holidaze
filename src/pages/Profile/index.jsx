@@ -16,11 +16,12 @@ import UpdateAvatar from "../../components/Modals/UpdateAvatar";
 import Bookings from "../../components/ProfileBookings";
 import { MainButton } from "../../styles/Buttons";
 import { BoldText } from "../../styles/Text";
-import { Overlay, Popup } from "../../styles/Popup";
+import { Overlay, ModalContainer } from "../../styles/Modals";
 import { ProfileContainer } from "./Profile.styles";
 import CancelReservation from "../../components/Modals/BookingCancel";
 import ProfileDetails from "../../components/ProfileDetails";
 import ProfileCards from "../../components/ProfileCards";
+import { openOverlay } from "../../js/noScroll";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -46,6 +47,12 @@ export default function Profile() {
     getData();
   }, [getData]);
 
+  const [showOverlay, setShowOverlay] = useState(false);
+
+  function openOverlay() {
+    document.body.style.overflor = "hidden";
+  }
+
   if (!isLoggedIn) return <UnAuthUser />;
   if (isLoading) return <Loader />;
 
@@ -61,8 +68,9 @@ export default function Profile() {
             ? "overlay active"
             : "overlay inactive"
         }
+        open={showOverlay}
       />
-      <Popup
+      <ModalContainer
         className={
           showUpdateAvatar
             ? "popup active updateAvatar"
@@ -80,12 +88,13 @@ export default function Profile() {
             setShowUpdateAvatar(false);
             setShowManagerReg(false);
             setShowCancel(false);
+            setShowOverlay(true);
           }}
         />
         {showUpdateAvatar && <UpdateAvatar />}
         {showManagerReg && <RegisterManager />}
         {showCancel && <CancelReservation data={bookingId} />}
-      </Popup>
+      </ModalContainer>
 
       <ProfileContainer className="maxWidth">
         <ProfileDetails setShowUpdateAvatar={setShowUpdateAvatar} />

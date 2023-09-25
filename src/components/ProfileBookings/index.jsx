@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
-import { truncate } from "../../js/storage/truncate";
-import { calculatePrice } from "../../js/storage/calculatePrice";
+import { truncate } from "../../js/truncate";
+import { calculatePrice } from "../../js/calculatePrice";
 import { MainButton } from "../../styles/Buttons";
 import { BoldText } from "../../styles/Text";
 import {
