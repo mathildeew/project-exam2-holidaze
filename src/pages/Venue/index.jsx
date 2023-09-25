@@ -121,6 +121,7 @@ export default function Venue() {
         {showEdit && (
           <VenuesForm
             venue={{
+              id,
               name,
               description,
               location,

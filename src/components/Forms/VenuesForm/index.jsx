@@ -11,21 +11,15 @@ import { useEffect } from "react";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
 import { InputContainer, Inputs } from "../../../styles/Forms";
+import { id } from "date-fns/locale";
 
 export default function VenuesForm({ state, venue }) {
-  const { name, description, location, maxGuests, media, meta, price } = venue;
+  const { id, name, description, location, maxGuests, media, meta, price } =
+    venue;
   const isNewState = state === "new";
-  const isUpdateState = state === "update";
-  console.log(meta);
+  const isEditState = state === "edit";
 
-  const [data, setData] = useState(null);
-  const [addWifi, setAddWifi] = useState(false);
-  const [addBreakfast, setAddBreakfast] = useState(false);
-  const [addParking, setAddParking] = useState(false);
-  const [addPets, setAddPets] = useState(false);
-  const [btnText, setBtnText] = useState(
-    isNewState ? "Register new venue" : "Update venue"
-  );
+  const [data, setData] = useState({ venueId: id });
 
   const schema = yup.object({
     name: yup
@@ -78,37 +72,41 @@ export default function VenuesForm({ state, venue }) {
   const { isLoading, fetchApi, errorMsg, isError, isSuccess } = useApi();
 
   const onSubmit = async (formData) => {
-    setData(formData);
     if (formData.media) {
       formData.media = [formData.media];
     }
+    setData({ ...data, ...formData });
 
-    if (isUpdateState) {
+    if (isEditState) {
       const response = await fetchApi(
-        apiEndpoints(venue.id).updateVenue,
+        apiEndpoints(id).updateVenue,
         "PUT",
         formData
       );
-
-      if (isSuccess) {
-        window.location.reload();
-      } else if (response !== 200) {
-        // Put in error message
-      }
     } else if (isNewState) {
-      const response = await fetchApi(endpoints().venues, "POST", formData);
-
-      if (isSuccess) {
-        window.location.reload();
-      } else if (response !== 200) {
-        // Put in error message
-      }
+      const response = await fetchApi(apiEndpoints().venues, "POST", formData);
     }
+
+    console.log(isSuccess);
+    if (isSuccess) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 800);
+    }
+    // else if (response !== 200) {
+    //   // Put in error message
+    // }
   };
 
   return (
     <FormContainer>
-      {isNewState ? <h2>Register new venue</h2> : <h2>Edit venue</h2>}
+      {isNewState ? (
+        <h2>Register new venue</h2>
+      ) : isEditState ? (
+        <h2>Edit venue</h2>
+      ) : (
+        ""
+      )}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <InputContainer>
@@ -118,7 +116,7 @@ export default function VenuesForm({ state, venue }) {
               type="text"
               name="name"
               placeholder={isNewState ? "A catching title for your venue" : ""}
-              defaultValue={isNewState ? "" : `${name}`}
+              defaultValue={isEditState ? name : ""}
               {...register("name", { required: true, type: "text" })}
             />
           </Inputs>
@@ -132,7 +130,7 @@ export default function VenuesForm({ state, venue }) {
               type="number"
               name="price"
               placeholder={isNewState ? "The cost for one night in $" : ""}
-              defaultValue={isNewState ? "" : `${price}`}
+              defaultValue={isEditState ? price : ""}
               {...register("price", { required: true, type: "number" })}
             />
           </Inputs>
@@ -146,7 +144,7 @@ export default function VenuesForm({ state, venue }) {
               type="number"
               name="maxGuest"
               placeholder={isNewState ? "Number of max guests" : ""}
-              defaultValue={isNewState ? "" : `${maxGuests}`}
+              defaultValue={isEditState ? maxGuests : ""}
               {...register("maxGuests", { required: true, type: "text" })}
             />
           </Inputs>
@@ -163,7 +161,7 @@ export default function VenuesForm({ state, venue }) {
               placeholder={
                 isNewState ? "A good description generates more visitors" : ""
               }
-              defaultValue={isNewState ? "" : `${description}`}
+              defaultValue={isEditState ? description : ""}
               {...register("description", { required: true, type: "text" })}
             ></textarea>
           </Inputs>
@@ -236,7 +234,7 @@ export default function VenuesForm({ state, venue }) {
                 type="url"
                 name="media"
                 placeholder={isNewState ? "Must be a valid URL" : ""}
-                defaultValue={isUpdateState ? `${media[0]}` : ""}
+                defaultValue={isEditState ? media[0] : ""}
                 {...register("media", { required: false, type: "url" })}
               />
             </Inputs>
@@ -250,8 +248,7 @@ export default function VenuesForm({ state, venue }) {
             <input
               type="checkbox"
               name="wifi"
-              defaultChecked={isNewState ? "" : `${meta.wifi}`}
-              onClick={() => !addWifi}
+              defaultChecked={isEditState ? meta.wifi : ""}
               {...register("meta.wifi")}
             />
             <label htmlFor="wifi">Wifi</label>
@@ -260,8 +257,7 @@ export default function VenuesForm({ state, venue }) {
             <input
               type="checkbox"
               name="breakfast"
-              defaultChecked={isUpdateState ? `${meta.breakfast}` : ``}
-              onClick={() => !addBreakfast}
+              defaultChecked={isEditState ? meta.breakfast : ""}
               {...register("meta.breakfast")}
             />
             <label htmlFor="breakfast">Breakfast</label>
@@ -271,8 +267,7 @@ export default function VenuesForm({ state, venue }) {
             <input
               type="checkbox"
               name="Parking"
-              defaultChecked={isUpdateState ? `${meta.parking}` : ``}
-              onClick={() => !addParking}
+              defaultChecked={isEditState ? meta.parking : ""}
               {...register("meta.parking")}
             />
             <label htmlFor="parking">Parking</label>
@@ -282,15 +277,26 @@ export default function VenuesForm({ state, venue }) {
             <input
               type="checkbox"
               name="pets"
-              defaultChecked={isNewState ? "" : `${meta.pets}`}
-              onClick={() => !addPets}
+              defaultChecked={isEditState ? meta.pets : ""}
               {...register("meta.pets")}
             />
             <label htmlFor="pets">Pets</label>
           </div>
         </VenueFasc>
-        {isUpdateState && <MainButton type="submit">{btnText}</MainButton>}
-        {isNewState && <MainButton type="submit">{btnText}</MainButton>}
+        {isNewState && (
+          <MainButton type="submit">
+            {isLoading
+              ? "Registering..."
+              : isSuccess
+              ? "Registered!"
+              : "Register"}
+          </MainButton>
+        )}
+        {isEditState && (
+          <MainButton type="submit">
+            {isLoading ? "Updating..." : isSuccess ? "Updated" : "Update"}
+          </MainButton>
+        )}
       </form>
     </FormContainer>
   );
