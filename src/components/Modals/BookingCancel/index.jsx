@@ -7,23 +7,17 @@ import { CancelBookingContainer } from "../../../styles/Popup";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
 
-export default function CancelPopup(data) {
+export default function CancelReservation(data) {
   const { data: id } = data;
-  const [btnText, setBtnText] = useState("Yes, cancel");
 
-  const { fetchApi } = useApi();
+  const { fetchApi, isLoading, isSuccess } = useApi();
+  console.log(id);
 
   const onSubmit = async () => {
-    setBtnText("Deleting...");
-
     const response = await fetchApi(
       apiEndpoints(id, null).deleteBooking,
       "DELETE"
     );
-
-    setTimeout(() => {
-      setBtnText("Deleted!");
-    }, 1000);
 
     setTimeout(() => {
       window.location.reload();
@@ -33,7 +27,9 @@ export default function CancelPopup(data) {
   return (
     <CancelBookingContainer>
       <p>Are you sure you want to cancel this reservation?</p>
-      <MainButton onClick={onSubmit}>{btnText}</MainButton>
+      <MainButton onClick={onSubmit}>
+        {isLoading ? "Deleting..." : isSuccess ? "Deleted!" : "Yes, delete"}
+      </MainButton>
     </CancelBookingContainer>
   );
 }

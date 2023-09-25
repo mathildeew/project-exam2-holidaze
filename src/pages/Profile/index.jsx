@@ -25,6 +25,7 @@ import {
   ProfileContent,
   ProfileDetails,
 } from "./Profile.styles";
+import CancelReservation from "../../components/Modals/BookingCancel";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -33,6 +34,8 @@ export default function Profile() {
 
   const [showUpdateAvatar, setShowUpdate] = useState(false);
   const [showManagerReg, setShowManagerReg] = useState(false);
+  const [showCancel, setShowCancel] = useState(false);
+  const [bookingId, setBookingId] = useState("");
 
   function logOut() {
     setIsLoggedIn(false);
@@ -64,6 +67,8 @@ export default function Profile() {
             ? "overlay active"
             : showManagerReg
             ? "overlay active"
+            : showCancel
+            ? "overlay active"
             : "overlay inactive"
         }
       />
@@ -73,6 +78,8 @@ export default function Profile() {
             ? "popup active updateAvatar"
             : showManagerReg
             ? "popup active registerManager"
+            : showCancel
+            ? "popup active cancelBookin"
             : "popup inactive"
         }
       >
@@ -82,10 +89,12 @@ export default function Profile() {
           onClick={() => {
             setShowUpdate(false);
             setShowManagerReg(false);
+            setShowCancel(false);
           }}
         />
         {showUpdateAvatar && <UpdateAvatar />}
         {showManagerReg && <RegisterManager />}
+        {showCancel && <CancelReservation data={bookingId} />}
       </Popup>
 
       <ProfileContainer className="maxWidth">
@@ -150,7 +159,11 @@ export default function Profile() {
 
         <hr />
 
-        <Bookings data={bookings} />
+        <Bookings
+          bookings={bookings}
+          setShowCancel={setShowCancel}
+          setBookingId={setBookingId}
+        />
       </ProfileContainer>
     </>
   );
