@@ -25,17 +25,17 @@ const useApi = () => {
         headers: headers,
         data: data,
       });
-
       setData(response.data);
       setIsSuccess(true);
       setIsError(false);
       setErrorMessage(null);
       return response;
     } catch (error) {
-      setErrorMessage("Something went wrong");
+      setErrorMessage(error.response.data.errors[0].message);
       setIsError(true);
       setIsSuccess(false);
       setData([]);
+
       return null;
     } finally {
       setIsLoading(false);

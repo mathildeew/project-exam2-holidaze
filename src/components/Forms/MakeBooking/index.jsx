@@ -1,6 +1,7 @@
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleMinus, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { DateRange } from "react-date-range";
@@ -10,7 +11,7 @@ import { MainButton } from "../../../styles/Buttons";
 import { BoldText } from "../../../styles/Text";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
-import { Form, InputContainer, Inputs } from "../../../styles/Forms";
+import { ErrorMsg, Form, InputContainer, Inputs } from "../../../styles/Forms";
 import {
   BookingInfo,
   CalendarContainer,
@@ -25,9 +26,8 @@ export default function MakeBooking({ id, bookings, price, maxGuests }) {
   // https://www.npmjs.com/package/react-date-range
   // https://hypeserver.github.io/react-date-range/
   // https://date-fns.org/docs/Getting-Started#installation
-
+  const navigate = useNavigate();
   const [numberOfGuests, setNumberOfGuests] = useState(1);
-
   const [dates, setDates] = useState([
     {
       startDate: new Date(),
@@ -71,7 +71,7 @@ export default function MakeBooking({ id, bookings, price, maxGuests }) {
     return days;
   });
 
-  const { fetchApi, isSuccess, isError, isLoading } = useApi();
+  const { fetchApi, isLoading, isSuccess, isError, errorMsg } = useApi();
 
   const onFormSubmit = async () => {
     event.preventDefault();
@@ -83,6 +83,9 @@ export default function MakeBooking({ id, bookings, price, maxGuests }) {
     );
 
     if (response.status === 201) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 800);
     }
   };
 
@@ -160,6 +163,7 @@ export default function MakeBooking({ id, bookings, price, maxGuests }) {
             </BoldText>
           </BookingText>
         </BookingInfo>
+        {isError && <ErrorMsg>{errorMsg}</ErrorMsg>}
         <MainButton type="submit">
           {isLoading
             ? "Reservating..."

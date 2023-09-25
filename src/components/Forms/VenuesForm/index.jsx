@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
 import { MainButton } from "../../../styles/Buttons";
-import { InputContainer, Inputs } from "../../../styles/Forms";
+import { ErrorMsg, InputContainer, Inputs } from "../../../styles/Forms";
 import { FormContainer, VenueFasc, VenueMedia } from "./VenuesForm.style.jsx";
 
 export default function VenuesForm({ state, venue }) {
@@ -64,7 +64,7 @@ export default function VenuesForm({ state, venue }) {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const { isLoading, fetchApi, errorMsg, isError, isSuccess } = useApi();
+  const { fetchApi, isLoading, isSuccess, isError, errorMsg } = useApi();
 
   const onSubmit = async (formData) => {
     if (formData.media) {
@@ -78,30 +78,27 @@ export default function VenuesForm({ state, venue }) {
         "PUT",
         formData
       );
+
+      if (response.status === 200) {
+        setTimeout(() => {
+          window.location.reload();
+        }, 800);
+      }
     } else if (isNewState) {
       const response = await fetchApi(apiEndpoints().venues, "POST", formData);
-    }
+      console.log(response);
 
-    console.log(isSuccess);
-    if (isSuccess) {
-      setTimeout(() => {
-        window.location.reload();
-      }, 800);
+      if (response.status === 201) {
+        setTimeout(() => {
+          window.location.reload();
+        }, 800);
+      }
     }
-    // else if (response !== 200) {
-    //   // Put in error message
-    // }
   };
 
   return (
     <FormContainer>
-      {isNewState ? (
-        <h2>Register new venue</h2>
-      ) : isEditState ? (
-        <h2>Edit venue</h2>
-      ) : (
-        ""
-      )}
+      {isNewState ? <h2>Register new venue</h2> : <h2>Edit venue</h2>}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <InputContainer>
@@ -222,6 +219,8 @@ export default function VenuesForm({ state, venue }) {
             <label htmlFor="pets">Pets</label>
           </div>
         </VenueFasc>
+
+        {isError && <ErrorMsg>{errorMsg}</ErrorMsg>}
         {isNewState && (
           <MainButton type="submit">
             {isLoading
@@ -233,7 +232,7 @@ export default function VenuesForm({ state, venue }) {
         )}
         {isEditState && (
           <MainButton type="submit">
-            {isLoading ? "Updating..." : isSuccess ? "Updated" : "Update"}
+            {isLoading ? "Updating..." : isSuccess ? "Updated!" : "Update"}
           </MainButton>
         )}
       </form>
