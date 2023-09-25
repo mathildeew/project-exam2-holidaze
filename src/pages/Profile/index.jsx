@@ -11,15 +11,16 @@ import useApi from "../../hooks/useApi";
 import apiEndpoints from "../../constants/endpoints";
 import Loader from "../../components/Loader";
 import UnAuthUser from "../../components/UnauthUser";
-import RegisterManager from "../../components/ManagerReg";
+import RegisterManager from "../../components/Modals/ManagerReg";
 import UpdateAvatar from "../../components/Modals/UpdateAvatar";
 import Bookings from "../../components/ProfileBookings";
 import { MainButton } from "../../styles/Buttons";
 import { BoldText } from "../../styles/Text";
 import { Overlay, Popup } from "../../styles/Popup";
-import { Card, ProfileContainer } from "./Profile.styles";
+import { ProfileContainer } from "./Profile.styles";
 import CancelReservation from "../../components/Modals/BookingCancel";
 import ProfileDetails from "../../components/ProfileDetails";
+import ProfileCards from "../../components/ProfileCards";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -89,26 +90,7 @@ export default function Profile() {
       <ProfileContainer className="maxWidth">
         <ProfileDetails setShowUpdateAvatar={setShowUpdateAvatar} />
 
-        {isManager === false ? (
-          <Card
-            onClick={() => setShowManagerReg(!showManagerReg)}
-            aria-label="Open venue manager register"
-          >
-            <span className="heading">Register as venue manager</span>
-            <span className="content">
-              Rent out your property through us. Easy peasy money in your
-              pocket!
-            </span>
-          </Card>
-        ) : (
-          <Link to={"/profile/manager"}>
-            <Card>
-              <span className="heading">Ready to list a new venue?</span>
-              <span className="content">Let's get started!</span>
-            </Card>
-          </Link>
-        )}
-
+        <ProfileCards setShowManagerReg={setShowManagerReg} />
         <hr />
 
         <Bookings

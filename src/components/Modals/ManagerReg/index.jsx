@@ -1,6 +1,7 @@
-import { useLoggedIn } from "../../context/Context";
-import useApi from "../../hooks/useApi";
-import { MainButton } from "../../styles/Buttons";
+import apiEndpoints from "../../../constants/endpoints";
+import { useLoggedIn } from "../../../context/Context";
+import useApi from "../../../hooks/useApi";
+import { MainButton } from "../../../styles/Buttons";
 import { RegisterManagerContainer } from "./ManagerReg.style";
 
 export default function RegisterManager() {
@@ -9,7 +10,7 @@ export default function RegisterManager() {
 
   const handleOnRegister = async () => {
     const response = await fetchApi(
-      `https://api.noroff.dev/api/v1/holidaze/profiles/${name}`,
+      apiEndpoints(null, name).registerAsManager,
       "PUT",
       { venueManager: true }
     );
