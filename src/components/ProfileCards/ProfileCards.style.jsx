@@ -5,10 +5,11 @@ export const Card = styled.div`
   background-image: url(/public/content/douglas-bagg-HDxvXqUJ3BQ-unsplash_downsized_layers.jpg);
   background-position: bottom right;
   background-size: cover;
-  height: 160px;
+  max-width: 400px;
+  height: 100px;
   padding: 15px 10px;
-  border-radius: 10px;
   margin-bottom: 50px;
+  border-radius: 10px;
   ${displayFlex({
     direction: "column",
     justify: "end",
@@ -31,6 +32,6 @@ export const Card = styled.div`
   }
 
   @media (min-width: 768px) {
-    height: 250px;
+    padding: 30px;
   }
 `;

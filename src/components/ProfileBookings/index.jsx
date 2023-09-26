@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { truncate } from "../../js/truncate";
 import { calculatePrice } from "../../js/calculatePrice";
 import { MainButton } from "../../styles/Buttons";
-import { BoldText } from "../../styles/Text";
+import { BoldText, TextLine } from "../../styles/Text";
 import {
   BookingsContent,
   BookingCard,
@@ -23,29 +23,32 @@ export default function Bookings({ bookings, setBookingId, setShowModal }) {
                 <img src={booking.venue.media} alt={booking.venue.name} />
                 <BookingInfo>
                   <h3>{truncate(booking.venue.name)}</h3>
-                  <div className="flexline">
-                    <BoldText>
-                      {dayjs(booking.dateFrom).format("DD.MM.YYYY")} -&nbsp;
-                      {dayjs(booking.dateTo).format("DD.MM.YYYY")}
-                    </BoldText>
-                  </div>
-                  <div className="flexLine">
+                  <TextLine>
+                    <BoldText>From:</BoldText>
+                    <p> {dayjs(booking.dateFrom).format("DD.MM.YYYY")}</p>
+                  </TextLine>
+                  <TextLine>
+                    <BoldText>To:</BoldText>
+                    <p>{dayjs(booking.dateTo).format("DD.MM.YYYY")}</p>
+                  </TextLine>
+
+                  <TextLine>
                     <BoldText>Guests:</BoldText> <p>{booking.guests}</p>
-                  </div>
-                  <div className="flexLine">
-                    <BoldText>Total price:</BoldText>
-                    <p>
-                      $
+                  </TextLine>
+                  <TextLine>
+                    <BoldText>
+                      Total price: $
                       {calculatePrice(
                         booking.dateFrom,
                         booking.dateTo,
                         booking.venue.price
                       )}
-                    </p>
-                  </div>
+                    </BoldText>
+                  </TextLine>
 
                   <MainButton
                     isSmall={true}
+                    isWhite={true}
                     onClick={() => {
                       setBookingId(booking.id);
                       setShowModal("cancelBooking");

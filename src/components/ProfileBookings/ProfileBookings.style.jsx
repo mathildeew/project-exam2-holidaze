@@ -10,7 +10,7 @@ export const BookingsContent = styled.div`
 `;
 
 export const BookingCard = styled.div`
-  height: 130px;
+  height: 200px;
   ${displayFlex({
     direction: "row",
     justify: "space-between",
@@ -18,7 +18,6 @@ export const BookingCard = styled.div`
 
   img {
     width: 40%;
-    height: 100%;
     max-height: 200px;
     border-radius: 10px;
     object-fit: cover;
@@ -27,10 +26,11 @@ export const BookingCard = styled.div`
 `;
 
 export const BookingInfo = styled.div`
-  width: 50%;
-  height: 100%;
+  width: 55%;
+
   ${displayFlex({
     direction: "column",
     justify: "space-between",
+    align: "start",
   })}
 `;

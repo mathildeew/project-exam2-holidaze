@@ -32,20 +32,20 @@ h1, h2, h3, h4, p, a, label, textarea[placeholder] {
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 600;
 }
 
 h2 {
-  font-size: 1.8rem;
+  font-size: 2.0rem;
   font-weight: 600;
   
 }
 
 h3 {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 

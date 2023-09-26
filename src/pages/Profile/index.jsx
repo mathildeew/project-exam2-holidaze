@@ -54,9 +54,7 @@ export default function Profile() {
 
       <ProfileContainer className="maxWidth">
         <ProfileDetails setShowModal={setShowModal} />
-
-        {/* <ProfileCards setShowModal={setShowModal} /> */}
-        <hr />
+        <ProfileCards setShowModal={setShowModal} />
 
         <Bookings
           bookings={bookings}
