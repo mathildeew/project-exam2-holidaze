@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { useState } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import { calculatePrice } from "../../js/calculatePrice";
@@ -33,18 +34,26 @@ export default function Reservations(data) {
     ) {
       return {
         ...booking,
-        status: "Ongoing",
+        status: "On going",
       };
     }
   });
 
-  console.log(bookingsWithStatus);
+  const [selectedOption, setSelectedOption] = useState([]);
 
-  const selectOptions = [
-    { value: "ongoing", label: "On going" },
-    { value: "confirmed", label: "Confirmed" },
-    { value: "checkedout", label: "Checked out" },
-  ];
+  const selectOptions = bookingsWithStatus.map((booking) => {
+    return {
+      value: booking.status,
+    };
+  });
+
+  console.log(selectOptions);
+
+  function handleSelect(event) {
+    setSelectedOption(event.value);
+    // console.log(selectedBooking);
+    console.log(selectedOption);
+  }
 
   const animatedComponents = makeAnimated();
 
@@ -52,15 +61,21 @@ export default function Reservations(data) {
     <ReservationsContainer>
       <Select
         options={selectOptions}
-        closeMenuOnSelect={false}
-        components={animatedComponents}
-        defaultValue={[selectOptions[0], selectOptions[1]]}
-        isMulti
+        onChange={handleSelect}
+
+        // defaultValue={}
+        // closeMenuOnSelect={false}
+        // components={animatedComponents}
+        // defaultValue={"Confirmed"}
+        // isMulti
       />
 
       {bookings.length > 0 ? (
         <>
-          {bookingsWithStatus.map((booking) => (
+          {/* {selectedOption.map((booking) => (
+            <p>{booking.name}</p>
+          ))} */}
+          {/* {bookingsWithStatus.map((booking) => (
             <ReservationCard key={booking.id}>
               <ReservationVenue>
                 <img src={booking.media} />
@@ -100,7 +115,7 @@ export default function Reservations(data) {
                 </p>
               </ReservationDetails>
             </ReservationCard>
-          ))}
+          ))} */}
         </>
       ) : (
         <p>Your venues has no reservations yet.</p>
