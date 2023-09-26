@@ -44,7 +44,6 @@ export default function Manage() {
     return venue.bookings.map((booking) => {
       return {
         ...booking,
-
         name: venue.name,
         price: venue.price,
         media: venue.media,

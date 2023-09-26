@@ -1,4 +1,6 @@
 import dayjs from "dayjs";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
 import { calculatePrice } from "../../js/calculatePrice";
 import { truncate } from "../../js/truncate";
 import { BoldText } from "../../styles/Text";
@@ -12,27 +14,53 @@ import {
 export default function Reservations(data) {
   const { data: bookings } = data;
 
-  // console.log(bookings);
-
-  function showStatus(startDate, endDate) {
-    if (new Date(startDate) > new Date()) {
-      return "Confirmed";
+  const bookingsWithStatus = bookings.map((booking) => {
+    if (new Date() < new Date(booking.dateFrom)) {
+      return {
+        ...booking,
+        status: "Confirmed",
+      };
     }
-
-    if (new Date(startDate) > new Date() || new Date(endDate) > new Date()) {
-      return "On going";
+    if (new Date() > new Date(booking.dateTo)) {
+      return {
+        ...booking,
+        status: "Checked out",
+      };
     }
-
-    if (new Date(endDate) < new Date()) {
-      return "Checked out";
+    if (
+      new Date() >= new Date(booking.dateFrom) &&
+      new Date() < new Date(booking.dateTo)
+    ) {
+      return {
+        ...booking,
+        status: "Ongoing",
+      };
     }
-  }
+  });
+
+  console.log(bookingsWithStatus);
+
+  const selectOptions = [
+    { value: "ongoing", label: "On going" },
+    { value: "confirmed", label: "Confirmed" },
+    { value: "checkedout", label: "Checked out" },
+  ];
+
+  const animatedComponents = makeAnimated();
 
   return (
     <ReservationsContainer>
+      <Select
+        options={selectOptions}
+        closeMenuOnSelect={false}
+        components={animatedComponents}
+        defaultValue={[selectOptions[0], selectOptions[1]]}
+        isMulti
+      />
+
       {bookings.length > 0 ? (
         <>
-          {bookings.map((booking) => (
+          {bookingsWithStatus.map((booking) => (
             <ReservationCard key={booking.id}>
               <ReservationVenue>
                 <img src={booking.media} />
@@ -41,11 +69,12 @@ export default function Reservations(data) {
 
               <ReservationDetails>
                 <BoldText>Status:</BoldText>
-                <p>{showStatus(booking.dateFrom, booking.dateTo)}</p>
+                <p>{booking.status}</p>
               </ReservationDetails>
 
               <ReservationDetails>
                 <BoldText>Check-in:</BoldText>
+                <p></p>
                 <p>{dayjs(booking.dateFrom).format("DD.MM.YYYY")}</p>
               </ReservationDetails>
 
