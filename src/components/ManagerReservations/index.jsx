@@ -10,19 +10,7 @@ import {
 } from "./ManagerReservations.style";
 
 export default function Reservations(data) {
-  const { data: venues } = data;
-
-  const bookings = venues.flatMap((venue) => {
-    return venue.bookings.map((booking) => {
-      return {
-        ...booking,
-
-        name: venue.name,
-        price: venue.price,
-        media: venue.media,
-      };
-    });
-  });
+  const { data: bookings } = data;
 
   // console.log(bookings);
 
@@ -82,8 +70,6 @@ export default function Reservations(data) {
                   )}
                 </p>
               </ReservationDetails>
-
-              <hr />
             </ReservationCard>
           ))}
         </>

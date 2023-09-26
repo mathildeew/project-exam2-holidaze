@@ -5,7 +5,15 @@ export const ReservationsContainer = styled.section`
   width: 100%;
 `;
 
-export const ReservationCard = styled.div``;
+export const ReservationCard = styled.div`
+  padding: 10px;
+  margin-bottom: 40px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  ${displayFlex({
+    direction: "column",
+  })}
+`;
 
 export const ReservationVenue = styled.div`
   margin-bottom: 10px;

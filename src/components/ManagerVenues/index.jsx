@@ -1,7 +1,13 @@
-import { faLocationDot, faPeopleRoof } from "@fortawesome/free-solid-svg-icons";
+import {
+  faWifi,
+  faParking,
+  faDog,
+  faCoffee,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { truncate } from "../../js/truncate";
+import { BoldText } from "../../styles/Text";
 import {
   VenuesContainer,
   VenueCard,
@@ -11,6 +17,7 @@ import {
 
 export default function VenuesManager(data) {
   const { data: venues } = data;
+  console.log(venues);
 
   return (
     <VenuesContainer>
@@ -25,19 +32,40 @@ export default function VenuesManager(data) {
                 </VenueInfo>
 
                 <VenueDetails>
-                  <FontAwesomeIcon icon={faLocationDot} />
+                  {venue.meta.wifi && <FontAwesomeIcon icon={faWifi} />}
+                  {venue.meta.parking && <FontAwesomeIcon icon={faParking} />}
+                  {venue.meta.breakfast && <FontAwesomeIcon icon={faCoffee} />}
+                  {venue.meta.pets && <FontAwesomeIcon icon={faDog} />}
+                </VenueDetails>
+
+                <VenueDetails>
+                  <BoldText>Price per night:</BoldText>
+                  <p>${venue.price}</p>
+                </VenueDetails>
+
+                <VenueDetails>
+                  <BoldText>Address:</BoldText>
                   <p>
-                    {venue.location?.address}, {venue.location?.zip},{" "}
-                    {venue.location?.city}, {venue.location?.country}
+                    {venue.location.address}, {venue.location.zip},{" "}
+                    {venue.location.city}
                   </p>
                 </VenueDetails>
 
                 <VenueDetails>
-                  <FontAwesomeIcon icon={faPeopleRoof} />
+                  <BoldText>Max guests:</BoldText>
                   <p>{venue.maxGuests}</p>
                 </VenueDetails>
+
+                <VenueDetails>
+                  <BoldText>Last updated:</BoldText>
+                  <p>{new Date(venue.updated).toLocaleDateString()}</p>
+                </VenueDetails>
+
+                <VenueDetails>
+                  <BoldText>Created:</BoldText>
+                  <p>{new Date(venue.created).toLocaleDateString()}</p>
+                </VenueDetails>
               </VenueCard>
-              <hr />
             </Link>
           ))}
         </>

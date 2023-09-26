@@ -22,6 +22,7 @@ import {
   ManagerContainer,
 } from "./Manager.style";
 import { SEOHelmet } from "../../../components/Helmet";
+import Bookings from "../../../components/ProfileBookings";
 
 export default function Manage() {
   const { isLoggedIn, isManager, name } = useLoggedIn();
@@ -38,6 +39,18 @@ export default function Manage() {
   useEffect(() => {
     getData();
   }, [getData]);
+
+  const bookings = venues.flatMap((venue) => {
+    return venue.bookings.map((booking) => {
+      return {
+        ...booking,
+
+        name: venue.name,
+        price: venue.price,
+        media: venue.media,
+      };
+    });
+  });
 
   if (!isLoggedIn || !isManager) return <UnAuthUser />;
   if (isLoading) return <Loader />;
@@ -80,7 +93,7 @@ export default function Manage() {
               }}
             >
               <FontAwesomeIcon icon={faHouse} />
-              <p>Venues</p>
+              <p>Your venues ({venues.length})</p>
             </ButtonsShift>
             <ButtonsShift
               aria-label="Show my venues bookings"
@@ -91,14 +104,14 @@ export default function Manage() {
               }}
             >
               <FontAwesomeIcon icon={faHouseCircleCheck} />
-              <p> Reservations</p>
+              <p>Your reservations ({bookings.length})</p>
             </ButtonsShift>
           </div>
           <hr className={showVenues === true ? "left" : "right"} />
         </ButtonsContainer>
 
         {showVenues && <VenuesManager data={venues} />}
-        {showReservations && <Reservations data={venues} />}
+        {showReservations && <Reservations data={bookings} />}
       </ManagerContainer>
     </>
   );

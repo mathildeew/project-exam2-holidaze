@@ -10,17 +10,17 @@ export const VenuesContainer = styled.section`
 `;
 
 export const VenueCard = styled.div`
-  width: 100%;
-  height: 130px;
-  margin-bottom: 60px;
+  padding: 10px;
+  margin-bottom: 40px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   ${displayFlex({
     direction: "column",
-    justify: "space-between",
   })}
 `;
 
 export const VenueInfo = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 
   ${displayFlex({
     align: "center",
@@ -41,7 +41,7 @@ export const VenueInfo = styled.div`
 `;
 
 export const VenueDetails = styled.div`
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   ${displayFlex({
     direction: "row",
     align: "center",
