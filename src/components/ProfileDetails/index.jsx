@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { useLoggedIn } from "../../context/Context";
-import { MainButton } from "../../styles/Buttons";
+import { MainButton, OutlineButton } from "../../styles/Buttons";
 import { BoldText } from "../../styles/Text";
 import {
   ProfileContent,
@@ -49,14 +49,14 @@ export default function ProfileDetails({ setShowModal }) {
         )}
         <p>{email}</p>
 
-        <MainButton
+        <OutlineButton
           isSmall={true}
           isWhite={true}
           onClick={() => logOut()}
           aria-label="Log out"
         >
           Log out
-        </MainButton>
+        </OutlineButton>
       </InfoContainer>
     </ProfileContent>
   );

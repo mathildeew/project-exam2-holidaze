@@ -18,10 +18,10 @@ export const MainButton = styled.button`
 
 export const OutlineButton = styled.button`
   color: var(--primary);
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 600;
   background-color: white;
   border-radius: 10px;
-  border: 2px solid var(--primary);
+  border: 1px solid var(--primary);
   padding: 7px 12px;
 `;
