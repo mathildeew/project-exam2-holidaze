@@ -5,6 +5,11 @@ import { MainButton } from "../../styles/Buttons";
 import { DeleteVenueContainer } from "./DeleteVenue.style";
 import { ErrorMsg } from "../../styles/Forms";
 
+/**
+ * DeleteVenue Component - Represents a component for deleting a venue.
+ * @component
+ * @param {string} venueId - The ID of the venue to be deleted.
+ */
 export default function DeleteVenue({ venueId }) {
   const navigate = useNavigate();
 

@@ -2,12 +2,15 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useLoggedIn } from "../../../context/Context";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
 import { MainButton } from "../../../styles/Buttons";
 import { Form, InputContainer, Inputs, ErrorMsg } from "../../../styles/Forms";
 
+/**
+ * RegisterForm Component - Represents a user registration form.
+ * @component
+ */
 export default function RegisterForm() {
   const navigate = useNavigate();
 
@@ -33,6 +36,11 @@ export default function RegisterForm() {
 
   const { isLoading, isSuccess, fetchApi, errorMsg, isError } = useApi();
 
+  /**
+   * Handles form submission.
+   * @function
+   * @param {Object} formData - Form data containing name, email, password, avatar, and manager.
+   */
   const onSubmit = async (formData) => {
     const response = await fetchApi(apiEndpoints().register, "POST", formData);
 

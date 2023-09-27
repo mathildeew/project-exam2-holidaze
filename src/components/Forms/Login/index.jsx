@@ -8,6 +8,10 @@ import apiEndpoints from "../../../constants/endpoints";
 import { MainButton } from "../../../styles/Buttons";
 import { Form, InputContainer, Inputs, ErrorMsg } from "../../../styles/Forms";
 
+/**
+ * LoginForm Component - Represents the login form.
+ * @component
+ */
 export default function LoginForm() {
   const navigate = useNavigate();
   const {
@@ -38,6 +42,11 @@ export default function LoginForm() {
 
   const { isLoading, isSuccess, fetchApi, errorMsg, isError } = useApi();
 
+  /**
+   * Handles form submission.
+   * @function
+   * @param {Object} formData - Form data containing email and password.
+   */
   const onSubmit = async (formData) => {
     const response = await fetchApi(apiEndpoints().login, "POST", formData);
 

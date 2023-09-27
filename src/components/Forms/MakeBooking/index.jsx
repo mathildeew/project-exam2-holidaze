@@ -22,10 +22,15 @@ import {
   BookingText,
 } from "./MakeBooking.style";
 
+/**
+ * MakeBooking Component - Represents the booking creation form.
+ * @component
+ * @param {string} id - The ID of the venue for which the booking is made.
+ * @param {Array} bookings - An array of existing bookings.
+ * @param {number} price - The price per night for the venue.
+ * @param {number} maxGuests - The maximum number of guests allowed for the venue.
+ */
 export default function MakeBooking({ id, bookings, price, maxGuests }) {
-  // https://www.npmjs.com/package/react-date-range
-  // https://hypeserver.github.io/react-date-range/
-  // https://date-fns.org/docs/Getting-Started#installation
   const navigate = useNavigate();
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const [dates, setDates] = useState([
@@ -43,6 +48,10 @@ export default function MakeBooking({ id, bookings, price, maxGuests }) {
     dateTo: dates[0].endDate.toDateString(),
   };
 
+  /**
+   * Increases the number of guests.
+   * @function
+   */
   function addGuest() {
     if (numberOfGuests === maxGuests) {
       return;
@@ -50,6 +59,10 @@ export default function MakeBooking({ id, bookings, price, maxGuests }) {
     setNumberOfGuests(numberOfGuests + 1);
   }
 
+  /**
+   * Decreases the number of guests.
+   * @function
+   */
   function removeGuest() {
     if (numberOfGuests === 1) {
       return;
@@ -61,6 +74,7 @@ export default function MakeBooking({ id, bookings, price, maxGuests }) {
     setGuests(event.target.value);
   }
 
+  // Extract booked dates from existing bookings
   const bookedDates = bookings?.flatMap((booking) => {
     const start = new Date(booking.dateFrom);
     const end = new Date(booking.dateTo);
@@ -73,6 +87,11 @@ export default function MakeBooking({ id, bookings, price, maxGuests }) {
 
   const { fetchApi, isLoading, isSuccess, isError, errorMsg } = useApi();
 
+  /**
+   * Handles form submission.
+   * @function
+   * @param {Object} formData - Form data containing email and password.
+   */
   const onFormSubmit = async () => {
     event.preventDefault();
 
@@ -175,3 +194,7 @@ export default function MakeBooking({ id, bookings, price, maxGuests }) {
     </MakeBookingContainer>
   );
 }
+
+// https://www.npmjs.com/package/react-date-range
+// https://hypeserver.github.io/react-date-range/
+// https://date-fns.org/docs/Getting-Started#installation

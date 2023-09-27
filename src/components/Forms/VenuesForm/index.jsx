@@ -16,6 +16,13 @@ import {
   VenueMedia,
 } from "./VenuesForm.style.jsx";
 
+/**
+ * VenuesForm Component - Represents a form for registering or editing a venue.
+ * @component
+ * @param {Object} props - Component props
+ * @param {string} props.state - The state of the form, either "new" or "edit".
+ * @param {Object} props.venue - The venue data to edit (if in edit state).
+ */
 export default function VenuesForm({ state, venue }) {
   const { id, name, description, location, maxGuests, media, meta, price } =
     venue;
