@@ -51,7 +51,7 @@ export default function Reservations(data) {
 
   function handleSelect(event) {
     setSelectedOption(event.value);
-    // console.log(selectedBooking);
+    console.log(selectedBooking);
     console.log(selectedOption);
   }
 
@@ -60,22 +60,19 @@ export default function Reservations(data) {
   return (
     <ReservationsContainer>
       <Select
-        options={selectOptions}
-        onChange={handleSelect}
+      // options={selectOptions}
+      // onChange={handleSelect}
 
-        // defaultValue={}
-        // closeMenuOnSelect={false}
-        // components={animatedComponents}
-        // defaultValue={"Confirmed"}
-        // isMulti
+      // defaultValue={}
+      // closeMenuOnSelect={false}
+      // components={animatedComponents}
+      // defaultValue={"Confirmed"}
+      // isMulti
       />
 
       {bookings.length > 0 ? (
         <>
-          {/* {selectedOption.map((booking) => (
-            <p>{booking.name}</p>
-          ))} */}
-          {/* {bookingsWithStatus.map((booking) => (
+          {bookingsWithStatus.map((booking) => (
             <ReservationCard key={booking.id}>
               <ReservationVenue>
                 <img src={booking.media} />
@@ -115,7 +112,7 @@ export default function Reservations(data) {
                 </p>
               </ReservationDetails>
             </ReservationCard>
-          ))} */}
+          ))}
         </>
       ) : (
         <p>Your venues has no reservations yet.</p>

@@ -9,7 +9,6 @@ import { useLoggedIn } from "../../../context/Context";
 import UnAuthUser from "../../../components/UnauthUser";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
-import { MainButton } from "../../../styles/Buttons";
 import Overlay from "../../../components/Modals/Overlay";
 import Modal from "../../../components/Modals/Modal";
 import Reservations from "../../../components/ManagerReservations";
@@ -18,11 +17,12 @@ import Loader from "../../../components/Loader/";
 import {
   ButtonsContainer,
   ButtonsShift,
-  ManageButton,
+  HeadersContainer,
   ManagerContainer,
 } from "./Manager.style";
 import { SEOHelmet } from "../../../components/Helmet";
-import Bookings from "../../../components/ProfileBookings";
+import ProfileCards from "../../../components/Layout/Elements/ProfileCards";
+import { Content, Headers } from "../Profile.styles";
 
 export default function Manage() {
   const { isLoggedIn, isManager, name } = useLoggedIn();
@@ -66,51 +66,53 @@ export default function Manage() {
       <Overlay showModal={showModal} />
       <Modal showModal={showModal} setShowModal={setShowModal} />
 
-      <ManagerContainer className="maxWidth">
-        <h1>Manage your venues &#x26; reservations</h1>
+      <ManagerContainer className="">
+        <Headers>
+          <HeadersContainer>
+            <h1>Manage your venues &#x26; reservations</h1>
 
-        <ManageButton>
-          <MainButton
-            aria-label="Open new venue modal"
-            onClick={() => {
-              setShowModal("newVenue");
-            }}
-          >
-            <FontAwesomeIcon icon={faSquarePlus} />
-            New venue
-          </MainButton>
-        </ManageButton>
+            <ProfileCards
+              title={"Ready to list a new venue?"}
+              content={"Let's get started"}
+              setShowModal={setShowModal}
+              showModal={"newVenue"}
+            />
 
-        <ButtonsContainer>
-          <div>
-            <ButtonsShift
-              aria-label="Show my registered venues"
-              isSmall={true}
-              onClick={() => {
-                setShowVenues(true);
-                setShowReservations(false);
-              }}
-            >
-              <FontAwesomeIcon icon={faHouse} />
-              <p>Your venues ({venues.length})</p>
-            </ButtonsShift>
-            <ButtonsShift
-              aria-label="Show my venues bookings"
-              isSmall={true}
-              onClick={() => {
-                setShowReservations(true);
-                setShowVenues(false);
-              }}
-            >
-              <FontAwesomeIcon icon={faHouseCircleCheck} />
-              <p>Your reservations ({bookings.length})</p>
-            </ButtonsShift>
-          </div>
-          <hr className={showVenues === true ? "left" : "right"} />
-        </ButtonsContainer>
+            <ButtonsContainer>
+              <div>
+                <ButtonsShift
+                  aria-label="Show my registered venues"
+                  isSmall={true}
+                  onClick={() => {
+                    setShowVenues(true);
+                    setShowReservations(false);
+                  }}
+                >
+                  <FontAwesomeIcon icon={faHouse} />
+                  <p>Your venues ({venues.length})</p>
+                </ButtonsShift>
 
-        {showVenues && <VenuesManager data={venues} />}
-        {showReservations && <Reservations data={bookings} />}
+                <ButtonsShift
+                  aria-label="Show my venues bookings"
+                  isSmall={true}
+                  onClick={() => {
+                    setShowReservations(true);
+                    setShowVenues(false);
+                  }}
+                >
+                  <FontAwesomeIcon icon={faHouseCircleCheck} />
+                  <p>Your reservations ({bookings.length})</p>
+                </ButtonsShift>
+              </div>
+              <hr className={showVenues === true ? "left" : "right"} />
+            </ButtonsContainer>
+          </HeadersContainer>
+        </Headers>
+
+        <Content>
+          {showVenues && <VenuesManager data={venues} />}
+          {showReservations && <Reservations data={bookings} />}
+        </Content>
       </ManagerContainer>
     </>
   );

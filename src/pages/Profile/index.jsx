@@ -5,15 +5,16 @@ import apiEndpoints from "../../constants/endpoints";
 import Loader from "../../components/Loader";
 import UnAuthUser from "../../components/UnauthUser";
 import Bookings from "../../components/ProfileBookings";
-import { ProfileContainer } from "./Profile.styles";
+import { Content, Headers, ProfileContainer } from "./Profile.styles";
 import ProfileDetails from "../../components/ProfileDetails";
-import ProfileCards from "../../components/ProfileCards";
+import ProfileCards from "../../components/Layout/Elements/ProfileCards";
 import Overlay from "../../components/Modals/Overlay";
 import Modal from "../../components/Modals/Modal";
 import { SEOHelmet } from "../../components/Helmet";
+import { Link } from "react-router-dom";
 
 export default function Profile() {
-  const { isLoggedIn, name } = useLoggedIn();
+  const { isLoggedIn, isManager, name } = useLoggedIn();
 
   const [bookingId, setBookingId] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -52,15 +53,29 @@ export default function Profile() {
         bookingId={bookingId}
       />
 
-      <ProfileContainer className="maxWidth">
-        <ProfileDetails setShowModal={setShowModal} />
-        <ProfileCards setShowModal={setShowModal} />
+      <ProfileContainer>
+        <Headers>
+          <ProfileDetails setShowModal={setShowModal} />
 
-        <Bookings
-          bookings={bookings}
-          setBookingId={setBookingId}
-          setShowModal={setShowModal}
-        />
+          {/* {isManager === true && (
+            <ProfileCards
+              title={"Register as venue manager"}
+              content={
+                "Rent out yor property through us. Easy peasy money in your pocket!"
+              }
+              setShowModal={setShowModal}
+              showModal={"registerAsManager"}
+            />
+          )} */}
+        </Headers>
+
+        <Content>
+          <Bookings
+            bookings={bookings}
+            setBookingId={setBookingId}
+            setShowModal={setShowModal}
+          />
+        </Content>
       </ProfileContainer>
     </>
   );

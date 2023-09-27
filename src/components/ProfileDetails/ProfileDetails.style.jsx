@@ -2,11 +2,13 @@ import styled from "styled-components";
 import { displayFlex } from "../../styles/mixins";
 
 export const ProfileContent = styled.section`
-  max-width: 400px;
-  height: 150px;
+  width: 100%;
+  max-width: 550px;
+  height: 250px;
   padding: 10px;
   margin-bottom: 20px;
   border-radius: 10px;
+  box-sizing: border-box;
   box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
     rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
 
@@ -17,7 +19,7 @@ export const ProfileContent = styled.section`
   })}
 
   @media (min-width: 768px) {
-    height: 200px;
+    /* height: 200px; */
     padding: 30px;
   }
 `;
@@ -44,8 +46,8 @@ export const InfoContainer = styled.div`
 export const AvatarContainer = styled.div`
   position: relative;
   img {
-    width: 110px;
-    height: 110px;
+    width: 80px;
+    height: 80px;
     border-radius: 100px;
     object-fit: cover;
     object-position: center center;
@@ -58,11 +60,11 @@ export const AvatarContainer = styled.div`
     border-radius: 50px;
     padding: 5px;
     position: absolute;
-    left: 39px;
-    bottom: -12px;
+    left: 23px;
+    bottom: -18px;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 380px) {
     img {
       width: 140px;
       height: 140px;

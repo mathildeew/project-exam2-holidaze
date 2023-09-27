@@ -28,7 +28,7 @@ export default function VenuesManager(data) {
               <VenueCard>
                 <VenueInfo>
                   <img src={venue.media} />
-                  <h2>{truncate(venue.name, 35)}</h2>
+                  <h2>{truncate(venue.name, 25)}</h2>
                 </VenueInfo>
 
                 <VenueDetails>

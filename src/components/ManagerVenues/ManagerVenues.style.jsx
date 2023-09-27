@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { displayFlex } from "../../styles/mixins";
 
 export const VenuesContainer = styled.section`
-  width: 100%;
+  max-width: 550px;
+  margin: 00px auto;
 
   a {
     color: black;
@@ -10,9 +11,12 @@ export const VenuesContainer = styled.section`
 `;
 
 export const VenueCard = styled.div`
+  background-color: white;
+  width: 100%;
   padding: 10px;
   margin-bottom: 40px;
   border-radius: 10px;
+  box-sizing: border-box;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   ${displayFlex({
     direction: "column",
@@ -20,6 +24,7 @@ export const VenueCard = styled.div`
 `;
 
 export const VenueInfo = styled.div`
+  width: 100%;
   margin-bottom: 20px;
 
   ${displayFlex({

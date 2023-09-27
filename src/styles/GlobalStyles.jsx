@@ -11,18 +11,25 @@ html {
   --orange: #fd9b54;
   --light-orange: #FEC49A;
   --light-red: #FFCFCC;
-  --white: #F9F9FD
+  --white: #F9F9FD;
+  --content: #F6F6F6;
+  box-sizing: border-box;
+
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 body {
-  margin: 0;
   width: 100%;
+  margin: 0;
 }
 
 
 main {
-  min-height: 100vh;
   height: 100%;
+  min-height: 100vh;
 }
 
 
@@ -72,10 +79,10 @@ textarea{
   outline: none;
 }
 
-  .maxWidth {
+  /* .maxWidth {
     max-width: 568px;
     padding: 0px 10px;
-  }
+  } */
 
   .padding {
     padding: 0px 10px;
