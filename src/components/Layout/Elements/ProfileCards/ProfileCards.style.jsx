@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { displayFlex } from "../../../../styles/mixins";
 
 export const Card = styled.div`
-  background-image: url(/public/content/douglas-bagg-HDxvXqUJ3BQ-unsplash_downsized_layers.jpg);
+  background-image: url("/content/douglas-bagg-HDxvXqUJ3BQ-unsplash_downsized_layers.jpg");
   background-position: bottom right;
   background-size: cover;
   width: 100%;

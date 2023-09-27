@@ -22,7 +22,7 @@ export default function Login() {
       <LoginContainer>
         <LoginContent>
           <Logo>
-            <img src="/public/assets/identity/logo/logo-small-svg.svg" />
+            <img src="/assets/identity/logo/logo-small-svg.svg" />
 
             <h1>Welcome to Holidaze!</h1>
           </Logo>
