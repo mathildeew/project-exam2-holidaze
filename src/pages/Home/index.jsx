@@ -54,5 +54,10 @@ export default function Home() {
 Home.propTypes = {
   searchedVenue: PropTypes.string,
   setSearchedVenue: PropTypes.func,
-  searchResults: PropTypes.array,
+  searchResults: PropTypes.array.isRequired,
+  fetchApi: PropTypes.func.isRequired,
+  venues: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
+  errorMsg: PropTypes.string.isRequired,
 };

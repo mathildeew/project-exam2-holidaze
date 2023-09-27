@@ -53,8 +53,8 @@ export default function Hero({
 }
 
 Hero.propTypes = {
-  venues: PropTypes.array,
-  searchedVenue: PropTypes.string,
-  setSearchedVenue: PropTypes.func,
-  setSearchResults: PropTypes.func,
+  venues: PropTypes.array.isRequired,
+  searchedVenue: PropTypes.string.isRequired,
+  setSearchedVenue: PropTypes.func.isRequired,
+  setSearchResults: PropTypes.func.isRequired,
 };
