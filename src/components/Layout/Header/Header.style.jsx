@@ -72,3 +72,11 @@ export const Nav = styled.nav`
     }
   }
 `;
+
+export const NotLoggedInNav = styled.nav`
+  a {
+    background: var(--primary);
+    border-radius: 50px;
+    padding: 10px 20px;
+  }
+`;

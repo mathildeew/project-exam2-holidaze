@@ -1,8 +1,17 @@
 import { Link, useMatch } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faBriefcase } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faBriefcase,
+  faRightToBracket,
+} from "@fortawesome/free-solid-svg-icons";
 import { useLoggedIn } from "../../../context/Context";
-import { HeaderContainer, HeaderContent, Nav } from "./Header.style";
+import {
+  HeaderContainer,
+  HeaderContent,
+  Nav,
+  NotLoggedInNav,
+} from "./Header.style";
 
 export default function Header() {
   const { isLoggedIn, isManager } = useLoggedIn();
@@ -18,7 +27,7 @@ export default function Header() {
               <img src="/public/assets/identity/logo/logo-svg.svg" />
             </Link>
             {isLoggedIn === true ? (
-              <Nav className="">
+              <Nav>
                 {isManager === true && (
                   <Link to="/profile/manager/">
                     <span>Manager</span>
@@ -31,11 +40,11 @@ export default function Header() {
                 </Link>
               </Nav>
             ) : (
-              <Nav>
+              <NotLoggedInNav>
                 <Link to="/login">
                   <span>Log in</span>
                 </Link>
-              </Nav>
+              </NotLoggedInNav>
             )}
           </HeaderContent>
         </HeaderContainer>
