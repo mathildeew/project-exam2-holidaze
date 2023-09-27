@@ -2,25 +2,24 @@ import styled from "styled-components";
 import { displayFlex } from "../../../styles/mixins";
 
 export const FooterContainer = styled.footer`
-  background-color: var(--light-red);
-  height: 320px;
+  background-color: var(--content);
   margin: 0 auto;
   ${displayFlex({
     align: "center",
     justify: "center",
   })}
+`;
 
-  .footerContent {
-    width: 100%;
-    max-width: 558px;
-    padding: 0 20px;
+export const FooterContent = styled.div`
+  width: 100%;
+  max-width: 558px;
+  padding: 20px 10px;
 
-    svg {
-      width: 200px;
-    }
+  img {
+    width: 200px;
+  }
 
-    p {
-      color: var(--primary);
-    }
+  p {
+    color: var(--primary);
   }
 `;

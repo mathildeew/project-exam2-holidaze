@@ -1,36 +1,34 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { MainButton } from "../../../styles/Buttons";
-import { CancelBookingContainer } from "../../../styles/Popup";
 import useApi from "../../../hooks/useApi";
-import apiEndpoints from "../../../../endpoints.js/endpoints";
+import apiEndpoints from "../../../constants/endpoints";
+import { MainButton } from "../../../styles/Buttons";
+import { CancelBookingContainer } from "./BookingCancel.style";
+import { ErrorMsg } from "../../../styles/Forms";
 
-export default function CancelPopup(data) {
+export default function CancelReservation(data) {
   const { data: id } = data;
-  const [btnText, setBtnText] = useState("Yes, cancel");
 
-  const { fetchApi } = useApi();
+  const { fetchApi, isLoading, isSuccess, isError, errorMsg } = useApi();
 
   const onSubmit = async () => {
-    setBtnText("Deleting...");
+    const response = await fetchApi(
+      apiEndpoints(id, null).deleteBooking,
+      "DELETE"
+    );
 
-    const response = await fetchApi(apiEndpoints(id).deleteBooking, "DELETE");
-
-    setTimeout(() => {
-      setBtnText("Deleted!");
-    }, 1000);
-
-    setTimeout(() => {
-      window.location.reload();
-    }, 1500);
+    if (response.status === 204) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
+    }
   };
 
   return (
     <CancelBookingContainer>
       <p>Are you sure you want to cancel this reservation?</p>
-      <MainButton onClick={onSubmit}>{btnText}</MainButton>
+      {isError && <ErrorMsg>{errorMsg}</ErrorMsg>}
+      <MainButton onClick={onSubmit}>
+        {isLoading ? "Deleting..." : isSuccess ? "Deleted!" : "Yes, delete"}
+      </MainButton>
     </CancelBookingContainer>
   );
 }

@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import { displayFlex } from "../../styles/mixins";
 
-export const BookingsContainer = styled.section``;
+export const BookingsContainer = styled.section`
+  max-width: 550px;
+  margin: 50px auto;
+`;
 
 export const BookingsContent = styled.div`
   display: grid;
@@ -10,7 +13,15 @@ export const BookingsContent = styled.div`
 `;
 
 export const BookingCard = styled.div`
-  height: 130px;
+  background-color: white;
+  height: 200px;
+  padding: 10px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  ${displayFlex({
+    direction: "column",
+  })}
   ${displayFlex({
     direction: "row",
     justify: "space-between",
@@ -18,7 +29,6 @@ export const BookingCard = styled.div`
 
   img {
     width: 40%;
-    height: 100%;
     max-height: 200px;
     border-radius: 10px;
     object-fit: cover;
@@ -27,10 +37,11 @@ export const BookingCard = styled.div`
 `;
 
 export const BookingInfo = styled.div`
-  width: 50%;
-  height: 100%;
+  width: 55%;
+
   ${displayFlex({
     direction: "column",
     justify: "space-between",
+    align: "start",
   })}
 `;

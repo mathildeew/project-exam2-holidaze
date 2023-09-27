@@ -1,9 +1,9 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
-import { get } from "../js/storage/localStorage";
+import { useState } from "react";
+import { useLoggedIn } from "../context/Context";
 
 const useApi = () => {
-  const token = get("token");
+  const { token } = useLoggedIn();
 
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,28 +29,13 @@ const useApi = () => {
       setIsSuccess(true);
       setIsError(false);
       setErrorMessage(null);
-
-      // console.log(response);
       return response;
     } catch (error) {
+      setErrorMessage(error.response.data.errors[0].message);
       setIsError(true);
       setIsSuccess(false);
       setData([]);
 
-      if (!error.response) {
-        setErrorMessage(`Client-side error: ${error.message}`);
-        return isError;
-      } else {
-        const serverErrorMessage =
-          error.response.data.errors &&
-          Array.isArray(error.response.data.errors) &&
-          error.response.data.errors.length > 0
-            ? error.response.data.errors[0].message
-            : "Unknown server error";
-
-        console.log(error);
-        setErrorMessage(`${serverErrorMessage}`);
-      }
       return null;
     } finally {
       setIsLoading(false);

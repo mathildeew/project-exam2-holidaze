@@ -61,9 +61,19 @@ export const VenueLocation = styled.div`
 export const VenueDetails = styled.div`
   ${displayFlex({
     direction: "row",
+    align: "center",
     justify: "space-between",
+  })}
+`;
+
+export const VenueRating = styled.div`
+  ${displayFlex({
     align: "center",
   })}
+
+  svg {
+    margin-right: 5px;
+  }
 `;
 
 export const VenuePrice = styled.div`

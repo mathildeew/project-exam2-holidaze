@@ -1,6 +1,9 @@
 import dayjs from "dayjs";
-import { calculatePrice } from "../../js/storage/calculatePrice";
-import { truncate } from "../../js/storage/truncate";
+import { useState } from "react";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
+import { calculatePrice } from "../../hooks/useCalculate";
+import { truncate } from "../../hooks/useTruncate";
 import { BoldText } from "../../styles/Text";
 import {
   ReservationCard,
@@ -10,41 +13,66 @@ import {
 } from "./ManagerReservations.style";
 
 export default function Reservations(data) {
-  const { data: venues } = data;
+  const { data: bookings } = data;
 
-  const bookings = venues.flatMap((venue) => {
-    return venue.bookings.map((booking) => {
+  const bookingsWithStatus = bookings.map((booking) => {
+    if (new Date() < new Date(booking.dateFrom)) {
       return {
         ...booking,
-
-        name: venue.name,
-        price: venue.price,
-        media: venue.media,
+        status: "Confirmed",
       };
-    });
+    }
+    if (new Date() > new Date(booking.dateTo)) {
+      return {
+        ...booking,
+        status: "Checked out",
+      };
+    }
+    if (
+      new Date() >= new Date(booking.dateFrom) &&
+      new Date() < new Date(booking.dateTo)
+    ) {
+      return {
+        ...booking,
+        status: "On going",
+      };
+    }
   });
 
-  // console.log(bookings);
+  const [selectedOption, setSelectedOption] = useState([]);
 
-  function showStatus(startDate, endDate) {
-    if (new Date(startDate) > new Date()) {
-      return "Confirmed";
-    }
+  const selectOptions = bookingsWithStatus.map((booking) => {
+    return {
+      value: booking.status,
+    };
+  });
 
-    if (new Date(startDate) > new Date() || new Date(endDate) > new Date()) {
-      return "On going";
-    }
+  console.log(selectOptions);
 
-    if (new Date(endDate) < new Date()) {
-      return "Checked out";
-    }
+  function handleSelect(event) {
+    setSelectedOption(event.value);
+    console.log(selectedBooking);
+    console.log(selectedOption);
   }
+
+  const animatedComponents = makeAnimated();
 
   return (
     <ReservationsContainer>
+      <Select
+      // options={selectOptions}
+      // onChange={handleSelect}
+
+      // defaultValue={}
+      // closeMenuOnSelect={false}
+      // components={animatedComponents}
+      // defaultValue={"Confirmed"}
+      // isMulti
+      />
+
       {bookings.length > 0 ? (
         <>
-          {bookings.map((booking) => (
+          {bookingsWithStatus.map((booking) => (
             <ReservationCard key={booking.id}>
               <ReservationVenue>
                 <img src={booking.media} />
@@ -53,11 +81,12 @@ export default function Reservations(data) {
 
               <ReservationDetails>
                 <BoldText>Status:</BoldText>
-                <p>{showStatus(booking.dateFrom, booking.dateTo)}</p>
+                <p>{booking.status}</p>
               </ReservationDetails>
 
               <ReservationDetails>
                 <BoldText>Check-in:</BoldText>
+                <p></p>
                 <p>{dayjs(booking.dateFrom).format("DD.MM.YYYY")}</p>
               </ReservationDetails>
 
@@ -82,8 +111,6 @@ export default function Reservations(data) {
                   )}
                 </p>
               </ReservationDetails>
-
-              <hr />
             </ReservationCard>
           ))}
         </>
