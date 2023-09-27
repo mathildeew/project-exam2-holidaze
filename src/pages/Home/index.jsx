@@ -15,7 +15,7 @@ export default function Home() {
   const { fetchApi, data: venues, isLoading, isError } = useApi();
 
   const getData = useCallback(async () => {
-    await fetchApi(apiEndpoints().venues);
+    await fetchApi(apiEndpoints("dfsjlkdsf").venues);
   }, []);
 
   useEffect(() => {

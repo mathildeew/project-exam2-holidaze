@@ -9,8 +9,8 @@ export const HomeContainer = styled.main`
 export const Hero = styled.section`
   width: 100%;
   height: 455px;
-  background: url(/public/daniel-olah-f0P7y3swnZU-unsplash.jpg) no-repeat center
-    bottom;
+  background: url(/public/content/daniel-olah-f0P7y3swnZU-unsplash.jpg)
+    no-repeat center bottom;
   background-size: cover;
   margin-bottom: 50px;
 

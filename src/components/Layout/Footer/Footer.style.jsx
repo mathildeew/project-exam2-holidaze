@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { displayFlex } from "../../../styles/mixins";
 
 export const FooterContainer = styled.footer`
-  background-color: var(--light-red);
+  background-color: var(--content);
   margin: 0 auto;
   ${displayFlex({
     align: "center",

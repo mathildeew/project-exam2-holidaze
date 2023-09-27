@@ -56,17 +56,6 @@ export default function Profile() {
       <ProfileContainer>
         <Headers>
           <ProfileDetails setShowModal={setShowModal} />
-
-          {/* {isManager === true && (
-            <ProfileCards
-              title={"Register as venue manager"}
-              content={
-                "Rent out yor property through us. Easy peasy money in your pocket!"
-              }
-              setShowModal={setShowModal}
-              showModal={"registerAsManager"}
-            />
-          )} */}
         </Headers>
 
         <Content>

@@ -2,28 +2,28 @@ import styled from "styled-components";
 import { displayFlex } from "../../../styles/mixins";
 
 export const HeaderContainer = styled.header`
-  background: var(--light-yellow);
-  height: 50px;
+  background: #f9f8f7;
+  height: 60px;
   ${displayFlex({
     align: "center",
     justify: "center",
   })}
 
-  #logoSmall {
-    font-size: 2rem;
+  img {
+    width: 100%;
     height: auto;
     width: 130px;
   }
+`;
 
-  .headerContent {
-    width: 100%;
-    max-width: 1160px;
-    margin: 0 20px;
-    ${displayFlex({
-      align: "center",
-      justify: "space-between",
-    })}
-  }
+export const HeaderContent = styled.div`
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 20px;
+  ${displayFlex({
+    align: "center",
+    justify: "space-between",
+  })}
 
   a {
     color: #fff;
@@ -32,55 +32,43 @@ export const HeaderContainer = styled.header`
 `;
 
 export const Nav = styled.nav`
-  width: 70px;
+  width: 110px;
 
-  &.unauth {
-    background-color: var(--primary);
-    border-radius: 50px;
-    padding: 2px 20px;
-    ${displayFlex({
-      justify: "center",
-    })}
+  ${displayFlex({
+    justify: "space-between",
+    align: "center",
+  })}
 
-    span {
-      color: #fff;
-      font-weight: 600;
-    }
+  svg {
+    color: var(--primary);
+    font-size: 2rem;
+    padding: 9px;
+    border: 2px solid var(--primary);
+    border-radius: 100px;
   }
 
-  &.auth {
-    ${displayFlex({
-      justify: "space-between",
-    })}
-
-    svg {
-      color: var(--primary);
-      font-size: 2rem;
-    }
-
-    span {
-      display: none;
-    }
+  span {
+    display: none;
   }
 
   @media (min-width: 768px) {
-    &.auth {
-      width: 300px;
+    width: 350px;
 
-      a {
-        background-color: var(--primary);
-        border-radius: 50px;
-        padding: 5px 20px;
-      }
+    a {
+      background-color: var(--primary);
+      border-radius: 50px;
+      padding: 10px 20px;
+    }
 
-      span {
-        display: inline-block;
-        margin-right: 15px;
-      }
+    span {
+      display: inline-block;
+      margin-right: 15px;
+    }
 
-      svg {
-        color: #fff;
-      }
+    svg {
+      color: #fff;
+      border: none;
+      padding: 0;
     }
   }
 `;

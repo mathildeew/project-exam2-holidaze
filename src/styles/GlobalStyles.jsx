@@ -6,13 +6,14 @@ export const GlobalStyle = createGlobalStyle`
 html {
   font-size: 62.5%;
   --primary:  #4B3D60;
+  --secondary: #F65B51;
   --primary-light: #F9F9FD;
   --light-yellow: #FAFAEA;
   --orange: #fd9b54;
   --light-orange: #FEC49A;
   --light-red: #FFCFCC;
   --white: #F9F9FD;
-  --content: #F6F6F6;
+  --content: #f9f8f7;
   box-sizing: border-box;
 
 }
@@ -79,10 +80,6 @@ textarea{
   outline: none;
 }
 
-  /* .maxWidth {
-    max-width: 568px;
-    padding: 0px 10px;
-  } */
 
   .padding {
     padding: 0px 10px;
