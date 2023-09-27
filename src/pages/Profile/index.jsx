@@ -10,7 +10,12 @@ import ProfileDetails from "../../components/ProfileDetails";
 import Overlay from "../../components/Modals/Overlay";
 import Modal from "../../components/Modals/Modal";
 import { Content, Headers, ProfileContainer } from "./Profile.styles";
+import Error from "../../components/Error";
 
+/**
+ * Profile Component - Represents the user's profile page.
+ * @component
+ */
 export default function Profile() {
   const { isLoggedIn, name } = useLoggedIn();
 
@@ -21,6 +26,7 @@ export default function Profile() {
     fetchApi,
     data: { bookings, _count },
     isLoading,
+    isError,
   } = useApi();
 
   const getData = useCallback(async () => {
@@ -42,6 +48,7 @@ export default function Profile() {
 
       {!isLoggedIn && <UnAuthUser />}
       {isLoading && <Loader />}
+      {isError && <Error />}
 
       <Overlay showModal={showModal} />
       <Modal

@@ -21,7 +21,11 @@ import {
   ManagerContainer,
 } from "./Manager.style";
 
-export default function Manage() {
+/**
+ * Manager Component - Represents the manager's profile management page.
+ * @component
+ */
+export default function Manager() {
   const { isLoggedIn, isManager, name } = useLoggedIn();
   const [showModal, setShowModal] = useState(false);
   const [showVenues, setShowVenues] = useState(true);

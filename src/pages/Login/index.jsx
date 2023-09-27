@@ -1,14 +1,18 @@
 import { Link } from "react-router-dom";
+import { SEOHelmet } from "../../components/Helmet";
+import LoginForm from "../../components/Forms/Login";
+import Banner from "../../components/Banner";
 import {
   LoginContainer,
   LoginContent,
   Logo,
   RegisterLink,
 } from "./Login.style";
-import LoginForm from "../../components/Forms/Login";
-import Banner from "../../components/Banner";
-import { SEOHelmet } from "../../components/Helmet";
 
+/**
+ * Login Component - Represents the login page of Holidaze.
+ * @component
+ */
 export default function Login() {
   return (
     <>
@@ -23,7 +27,6 @@ export default function Login() {
         <LoginContent>
           <Logo>
             <img src="/assets/identity/logo/logo-small-svg.svg" />
-
             <h1>Welcome to Holidaze!</h1>
           </Logo>
 

@@ -9,6 +9,10 @@ import {
   LoginLink,
 } from "./Register.style";
 
+/**
+ * Register Component - Represents the register page of Holidaze.
+ * @component
+ */
 export default function Register() {
   return (
     <>

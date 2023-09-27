@@ -40,6 +40,10 @@ import {
 } from "./Venue.style";
 import { SEOHelmet } from "../../components/Helmet";
 
+/**
+ * Venue Component - Represents the single venue based of ID.
+ * @component
+ */
 export default function Venue() {
   const { id } = useParams();
   const { isLoggedIn, name } = useLoggedIn();
@@ -82,9 +86,6 @@ export default function Venue() {
     scrollTop.scrollIntoView({ behavior: "smooth" });
   };
 
-  if (isLoading) return <Loader />;
-  if (isError) return <VenueContent>Error!</VenueContent>;
-
   return (
     <>
       <SEOHelmet
@@ -93,6 +94,9 @@ export default function Venue() {
           "Welcome back! Discover your perfect getaway with Holidaze. Manage your venues & reservations."
         }
       />
+
+      {isLoading && <Loader />}
+      {isError && <Error />}
 
       <Overlay showModal={showModal} />
       <Modal
