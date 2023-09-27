@@ -1,8 +1,14 @@
-export default function Error() {
+export default function Error({ errorMsg }) {
   return (
     <main>
-      <p>There was an internal error!</p>
-      <p>Please try again later.</p>
+      {errorMsg ? (
+        <p>{errorMsg}</p>
+      ) : (
+        <div>
+          <p>There was an internal error!</p>
+          <p>Please try again later.</p>
+        </div>
+      )}
     </main>
   );
 }

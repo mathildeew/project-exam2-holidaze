@@ -12,18 +12,15 @@ import { SEOHelmet } from "../../components/Helmet";
 export default function Home() {
   const [searchedVenue, setSearchedVenue] = useState("");
 
-  const { fetchApi, data: venues, isLoading, isError } = useApi();
+  const { fetchApi, data: venues, isLoading, isError, errorMsg } = useApi();
 
   const getData = useCallback(async () => {
-    await fetchApi(apiEndpoints("dfsjlkdsf").venues);
+    await fetchApi(apiEndpoints().venues);
   }, []);
 
   useEffect(() => {
     getData();
   }, [getData]);
-
-  if (isLoading) return <Loader />;
-  if (isError) return <Error />;
 
   const searchResults = venues.filter((venue) =>
     venue.name.toLowerCase().includes(searchedVenue.toLowerCase())
@@ -33,6 +30,8 @@ export default function Home() {
     setSearchedVenue(event.target.value);
   }
 
+  if (isLoading) return <Loader />;
+  if (isError) return <Error message={errorMsg} />;
   return (
     <>
       <SEOHelmet
