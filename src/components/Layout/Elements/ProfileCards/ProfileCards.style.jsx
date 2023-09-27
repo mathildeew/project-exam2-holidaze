@@ -7,7 +7,7 @@ export const Card = styled.div`
   background-size: cover;
   width: 100%;
   box-sizing: border-box;
-  height: 100px;
+  height: 200px;
   padding: 15px 10px;
   margin-bottom: 50px;
   border-radius: 10px;

@@ -19,13 +19,13 @@ export const ProfileContent = styled.section`
   })}
 
   @media (min-width: 768px) {
-    /* height: 200px; */
     padding: 30px;
   }
 `;
 
 export const InfoContainer = styled.div`
   height: 100%;
+
   h1 {
     margin-bottom: 0;
   }

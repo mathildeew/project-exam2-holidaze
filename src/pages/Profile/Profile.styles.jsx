@@ -17,11 +17,16 @@ export const Content = styled.div`
 export const Headers = styled.div`
   background-color: white;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   padding: 0 10px;
   margin: 50px auto;
   ${displayFlex({
     direction: "column",
     align: "center",
+    justify: "center",
   })}
+
+  @media (min-width: 768px) {
+    height: 450px;
+  }
 `;
