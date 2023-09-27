@@ -41,8 +41,6 @@ export default function LoginForm() {
   const onSubmit = async (formData) => {
     const response = await fetchApi(apiEndpoints().login, "POST", formData);
 
-    console.log(response);
-
     if (response.status === 200) {
       setIsLoggedIn(true);
       setIsManager(response.data.venueManager);
