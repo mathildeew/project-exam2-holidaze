@@ -2,9 +2,9 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
-import { calculatePrice } from "../../hooks/useCalculate";
-import { truncate } from "../../hooks/useTruncate";
-import { BoldText } from "../../styles/Text";
+import { calculatePrice } from "../../../../hooks/useCalculate";
+import { truncate } from "../../../../hooks/useTruncate";
+import { BoldText } from "../../../../styles/Text";
 import {
   ReservationCard,
   ReservationDetails,
@@ -41,33 +41,45 @@ export default function Reservations(data) {
 
   const [selectedOption, setSelectedOption] = useState([]);
 
-  const selectOptions = bookingsWithStatus.map((booking) => {
-    return {
-      value: booking.status,
+  const status = bookingsWithStatus.map((booking) => {
+    const status = {
+      label: booking.status,
     };
+    return status;
   });
 
-  console.log(selectOptions);
+  const noDuplicates = [];
+  const selectOptions = status.filter((status) => {
+    const isDuplicate = noDuplicates.includes(status.label);
+
+    if (!isDuplicate) {
+      noDuplicates.push(status.label);
+      return true;
+    }
+    return false;
+  });
 
   function handleSelect(event) {
-    setSelectedOption(event.value);
-    console.log(selectedBooking);
-    console.log(selectedOption);
+    const displayedBookings = bookingsWithStatus.filter((booking) =>
+      booking.status.toLowerCase().includes(event.label.toLowerCase())
+    );
+    console.log(displayedBookings);
+    setSelectedOption(displayedBookings);
   }
+
+  console.log(selectedOption);
 
   const animatedComponents = makeAnimated();
 
   return (
     <ReservationsContainer>
       <Select
-      // options={selectOptions}
-      // onChange={handleSelect}
-
-      // defaultValue={}
-      // closeMenuOnSelect={false}
-      // components={animatedComponents}
-      // defaultValue={"Confirmed"}
-      // isMulti
+        options={selectOptions}
+        onChange={handleSelect}
+        closeMenuOnSelect={false}
+        components={animatedComponents}
+        defaultValue={selectOptions[0]}
+        // isMulti
       />
 
       {bookings.length > 0 ? (
