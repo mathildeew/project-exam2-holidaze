@@ -13,7 +13,7 @@ export const FooterContainer = styled.footer`
 export const FooterContent = styled.div`
   width: 100%;
   max-width: 558px;
-  padding: 20px 0;
+  padding: 20px 10px;
 
   img {
     width: 200px;
