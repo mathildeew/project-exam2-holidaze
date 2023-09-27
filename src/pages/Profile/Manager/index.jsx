@@ -11,7 +11,7 @@ import apiEndpoints from "../../../constants/endpoints";
 import Loader from "../../../components/Loader/";
 import Overlay from "../../../components/Modals/Overlay";
 import Modal from "../../../components/Modals/Modal";
-import Reservations from "../Manager";
+import Reservations from "../../../components/Profile/Manager/ManagerReservations";
 import VenuesManager from "../../../components/Profile/Manager/ManagerVenues";
 import ProfileCards from "../../../components/Layout/Elements/ProfileCards";
 import {
@@ -67,7 +67,7 @@ export default function Manager() {
       <Overlay showModal={showModal} />
       <Modal showModal={showModal} setShowModal={setShowModal} />
 
-      <ManagerContainer className="">
+      <ManagerContainer>
         <Headers>
           <HeadersContainer>
             <h1>Manage your venues &#x26; reservations</h1>
