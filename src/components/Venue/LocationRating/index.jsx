@@ -6,13 +6,13 @@ import { SmallText } from "../../../styles/Text";
 export default function LocationRating({ location, rating }) {
   return (
     <VenueTopLine>
-      <div className="flexLine">
+      <div>
         <FontAwesomeIcon icon={faLocationDot} />
         <SmallText>
           {location?.city}, {location?.country}
         </SmallText>
       </div>
-      <div className="flexLine">
+      <div>
         <FontAwesomeIcon icon={faStar} />
         {rating > 0 ? (
           <SmallText>{rating}/5</SmallText>

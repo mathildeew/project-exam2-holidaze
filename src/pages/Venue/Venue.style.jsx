@@ -86,6 +86,10 @@ export const VenueTopLine = styled.div`
     font-size: 1.8rem;
     margin-right: 10px;
   }
+
+  div {
+    ${displayFlex({})}
+  }
 `;
 
 export const FascilitiesContainer = styled.div`
@@ -123,6 +127,10 @@ export const LocationContainer = styled.div`
   p {
     margin-bottom: 10px;
   }
+
+  div {
+    ${displayFlex({})}
+  }
 `;
 
 export const Host = styled.div`
@@ -140,10 +148,6 @@ export const Host = styled.div`
     object-fit: cover;
     object-position: center center;
     margin-right: 10px;
-  }
-
-  p {
-    margin-bottom: 20px;
   }
 `;
 
@@ -178,6 +182,10 @@ export const BookNowBtn = styled.div`
     border: none;
     border-radius: 100px;
     padding: 10px 16px;
+  }
+
+  div {
+    ${displayFlex({})}
   }
 
   @media (min-width: 1024px) {

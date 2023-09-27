@@ -5,28 +5,12 @@ export default function Location({ location }) {
     <LocationContainer>
       <h2>Location</h2>
 
-      {location?.address && (
-        <>
-          <p>{location?.address}</p>
-        </>
-      )}
-      <div className="flexLine">
-        {location?.zip && (
-          <>
-            <p>{location?.zip}&nbsp;</p>
-          </>
-        )}
-        {location?.city && (
-          <>
-            <p>{location?.city}</p>
-          </>
-        )}
+      {location?.address && <p>{location?.address}</p>}
+      <div>
+        {location?.zip && <p>{location?.zip}&nbsp;</p>}
+        {location?.city && <p>{location?.city}</p>}
       </div>
-      {location?.country && (
-        <>
-          <p>{location?.country}</p>
-        </>
-      )}
+      {location?.country && <p>{location?.country}</p>}
     </LocationContainer>
   );
 }

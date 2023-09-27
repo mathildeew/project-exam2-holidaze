@@ -101,7 +101,7 @@ export default function Venue() {
 
       {owner?.name !== name && (
         <BookNowBtn>
-          <div className="flexLine">
+          <div>
             <BoldText>${price}</BoldText>
             <SmallText>night</SmallText>
           </div>

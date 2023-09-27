@@ -5,16 +5,9 @@ export const GlobalStyle = createGlobalStyle`
 html {
   font-size: 62.5%;
   --primary:  #4B3D60;
-  --secondary: #F65B51;
-  --primary-light: #F9F9FD;
-  --light-yellow: #FAFAEA;
-  --orange: #fd9b54;
-  --light-orange: #FEC49A;
-  --light-red: #FFCFCC;
   --white: #F9F9FD;
   --content: #f9f8f7;
   box-sizing: border-box;
-
 }
 
 *, *:before, *:after {
@@ -71,18 +64,4 @@ p, a, label {
 hr { 
   margin: 50px 0;
 }
-
-
-
-
-.padding {
-    padding: 0px 10px;
-
-  }
-
-  .flexLine {
-    ${displayFlex({
-      align: "center",
-    })}
-  }
 `;
