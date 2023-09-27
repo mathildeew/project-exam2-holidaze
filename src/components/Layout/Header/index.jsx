@@ -5,7 +5,7 @@ import { useLoggedIn } from "../../../context/Context";
 import { HeaderContainer, Nav } from "./Header.style";
 
 export default function Header() {
-  const { isLoggedIn } = useLoggedIn();
+  const { isLoggedIn, isManager } = useLoggedIn();
   const login = useMatch("/login");
   const register = useMatch("/register");
 
@@ -82,10 +82,12 @@ export default function Header() {
             </Link>
             {isLoggedIn === true ? (
               <Nav className="auth">
-                <Link to="/profile/manager/">
-                  <span className="hide">Manager</span>
-                  <FontAwesomeIcon icon={faBriefcase} />
-                </Link>
+                {isManager === true && (
+                  <Link to="/profile/manager/">
+                    <span className="hide">Manager</span>
+                    <FontAwesomeIcon icon={faBriefcase} />
+                  </Link>
+                )}
                 <Link to="/profile/">
                   <span className="hide">Profile</span>
                   <FontAwesomeIcon icon={faUser} />
