@@ -1,9 +1,9 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
-import { get } from "../js/storage/localStorage";
+import { useState } from "react";
+import { useLoggedIn } from "../context/Context";
 
 const useApi = () => {
-  const token = get("token");
+  const { token } = useLoggedIn();
 
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);

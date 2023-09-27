@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import { truncate } from "../../js/truncate";
+import { truncate } from "../../hooks/useTruncate";
 import { BoldText } from "../../styles/Text";
 import {
   VenuesContainer,

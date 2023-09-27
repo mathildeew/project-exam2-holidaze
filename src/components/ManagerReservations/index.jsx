@@ -2,8 +2,8 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
-import { calculatePrice } from "../../js/calculatePrice";
-import { truncate } from "../../js/truncate";
+import { calculatePrice } from "../../hooks/useCalculate";
+import { truncate } from "../../hooks/useTruncate";
 import { BoldText } from "../../styles/Text";
 import {
   ReservationCard,

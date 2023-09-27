@@ -1,9 +1,7 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useLoggedIn } from "../../../context/Context";
-import { set } from "../../../js/storage/localStorage";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
 import { MainButton } from "../../../styles/Buttons";
@@ -34,7 +32,7 @@ export default function UpdateAvatar() {
     );
 
     if (response.status === 200) {
-      set("avatar", JSON.stringify(formData.avatar));
+      setAvatar(formData.avatar);
 
       setTimeout(() => {
         window.location.reload();
