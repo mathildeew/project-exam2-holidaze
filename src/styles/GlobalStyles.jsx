@@ -1,5 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-
 import { displayFlex } from "./mixins";
 
 export const GlobalStyle = createGlobalStyle`
@@ -65,23 +64,18 @@ p {
   margin: 0;
 }
 
-
 p, a, label {
   font-size: 1.6rem;
-  }
+}
 
-  hr {
-    margin: 50px 0;
-  }
-
-
-textarea{
-  border: none;
-  outline: none;
+hr { 
+  margin: 50px 0;
 }
 
 
-  .padding {
+
+
+.padding {
     padding: 0px 10px;
 
   }
@@ -91,6 +85,4 @@ textarea{
       align: "center",
     })}
   }
-
-
 `;
