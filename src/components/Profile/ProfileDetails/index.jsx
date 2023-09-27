@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
-import { useLoggedIn } from "../../context/Context";
-import { MainButton, OutlineButton } from "../../styles/Buttons";
-import { BoldText } from "../../styles/Text";
+import { useLoggedIn } from "../../../context/Context";
+import { MainButton, OutlineButton } from "../../../styles/Buttons";
+import { BoldText } from "../../../styles/Text";
 import {
   ProfileContent,
   AvatarContainer,

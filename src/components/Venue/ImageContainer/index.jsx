@@ -4,7 +4,7 @@ import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import { ImageContainer } from "../../../pages/Venue/Venue.style";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-export function Images({ media, venueTitle }) {
+export default function Images({ media, venueTitle }) {
   return (
     <ImageContainer>
       <Carousel

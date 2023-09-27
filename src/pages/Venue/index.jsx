@@ -1,18 +1,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPeopleRoof,
-  faWifi,
-  faCutlery,
-  faParking,
-  faDog,
-  faLocationDot,
-  faStar,
-  faCircle,
-} from "@fortawesome/free-solid-svg-icons";
 import { useLoggedIn } from "../../context/Context";
+import { SEOHelmet } from "../../components/Helmet";
 import useApi from "../../hooks/useApi";
 import apiEndpoints from "../../constants/endpoints";
 import { BoldText, SmallText } from "../../styles/Text";
@@ -21,28 +10,19 @@ import Overlay from "../../components/Modals/Overlay";
 import Modal from "../../components/Modals/Modal";
 import MakeBooking from "../../components/Forms/MakeBooking";
 import Loader from "../../components/Loader/";
-import {
-  BookNowBtn,
-  FascilitiesContainer,
-  Host,
-  VenueContent,
-  VenueContainer,
-  VenueDetails,
-  Icons,
-  Updates,
-  LocationContainer,
-  VenueTopLine,
-  AboutVenue,
-  VenueInfo,
-  ImageContainer,
-  ManagerButtons,
-} from "./Venue.style";
-import { SEOHelmet } from "../../components/Helmet";
-import { Images } from "../../components/Venue/ImageContainer";
+import Images from "../../components/Venue/ImageContainer";
 import Fascilities from "../../components/Venue/Fascilities";
 import LocationRating from "../../components/Venue/LocationRating";
 import About from "../../components/Venue/Description";
 import Location from "../../components/Venue/Location";
+import {
+  BookNowBtn,
+  VenueContent,
+  VenueContainer,
+  VenueDetails,
+  VenueInfo,
+  ManagerButtons,
+} from "./Venue.style";
 
 /**
  * Venue Component - Represents the single venue based of ID.

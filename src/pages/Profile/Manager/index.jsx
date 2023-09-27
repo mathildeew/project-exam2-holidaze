@@ -11,8 +11,8 @@ import apiEndpoints from "../../../constants/endpoints";
 import Loader from "../../../components/Loader/";
 import Overlay from "../../../components/Modals/Overlay";
 import Modal from "../../../components/Modals/Modal";
-import Reservations from "../../../components/ManagerReservations";
-import VenuesManager from "../../../components/ManagerVenues";
+import Reservations from "../Manager";
+import VenuesManager from "../../../components/Profile/Manager/ManagerVenues";
 import ProfileCards from "../../../components/Layout/Elements/ProfileCards";
 import {
   ButtonsContainer,

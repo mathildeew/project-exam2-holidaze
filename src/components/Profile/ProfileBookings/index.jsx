@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
-import { truncate } from "../../hooks/useTruncate";
-import { calculatePrice } from "../../hooks/useCalculate";
-import { MainButton } from "../../styles/Buttons";
-import { BoldText, TextLine } from "../../styles/Text";
+import { truncate } from "../../../hooks/useTruncate";
+import { calculatePrice } from "../../../hooks/useCalculate";
+import { MainButton } from "../../../styles/Buttons";
+import { BoldText, TextLine } from "../../../styles/Text";
 import {
   BookingsContent,
   BookingCard,
