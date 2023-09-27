@@ -7,7 +7,7 @@ export const BannerContainer = styled.div`
   @media (min-width: 1024px) {
     width: fit-content;
     height: 100%;
-    background: url(/public/content/bannerballon.jpg);
+    background: url("/content/bannerballon.jpg");
     background-size: cover;
     background-position: center right;
     ${displayFlex({
