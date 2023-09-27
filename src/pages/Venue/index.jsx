@@ -1,11 +1,13 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useLoggedIn } from "../../context/Context";
 import { SEOHelmet } from "../../components/Helmet";
 import useApi from "../../hooks/useApi";
 import apiEndpoints from "../../constants/endpoints";
 import { BoldText, SmallText } from "../../styles/Text";
-import { MainButton } from "../../styles/Buttons";
+import { OutlineButton } from "../../styles/Buttons";
 import Overlay from "../../components/Modals/Overlay";
 import Modal from "../../components/Modals/Modal";
 import MakeBooking from "../../components/Forms/MakeBooking";
@@ -123,20 +125,24 @@ export default function Venue() {
       <VenueContainer>
         {owner?.name === name && (
           <ManagerButtons>
-            <MainButton
+            <OutlineButton
+              isSmall={true}
               onClick={() => {
                 setShowModal("editVenue");
               }}
             >
+              <FontAwesomeIcon icon={faEdit} />
               Edit
-            </MainButton>
-            <MainButton
+            </OutlineButton>
+            <OutlineButton
+              isSmall={true}
               onClick={() => {
                 setShowModal("deleteVenue");
               }}
             >
+              <FontAwesomeIcon icon={faTrash} />
               Delete
-            </MainButton>
+            </OutlineButton>
           </ManagerButtons>
         )}
         <Images media={media} venueTitle={venueTitle} />

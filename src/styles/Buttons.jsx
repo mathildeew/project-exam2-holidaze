@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const MainButton = styled.button`
-  color: var(--light-yellow);
+  color: white;
   color: ${(props) => (props.isWhite ? "var(--primary)" : "")};
   font-size: 1.6rem;
   font-size: ${(props) => (props.isSmall ? "1.4rem" : "")};
@@ -14,7 +14,6 @@ export const MainButton = styled.button`
   padding: ${(props) => (props.isSmall ? "7px 12px" : "")};
   border: 2px solid var(--primary);
   border: ${(props) => (props.isSmall ? "1px solid var(--primary)" : "")};
-
   border: ${(props) => (props.isTrans ? "none" : "")};
   border-radius: 10px;
 `;
@@ -27,4 +26,8 @@ export const OutlineButton = styled.button`
   border-radius: 10px;
   border: 1px solid var(--primary);
   padding: 7px 12px;
+
+  svg {
+    margin-right: 10px;
+  }
 `;

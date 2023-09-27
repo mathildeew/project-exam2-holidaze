@@ -26,7 +26,7 @@ export const VenueContent = styled.section`
 `;
 
 export const ManagerButtons = styled.div`
-  max-width: 300px;
+  max-width: 200px;
   margin-bottom: 40px;
 
   ${displayFlex({
