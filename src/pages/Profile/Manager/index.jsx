@@ -1,28 +1,25 @@
 import { useCallback, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHouseCircleCheck,
-  faSquarePlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faHouseCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { useLoggedIn } from "../../../context/Context";
+import { SEOHelmet } from "../../../components/Helmet";
+import { Content, Headers } from "../Profile.styles";
 import UnAuthUser from "../../../components/UnauthUser";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
+import Loader from "../../../components/Loader/";
 import Overlay from "../../../components/Modals/Overlay";
 import Modal from "../../../components/Modals/Modal";
 import Reservations from "../../../components/ManagerReservations";
 import VenuesManager from "../../../components/ManagerVenues";
-import Loader from "../../../components/Loader/";
+import ProfileCards from "../../../components/Layout/Elements/ProfileCards";
 import {
   ButtonsContainer,
   ButtonsShift,
   HeadersContainer,
   ManagerContainer,
 } from "./Manager.style";
-import { SEOHelmet } from "../../../components/Helmet";
-import ProfileCards from "../../../components/Layout/Elements/ProfileCards";
-import { Content, Headers } from "../Profile.styles";
 
 export default function Manage() {
   const { isLoggedIn, isManager, name } = useLoggedIn();
@@ -51,9 +48,6 @@ export default function Manage() {
     });
   });
 
-  if (!isLoggedIn || !isManager) return <UnAuthUser />;
-  if (isLoading) return <Loader />;
-
   return (
     <>
       <SEOHelmet
@@ -62,6 +56,9 @@ export default function Manage() {
           "Welcome back! Discover your perfect getaway with Holidaze. Manage your venues & reservations."
         }
       />
+
+      {(!isLoggedIn || !isManager) && <UnAuthUser />}
+      {isLoading && <Loader />}
 
       <Overlay showModal={showModal} />
       <Modal showModal={showModal} setShowModal={setShowModal} />

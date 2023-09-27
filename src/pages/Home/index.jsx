@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useCallback, useState, useEffect } from "react";
 import { SEOHelmet } from "../../components/Helmet";
 import useApi from "../../hooks/useApi";
@@ -50,9 +49,3 @@ export default function Home() {
     </>
   );
 }
-
-Home.propTypes = {
-  searchedVenue: PropTypes.string,
-  setSearchedVenue: PropTypes.func,
-  searchResults: PropTypes.array,
-};

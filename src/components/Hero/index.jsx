@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { HeroContainer, Search, InputContainer } from "./Hero.style";
@@ -51,10 +50,3 @@ export default function Hero({
     </HeroContainer>
   );
 }
-
-Hero.propTypes = {
-  venues: PropTypes.array.isRequired,
-  searchedVenue: PropTypes.string.isRequired,
-  setSearchedVenue: PropTypes.func.isRequired,
-  setSearchResults: PropTypes.func.isRequired,
-};
