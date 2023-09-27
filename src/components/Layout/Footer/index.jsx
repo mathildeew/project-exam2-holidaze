@@ -10,7 +10,7 @@ export default function Footer() {
       {!login && !register && (
         <FooterContainer>
           <FooterContent>
-            <img src="/public/assets/identity/logo/logo-solid-svg.svg" />
+            <img src="/assets/identity/logo/logo-solid-svg.svg" />
             <p>&#169; 2023 Holidaze - Mathilde Elinor Wiik</p>
           </FooterContent>
         </FooterContainer>
