@@ -88,7 +88,7 @@ export const VenueTopLine = styled.div`
   }
 `;
 
-export const Fascilities = styled.div`
+export const FascilitiesContainer = styled.div`
   margin-bottom: 60px;
 `;
 
@@ -118,7 +118,7 @@ export const AboutVenue = styled.div`
   }
 `;
 
-export const Location = styled.div`
+export const LocationContainer = styled.div`
   margin-bottom: 60px;
   p {
     margin-bottom: 10px;

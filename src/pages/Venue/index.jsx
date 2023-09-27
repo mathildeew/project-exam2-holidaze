@@ -1,7 +1,6 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPeopleRoof,
@@ -24,14 +23,14 @@ import MakeBooking from "../../components/Forms/MakeBooking";
 import Loader from "../../components/Loader/";
 import {
   BookNowBtn,
-  Fascilities,
+  FascilitiesContainer,
   Host,
   VenueContent,
   VenueContainer,
   VenueDetails,
   Icons,
   Updates,
-  Location,
+  LocationContainer,
   VenueTopLine,
   AboutVenue,
   VenueInfo,
@@ -39,6 +38,11 @@ import {
   ManagerButtons,
 } from "./Venue.style";
 import { SEOHelmet } from "../../components/Helmet";
+import { Images } from "../../components/Venue/ImageContainer";
+import Fascilities from "../../components/Venue/Fascilities";
+import LocationRating from "../../components/Venue/LocationRating";
+import About from "../../components/Venue/Description";
+import Location from "../../components/Venue/Location";
 
 /**
  * Venue Component - Represents the single venue based of ID.
@@ -155,145 +159,34 @@ export default function Venue() {
             </MainButton>
           </ManagerButtons>
         )}
-        <ImageContainer>
-          <Carousel
-            useKeyboardArrows={true}
-            showThumbs={false}
-            showStatus={false}
-            renderIndicator={(clickHandler, isSelected, index) => {
-              return (
-                <>
-                  {media?.length > 1 && (
-                    <FontAwesomeIcon
-                      icon={faCircle}
-                      onClick={() => {
-                        clickHandler();
-                      }}
-                      className={isSelected ? "active" : ""}
-                    />
-                  )}
-                </>
-              );
-            }}
-          >
-            {media?.map((index) => (
-              <img src={media} key={index} alt={venueTitle} />
-            ))}
-          </Carousel>
-        </ImageContainer>
+        <Images media={media} venueTitle={venueTitle} />
         <VenueContent>
           <VenueInfo>
             <VenueDetails>
-              <VenueTopLine>
-                <div className="flexLine">
-                  <FontAwesomeIcon icon={faLocationDot} />
-                  <SmallText>
-                    {location?.city}, {location?.country}
-                  </SmallText>
-                </div>
-                <div className="flexLine">
-                  <FontAwesomeIcon icon={faStar} />
-                  {rating > 0 ? (
-                    <SmallText>{rating}/5</SmallText>
-                  ) : (
-                    <SmallText>No ratings yet</SmallText>
-                  )}
-                </div>
-              </VenueTopLine>
+              <LocationRating location={location} rating={rating} />
               <h1>{venueTitle}</h1>
-
-              <Fascilities>
-                <Icons>
-                  <FontAwesomeIcon icon={faPeopleRoof} />
-                  <SmallText>{maxGuests}&nbsp;guests</SmallText>
-                  {meta?.wifi === true && (
-                    <>
-                      <FontAwesomeIcon icon={faWifi} />
-                      <SmallText>Wifi&nbsp;included</SmallText>
-                    </>
-                  )}
-
-                  {meta?.breakfast === true && (
-                    <>
-                      <FontAwesomeIcon icon={faCutlery} />
-                      <SmallText>Breakfast&nbsp;included</SmallText>
-                    </>
-                  )}
-                  {meta?.parking === true && (
-                    <>
-                      <FontAwesomeIcon icon={faParking} />
-                      <SmallText>Parking</SmallText>
-                    </>
-                  )}
-                  {meta?.pets === true && (
-                    <>
-                      <FontAwesomeIcon icon={faDog} />
-                      <SmallText>Pet&nbsp;friendly</SmallText>
-                    </>
-                  )}
-                </Icons>
-              </Fascilities>
+              <Fascilities meta={meta} maxGuests={maxGuests} />
             </VenueDetails>
 
-            <AboutVenue>
-              <h2>About this property</h2>
-              <p>{description}</p>
+            <About
+              description={description}
+              owner={owner}
+              createdDate={createdDate}
+              updatedDate={updatedDate}
+            />
 
-              <Host>
-                <BoldText>Your host is</BoldText>
-                {owner?.avatar ? (
-                  <img src={owner?.avatar} />
-                ) : (
-                  <img src="/images/placeholder/Profile_avatar_placeholder_large.png" />
-                )}
-                <p>{owner?.name}</p>
-              </Host>
-
-              <Updates>
-                <SmallText>Created: {createdDate}</SmallText>
-                <SmallText>Last updated: {updatedDate}</SmallText>
-              </Updates>
-            </AboutVenue>
-
-            <Location>
-              <h2>Location</h2>
-
-              {location?.address && (
-                <>
-                  <p>{location?.address}</p>
-                </>
-              )}
-              <div className="flexLine">
-                {location?.zip && (
-                  <>
-                    <p>{location?.zip}&nbsp;</p>
-                  </>
-                )}
-                {location?.city && (
-                  <>
-                    <p>{location?.city}</p>
-                  </>
-                )}
-              </div>
-              {location?.country && (
-                <>
-                  <p>{location?.country}</p>
-                </>
-              )}
-            </Location>
+            <Location location={location} />
           </VenueInfo>
 
           {isLoggedIn === true && owner?.name !== name && (
-            <>
-              <div ref={ref} id="scrollTop"></div>
-
+            <div ref={ref} id="scrollTop">
               <MakeBooking
                 id={id}
                 bookings={bookings}
                 price={price}
                 maxGuests={maxGuests}
               />
-            </>
+            </div>
           )}
         </VenueContent>
       </VenueContainer>
