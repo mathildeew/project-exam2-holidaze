@@ -136,7 +136,7 @@ export default function VenuesForm({ state, venue }) {
             <FontAwesomeIcon icon={faAsterisk} />
             &nbsp;Required
           </Required>
-          <p className="errorMsg">{errors.name?.message}</p>
+          <ErrorMsg>{errors.name?.message}</ErrorMsg>
         </InputContainer>
 
         <InputContainer>
@@ -154,7 +154,7 @@ export default function VenuesForm({ state, venue }) {
             <FontAwesomeIcon icon={faAsterisk} />
             &nbsp;Required
           </Required>
-          <p className="errorMsg">{errors.price?.message}</p>
+          <ErrorMsg>{errors.price?.message}</ErrorMsg>
         </InputContainer>
 
         <InputContainer>
@@ -172,7 +172,7 @@ export default function VenuesForm({ state, venue }) {
             <FontAwesomeIcon icon={faAsterisk} />
             &nbsp;Required
           </Required>
-          <p className="errorMsg">{errors.maxGuests?.message}</p>
+          <ErrorMsg>{errors.maxGuests?.message}</ErrorMsg>
         </InputContainer>
 
         <InputContainer>
@@ -193,7 +193,7 @@ export default function VenuesForm({ state, venue }) {
             <FontAwesomeIcon icon={faAsterisk} />
             &nbsp;Required
           </Required>
-          <p className="errorMsg">{errors.description?.message}</p>
+          <ErrorMsg>{errors.description?.message}</ErrorMsg>
         </InputContainer>
 
         <VenueLocation>
@@ -212,6 +212,7 @@ export default function VenuesForm({ state, venue }) {
                 })}
               />
             </Inputs>
+            <ErrorMsg>{errors.location.address?.message}</ErrorMsg>
           </InputContainer>
 
           <VenueCity>
@@ -229,6 +230,7 @@ export default function VenuesForm({ state, venue }) {
                   })}
                 />
               </Inputs>
+              <ErrorMsg>{errors.location.zip?.message}</ErrorMsg>
             </InputContainer>
 
             <InputContainer>
@@ -245,6 +247,7 @@ export default function VenuesForm({ state, venue }) {
                   })}
                 />
               </Inputs>
+              <ErrorMsg>{errors.location.city?.message}</ErrorMsg>
             </InputContainer>
           </VenueCity>
 
@@ -263,6 +266,7 @@ export default function VenuesForm({ state, venue }) {
                   })}
                 />
               </Inputs>
+              <ErrorMsg>{errors.location.country?.message}</ErrorMsg>
             </InputContainer>
 
             <InputContainer>
@@ -279,6 +283,7 @@ export default function VenuesForm({ state, venue }) {
                   })}
                 />
               </Inputs>
+              <ErrorMsg>{errors.location.continent?.message}</ErrorMsg>
             </InputContainer>
           </VenueCont>
 
@@ -298,6 +303,7 @@ export default function VenuesForm({ state, venue }) {
                   })}
                 />
               </Inputs>
+              <ErrorMsg>{errors.location.lat?.message}</ErrorMsg>
             </InputContainer>
 
             <InputContainer>
@@ -314,6 +320,7 @@ export default function VenuesForm({ state, venue }) {
                   })}
                 />
               </Inputs>
+              <ErrorMsg>{errors.location.lng?.message}</ErrorMsg>
             </InputContainer>
           </VenueGeo>
         </VenueLocation>
@@ -332,7 +339,7 @@ export default function VenuesForm({ state, venue }) {
                 {...register("media", { required: false, type: "url" })}
               />
             </Inputs>
-            <p className="errorMsg">{errors.media?.message}</p>
+            <ErrorMsg>{errors.media?.message}</ErrorMsg>
           </InputContainer>
         </VenueMedia>
 

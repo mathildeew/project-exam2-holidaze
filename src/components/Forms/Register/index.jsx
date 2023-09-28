@@ -147,7 +147,7 @@ export default function RegisterForm() {
         <label htmlFor="manager">Register as venue manager</label>
       </InputContainer>
 
-      {isError && <p className="errorMsg">{errorMsg}</p>}
+      {isError && <ErrorMsg>{errorMsg}</ErrorMsg>}
 
       <MainButton type="submit">
         {isLoading ? "Registering..." : isSuccess ? "Registered!" : "Register"}
