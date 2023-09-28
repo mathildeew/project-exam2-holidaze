@@ -39,52 +39,75 @@ export default function Reservations(data) {
     }
   });
 
-  const [selectedOption, setSelectedOption] = useState([]);
+  // const status = bookingsWithStatus.map((booking) => {
+  //   const status = {
+  //     label: booking.status,
+  //   };
+  //   return status;
+  // });
 
-  const status = bookingsWithStatus.map((booking) => {
-    const status = {
-      label: booking.status,
-    };
-    return status;
-  });
+  // const noDuplicates = [];
+  // const selectOptions = status.filter((status) => {
+  //   const isDuplicate = noDuplicates.includes(status.label);
 
-  const noDuplicates = [];
-  const selectOptions = status.filter((status) => {
-    const isDuplicate = noDuplicates.includes(status.label);
+  //   if (!isDuplicate) {
+  //     noDuplicates.push(status.label);
+  //     return true;
+  //   }
+  //   return false;
+  // });
 
-    if (!isDuplicate) {
-      noDuplicates.push(status.label);
-      return true;
-    }
-    return false;
-  });
+  // function handleSelect(event) {
+  //   const displayedBookings = bookingsWithStatus.filter((booking) =>
+  //     booking.status.toLowerCase().includes(event.label.toLowerCase())
+  //   );
+  //   console.log(displayedBookings);
+  //   setSelectedOption(displayedBookings);
+  // }
+
+  // console.log(selectedOption);
+
+  const options = [
+    {
+      label: "Confirmed",
+      value: bookingsWithStatus.filter((booking) =>
+        booking.status.includes("Confirmed")
+      ),
+    },
+    {
+      label: "On going",
+      value: bookingsWithStatus.filter((booking) =>
+        booking.status.includes("On going")
+      ),
+    },
+    {
+      label: "Checked out",
+      value: bookingsWithStatus.filter((booking) =>
+        booking.status.includes("Checked out")
+      ),
+    },
+  ];
+  const [selectedOption, setSelectedOption] = useState(options[1]);
 
   function handleSelect(event) {
-    const displayedBookings = bookingsWithStatus.filter((booking) =>
-      booking.status.toLowerCase().includes(event.label.toLowerCase())
-    );
-    console.log(displayedBookings);
-    setSelectedOption(displayedBookings);
+    setSelectedOption(event);
   }
-
-  console.log(selectedOption);
 
   const animatedComponents = makeAnimated();
 
   return (
     <ReservationsContainer>
       <Select
-        options={selectOptions}
+        options={options}
         onChange={handleSelect}
-        closeMenuOnSelect={false}
+        closeMenuOnSelect={true}
         components={animatedComponents}
-        defaultValue={selectOptions[0]}
-        // isMulti
+        defaultValue={selectedOption}
       />
 
       {bookings.length > 0 ? (
         <>
-          {bookingsWithStatus.map((booking) => (
+          {selectedOption.value.map((booking) => (
             <ReservationCard key={booking.id}>
               <ReservationVenue>
                 <img src={booking.media} />
