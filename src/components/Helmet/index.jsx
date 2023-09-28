@@ -8,7 +8,7 @@ export function SEOHelmet({ title, description }) {
         <link
           rel="icon"
           type="image/x-icon"
-          href="/public/assets/identity/favicon.png"
+          href="/assets/identity/favicon.png"
         />
         <meta name="description" content={description} />
         <title>{title}</title>
