@@ -27,6 +27,10 @@ export default function LoginForm() {
     email: yup
       .string()
       .email("Must be a valid stud.noroff.no or noroff.no email")
+      .matches(
+        /^[\w\-.]+@(stud\.)?noroff\.no$/,
+        "Must be a valid stud.noroff.no or noroff.no email"
+      )
       .required("Please enter your email"),
     password: yup
       .string()

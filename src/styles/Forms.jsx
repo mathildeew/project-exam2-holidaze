@@ -67,7 +67,16 @@ export const Inputs = styled.div`
   }
 `;
 
+export const Required = styled.p`
+  font-size: 1.2rem;
+  margin-top: 5px;
+
+  svg {
+    font-size: 1rem;
+  }
+`;
+
 export const ErrorMsg = styled.p`
-  color: darkgray;
+  color: #c51616;
   font-size: 1.2rem;
 `;
