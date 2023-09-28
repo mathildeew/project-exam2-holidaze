@@ -46,6 +46,7 @@ export default function Hero({
             aria-label="Search for venue"
           ></input>
         </InputContainer>
+        <p>Popular trends: cottage, city, beach</p>
       </Search>
     </HeroContainer>
   );

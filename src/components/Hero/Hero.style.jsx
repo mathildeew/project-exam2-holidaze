@@ -4,8 +4,8 @@ import { displayFlex } from "../../styles/mixins";
 export const HeroContainer = styled.section`
   width: 100%;
   height: 455px;
-  background: url("/content/daniel-olah-f0P7y3swnZU-unsplash.jpg") no-repeat
-    center bottom;
+  background: url("/content/karsten-winegeart-BYPGE0ZYID8-unsplash.jpg")
+    no-repeat center bottom;
   background-size: cover;
   margin-bottom: 50px;
 
@@ -14,18 +14,29 @@ export const HeroContainer = styled.section`
     align: "center",
     justify: "center",
   })}
+
+  @media (min-width: 1024px) {
+    height: 550px;
+  }
 `;
 
 export const Search = styled.div`
-  max-width: 470px;
-  padding: 30px 0px;
+  max-width: 710px;
 
   h1 {
-    color: var(--light-yellow);
-    font-size: 1.8rem;
+    color: white;
+    font-size: 2.5rem;
     font-weight: 900;
     text-transform: uppercase;
+    text-shadow: #000 10px 0 10px;
     margin-bottom: 30px;
+  }
+
+  p {
+    color: white;
+    text-shadow: #000 10px 0 10px;
+
+    margin-top: 5px;
   }
 
   @media (min-width: 768px) {
@@ -33,19 +44,14 @@ export const Search = styled.div`
       font-size: 4.5rem;
       word-spacing: normal;
     }
-
-    .search {
-      padding: 30px;
-      width: 50%;
-    }
   }
 `;
 
 export const InputContainer = styled.div`
   color: white;
-  background: rgba(75, 61, 96, 0.6);
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
-  padding: 15px;
+  padding: 10px 15px;
 
   ${displayFlex({
     align: "center",
@@ -58,7 +64,7 @@ export const InputContainer = styled.div`
     padding: 10px;
 
     ::placeholder {
-      color: var(--light-yellow);
+      color: black;
       font-size: 1.6rem;
     }
 
@@ -72,11 +78,11 @@ export const InputContainer = styled.div`
     display: none;
   }
   input[value] {
-    color: white;
+    color: black;
   }
 
   svg {
-    color: var(--light-yellow);
+    color: black;
     font-size: 2rem;
     margin-right: 10px;
   }
