@@ -25,7 +25,7 @@ export default function Register() {
       <RegisterContainer>
         <RegisterContent>
           <Logo>
-            <img src="/assets/identity/logo/logo-small-svg.svg" />
+            <img src="/assets/identity/logo/logo-small-svg.svg" alt="Logo" />
 
             <h1>Welcome to Holidaze!</h1>
           </Logo>

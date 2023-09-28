@@ -24,7 +24,7 @@ export default function Header() {
         <HeaderContainer>
           <HeaderContent>
             <Link to="/">
-              <img src="/assets/identity/logo/logo-svg.svg" />
+              <img src="/assets/identity/logo/logo-svg.svg" alt="Logo" />
             </Link>
             {isLoggedIn === true ? (
               <Nav>

@@ -14,9 +14,12 @@ export default function About({
       <Host>
         <BoldText>Your host is</BoldText>
         {owner?.avatar ? (
-          <img src={owner?.avatar} />
+          <img src={owner?.avatar} alt={owner?.name} />
         ) : (
-          <img src="/images/placeholder/Profile_avatar_placeholder_large.png" />
+          <img
+            src="/images/placeholder/Profile_avatar_placeholder_large.png"
+            alt={owner?.name}
+          />
         )}
         <p>{owner?.name}</p>
       </Host>

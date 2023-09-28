@@ -26,9 +26,14 @@ export default function Venues(data) {
         <VenueCard key={venue.id}>
           <Link to={`/venue/${venue.id}`} key={venue.id}>
             <VenueImg>
-              {venue.media.length > 0 && <img src={venue.media[0]} />}
+              {venue.media.length > 0 && (
+                <img src={venue.media[0]} alt={venue.name} />
+              )}
               {venue.media.length === 0 && (
-                <img src="/images/placeholder/image-placeholder-350x350-1.png" />
+                <img
+                  src="/images/placeholder/image-placeholder-350x350-1.png"
+                  alt={venue.name}
+                />
               )}
               <VenueLocation>
                 <SmallText>

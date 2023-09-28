@@ -118,7 +118,7 @@ export default function Reservations(data) {
           {selectedOption.value.map((booking) => (
             <ReservationCard key={booking.id}>
               <ReservationVenue>
-                <img src={booking.media} />
+                <img src={booking.media} alt={booking.name} />
                 <h2>{truncate(booking.name, 35)}</h2>
               </ReservationVenue>
 

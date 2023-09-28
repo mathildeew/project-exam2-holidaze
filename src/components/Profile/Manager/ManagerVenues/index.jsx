@@ -26,7 +26,7 @@ export default function VenuesManager(data) {
             <Link to={`/venue/${venue.id}`} key={venue.id}>
               <VenueCard>
                 <VenueInfo>
-                  <img src={venue.media} />
+                  <img src={venue.media} alt={venue.name} />
                   <h2>{truncate(venue.name, 25)}</h2>
                 </VenueInfo>
 
