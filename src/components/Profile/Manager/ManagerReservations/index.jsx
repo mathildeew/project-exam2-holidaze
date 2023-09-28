@@ -10,6 +10,7 @@ import {
   ReservationDetails,
   ReservationsContainer,
   ReservationVenue,
+  // SelectContainer,
 } from "./ManagerReservations.style";
 
 export default function Reservations(data) {
@@ -69,6 +70,11 @@ export default function Reservations(data) {
 
   const options = [
     {
+      label: "All",
+      value: bookingsWithStatus,
+    },
+
+    {
       label: "Confirmed",
       value: bookingsWithStatus.filter((booking) =>
         booking.status.includes("Confirmed")
@@ -87,7 +93,7 @@ export default function Reservations(data) {
       ),
     },
   ];
-  const [selectedOption, setSelectedOption] = useState(options[1]);
+  const [selectedOption, setSelectedOption] = useState(options[0]);
 
   function handleSelect(event) {
     setSelectedOption(event);
@@ -103,9 +109,11 @@ export default function Reservations(data) {
         closeMenuOnSelect={true}
         components={animatedComponents}
         defaultValue={selectedOption}
+        className="react-select-container"
+        classNamePrefix="react-select"
       />
 
-      {bookings.length > 0 ? (
+      {selectedOption.value.length > 0 ? (
         <>
           {selectedOption.value.map((booking) => (
             <ReservationCard key={booking.id}>
@@ -150,7 +158,7 @@ export default function Reservations(data) {
           ))}
         </>
       ) : (
-        <p>Your venues has no reservations yet.</p>
+        <p>No reservations.</p>
       )}
     </ReservationsContainer>
   );

@@ -4,7 +4,20 @@ import { displayFlex } from "../../../../styles/mixins";
 export const ReservationsContainer = styled.section`
   max-width: 550px;
   margin: 50px auto;
+
+  .react-select-container {
+    font-family: OpenSans, Roboto, Arial, sans-serif;
+    margin-bottom: 40px;
+  }
+
+  /* .react-select__single-value {
+    font-family: OpenSans, Roboto, Arial, sans-serif;
+  } */
 `;
+
+// export const SelectContainer = styled.div`
+//   margin-bottom: 40px;
+// `;
 
 export const ReservationCard = styled.div`
   background-color: white;

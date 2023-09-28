@@ -18,6 +18,8 @@ import {
 export default function Venues(data) {
   const { data: venues } = data;
 
+  console.log(venues);
+
   return (
     <VenuesContainer>
       {venues?.map((venue) => (
