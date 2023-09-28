@@ -10,6 +10,10 @@ export function SEOHelmet({ title, description }) {
           type="image/x-icon"
           href="/assets/identity/favicon.png"
         />
+        <meta
+          name="title"
+          content="Holidaze - Discover your next holiday!"
+        ></meta>
         <meta name="description" content={description} />
         <title>{title}</title>
       </Helmet>
