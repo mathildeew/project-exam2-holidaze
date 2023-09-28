@@ -2,10 +2,17 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAsterisk } from "@fortawesome/free-solid-svg-icons";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
 import { MainButton } from "../../../styles/Buttons";
-import { ErrorMsg, InputContainer, Inputs } from "../../../styles/Forms";
+import {
+  ErrorMsg,
+  InputContainer,
+  Inputs,
+  Required,
+} from "../../../styles/Forms";
 import {
   FormContainer,
   VenueCity,
@@ -73,7 +80,6 @@ export default function VenuesForm({ state, venue }) {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
@@ -126,6 +132,10 @@ export default function VenuesForm({ state, venue }) {
               {...register("name", { required: true, type: "text" })}
             />
           </Inputs>
+          <Required>
+            <FontAwesomeIcon icon={faAsterisk} />
+            &nbsp;Required
+          </Required>
           <p className="errorMsg">{errors.name?.message}</p>
         </InputContainer>
 
@@ -140,6 +150,10 @@ export default function VenuesForm({ state, venue }) {
               {...register("price", { required: true, type: "number" })}
             />
           </Inputs>
+          <Required>
+            <FontAwesomeIcon icon={faAsterisk} />
+            &nbsp;Required
+          </Required>
           <p className="errorMsg">{errors.price?.message}</p>
         </InputContainer>
 
@@ -154,6 +168,10 @@ export default function VenuesForm({ state, venue }) {
               {...register("maxGuests", { required: true, type: "text" })}
             />
           </Inputs>
+          <Required>
+            <FontAwesomeIcon icon={faAsterisk} />
+            &nbsp;Required
+          </Required>
           <p className="errorMsg">{errors.maxGuests?.message}</p>
         </InputContainer>
 
@@ -171,6 +189,10 @@ export default function VenuesForm({ state, venue }) {
               {...register("description", { required: true, type: "text" })}
             ></textarea>
           </Inputs>
+          <Required>
+            <FontAwesomeIcon icon={faAsterisk} />
+            &nbsp;Required
+          </Required>
           <p className="errorMsg">{errors.description?.message}</p>
         </InputContainer>
 

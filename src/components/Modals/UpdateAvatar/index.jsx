@@ -12,7 +12,10 @@ export default function UpdateAvatar() {
   const { name, setAvatar } = useLoggedIn();
 
   const schema = yup.object({
-    avatar: yup.string().url("Avatar must ba a valid URL"),
+    avatar: yup
+      .string()
+      .url("Avatar must ba a valid URL")
+      .required("Avatar must be a valid URL"),
   });
 
   const {
@@ -54,7 +57,7 @@ export default function UpdateAvatar() {
               {...register("avatar")}
             />
           </Inputs>
-          <p className="errorMsg">{errors.avatar?.message}</p>
+          <ErrorMsg>{errors.avatar?.message}</ErrorMsg>
           {isError && <ErrorMsg>{errorMsg}</ErrorMsg>}
         </InputContainer>
         <MainButton type="submit">
