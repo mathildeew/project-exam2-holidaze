@@ -26,7 +26,7 @@ export default function Login() {
       <LoginContainer>
         <LoginContent>
           <Logo>
-            <img src="/assets/identity/logo/logo-small-svg.svg" />
+            <img src="/assets/identity/logo/logo-small-svg.svg" alt="Logo" />
             <h1>Welcome to Holidaze!</h1>
           </Logo>
 
@@ -34,7 +34,9 @@ export default function Login() {
 
           <RegisterLink>
             <p>Dont have an account?</p>
-            <Link to={"/register"}>Register here</Link>
+            <Link to={"/register"} aria-label="Register her">
+              Register here
+            </Link>
           </RegisterLink>
         </LoginContent>
         <Banner />

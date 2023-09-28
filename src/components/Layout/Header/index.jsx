@@ -23,25 +23,25 @@ export default function Header() {
       {!login && !register && (
         <HeaderContainer>
           <HeaderContent>
-            <Link to="/">
+            <Link to="/" aria-label="Home page">
               <img src="/assets/identity/logo/logo-svg.svg" alt="Logo" />
             </Link>
             {isLoggedIn === true ? (
               <Nav>
                 {isManager === true && (
-                  <Link to="/profile/manager/">
+                  <Link to="/profile/manager/" aria-label="Manager page">
                     <span>Manager</span>
                     <FontAwesomeIcon icon={faBriefcase} />
                   </Link>
                 )}
-                <Link to="/profile/">
+                <Link to="/profile/" aria-label="Profile page">
                   <span>Profile</span>
                   <FontAwesomeIcon icon={faUser} />
                 </Link>
               </Nav>
             ) : (
               <NotLoggedInNav>
-                <Link to="/login">
+                <Link to="/login" aria-label="Login page">
                   <span>Log in</span>
                 </Link>
               </NotLoggedInNav>

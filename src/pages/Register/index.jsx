@@ -33,7 +33,9 @@ export default function Register() {
 
           <LoginLink>
             <p>Already have an account?</p>
-            <Link to={"/login"}>Log in here</Link>
+            <Link to={"/login"} aria-label="Log in here">
+              Log in here
+            </Link>
           </LoginLink>
         </RegisterContent>
 

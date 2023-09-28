@@ -24,7 +24,11 @@ export default function Venues(data) {
     <VenuesContainer>
       {venues?.map((venue) => (
         <VenueCard key={venue.id}>
-          <Link to={`/venue/${venue.id}`} key={venue.id}>
+          <Link
+            to={`/venue/${venue.id}`}
+            aria-label={`Read more about ${venue.name}`}
+            key={venue.id}
+          >
             <VenueImg>
               {venue.media.length > 0 && (
                 <img src={venue.media[0]} alt={venue.name} />

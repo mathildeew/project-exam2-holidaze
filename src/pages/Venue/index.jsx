@@ -115,7 +115,7 @@ export default function Venue() {
               Check availability
             </button>
           ) : (
-            <Link to="/user/login">
+            <Link to="/user/login" aria-label="Log in to check availability">
               <button>Log in to check availability</button>
             </Link>
           )}

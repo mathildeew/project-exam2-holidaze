@@ -23,7 +23,11 @@ export default function VenuesManager(data) {
       {venues?.length > 0 ? (
         <>
           {venues.map((venue) => (
-            <Link to={`/venue/${venue.id}`} key={venue.id}>
+            <Link
+              to={`/venue/${venue.id}`}
+              aria-label={`Read more about ${venue.name}`}
+              key={venue.id}
+            >
               <VenueCard>
                 <VenueInfo>
                   <img src={venue.media} alt={venue.name} />
