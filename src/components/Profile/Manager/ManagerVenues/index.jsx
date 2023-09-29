@@ -18,8 +18,6 @@ import {
 export default function VenuesManager(data) {
   const { data: venues } = data;
 
-  console.log(venues);
-
   return (
     <VenuesContainer>
       {venues?.length > 0 ? (

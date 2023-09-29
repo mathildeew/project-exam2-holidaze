@@ -13,8 +13,6 @@ export default function Overlay({ showModal }) {
     }
   }
 
-  // console.log(typeof showModal);
-
   return (
     <OverlayContainer
       showModal={showModal}

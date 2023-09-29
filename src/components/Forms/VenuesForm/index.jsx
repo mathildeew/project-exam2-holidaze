@@ -35,7 +35,6 @@ export default function VenuesForm({ state, venue }) {
     venue;
   const isNewState = state === "new";
   const isEditState = state === "edit";
-  console.log(venue);
   const [data, setData] = useState({ venueId: id });
 
   const schema = yup.object({
@@ -98,7 +97,6 @@ export default function VenuesForm({ state, venue }) {
         "PUT",
         formData
       );
-      console.log(response);
 
       if (response.status === 200) {
         setTimeout(() => {
@@ -107,7 +105,6 @@ export default function VenuesForm({ state, venue }) {
       }
     } else if (isNewState) {
       const response = await fetchApi(apiEndpoints().venues, "POST", formData);
-      console.log(response);
 
       if (response.status === 201) {
         setTimeout(() => {
