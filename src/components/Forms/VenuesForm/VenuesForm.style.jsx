@@ -10,6 +10,13 @@ export const FormContainer = styled.div`
       direction: "column",
     })}
   }
+
+  form {
+    ${displayFlex({
+      direction: "column",
+    })}
+    padding-bottom: 20px;
+  }
 `;
 
 export const VenueLocation = styled.section``;

@@ -68,15 +68,16 @@ export default function VenuesForm({ state, venue }) {
       .notRequired(),
     media: yup.string().url("Please enter a valid image URL").notRequired(),
     location: yup.object({
-      address: yup.string().notRequired(),
-      city: yup.string().notRequired(),
-      zip: yup.string().notRequired(),
+      address: yup.string("Must be string"),
+      city: yup.string(),
+      zip: yup.string(),
       country: yup.string(),
       continent: yup.string(),
-      lat: yup.number().notRequired(),
-      lng: yup.number().notRequired(),
+      lat: yup.number(),
+      lng: yup.number(),
     }),
   });
+
   const {
     register,
     handleSubmit,
@@ -212,7 +213,7 @@ export default function VenuesForm({ state, venue }) {
                 })}
               />
             </Inputs>
-            <ErrorMsg>{errors.location.address?.message}</ErrorMsg>
+            <ErrorMsg>{errors.location?.address.message}</ErrorMsg>
           </InputContainer>
 
           <VenueCity>
@@ -230,7 +231,7 @@ export default function VenuesForm({ state, venue }) {
                   })}
                 />
               </Inputs>
-              <ErrorMsg>{errors.location.zip?.message}</ErrorMsg>
+              <ErrorMsg>{errors.location?.zip.message}</ErrorMsg>
             </InputContainer>
 
             <InputContainer>
@@ -247,7 +248,7 @@ export default function VenuesForm({ state, venue }) {
                   })}
                 />
               </Inputs>
-              <ErrorMsg>{errors.location.city?.message}</ErrorMsg>
+              <ErrorMsg>{errors.location?.city.message}</ErrorMsg>
             </InputContainer>
           </VenueCity>
 
@@ -266,7 +267,7 @@ export default function VenuesForm({ state, venue }) {
                   })}
                 />
               </Inputs>
-              <ErrorMsg>{errors.location.country?.message}</ErrorMsg>
+              <ErrorMsg>{errors.location?.country.message}</ErrorMsg>
             </InputContainer>
 
             <InputContainer>
@@ -283,11 +284,10 @@ export default function VenuesForm({ state, venue }) {
                   })}
                 />
               </Inputs>
-              <ErrorMsg>{errors.location.continent?.message}</ErrorMsg>
+              <ErrorMsg>{errors.location?.continent.message}</ErrorMsg>
             </InputContainer>
           </VenueCont>
 
-          <h4>Geo location</h4>
           <VenueGeo>
             <InputContainer>
               <Inputs>
@@ -303,7 +303,7 @@ export default function VenuesForm({ state, venue }) {
                   })}
                 />
               </Inputs>
-              <ErrorMsg>{errors.location.lat?.message}</ErrorMsg>
+              <ErrorMsg>{errors.location?.lat.message}</ErrorMsg>
             </InputContainer>
 
             <InputContainer>
@@ -320,14 +320,13 @@ export default function VenuesForm({ state, venue }) {
                   })}
                 />
               </Inputs>
-              <ErrorMsg>{errors.location.lng?.message}</ErrorMsg>
+              <ErrorMsg>{errors.location?.lng.message}</ErrorMsg>
             </InputContainer>
           </VenueGeo>
         </VenueLocation>
 
         <VenueMedia>
           <h3>Add photos</h3>
-          <p>Add up to three photos</p>
           <InputContainer>
             <Inputs>
               <label htmlFor="media">Add image</label>
