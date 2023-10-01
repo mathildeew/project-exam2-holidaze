@@ -56,7 +56,6 @@ export default function VenuesForm({ state, venue }) {
       .positive("Max guests must have a positive value")
       .max(100, "A venue cannot accomodate more than 100 guests")
       .required("Max guests must be a number"),
-    rating: yup.number().positive().notRequired(),
     meta: yup
       .object({
         wifi: yup.boolean(),
@@ -66,14 +65,12 @@ export default function VenuesForm({ state, venue }) {
       })
       .notRequired(),
     media: yup.string().url("Please enter a valid image URL").notRequired(),
-    location: yup.object({
-      address: yup.string("Must be string"),
+    location: yup.object().shape({
+      address: yup.string(),
       city: yup.string(),
       zip: yup.string(),
       country: yup.string(),
       continent: yup.string(),
-      lat: yup.number(),
-      lng: yup.number(),
     }),
   });
 
@@ -89,6 +86,7 @@ export default function VenuesForm({ state, venue }) {
     if (formData.media) {
       formData.media = [formData.media];
     }
+
     setData({ ...data, ...formData });
 
     if (isEditState) {
@@ -106,6 +104,7 @@ export default function VenuesForm({ state, venue }) {
     } else if (isNewState) {
       const response = await fetchApi(apiEndpoints().venues, "POST", formData);
 
+      console.log(response);
       if (response.status === 201) {
         setTimeout(() => {
           window.location.reload();
@@ -228,7 +227,7 @@ export default function VenuesForm({ state, venue }) {
                   })}
                 />
               </Inputs>
-              <ErrorMsg>{errors.location?.zip.message}</ErrorMsg>
+              {/* <ErrorMsg>{errors.location?.zip.message}</ErrorMsg> */}
             </InputContainer>
 
             <InputContainer>
@@ -245,7 +244,7 @@ export default function VenuesForm({ state, venue }) {
                   })}
                 />
               </Inputs>
-              <ErrorMsg>{errors.location?.city.message}</ErrorMsg>
+              {/* <ErrorMsg>{errors.location?.city.message}</ErrorMsg> */}
             </InputContainer>
           </VenueCity>
 
@@ -264,7 +263,7 @@ export default function VenuesForm({ state, venue }) {
                   })}
                 />
               </Inputs>
-              <ErrorMsg>{errors.location?.country.message}</ErrorMsg>
+              {/* <ErrorMsg>{errors.location?.country.message}</ErrorMsg> */}
             </InputContainer>
 
             <InputContainer>
@@ -281,45 +280,9 @@ export default function VenuesForm({ state, venue }) {
                   })}
                 />
               </Inputs>
-              <ErrorMsg>{errors.location?.continent.message}</ErrorMsg>
+              {/* <ErrorMsg>{errors.location?.continent.message}</ErrorMsg> */}
             </InputContainer>
           </VenueCont>
-
-          <VenueGeo>
-            <InputContainer>
-              <Inputs>
-                <label htmlFor="location.lat">Latitude</label>
-                <input
-                  type="text"
-                  name="location.lat"
-                  placeholder={isNewState ? "" : ""}
-                  defaultValue={isEditState ? location.lat : ""}
-                  {...register("location.lat", {
-                    required: false,
-                    type: "text",
-                  })}
-                />
-              </Inputs>
-              <ErrorMsg>{errors.location?.lat.message}</ErrorMsg>
-            </InputContainer>
-
-            <InputContainer>
-              <Inputs>
-                <label htmlFor="location.lng">Longitude</label>
-                <input
-                  type="text"
-                  name="location.lng"
-                  placeholder={isNewState ? "" : ""}
-                  defaultValue={isEditState ? location.lng : ""}
-                  {...register("location.lng", {
-                    required: false,
-                    type: "text",
-                  })}
-                />
-              </Inputs>
-              <ErrorMsg>{errors.location?.lng.message}</ErrorMsg>
-            </InputContainer>
-          </VenueGeo>
         </VenueLocation>
 
         <VenueMedia>
