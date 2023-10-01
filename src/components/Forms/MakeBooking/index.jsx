@@ -1,7 +1,7 @@
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleMinus, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { DateRange } from "react-date-range";
@@ -21,6 +21,7 @@ import {
   GuestsIcons,
   BookingText,
 } from "./MakeBooking.style";
+import { useLoggedIn } from "../../../context/Context";
 
 /**
  * MakeBooking Component - Represents the booking creation form.
@@ -31,6 +32,7 @@ import {
  * @param {number} maxGuests - The maximum number of guests allowed for the venue.
  */
 export default function MakeBooking({ id, bookings, price, maxGuests }) {
+  const { isLoggedIn } = useLoggedIn();
   const navigate = useNavigate();
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const [dates, setDates] = useState([
@@ -111,87 +113,166 @@ export default function MakeBooking({ id, bookings, price, maxGuests }) {
   return (
     <MakeBookingContainer>
       <h2>Make reservation</h2>
-      <Form onSubmit={onFormSubmit}>
-        <CalendarContainer>
-          <DateRange
-            onChange={(item) => setDates([item.selection])}
-            weekStartsOn={1}
-            disabledDates={bookedDates}
-            editableDateInputs={true}
-            moveRangeOnFirstSelection={false}
-            ranges={dates}
-            minDate={new Date()}
-            color={"#4b3d60"}
-            rangeColors={"#4b3d60"}
-            showDateDisplay={false}
-          />
-        </CalendarContainer>
+      {isLoggedIn ? (
+        <Form onSubmit={onFormSubmit}>
+          <CalendarContainer>
+            <DateRange
+              onChange={(item) => setDates([item.selection])}
+              weekStartsOn={1}
+              disabledDates={bookedDates}
+              editableDateInputs={true}
+              moveRangeOnFirstSelection={false}
+              ranges={dates}
+              minDate={new Date()}
+              color={"#4b3d60"}
+              rangeColors={["#4b3d60"]}
+              showDateDisplay={false}
+            />
+          </CalendarContainer>
 
-        <DatesContainer>
-          <InputContainer>
-            <Inputs>
-              <label>From</label>
-              <p>{dates[0].startDate.toLocaleDateString()}</p>
-            </Inputs>
-          </InputContainer>
+          <DatesContainer>
+            <InputContainer>
+              <Inputs>
+                <label>From</label>
+                <p>{dates[0].startDate.toLocaleDateString()}</p>
+              </Inputs>
+            </InputContainer>
 
-          <InputContainer>
-            <Inputs>
-              <label>To</label>
-              <p>{dates[0].endDate.toLocaleDateString()}</p>
-            </Inputs>
-          </InputContainer>
-        </DatesContainer>
+            <InputContainer>
+              <Inputs>
+                <label>To</label>
+                <p>{dates[0].endDate.toLocaleDateString()}</p>
+              </Inputs>
+            </InputContainer>
+          </DatesContainer>
 
-        <Guests>
-          <InputContainer>
-            <Inputs>
-              <label htmlFor="guests">How many guests?</label>
-              <input
-                type="number"
-                name="guests"
-                max={maxGuests}
-                value={numberOfGuests}
-                onChange={onGuestChange}
-              />
-            </Inputs>
-          </InputContainer>
+          <Guests>
+            <InputContainer>
+              <Inputs>
+                <label htmlFor="guests">How many guests?</label>
+                <input
+                  type="number"
+                  name="guests"
+                  max={maxGuests}
+                  value={numberOfGuests}
+                  onChange={onGuestChange}
+                />
+              </Inputs>
+            </InputContainer>
 
-          <GuestsIcons>
-            <FontAwesomeIcon icon={faCircleMinus} onClick={removeGuest} />
-            <FontAwesomeIcon icon={faCirclePlus} onClick={addGuest} />
-          </GuestsIcons>
-        </Guests>
+            <GuestsIcons>
+              <FontAwesomeIcon icon={faCircleMinus} onClick={removeGuest} />
+              <FontAwesomeIcon icon={faCirclePlus} onClick={addGuest} />
+            </GuestsIcons>
+          </Guests>
 
-        <BookingInfo>
-          <BookingText>
-            <BoldText>
-              {calculateDays(dates[0].startDate, dates[0].endDate)}
-              &nbsp;nights x $ {price} per night
-            </BoldText>
-            <BoldText>
-              $&nbsp;
-              {calculatePrice(dates[0].startDate, dates[0].endDate, price)}
-            </BoldText>
-          </BookingText>
-          <hr />
-          <BookingText>
-            <BoldText>Total: </BoldText>
-            <BoldText>
-              $&nbsp;
-              {calculatePrice(dates[0].startDate, dates[0].endDate, price)}
-            </BoldText>
-          </BookingText>
-        </BookingInfo>
-        {isError && <ErrorMsg>{errorMsg}</ErrorMsg>}
-        <MainButton type="submit">
-          {isLoading
-            ? "Reservating..."
-            : isSuccess
-            ? "Reservated!"
-            : "Make reservation"}
-        </MainButton>
-      </Form>
+          <BookingInfo>
+            <BookingText>
+              <BoldText>
+                {calculateDays(dates[0].startDate, dates[0].endDate)}
+                &nbsp;nights x $ {price} per night
+              </BoldText>
+              <BoldText>
+                $&nbsp;
+                {calculatePrice(dates[0].startDate, dates[0].endDate, price)}
+              </BoldText>
+            </BookingText>
+            <hr />
+            <BookingText>
+              <BoldText>Total: </BoldText>
+              <BoldText>
+                $&nbsp;
+                {calculatePrice(dates[0].startDate, dates[0].endDate, price)}
+              </BoldText>
+            </BookingText>
+          </BookingInfo>
+          {isError && <ErrorMsg>{errorMsg}</ErrorMsg>}
+          <MainButton type="submit">
+            {isLoading
+              ? "Reservating..."
+              : isSuccess
+              ? "Reservated!"
+              : "Make reservation"}
+          </MainButton>
+        </Form>
+      ) : (
+        <Form>
+          <CalendarContainer>
+            <DateRange
+              onChange={(item) => setDates([item.selection])}
+              weekStartsOn={1}
+              editableDateInputs={true}
+              moveRangeOnFirstSelection={false}
+              ranges={dates}
+              minDate={new Date()}
+              maxDate={new Date()}
+              color={"#4b3d60"}
+              rangeColors={["#4b3d60"]}
+              showDateDisplay={false}
+            />
+          </CalendarContainer>
+          <DatesContainer>
+            <InputContainer>
+              <Inputs>
+                <label>From</label>
+                <p>{dates[0].startDate.toLocaleDateString()}</p>
+              </Inputs>
+            </InputContainer>
+
+            <InputContainer>
+              <Inputs>
+                <label>To</label>
+                <p>{dates[0].endDate.toLocaleDateString()}</p>
+              </Inputs>
+            </InputContainer>
+          </DatesContainer>
+          <Guests>
+            <InputContainer>
+              <Inputs>
+                <label htmlFor="guests">How many guests?</label>
+                <input
+                  type="number"
+                  name="guests"
+                  max={maxGuests}
+                  value={numberOfGuests}
+                  onChange={onGuestChange}
+                />
+              </Inputs>
+            </InputContainer>
+
+            <GuestsIcons>
+              <FontAwesomeIcon icon={faCircleMinus} />
+              <FontAwesomeIcon icon={faCirclePlus} />
+            </GuestsIcons>
+          </Guests>
+          <BookingInfo>
+            <BookingText>
+              <BoldText>
+                {calculateDays(dates[0].startDate, dates[0].endDate)}
+                &nbsp;nights x $ {price} per night
+              </BoldText>
+              <BoldText>
+                $&nbsp;
+                {calculatePrice(dates[0].startDate, dates[0].endDate, price)}
+              </BoldText>
+            </BookingText>
+            <hr />
+            <BookingText>
+              <BoldText>Total: </BoldText>
+              <BoldText>
+                $&nbsp;
+                {calculatePrice(dates[0].startDate, dates[0].endDate, price)}
+              </BoldText>
+            </BookingText>
+          </BookingInfo>
+          {isError && <ErrorMsg>{errorMsg}</ErrorMsg>}
+          <Link to="/login">
+            <MainButton className="loginBtn">
+              Log in to check availability
+            </MainButton>
+          </Link>
+        </Form>
+      )}
     </MakeBookingContainer>
   );
 }

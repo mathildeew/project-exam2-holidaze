@@ -19,6 +19,14 @@ export const MakeBookingContainer = styled.section`
   form {
     width: fit-content;
   }
+
+  .loginBtn {
+    display: none;
+
+    @media (min-width: 1024px) {
+      display: inline-block;
+    }
+  }
 `;
 
 export const CalendarContainer = styled.div``;

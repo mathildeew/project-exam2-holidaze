@@ -115,7 +115,7 @@ export default function Venue() {
               Check availability
             </button>
           ) : (
-            <Link to="/user/login" aria-label="Log in to check availability">
+            <Link to="/login" aria-label="Log in to check availability">
               <button>Log in to check availability</button>
             </Link>
           )}
@@ -151,7 +151,7 @@ export default function Venue() {
             <VenueDetails>
               <LocationRating location={location} rating={rating} />
               <h1>{venueTitle}</h1>
-              <Fascilities meta={meta} maxGuests={maxGuests} />
+              <Fascilities meta={meta} maxGuests={maxGuests} price={price} />
             </VenueDetails>
 
             <About
@@ -164,7 +164,7 @@ export default function Venue() {
             <Location location={location} />
           </VenueInfo>
 
-          {isLoggedIn === true && owner?.name !== name && (
+          {true && owner?.name !== name && (
             <div ref={ref} id="scrollTop">
               <MakeBooking
                 id={id}
