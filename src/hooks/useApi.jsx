@@ -1,32 +1,55 @@
-import { useState, useEffect } from "react";
+import axios from "axios";
+import { useState } from "react";
+import { useLoggedIn } from "../context/Context";
 
-export default function UseAPI(url, fetchOptions) {
-  const [content, setContent] = useState([]);
+const useApi = () => {
+  const { token } = useLoggedIn();
+
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(null);
   const [isError, setIsError] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMsg, setErrorMessage] = useState(null);
 
-  useEffect(() => {
-    async function getData() {
-      try {
-        setIsLoading(true);
-        setIsError(false);
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
 
-        const response = await fetch(url, fetchOptions);
-        const json = await response.json();
-        setIsLoading(false);
-        setContent(json);
-        response.ok === true && setIsSuccess(true);
-        response.ok === false && setIsError(true);
-        console.log(json);
-      } catch (error) {
-        console.log(error);
-        setIsLoading(false);
-        setIsError(true);
-      }
+  const fetchApi = async (url, method, data) => {
+    setIsLoading(true);
+    try {
+      const response = await axios({
+        url: url,
+        method: method,
+        headers: headers,
+        data: data,
+      });
+      setData(response.data);
+      setIsSuccess(true);
+      setIsError(false);
+      setErrorMessage(null);
+      return response;
+    } catch (error) {
+      setErrorMessage(error.response.data.errors[0].message);
+      setIsError(true);
+      setIsSuccess(false);
+      setData([]);
+
+      return null;
+    } finally {
+      setIsLoading(false);
     }
-    getData();
-  }, [url]);
+  };
 
-  return { content, isLoading, isError, isSuccess };
-}
+  return {
+    fetchApi,
+    data,
+    isLoading,
+    isSuccess,
+    isError,
+    errorMsg,
+  };
+};
+
+export default useApi;

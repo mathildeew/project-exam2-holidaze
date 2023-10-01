@@ -5,40 +5,47 @@ export const GlobalStyle = createGlobalStyle`
 html {
   font-size: 62.5%;
   --primary:  #4B3D60;
-  --light-yellow: #FAFAEA;
-  --orange: #fd9b54;
-  --light-orange: #FEC49A;
-  --light-red: #FFCFCC;
-  --white: #F9F9FD
+  --white: #F9F9FD;
+  --content: #f9f8f7;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 body {
-  min-height: 100vh;
+  width: 100%;
   margin: 0;
 }
 
-h1, h2, h3, h4, p, a, label {
+
+main {
+  height: 100%;
+  min-height: 100vh;
+}
+
+
+h1, h2, h3, h4, p, a, label, textarea[placeholder] {
   font-family: OpenSans, Roboto, Arial, sans-serif;
   margin-top: 0;
 }
 
 h1 {
-  font-size: 22px;
+  font-size: 2.2rem;
   font-weight: 600;
-  margin-bottom: 20px;
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: 2.0rem;
   font-weight: 600;
-  margin-bottom: 10px;
   
 }
 
 h3 {
   font-size: 1.8rem;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 
@@ -50,55 +57,11 @@ p {
   margin: 0;
 }
 
-
 p, a, label {
   font-size: 1.6rem;
-  }
+}
 
-  hr {
-    margin: 30px 0;
-  }
-
-  input{
-    border: 2px solid var(--primary);
-    border-radius: 10px;
-    ::placeholder {
-      color: var(--primary);
-    }
-  }
-  
-  input, .inputContainer  {
-    padding: 10px;
-    outline: none;
-
-    &:focus {
-      font-size: 1.6rem;
-      border: 2px solid var(--primary);
-      outline: none;
-      }
-    }
-
-    ::placeholder {
-      color: var(--primary);
-      font-size: 1.6rem;
-    }
-
-    [type="checkbox"] {
-      height: 15px;
-      width: 15px;
-      &:checked {
-        accent-color: var(--primary);
-      }
-    }
-
-  .maxWidth {
-    max-width: 568px;
-    padding: 0px 10px;
-  }   
-
-  .flexLine {
-    ${displayFlex({
-      align: "center",
-    })}
-  }
+hr { 
+  margin: 50px 0;
+}
 `;
