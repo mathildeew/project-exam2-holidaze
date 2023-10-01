@@ -61,7 +61,7 @@ export default function RegisterForm() {
 
     if (response.status === 201) {
       setTimeout(() => {
-        navigate("/user/login");
+        navigate("/login");
       }, 1000);
     }
   };
