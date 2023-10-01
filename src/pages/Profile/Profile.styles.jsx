@@ -25,8 +25,4 @@ export const Headers = styled.div`
     align: "center",
     justify: "center",
   })}
-
-  @media (min-width: 768px) {
-    height: 450px;
-  }
 `;

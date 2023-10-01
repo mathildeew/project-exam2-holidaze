@@ -6,10 +6,6 @@ export const ManagerContainer = styled.main`
   height: 100%;
   margin: 0px auto;
   padding-bottom: 50px;
-  /* ${displayFlex({
-    direction: "column",
-    align: "center",
-  })} */
 
   h1 {
     margin-bottom: 50px;
@@ -45,7 +41,6 @@ export const ButtonsContainer = styled.div`
 `;
 
 export const ButtonsShift = styled.div`
-  /* border: 1px solid blue; */
   color: #565656;
   padding: 3px;
   border-radius: 10px;
@@ -58,7 +53,6 @@ export const ButtonsShift = styled.div`
   }
 
   svg {
-    /* color: var(--primary); */
     font-size: 1.6rem;
     margin-right: 5px;
   }
