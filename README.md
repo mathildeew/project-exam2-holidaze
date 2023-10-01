@@ -1,4 +1,4 @@
-<img width="1497" alt="Holidaze landing page" src="/public/images/holidaze-landingpage.png">
+<img width="1497" alt="Holidaze landing page" src="/public/images/holidaze-landingpage.jpg">
 
 # Project Exam 2 - Holidaze
 
