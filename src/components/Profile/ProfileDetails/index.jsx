@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { useLoggedIn } from "../../../context/Context";
@@ -13,11 +12,10 @@ import {
 
 export default function ProfileDetails({ setShowModal }) {
   const { name, avatar, isManager, email, setIsLoggedIn } = useLoggedIn();
-  const navigate = useNavigate();
 
   function logOut() {
+    window.location.replace("/");
     setIsLoggedIn(false);
-    navigate("/");
   }
 
   return (
