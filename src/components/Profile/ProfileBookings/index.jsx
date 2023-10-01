@@ -12,8 +12,6 @@ import {
 import { Link } from "react-router-dom";
 
 export default function Bookings({ bookings, setBookingId, setShowModal }) {
-  console.log(bookings[1]?.venue.media.length);
-
   return (
     <BookingsContainer>
       <h2>Your bookings</h2>

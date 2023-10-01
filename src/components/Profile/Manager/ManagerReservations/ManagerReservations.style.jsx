@@ -21,7 +21,6 @@ export const ReservationsContainer = styled.section`
 
 export const ReservationCard = styled.div`
   background-color: white;
-
   padding: 10px;
   margin-bottom: 40px;
   border-radius: 10px;

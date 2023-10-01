@@ -10,11 +10,15 @@ export const BookingsContent = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-row-gap: 40px;
+
+  a {
+    color: black;
+  }
 `;
 
 export const BookingCard = styled.div`
   background-color: white;
-  height: 200px;
+  height: 220px;
   padding: 10px;
   border-radius: 10px;
   box-sizing: border-box;
