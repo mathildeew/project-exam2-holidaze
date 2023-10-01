@@ -31,14 +31,7 @@ export const HeaderContent = styled.div`
   }
 `;
 
-export const Nav = styled.nav`
-  width: 110px;
-
-  ${displayFlex({
-    justify: "space-between",
-    align: "center",
-  })}
-
+export const LoggedInNav = styled.nav`
   svg {
     color: var(--primary);
     font-size: 2rem;
@@ -52,8 +45,6 @@ export const Nav = styled.nav`
   }
 
   @media (min-width: 768px) {
-    width: 350px;
-
     a {
       background-color: var(--primary);
       border-radius: 50px;
@@ -71,6 +62,23 @@ export const Nav = styled.nav`
       padding: 0;
     }
   }
+`;
+
+export const IsManagerNav = styled.div`
+  width: 110px;
+
+  ${displayFlex({
+    justify: "space-between",
+    align: "center",
+  })}
+
+  @media (min-width: 768px) {
+    width: 350px;
+  }
+`;
+
+export const NotManagerNav = styled.div`
+  width: 100%;
 `;
 
 export const NotLoggedInNav = styled.nav`

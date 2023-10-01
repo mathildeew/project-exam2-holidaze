@@ -9,8 +9,10 @@ import { useLoggedIn } from "../../../context/Context";
 import {
   HeaderContainer,
   HeaderContent,
-  Nav,
+  IsManagerNav,
+  LoggedInNav,
   NotLoggedInNav,
+  NotManagerNav,
 } from "./Header.style";
 
 export default function Header() {
@@ -27,18 +29,28 @@ export default function Header() {
               <img src="/assets/identity/logo/logo-svg.svg" alt="Logo" />
             </Link>
             {isLoggedIn === true ? (
-              <Nav>
-                {isManager === true && (
-                  <Link to="/profile/manager/" aria-label="Manager page">
-                    <span>Manager</span>
-                    <FontAwesomeIcon icon={faBriefcase} />
-                  </Link>
+              <LoggedInNav>
+                {isManager === true ? (
+                  <IsManagerNav>
+                    <Link to="/profile/manager/" aria-label="Manager page">
+                      <span>Manager</span>
+                      <FontAwesomeIcon icon={faBriefcase} />
+                    </Link>
+
+                    <Link to="/profile/" aria-label="Profile page">
+                      <span>Profile</span>
+                      <FontAwesomeIcon icon={faUser} />
+                    </Link>
+                  </IsManagerNav>
+                ) : (
+                  <NotManagerNav>
+                    <Link to="/profile/" aria-label="Profile page">
+                      <span>Profile</span>
+                      <FontAwesomeIcon icon={faUser} />
+                    </Link>
+                  </NotManagerNav>
                 )}
-                <Link to="/profile/" aria-label="Profile page">
-                  <span>Profile</span>
-                  <FontAwesomeIcon icon={faUser} />
-                </Link>
-              </Nav>
+              </LoggedInNav>
             ) : (
               <NotLoggedInNav>
                 <Link to="/login" aria-label="Login page">
