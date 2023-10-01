@@ -120,8 +120,9 @@ export default function MakeBooking({ id, bookings, price, maxGuests }) {
             editableDateInputs={true}
             moveRangeOnFirstSelection={false}
             ranges={dates}
-            // rangeColors={"#b3a2cd"}
-            // color={"#b3a2cd"}
+            minDate={new Date()}
+            color={"#4b3d60"}
+            rangeColors={"#4b3d60"}
             showDateDisplay={false}
           />
         </CalendarContainer>
