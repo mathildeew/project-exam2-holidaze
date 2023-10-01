@@ -1,4 +1,5 @@
 <img width="1497" alt="Holidaze landing page" src="/public/images/holidaze-landingpage.png">
+
 # Project Exam 2 - Holidaze
 
 This is my delivery for the final exam at the Front-end Development course at Noroff. This project covers the front-end application for an already existing API.
@@ -15,7 +16,10 @@ Visit my [workspace](https://holidaze.notion.site/Project-Exam-2-Holidaze-daf70f
 ## Run the project
 
 - Clone the repo
-- Install the dependendices
+- Install the dependendices:
+
   `npm i`
-- Run the project
+
+- Run the project:
+
   `npm run dev`
