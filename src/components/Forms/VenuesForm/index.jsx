@@ -104,7 +104,6 @@ export default function VenuesForm({ state, venue }) {
     } else if (isNewState) {
       const response = await fetchApi(apiEndpoints().venues, "POST", formData);
 
-      console.log(response);
       if (response.status === 201) {
         setTimeout(() => {
           window.location.reload();

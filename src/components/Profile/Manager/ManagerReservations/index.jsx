@@ -40,34 +40,6 @@ export default function Reservations(data) {
     }
   });
 
-  // const status = bookingsWithStatus.map((booking) => {
-  //   const status = {
-  //     label: booking.status,
-  //   };
-  //   return status;
-  // });
-
-  // const noDuplicates = [];
-  // const selectOptions = status.filter((status) => {
-  //   const isDuplicate = noDuplicates.includes(status.label);
-
-  //   if (!isDuplicate) {
-  //     noDuplicates.push(status.label);
-  //     return true;
-  //   }
-  //   return false;
-  // });
-
-  // function handleSelect(event) {
-  //   const displayedBookings = bookingsWithStatus.filter((booking) =>
-  //     booking.status.toLowerCase().includes(event.label.toLowerCase())
-  //   );
-  //   console.log(displayedBookings);
-  //   setSelectedOption(displayedBookings);
-  // }
-
-  // console.log(selectedOption);
-
   const options = [
     {
       label: "All",
