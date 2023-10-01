@@ -4,7 +4,7 @@ import { displayFlex } from "../../styles/mixins";
 export const VenuesContainer = styled.section`
   margin: 0 5px;
   display: grid;
-  margin-bottom: 50px;
+  margin: 0 auto 50px;
   max-width: 1400px;
   grid-column-gap: 30px;
   grid-row-gap: 30px;
