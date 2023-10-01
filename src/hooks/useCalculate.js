@@ -1,7 +1,3 @@
-// https://stackoverflow.com/questions/19225414/how-to-get-the-hours-difference-between-two-date-objects
-
-import dayjs from "dayjs";
-
 export function calculatePrice(startDate, endDate, price) {
   const start = new Date(startDate);
   const end = new Date(endDate);
