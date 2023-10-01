@@ -10,7 +10,6 @@ export const VenueContainer = styled.main`
 
 export const VenueContent = styled.section`
   width: 100%;
-  /* height: 100%; */
 
   h1 {
     margin-bottom: 40px;
@@ -70,10 +69,14 @@ export const VenueInfo = styled.div`
 
 export const VenueDetails = styled.div`
   width: 100%;
+
+  @media (min-width: 1024px) {
+    width: 380px;
+  }
 `;
 
 export const VenueTopLine = styled.div`
-  max-width: 380px;
+  max-width: 400px;
   margin-bottom: 20px;
 
   ${displayFlex({
