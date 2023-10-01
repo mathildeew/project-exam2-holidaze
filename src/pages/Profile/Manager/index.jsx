@@ -52,10 +52,6 @@ export default function Manager() {
     });
   });
 
-  // {
-  //   (!isLoggedIn || !isManager) && <UnAuthUser />;
-  // }
-
   if (!isManager) {
     return <UnAuthUser />;
   }
