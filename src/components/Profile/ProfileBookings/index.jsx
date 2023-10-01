@@ -20,7 +20,11 @@ export default function Bookings({ bookings, setBookingId, setShowModal }) {
           <>
             {bookings?.map((booking) => (
               <BookingCard key={booking.id}>
-                <img src={booking.venue.media} alt={booking.venue.name} />
+                {bookings.media?.lenght > 0 ? (
+                  <img src={booking.venue.media} alt={booking.venue.name} />
+                ) : (
+                  <img src="/public/images/placeholder/image-placeholder-350x350-1.png" />
+                )}
                 <BookingInfo>
                   <h3>{truncate(booking.venue.name)}</h3>
                   <TextLine>

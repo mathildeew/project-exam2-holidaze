@@ -9,7 +9,7 @@ export const BookingsContainer = styled.section`
 export const BookingsContent = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  grid-row-gap: 80px;
+  grid-row-gap: 40px;
 `;
 
 export const BookingCard = styled.div`
