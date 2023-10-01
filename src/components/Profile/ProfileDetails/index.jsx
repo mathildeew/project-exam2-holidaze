@@ -30,7 +30,7 @@ export default function ProfileDetails({ setShowModal }) {
           <img src={avatar} alt={name} />
         ) : (
           <img
-            src="/public/images/placeholder/Profile_avatar_placeholder_large.png"
+            src="/images/placeholder/Profile_avatar_placeholder_large.png"
             alt={name}
           />
         )}
