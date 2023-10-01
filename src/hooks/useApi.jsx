@@ -2,7 +2,19 @@ import axios from "axios";
 import { useState } from "react";
 import { useLoggedIn } from "../context/Context";
 
-const useApi = () => {
+/**
+ * Custom React Hook for making API requests using Axios.
+ *
+ * @returns {{
+ *   fetchApi: function(string, string, object): Promise<*>,
+ *   data: any[],
+ *   isLoading: boolean,
+ *   isSuccess: boolean | null,
+ *   isError: boolean,
+ *   errorMsg: string | null
+ * }}
+ */
+export default function useApi() {
   const { token } = useLoggedIn();
 
   const [data, setData] = useState([]);
@@ -16,7 +28,16 @@ const useApi = () => {
     Authorization: `Bearer ${token}`,
   };
 
-  const fetchApi = async (url, method, data) => {
+  /**
+   * Function for making API requests using Axios.
+   *
+   * @param {string} url - The URL of the API endpoint.
+   * @param {string} method - The HTTP method for the request (e.g., "GET", "POST").
+   * @param {object} data - The data to send with the request (request body).
+   * @returns {Promise<ApiResponse|null>} A Promise that resolves to the API response if successful,
+   *                                      or null if an error occurs.
+   */
+  async function fetchApi(url, method, data) {
     setIsLoading(true);
     try {
       const response = await axios({
@@ -40,7 +61,7 @@ const useApi = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }
 
   return {
     fetchApi,
@@ -50,6 +71,4 @@ const useApi = () => {
     isError,
     errorMsg,
   };
-};
-
-export default useApi;
+}
