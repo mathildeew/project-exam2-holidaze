@@ -4,7 +4,7 @@ import { SEOHelmet } from "../../components/Helmet";
 import useApi from "../../hooks/useApi";
 import apiEndpoints from "../../constants/endpoints";
 import Loader from "../../components/Loader";
-import UnAuthUser from "../../components/UnauthUser";
+import UnAuthUser from "../../components/UnAuthUser";
 import ProfileDetails from "../../components/Profile/ProfileDetails";
 import Bookings from "../../components/Profile/ProfileBookings";
 import Overlay from "../../components/Modals/Overlay";
@@ -37,6 +37,10 @@ export default function Profile() {
     getData();
   }, [getData]);
 
+  if (!isLoggedIn) {
+    return <UnAuthUser />;
+  }
+
   return (
     <>
       <SEOHelmet
@@ -46,7 +50,6 @@ export default function Profile() {
         }
       />
 
-      {!isLoggedIn && <UnAuthUser />}
       {isLoading && <Loader />}
       {isError && <Error />}
 

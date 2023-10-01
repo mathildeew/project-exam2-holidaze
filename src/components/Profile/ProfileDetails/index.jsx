@@ -49,12 +49,14 @@ export default function ProfileDetails({ setShowModal }) {
         )}
         <p>{email}</p>
 
-        <MainButton
-          isSmall={true}
-          onClick={() => setShowModal("registerAsManager")}
-        >
-          Become venue manager
-        </MainButton>
+        {isManager === false && (
+          <MainButton
+            isSmall={true}
+            onClick={() => setShowModal("registerAsManager")}
+          >
+            Become venue manager
+          </MainButton>
+        )}
 
         <OutlineButton
           isSmall={true}

@@ -5,7 +5,7 @@ import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { useLoggedIn } from "../../../context/Context";
 import { SEOHelmet } from "../../../components/Helmet";
 import { Content, Headers } from "../Profile.styles";
-import UnAuthUser from "../../../components/UnauthUser";
+import UnAuthUser from "../../../components/UnAuthUser";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
 import Loader from "../../../components/Loader/";
@@ -52,6 +52,14 @@ export default function Manager() {
     });
   });
 
+  // {
+  //   (!isLoggedIn || !isManager) && <UnAuthUser />;
+  // }
+
+  if (!isManager) {
+    return <UnAuthUser />;
+  }
+
   return (
     <>
       <SEOHelmet
@@ -61,7 +69,6 @@ export default function Manager() {
         }
       />
 
-      {(!isLoggedIn || !isManager) && <UnAuthUser />}
       {isLoading && <Loader />}
 
       <Overlay showModal={showModal} />
