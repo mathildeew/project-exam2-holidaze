@@ -5,14 +5,17 @@ import {
   faCutlery,
   faParking,
   faDog,
+  faDollar,
 } from "@fortawesome/free-solid-svg-icons";
 import { FascilitiesContainer, Icons } from "../../../pages/Venue/Venue.style";
 import { SmallText } from "../../../styles/Text";
 
-export default function Fascilities({ meta, maxGuests }) {
+export default function Fascilities({ meta, maxGuests, price }) {
   return (
     <FascilitiesContainer>
       <Icons>
+        <FontAwesomeIcon icon={faDollar} />
+        <SmallText>{price}&nbsp;per night</SmallText>
         <FontAwesomeIcon icon={faPeopleRoof} />
         <SmallText>{maxGuests}&nbsp;guests</SmallText>
         {meta?.wifi === true && (
