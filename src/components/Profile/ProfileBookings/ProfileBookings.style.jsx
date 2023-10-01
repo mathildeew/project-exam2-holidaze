@@ -13,6 +13,8 @@ export const BookingsContent = styled.div`
 
   a {
     color: black;
+    width: 40%;
+    max-height: 200px;
   }
 `;
 
@@ -32,8 +34,8 @@ export const BookingCard = styled.div`
   })}
 
   img {
-    width: 40%;
-    max-height: 200px;
+    width: 100%;
+    height: 100%;
     border-radius: 10px;
     object-fit: cover;
     object-position: center center;
