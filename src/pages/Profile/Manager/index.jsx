@@ -5,7 +5,7 @@ import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { useLoggedIn } from "../../../context/Context";
 import { SEOHelmet } from "../../../components/Helmet";
 import { Content, Headers } from "../Profile.styles";
-import UnAuthUser from "../../../components/UnAuthUser";
+import UnAuthUser from "../../../components/UnAuthUserr";
 import useApi from "../../../hooks/useApi";
 import apiEndpoints from "../../../constants/endpoints";
 import Loader from "../../../components/Loader/";

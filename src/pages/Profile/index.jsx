@@ -4,7 +4,7 @@ import { SEOHelmet } from "../../components/Helmet";
 import useApi from "../../hooks/useApi";
 import apiEndpoints from "../../constants/endpoints";
 import Loader from "../../components/Loader";
-import UnAuthUser from "../../components/UnAuthUser";
+import UnAuthUser from "../../components/UnAuthUserr";
 import ProfileDetails from "../../components/Profile/ProfileDetails";
 import Bookings from "../../components/Profile/ProfileBookings";
 import Overlay from "../../components/Modals/Overlay";
