@@ -7,6 +7,7 @@ export const HeroContainer = styled.section`
   background: url("/content/karsten-winegeart-BYPGE0ZYID8-unsplash.jpg")
     no-repeat center bottom;
   background-size: cover;
+  padding: 0 10px;
   margin-bottom: 50px;
 
   ${displayFlex({
@@ -16,7 +17,7 @@ export const HeroContainer = styled.section`
   })}
 
   @media (min-width: 1024px) {
-    height: 550px;
+    height: 700px;
   }
 `;
 
