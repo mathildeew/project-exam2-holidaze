@@ -4,7 +4,7 @@
 
 The final exam project at Noroff. The project is an extensive application that showcase all skills gained throughout the last two years. Holidaze is an accommodation booking site that provides the customer-facing side where users can book holidays at a venue, and an admin-facing side where users can register and manage venues and bookings at those venues.
 
-Visit [demo site]([https://holidaze.notion.site/Project-Exam-2-Holidaze-daf70f20a6a2421e948fc0bce5f0056b?pvs=4](https://holidaze-projectexam2.netlify.app/)
+Visit [demo site](https://holidaze.notion.site/Project-Exam-2-Holidaze-daf70f20a6a2421e948fc0bce5f0056b?pvs=4](https://holidaze-projectexam2.netlify.app/)
 
 ## Brief
 The goal for this assignment was to take the skills learned over the last two years and take on an extensive project where the finished product should reflect the general development capabilities, in addition to visual and technical skills.
@@ -51,7 +51,7 @@ Visit my [workspace](https://holidaze.notion.site/Project-Exam-2-Holidaze-daf70f
 - Run the project:
   `npm run dev`
 
-  ## Design and identity
+## Design and identity
 ![holidaze-styleguide](https://github.com/mathildeew/project-exam2-holidaze/assets/94295012/4c1fb655-6600-4812-8d67-f0fc7ed1545e)
 
 With no specifications to the design and user stories, it was obvious to me that the overall feeling of the design should be associated with a sunset - which many sees as an ultimate traveling experience. This is reflected both in the logo as well as the color palette.
