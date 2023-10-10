@@ -4,7 +4,7 @@
 
 The final exam project at Noroff. The project is an extensive application that showcase all skills gained throughout the last two years. Holidaze is an accommodation booking site that provides the customer-facing side where users can book holidays at a venue, and an admin-facing side where users can register and manage venues and bookings at those venues.
 
-Visit [demo site](https://holidaze.notion.site/Project-Exam-2-Holidaze-daf70f20a6a2421e948fc0bce5f0056b?pvs=4](https://holidaze-projectexam2.netlify.app/)
+Visit [demo site](https://holidaze-projectexam2.netlify.app/)
 
 ## Brief
 The goal for this assignment was to take the skills learned over the last two years and take on an extensive project where the finished product should reflect the general development capabilities, in addition to visual and technical skills.
